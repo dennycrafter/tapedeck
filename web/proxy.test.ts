@@ -286,6 +286,7 @@ describe("production setup mode (SPEC 8.12)", () => {
 
   it("keeps /api/setup/finish, PWA files and static assets reachable", async () => {
     for (const path of [
+      "/setup",
       "/api/setup/finish",
       "/manifest.webmanifest",
       "/sw.js",
@@ -298,6 +299,14 @@ describe("production setup mode (SPEC 8.12)", () => {
       });
       expect(isAllowed(response)).toBe(true);
     }
+  });
+
+  it("keeps the /setup page itself reachable (no self-redirect loop)", async () => {
+    const response = await gate(request("/setup"), {
+      NODE_ENV: "production",
+      SESSION_SECRET: SECRET,
+    });
+    expect(isAllowed(response)).toBe(true);
   });
 
   it("does not enter setup mode in development even with variables missing", async () => {
