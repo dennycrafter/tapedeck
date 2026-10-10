@@ -9,7 +9,17 @@ export async function login(page: Page, password: string = APP_PASSWORD): Promis
   await page.goto('/login');
   if (!page.url().includes('/login')) return; // already signed in, /login bounced us back
 
-  await page.locator('input[type="password"]').fill(password);
+  const input = page.locator('input[type="password"]');
+  // React hydration wipes a fill that lands before the controlled input is
+  // wired up — the form then submits an empty password (the WebKit project
+  // hydrates slower than Chromium, which is how the smoke caught this).
+  // Wait for React to own the input before filling.
+  await page.waitForFunction(() => {
+    const node = document.querySelector('input[type="password"]');
+    return node != null && Object.keys(node).some((key) => key.startsWith('__reactProps$'));
+  });
+  await input.fill(password);
+  await expect(input).toHaveValue(password); // the value took through onChange
   await page.getByRole('button', { name: 'Unlock' }).click();
 
   await expect(page).not.toHaveURL(/\/login/);
