@@ -1,20 +1,130 @@
 {
-  "default": {
-    "id": "msg_fixture_default",
-    "type": "message",
-    "role": "assistant",
-    "model": "claude-haiku-5-5",
-    "content": [
-      {
-        "type": "text",
-        "text": "{\"title\": \"Me at the zoo\", \"artist\": \"jawed\", \"is_music\": false, \"confidence\": 0.95}"
-      }
-    ],
-    "stop_reason": "end_turn",
-    "stop_sequence": null,
-    "usage": {
-      "input_tokens": 84,
-      "output_tokens": 42
-    }
+ "default": {
+  "id": "msg_fixture_default",
+  "type": "message",
+  "role": "assistant",
+  "model": "claude-haiku-5-5",
+  "content": [
+   {
+    "type": "text",
+    "text": "{\"title\": \"Me at the zoo\", \"artist\": \"jawed\", \"is_music\": false, \"confidence\": 0.95}"
+   }
+  ],
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "usage": {
+   "input_tokens": 84,
+   "output_tokens": 42
   }
+ },
+ "replies": {
+  "the weeknd - blinding lights (official video)": {
+   "id": "msg_fixture_0",
+   "type": "message",
+   "role": "assistant",
+   "model": "claude-haiku-5-5",
+   "content": [
+    {
+     "type": "text",
+     "text": "{\"title\": \"Blinding Lights\", \"artist\": \"The Weeknd\", \"is_music\": true, \"confidence\": 0.97}"
+    }
+   ],
+   "stop_reason": "end_turn",
+   "stop_sequence": null,
+   "usage": {
+    "input_tokens": 84,
+    "output_tokens": 42
+   }
+  },
+  "luis fonsi - despacito ft. daddy yankee": {
+   "id": "msg_fixture_1",
+   "type": "message",
+   "role": "assistant",
+   "model": "claude-haiku-5-5",
+   "content": [
+    {
+     "type": "text",
+     "text": "{\"title\": \"Despacito (feat. Daddy Yankee)\", \"artist\": \"Luis Fonsi\", \"is_music\": true, \"confidence\": 0.96}"
+    }
+   ],
+   "stop_reason": "end_turn",
+   "stop_sequence": null,
+   "usage": {
+    "input_tokens": 84,
+    "output_tokens": 42
+   }
+  },
+  "psy - gangnam style(강남스타일) m/v": {
+   "id": "msg_fixture_2",
+   "type": "message",
+   "role": "assistant",
+   "model": "claude-haiku-5-5",
+   "content": [
+    {
+     "type": "text",
+     "text": "{\"title\": \"Gangnam Style\", \"artist\": \"PSY\", \"is_music\": true, \"confidence\": 0.95}"
+    }
+   ],
+   "stop_reason": "end_turn",
+   "stop_sequence": null,
+   "usage": {
+    "input_tokens": 84,
+    "output_tokens": 42
+   }
+  },
+  "wiz khalifa - see you again ft. charlie puth [official video] furious 7 soundtrack": {
+   "id": "msg_fixture_3",
+   "type": "message",
+   "role": "assistant",
+   "model": "claude-haiku-5-5",
+   "content": [
+    {
+     "type": "text",
+     "text": "{\"title\": \"See You Again (feat. Charlie Puth)\", \"artist\": \"Wiz Khalifa\", \"is_music\": true, \"confidence\": 0.96}"
+    }
+   ],
+   "stop_reason": "end_turn",
+   "stop_sequence": null,
+   "usage": {
+    "input_tokens": 84,
+    "output_tokens": 42
+   }
+  },
+  "mark ronson - uptown funk (official video) ft. bruno mars": {
+   "id": "msg_fixture_4",
+   "type": "message",
+   "role": "assistant",
+   "model": "claude-haiku-5-5",
+   "content": [
+    {
+     "type": "text",
+     "text": "{\"title\": \"Uptown Funk (feat. Bruno Mars)\", \"artist\": \"Mark Ronson\", \"is_music\": true, \"confidence\": 0.97}"
+    }
+   ],
+   "stop_reason": "end_turn",
+   "stop_sequence": null,
+   "usage": {
+    "input_tokens": 84,
+    "output_tokens": 42
+   }
+  },
+  "mystery upload official video": {
+   "id": "msg_fixture_5",
+   "type": "message",
+   "role": "assistant",
+   "model": "claude-haiku-5-5",
+   "content": [
+    {
+     "type": "text",
+     "text": "{\"title\": \"Mystery Upload\", \"artist\": \"Mystery Channel\", \"is_music\": true, \"confidence\": 0.3}"
+    }
+   ],
+   "stop_reason": "end_turn",
+   "stop_sequence": null,
+   "usage": {
+    "input_tokens": 84,
+    "output_tokens": 42
+   }
+  }
+ }
 }
