@@ -113,6 +113,7 @@ export function isSessionExempt(pathname: string): boolean {
 export function isSetupModeExempt(pathname: string): boolean {
   return (
     isStaticOrPwaAsset(pathname) ||
+    pathname === "/setup" ||
     pathname === "/api/setup" ||
     pathname.startsWith("/api/setup/")
   );
