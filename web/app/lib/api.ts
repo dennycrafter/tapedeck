@@ -111,6 +111,45 @@ export function addTracks(urls: string[]): Promise<AddTracksResponse> {
   });
 }
 
+/** One GET /api/search result (SPEC 8.7). */
+export interface SearchHit {
+  videoId: string;
+  title: string;
+  channel: string;
+  thumbnailUrl: string | null;
+  durationSec: number | null;
+  inLibrary: boolean;
+}
+
+export interface SearchResponse {
+  results: SearchHit[];
+  /** Present when search is off (no key) or the daily quota ran out (SPEC 8.7). */
+  message?: string;
+}
+
+export function searchYouTube(q: string): Promise<SearchResponse> {
+  return fetchJson<SearchResponse>(`/api/search?q=${encodeURIComponent(q)}`);
+}
+
+/**
+ * PATCH /api/tracks/:id — edit details (SPEC 8.4). Omitted fields stay
+ * unchanged; empty album/cover clear them. Returns the updated track.
+ */
+export function editTrack(
+  trackId: string,
+  input: { title?: string; artist?: string; album?: string | null; coverUrl?: string | null },
+): Promise<TrackDto> {
+  return fetchJson<TrackDto>(`/api/tracks/${encodeURIComponent(trackId)}`, {
+    method: "PATCH",
+    body: JSON.stringify(input),
+  });
+}
+
+/** POST /api/tracks/:id/restore — restore the raw title/artist (SPEC 8.4). */
+export async function restoreTrack(trackId: string): Promise<TrackDto> {
+  return fetchJson<TrackDto>(`/api/tracks/${encodeURIComponent(trackId)}/restore`, { method: "POST" });
+}
+
 /** POST /api/tracks/:id/retry → status waiting, attempts 0 (SPEC 8.3). */
 export async function retryTrack(trackId: string): Promise<void> {
   const response = await fetch(`/api/tracks/${encodeURIComponent(trackId)}/retry`, { method: "POST" });

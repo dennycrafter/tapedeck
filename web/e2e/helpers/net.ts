@@ -34,7 +34,7 @@ const internetProbe: Promise<boolean> = (async () => {
 })();
 
 export function skipWithoutNet(): void {
-  test.beforeEach(async (_fixtures, testInfo) => {
+  test.beforeEach(async ({}, testInfo) => {
     testInfo.skip(!(await internetProbe), '@net: no internet on this machine — skipped, noted in TEST-REPORT.md (SPEC 9.0)');
   });
 }
@@ -51,10 +51,13 @@ const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '0.0.0.0']);
 /*
  * Browser-level tripwire for "no network beyond localhost" (SPEC 9.0): any
  * request the page attempts outside the test server is aborted and the test
- * fails in afterEach with the recorded URLs. Note: requests made by a service
- * worker bypass Playwright routing (known limitation) — the guard therefore
- * proves the page itself stays local; server-side calls are invisible to it
- * by design.
+ * fails in afterEach with the recorded URLs. Image requests are exempt:
+ * since SPEC 8.5 the library renders cover artwork from the iTunes/Deezer
+ * CDNs, so remote images are a product contract, not an accident — scripts,
+ * fonts, analytics, and API calls still fail the test. Note: requests made
+ * by a service worker bypass Playwright routing (known limitation) — the
+ * guard therefore proves the page itself stays local; server-side calls are
+ * invisible to it by design.
  */
 export function forbidNonLocalRequests(): void {
   const attempted: string[] = [];
@@ -64,6 +67,7 @@ export function forbidNonLocalRequests(): void {
     await context.route('**/*', (route) => {
       const { hostname } = new URL(route.request().url());
       if (LOCAL_HOSTS.has(hostname)) return route.fallback();
+      if (route.request().resourceType() === 'image') return route.fallback();
       attempted.push(route.request().url());
       return route.abort();
     });

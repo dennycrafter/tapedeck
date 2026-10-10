@@ -190,6 +190,15 @@ function cleanChannelArtist(artist: string): string {
 }
 
 /**
+ * The restore-original artist (song menu "Restore original"): the raw artist
+ * with channel suffixes stripped — the same rule the cleaner applies, kept
+ * empty-safe with the shared fallback.
+ */
+export function restoreOriginalArtist(rawArtist: string): string {
+  return cleanChannelArtist(rawArtist) || UNKNOWN_ARTIST
+}
+
+/**
  * The 8.4 step-1 result for one track's raw metadata. Never returns an empty
  * title (falls back to the raw title) or an empty artist ("Unknown Artist").
  */
