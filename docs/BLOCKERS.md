@@ -23,3 +23,20 @@ Each entry states what failed, why, and the exact steps the owner must take to f
 5. Re-run the checks: `cd web && npx playwright test --grep @T0` (all three projects) and `npx vitest run` — everything must stay green.
 
 **Impact if unfixed:** Every deployment that starts without all required variables loops instead of showing setup, and the owner cannot finish onboarding. The setup API itself stays reachable, so a determined user could still finish via direct API calls, but the guided page — including the generated secrets — is unreachable.
+
+---
+
+## The @live finish check cannot run until the app is deployed with real credentials (found 2026-10-10, T0 checkpoint verification — re-confirmed 2026-10-10, T1 checkpoint verification — OPEN, owner action)
+
+**Not a defect:** nothing is broken. This is the one checklist item that can only run after you deploy the app for real, because it needs your live Supabase and Cloudflare R2 credentials. It is logged here so it is not forgotten; the T0 and T1 verification rounds each deferred it the same way (SPEC 9.0 says it runs after go-live).
+
+**What is pending:** the @live e2e check — "Finish setup creates the tables and R2 `GetBucketCors` returns the 7.2 rules". Against local stand-ins it cannot be meaningful: it needs a real Supabase database and a real R2 bucket.
+
+**Exact steps the owner must take (plain words):**
+
+1. Deploy Tapedeck (Vercel + Supabase + Cloudflare R2) and finish the setup page once, with your real variables.
+2. Create the three secrets in Supabase (DATABASE_URL) and Cloudflare (R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET) and put them into the deployment's environment variables (SESSION_SECRET, AGENT_TOKEN, CRON_SECRET come from the setup page's Copy buttons).
+3. From the `web` folder run `npm run e2e:live`. It must show the finish-setup check creating the tables and `GetBucketCors` returning the CORS rules from SPEC 7.2.
+4. Record the result in docs/TEST-REPORT.md (a new dated block) and mark this entry resolved.
+
+**Impact if unfixed:** none for local use — the schema bootstrap and CORS rules are covered by stand-in tests. The risk is only on the first real deployment: if the R2 bucket's CORS rules were wrong, the browser could not fetch audio from the bucket, and this check is what would catch it.
