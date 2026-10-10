@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Tapedeck PWA icon (SPEC T0 step 5): solid-accent tape-reel mark on the app background.
+       The mark stays inside the maskable safe zone (centered circle, radius 40% = 204.8),
+       so this one source serves every icon purpose. Render with generate.sh. -->
+  <rect width="512" height="512" fill="#0b0b0d"/>
+  <g fill="#ff7a1a">
+    <circle cx="170" cy="256" r="62"/>
+    <circle cx="342" cy="256" r="62"/>
+    <rect x="170" y="226" width="172" height="60"/>
+  </g>
+</svg>
