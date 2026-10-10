@@ -1,0 +1,3 @@
+# Test-only dependencies for the downloader suite (SPEC 9.0): `pytest` from /agent.
+# The runtime dependencies stay in requirements.txt.
+pytest>=8
