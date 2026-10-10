@@ -677,6 +677,11 @@ def upload_track(
         url, key = payload.get("url"), payload.get("key")
         if not url or not key:
             raise PipelineError("The app returned an upload URL response without url/key.")
+        # Local-storage mode hands out app-relative presigned URLs
+        # (/api/local-storage/<key>?...); R2's are absolute. Join the
+        # relative ones onto the app base so the PUT reaches the app.
+        if not url.startswith(("http://", "https://")):
+            url = f"{cfg.app_url}{url}"
 
         data = path.read_bytes()
         try:

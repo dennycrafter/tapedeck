@@ -65,6 +65,32 @@ class TestUploadTrack:
         with pytest.raises(downloader.PipelineError, match="url/key"):
             downloader.upload_track(quiet_logger, cfg, make_track(), audio_file, None)
 
+    def test_app_relative_upload_url_is_joined_to_app(self, fake_server, cfg, audio_file, quiet_logger):
+        """Local-storage mode returns app-relative presigned URLs (SPEC 9.1)."""
+        relative = "/api/local-storage/tracks/tr1.m4a?exp=123&sig=abc"
+        fake_server.respond["/api/agent/upload-url"] = (200, {"url": relative, "key": "tracks/tr1.m4a"})
+        fake_server.respond[relative] = (200, {})
+
+        downloader.upload_track(quiet_logger, cfg, make_track(), audio_file, 180.4)
+
+        put_calls = fake_server.calls(relative, "PUT")
+        assert len(put_calls) == 1
+        assert put_calls[0]["body"] == audio_file.read_bytes()
+        assert put_calls[0]["headers"]["Content-Type"] == "audio/mp4"
+
+    def test_absolute_upload_url_passes_through_untouched(self, fake_server, cfg, audio_file, quiet_logger):
+        absolute_path = "/put?exp=123&sig=abc"
+        fake_server.respond["/api/agent/upload-url"] = (
+            200,
+            {"url": f"{fake_server.url}{absolute_path}", "key": "tracks/tr1.m4a"},
+        )
+
+        downloader.upload_track(quiet_logger, cfg, make_track(), audio_file, None)
+
+        put_calls = fake_server.calls(absolute_path, "PUT")
+        assert len(put_calls) == 1
+        assert put_calls[0]["body"] == audio_file.read_bytes()
+
 
 class TestReportResult:
     def test_posts_track_id_and_error(self, fake_server, cfg, quiet_logger):
