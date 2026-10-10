@@ -1,17 +1,10 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import { SerwistProvider } from "@serwist/next/react";
+import { PlayerProvider } from "./components/PlayerProvider";
+import { PlayerBar } from "./components/PlayerBar";
+import { OverlaysProvider } from "./components/Overlays";
+import { PhoneTabBar } from "./components/PhoneTabBar";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Tapedeck",
@@ -23,17 +16,27 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  // viewport-fit=cover is what makes env(safe-area-inset-*) non-zero on the
+  // iPhone notch/home indicator (SPEC 10 layout).
+  viewportFit: "cover",
+  themeColor: "#0b0b0d",
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">
-        {/* Registers /sw.js in the browser (SPEC 8.9); the build step writes
-            it only in production, so development disables the provider. */}
+    <html lang="en" className="h-full antialiased">
+      <body className="flex min-h-full flex-col bg-bg font-sans text-fg">
         <SerwistProvider swUrl="/sw.js" disable={process.env.NODE_ENV === "development"}>
-          {children}
+          <PlayerProvider>
+            <OverlaysProvider>
+              <div className="mx-auto w-full max-w-[1760px] px-[clamp(16px,2.6vw,40px)]">
+                <div className="flex flex-1 flex-col">{children}</div>
+              </div>
+              <PlayerBar />
+              <PhoneTabBar />
+            </OverlaysProvider>
+          </PlayerProvider>
         </SerwistProvider>
       </body>
     </html>
