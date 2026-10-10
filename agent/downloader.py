@@ -10,8 +10,11 @@ servers, so yt-dlp only ever runs here, on the owner's home internet
 Loop (SPEC 8.3): every 20 seconds POST /api/agent/claim, then process the
 claimed rows one at a time: yt-dlp download -> ffmpeg convert (only when
 the download is not already .m4a) -> ffprobe duration and the 60% preview
-check -> mutagen MP4 tags -> presigned PUT -> complete. Any failure calls
-/api/agent/fail, which requeues the track on the server while attempts < 3.
+check -> mutagen MP4 tags -> presigned PUT -> complete -> the optional
+Apple Music auto-add copy (SPEC 8.11). Any failure before the upload
+calls /api/agent/fail, which requeues the track on the server while
+attempts < 3; a failure of the Apple Music copy afterwards fails only
+that step and the song stays ready.
 
 One shot commands (SPEC 9.0):
 - `--selftest --track <id>` runs the real pipeline (claim, tag, upload
@@ -30,6 +33,7 @@ Keep this file Python 3.12 compatible (the downloader targets Python
 3.12 on Windows; the build sandbox runs 3.13).
 """
 
+import apple_music
 import argparse
 import logging
 import os
@@ -708,6 +712,94 @@ def upload_track(
     logger.info("upload: %s stored (%s bytes) and marked ready.", path.name, len(data))
 
 
+def fetch_apple_music_export(logger: logging.Logger, cfg: DownloaderConfig) -> bool:
+    """Read the profile toggle, once per loop (SPEC 8.3, GET /api/agent/settings).
+
+    `apple_music_export` decides whether every finished song is also
+    copied into the Apple Music auto-add folder (8.11), on top of the
+    per-song flag. Never raises: when the endpoint is unreachable the
+    export simply stays off for this loop — the copy is optional.
+    """
+    import requests
+
+    try:
+        with make_session(cfg) as session:
+            response = session.get(
+                f"{cfg.app_url}/api/agent/settings", timeout=HTTP_TIMEOUT
+            )
+        if response.status_code // 100 != 2:
+            logger.warning(
+                "Settings fetch returned HTTP %s (Apple Music export off for "
+                "this loop).",
+                response.status_code,
+            )
+            return False
+        payload = require_json(response, "Settings fetch")
+    except requests.RequestException as exc:
+        logger.warning("Settings fetch failed (Apple Music export off for this loop): %s", exc)
+        return False
+    except PipelineError as exc:
+        logger.warning("Settings fetch returned an unreadable body: %s", exc)
+        return False
+    return bool(payload.get("apple_music_export"))
+
+
+def report_apple_music_done(logger: logging.Logger, cfg: DownloaderConfig, track: ClaimedTrack) -> None:
+    """POST /api/agent/apple-music-done: record the export (SPEC 8.3, 8.11).
+
+    Sets apple_music_done_at on the server so the UI can show it. Never
+    raises: the copy already succeeded, a missed report is only logged.
+    """
+    import requests
+
+    try:
+        with make_session(cfg) as session:
+            response = session.post(
+                f"{cfg.app_url}/api/agent/apple-music-done",
+                json={"trackId": track["id"]},
+                timeout=HTTP_TIMEOUT,
+            )
+        if response.status_code // 100 != 2:
+            logger.warning(
+                "apple-music-done returned HTTP %s: %s",
+                response.status_code,
+                response.text[:200],
+            )
+    except requests.RequestException as exc:
+        logger.warning("apple-music-done failed: %s", exc)
+
+
+def maybe_export_to_apple_music(
+    logger: logging.Logger,
+    cfg: DownloaderConfig,
+    track: ClaimedTrack,
+    path: Path,
+    setting_on: bool,
+) -> None:
+    """Optional Apple Music copy after a successful upload (SPEC 8.11).
+
+    Runs when the profile setting is on or the single track carries the
+    per-song Apple Music flag. Fails the Apple Music step only: any
+    problem is logged with the SPEC wording and the song stays ready —
+    never requeued through /api/agent/fail. Never raises.
+    """
+    if not (setting_on or track["apple_music"]):
+        return
+    try:
+        folder = apple_music.find_apple_music_folder(
+            logger,
+            env_override=cfg.apple_music_folder,
+        )
+        if folder is None:
+            logger.error(apple_music.FOLDER_NOT_FOUND_ERROR)
+            return
+        apple_music.copy_into_folder(logger, folder, track, path)
+    except Exception as exc:
+        logger.error("Apple Music export failed (the song stays ready): %s", exc)
+        return
+    report_apple_music_done(logger, cfg, track)
+
+
 def report_result(
     logger: logging.Logger, cfg: DownloaderConfig, track: ClaimedTrack, error: str
 ) -> None:
@@ -747,16 +839,43 @@ def cleanup_tmp(logger: logging.Logger, track_id: str) -> None:
 # --- Main loop (SPEC 8.3) ---
 
 
+def process_one_track(
+    logger: logging.Logger, cfg: DownloaderConfig, track: ClaimedTrack, export_enabled: bool
+) -> None:
+    """Run one claimed track through every pipeline stage (SPEC 8.3 step 2).
+
+    download -> convert/duration/preview check -> tag -> upload -> the
+    optional Apple Music copy (8.11). A stage failure before the upload
+    is reported to the app (/api/agent/fail requeues while attempts < 3);
+    the Apple Music copy after it fails only that step. Temp files are
+    removed either way (SPEC 8.3 step 2: "Delete temp files").
+    """
+    logger.info("claim: track %s (%s)", track["id"], track["title"] or "untitled")
+    try:
+        path = download_track(logger, cfg, track)
+        path, duration = convert_check(logger, track, path)
+        path = tag_track(logger, track, path)
+        upload_track(logger, cfg, track, path, duration)
+        maybe_export_to_apple_music(logger, cfg, track, path, setting_on=export_enabled)
+    except Exception as exc:  # SPEC 8.3 step 2: report every failure to the app.
+        logger.error("track %s failed: %s", track["id"], exc)
+        report_result(logger, cfg, track, error=str(exc))
+    finally:
+        cleanup_tmp(logger, track["id"])
+
+
 def run_loop(logger: logging.Logger, cfg: DownloaderConfig) -> None:
     """Main polling loop (SPEC 8.3).
 
     Wires the startup steps and pipeline stages together. Every 20
-    seconds (configurable with --poll-interval) it claims up to 3
-    waiting rows and processes them one at a time; any stage failure is
-    reported to the app and the loop moves on.
+    seconds (configurable with --poll-interval) it reads the profile
+    settings once, claims up to 3 waiting rows and processes them one
+    at a time; any stage failure is reported to the app and the loop
+    moves on.
 
-    The optional Apple Music copy (SPEC 8.11) and its apple-music-done
-    call hook in after a successful upload and land with T6.
+    The Apple Music copy (SPEC 8.11) hooks in after a successful upload
+    and calls apple-music-done; a missing auto-add folder fails only
+    that step and the song stays ready.
     """
     # Startup (SPEC 8.3 step 1): read agent/.env, refresh yt-dlp.
     load_env(logger)
@@ -764,20 +883,9 @@ def run_loop(logger: logging.Logger, cfg: DownloaderConfig) -> None:
 
     logger.info("Downloader started; polling %s every %s s.", cfg.app_url, cfg.poll_interval_sec)
     while True:
+        export_enabled = fetch_apple_music_export(logger, cfg)
         for track in poll_for_claims(logger, cfg):
-            logger.info("claim: track %s (%s)", track["id"], track["title"] or "untitled")
-            try:
-                path = download_track(logger, cfg, track)
-                path, duration = convert_check(logger, track, path)
-                path = tag_track(logger, track, path)
-                upload_track(logger, cfg, track, path, duration)
-                # SPEC 8.3 step 2 also says "Delete temp files" after the
-                # track is handled, success or failure.
-            except Exception as exc:  # SPEC 8.3 step 2: report every failure to the app.
-                logger.error("track %s failed: %s", track["id"], exc)
-                report_result(logger, cfg, track, error=str(exc))
-            finally:
-                cleanup_tmp(logger, track["id"])
+            process_one_track(logger, cfg, track, export_enabled)
         time.sleep(cfg.poll_interval_sec)
 
 
@@ -814,6 +922,11 @@ def run_selftest(logger: logging.Logger, cfg: DownloaderConfig, track_id: str) -
         path, duration = convert_check(logger, track, stand_in)
         path = tag_track(logger, track, path)
         upload_track(logger, cfg, track, path, duration)
+        # SPEC 9.0 runs the real pipeline; the optional Apple Music copy
+        # (8.11) belongs to it since T6a and fails only itself.
+        maybe_export_to_apple_music(
+            logger, cfg, track, path, setting_on=fetch_apple_music_export(logger, cfg)
+        )
         return 0
     except Exception as exc:  # same error path as the real loop
         logger.error("selftest: track %s failed: %s", track_id, exc)
