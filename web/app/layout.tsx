@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { SerwistProvider } from "@serwist/next/react";
 import { PlayerProvider } from "./components/PlayerProvider";
 import { PlayerBar } from "./components/PlayerBar";
+import { OverlaysProvider } from "./components/Overlays";
+import { PhoneTabBar } from "./components/PhoneTabBar";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -27,10 +29,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col bg-bg font-sans text-fg">
         <SerwistProvider swUrl="/sw.js" disable={process.env.NODE_ENV === "development"}>
           <PlayerProvider>
-            <div className="mx-auto w-full max-w-[1760px] px-[clamp(16px,2.6vw,40px)]">
-              <div className="flex flex-1 flex-col">{children}</div>
-            </div>
-            <PlayerBar />
+            <OverlaysProvider>
+              <div className="mx-auto w-full max-w-[1760px] px-[clamp(16px,2.6vw,40px)]">
+                <div className="flex flex-1 flex-col">{children}</div>
+              </div>
+              <PlayerBar />
+              <PhoneTabBar />
+            </OverlaysProvider>
           </PlayerProvider>
         </SerwistProvider>
       </body>
