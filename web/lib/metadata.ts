@@ -142,7 +142,7 @@ export async function fetchYoutubeMetadata(
         }
       }),
     )
-    return new Map(results)
+    return new Map<string, RawTrackMetadata | MetadataError>(results)
   }
 
   const byId = new Map<string, RawTrackMetadata | MetadataError>()

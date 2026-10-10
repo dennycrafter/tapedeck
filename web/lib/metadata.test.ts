@@ -18,7 +18,20 @@ import {
   fetchYoutubeOembedMetadata,
   parseIsoDuration,
   resolveSoundcloudShortLink,
+  type RawTrackMetadata,
 } from './metadata'
+
+/** Narrow the union honestly: a failed lookup throws instead of a silent assertion. */
+function expectRawMetadata(
+  results: Map<string, RawTrackMetadata | MetadataError>,
+  id: string,
+): RawTrackMetadata {
+  const metadata = results.get(id)
+  if (!metadata || metadata instanceof MetadataError) {
+    throw new Error(`expected raw metadata for ${id}`)
+  }
+  return metadata
+}
 
 beforeAll(() => {
   process.env.TAPEDECK_TEST = '1'
@@ -55,15 +68,13 @@ describe('parseIsoDuration (SPEC 7.3 contentDetails.duration)', () => {
 describe('fetchYoutubeMetadata without a key (SPEC 7.3 oEmbed path)', () => {
   it('serves the recorded video from the oEmbed fixture', async () => {
     const results = await fetchYoutubeMetadata(['jNQXAC9IVRw'], undefined)
-    const metadata = results.get('jNQXAC9IVRw')
-    expect(metadata).toBeInstanceOf(Object)
-    expect(metadata).not.toBeInstanceOf(MetadataError)
-    expect(metadata?.rawTitle).toBe('Me at the zoo')
-    expect(metadata?.rawArtist).toBe('jawed')
-    expect(metadata?.rawThumbnailUrl).toBe('https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg')
+    const metadata = expectRawMetadata(results, 'jNQXAC9IVRw')
+    expect(metadata.rawTitle).toBe('Me at the zoo')
+    expect(metadata.rawArtist).toBe('jawed')
+    expect(metadata.rawThumbnailUrl).toBe('https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg')
     // 7.3: no description, no duration on the oEmbed path.
-    expect(metadata?.description).toBe('')
-    expect(metadata?.durationSec).toBeNull()
+    expect(metadata.description).toBe('')
+    expect(metadata.durationSec).toBeNull()
   })
 
   it('reports a MetadataError for an unknown video (fixture 404)', async () => {
@@ -83,15 +94,14 @@ describe('fetchYoutubeMetadata without a key (SPEC 7.3 oEmbed path)', () => {
 describe('fetchYoutubeMetadata with a key (SPEC 7.3 videos.list path)', () => {
   it('batches one videos.list call and returns description and duration', async () => {
     const results = await fetchYoutubeMetadata(['jNQXAC9IVRw', 'aaaaaaaaaaa'], 'test-key')
-    const metadata = results.get('jNQXAC9IVRw')
-    expect(metadata).not.toBeInstanceOf(MetadataError)
-    expect(metadata?.rawTitle).toBe('Me at the zoo')
-    expect(metadata?.rawArtist).toBe('jawed')
-    expect(metadata?.rawThumbnailUrl).toBe('https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg')
+    const metadata = expectRawMetadata(results, 'jNQXAC9IVRw')
+    expect(metadata.rawTitle).toBe('Me at the zoo')
+    expect(metadata.rawArtist).toBe('jawed')
+    expect(metadata.rawThumbnailUrl).toBe('https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg')
     // The recorded description is under 300 chars, so it passes through whole.
-    expect(metadata?.description).toBe(videosFixture.jNQXAC9IVRw.snippet.description)
+    expect(metadata.description).toBe(videosFixture.jNQXAC9IVRw.snippet.description)
     // contentDetails.duration PT19S → 19 (7.3 ISO 8601).
-    expect(metadata?.durationSec).toBe(19)
+    expect(metadata.durationSec).toBe(19)
 
     // The fixture omits unknown ids (9.0 handler convention).
     expect(results.get('aaaaaaaaaaa')).toBeInstanceOf(MetadataError)
@@ -118,8 +128,9 @@ describe('fetchYoutubeMetadata with a key (SPEC 7.3 videos.list path)', () => {
       ),
     )
     const results = await fetchYoutubeMetadata(['jNQXAC9IVRw'], 'test-key')
-    expect(results.get('jNQXAC9IVRw')?.description).toBe('x'.repeat(300))
-    expect(results.get('jNQXAC9IVRw')?.durationSec).toBe(60)
+    const metadata = expectRawMetadata(results, 'jNQXAC9IVRw')
+    expect(metadata.description).toBe('x'.repeat(300))
+    expect(metadata.durationSec).toBe(60)
   })
 
   it('surfaces a batch-wide MetadataError when videos.list fails', async () => {

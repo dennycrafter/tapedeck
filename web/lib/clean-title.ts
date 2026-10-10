@@ -62,8 +62,8 @@ const MARKETING_TOKENS = new Set([
 /** Whitespace-padded dash separators: ` - `, ` – ` (U+2013), ` — ` (U+2014). */
 const DASH_SEPARATOR = /\s[-–—]\s/
 
-/** Lazy left side → the FIRST dash splits artist from title (8.4). */
-const DASH_SPLIT_PATTERN = /^(.+?)\s[-–—]\s(.+)$/s
+/** Lazy left side → the FIRST dash splits artist from title (8.4). Inputs are tidied before splitting, so no dotAll flag is needed. */
+const DASH_SPLIT_PATTERN = /^(.+?)\s[-–—]\s(.+)$/
 
 const BY_SPLIT_PATTERN = /^(.+?)\s+by\s+(.+)$/i
 
