@@ -1,0 +1,20 @@
+{
+  "default": {
+    "id": "msg_fixture_default",
+    "type": "message",
+    "role": "assistant",
+    "model": "claude-haiku-5-5",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"title\": \"Me at the zoo\", \"artist\": \"jawed\", \"is_music\": false, \"confidence\": 0.95}"
+      }
+    ],
+    "stop_reason": "end_turn",
+    "stop_sequence": null,
+    "usage": {
+      "input_tokens": 84,
+      "output_tokens": 42
+    }
+  }
+}
