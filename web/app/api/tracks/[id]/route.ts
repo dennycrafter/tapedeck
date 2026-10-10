@@ -6,8 +6,6 @@
 // proxy's cookie check is the guard; no bearer here — this endpoint belongs
 // to the owner's browser, not the downloader).
 
-import type { SQL } from 'postgres'
-
 import { isUuid, jsonError } from '../../agent/requests'
 import { sql, type Row } from '../../../../lib/db'
 
@@ -89,22 +87,32 @@ export async function PATCH(request: Request, ctx: RouteContext): Promise<Respon
   const cover = parseCover(body.coverUrl)
   if (cover.error) return jsonError(400, cover.error)
 
-  const sets: SQL[] = []
-  if (title !== undefined) sets.push(sql`title = ${title}`)
-  if (artist !== undefined) sets.push(sql`artist = ${artist}`)
+  // The executor has no fragment-join helper, so the SET clause is built as
+  // text with positional params — column names are hardcoded here, values
+  // always travel as bound parameters.
+  const sets: string[] = []
+  const params: string[] = []
+  const setColumn = (column: string, value: string | null) => {
+    params.push(value as string)
+    sets.push(`${column} = $${params.length}`)
+  }
+  if (title !== undefined) setColumn('title', title)
+  if (artist !== undefined) setColumn('artist', artist)
   if (album !== undefined) {
     // A hand-edited album is no longer the looked-up match — drop album_artist.
-    sets.push(sql`album = ${album}`, sql`album_artist = null`)
+    setColumn('album', album)
+    sets.push('album_artist = null')
   }
-  if (cover.coverUrl !== undefined) sets.push(sql`cover_url = ${cover.coverUrl}`)
+  if (cover.coverUrl !== undefined) setColumn('cover_url', cover.coverUrl)
   if (sets.length === 0) return jsonError(400, 'Nothing to update')
+  params.push(id)
 
   try {
-    const updated = (await sql`
-      update tracks set ${sql.join(sets, sql`, `)}
-      where id = ${id}
-      returning id, source, source_id, source_url, title, artist, album, album_artist, cover_url, duration_sec, status
-    `) as TrackRow[]
+    const updated = (await sql.unsafe(
+      `update tracks set ${sets.join(', ')} where id = $${params.length}
+      returning id, source, source_id, source_url, title, artist, album, album_artist, cover_url, duration_sec, status`,
+      params,
+    )) as TrackRow[]
     if (!updated[0]) {
       return jsonError(404, 'Track not found')
     }
