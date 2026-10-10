@@ -12,8 +12,13 @@
 //      earlier in this same paste → "Already in your library".
 //   4. Fetch raw metadata (7.3 videos.list batched when YOUTUBE_API_KEY is
 //      set, oEmbed otherwise; 7.4 oEmbed for SoundCloud).
-//   5. Clean the title with the rule cleaner (8.4 step 1) and insert with
-//      status 'waiting'.
+//   5. Clean the title (8.4): AI step 2 when ANTHROPIC_API_KEY is set and its
+//      reply says music with confidence >= 0.5; the rule cleaner otherwise —
+//      an add never fails because AI cleanup is unavailable.
+//   6. Look up cover art (8.5): iTunes then Deezer, first candidate matching
+//      the rule wins; no match → null cover (blank placeholder). Skipped for
+//      non-music replies — the raw thumbnail stays, never a covers result.
+//      Insert with status 'waiting'.
 //
 // Response shape note for the Add window (8.2): the summary toast counts
 // statuses; the window stays open only when every line failed. Session
@@ -28,8 +33,9 @@ import {
   type RawTrackMetadata,
 } from '../../../lib/metadata'
 import { HttpError } from '../../../lib/http'
+import { cleanWithFallback } from '../../../lib/ai-clean'
+import { lookupCoverArt } from '../../../lib/cover-art'
 import { parseSongLink, type ParsedSongLink } from '../../../lib/parse-source-url'
-import { cleanTitleRules } from '../../../lib/clean-title'
 import { sql, type Row } from '../../../lib/db'
 
 /** SPEC 8.2: "max 25 per request". */
@@ -42,6 +48,8 @@ export interface TrackJson {
   sourceUrl: string
   title: string
   artist: string
+  album: string | null
+  albumArtist: string | null
   coverUrl: string | null
   durationSec: number | null
   status: string
@@ -70,6 +78,8 @@ interface TrackRow extends Row {
   source_url: string
   title: string
   artist: string
+  album: string | null
+  album_artist: string | null
   cover_url: string | null
   duration_sec: number | null
   status: string
@@ -83,6 +93,8 @@ function trackJson(row: TrackRow): TrackJson {
     sourceUrl: row.source_url,
     title: row.title,
     artist: row.artist,
+    album: row.album,
+    albumArtist: row.album_artist,
     coverUrl: row.cover_url,
     durationSec: row.duration_sec,
     status: row.status,
@@ -228,14 +240,19 @@ export async function POST(request: Request): Promise<Response> {
       continue
     }
 
-    const cleaned = cleanTitleRules(metadata.rawTitle, metadata.rawArtist, candidate.link.source)
+    // Step 5 (8.4): AI cleanup with the rule cleaner as the deterministic
+    // fallback; step 6 (8.5): cover lookup, skipped when the AI verdict was
+    // non-music — a covers result is never attached to non-music.
+    const outcome = await cleanWithFallback(metadata, process.env.ANTHROPIC_API_KEY, candidate.link.source)
+    const cover = outcome.isMusic === false ? null : await lookupCoverArt(outcome.title, outcome.artist)
     try {
       const inserted = (await sql`
-        insert into tracks (source, source_id, source_url, raw_title, raw_artist, raw_thumbnail_url, title, artist, duration_sec)
+        insert into tracks (source, source_id, source_url, raw_title, raw_artist, raw_thumbnail_url, title, artist, album, album_artist, cover_url, duration_sec, ai_cleaned, ai_confidence)
         values (${candidate.link.source}, ${candidate.link.sourceId}, ${candidate.link.sourceUrl},
                 ${metadata.rawTitle}, ${metadata.rawArtist}, ${metadata.rawThumbnailUrl ?? null},
-                ${cleaned.title}, ${cleaned.artist}, ${metadata.durationSec ?? null})
-        returning id, source, source_id, source_url, title, artist, cover_url, duration_sec, status
+                ${outcome.title}, ${outcome.artist}, ${cover?.album ?? null}, ${cover?.albumArtist ?? null},
+                ${cover?.coverUrl ?? null}, ${metadata.durationSec ?? null}, ${outcome.aiCleaned}, ${outcome.aiConfidence})
+        returning id, source, source_id, source_url, title, artist, album, album_artist, cover_url, duration_sec, status
       `) as TrackRow[]
       results[candidate.index] = {
         index: candidate.index,

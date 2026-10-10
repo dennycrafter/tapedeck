@@ -5,6 +5,7 @@ import deezerFixture from '../fixtures/deezer-search.json'
 import itunesFixture from '../fixtures/itunes-search.json'
 import oembedFixture from '../fixtures/youtube-oembed.json'
 import searchFixture from '../fixtures/youtube-search.json'
+import soundcloudFixture from '../fixtures/soundcloud-oembed.json'
 import videosFixture from '../fixtures/youtube-videos-list.json'
 
 /**
@@ -74,7 +75,15 @@ const videos = videosFixture as Record<string, VideoRecord>
 const search = searchFixture as { queries: Record<string, SearchListBody>; empty: SearchListBody }
 const itunes = itunesFixture as { terms: Record<string, ItunesBody>; empty: ItunesBody }
 const deezer = deezerFixture as { queries: Record<string, DeezerBody>; empty: DeezerBody }
-const anthropic = anthropicFixture as Record<string, AnthropicBody>
+const anthropic = anthropicFixture as {
+  default: AnthropicBody
+  /** Per-raw-title replies (SPEC 8.4 step 2 fixtures); falls back to `default`. */
+  replies?: Record<string, AnthropicBody>
+}
+const soundcloud = soundcloudFixture as {
+  tracks: Record<string, OEmbedBody>
+  unknown: OEmbedUnknown
+}
 
 /** Extract the 11-char video id from a watch or youtu.be URL (SPEC 7.3). */
 export function parseYouTubeVideoId(raw: string): string | null {
@@ -82,6 +91,22 @@ export function parseYouTubeVideoId(raw: string): string | null {
     const url = new URL(raw)
     if (url.hostname === 'youtu.be') return url.pathname.slice(1) || null
     return url.searchParams.get('v')
+  } catch {
+    return null
+  }
+}
+
+/**
+ * Extract the `user/track` path (SPEC 7.4 source_id) from an oEmbed `url`
+ * parameter pointing at soundcloud.com; null for anything else.
+ */
+export function parseSoundcloudPath(raw: string): string | null {
+  try {
+    const url = new URL(raw)
+    if (url.hostname !== 'soundcloud.com' && url.hostname !== 'www.soundcloud.com') return null
+    const segments = url.pathname.split('/').filter(Boolean)
+    if (segments.length !== 2) return null
+    return segments.join('/')
   } catch {
     return null
   }
@@ -153,10 +178,44 @@ export const handlers = [
     return HttpResponse.json(deezer.queries[key] ?? deezer.empty)
   }),
 
-  // Anthropic title-cleanup (SPEC 7.5, 8.4 step 2) — serves the single
-  // recorded exchange for every request; tests needing a different exchange
-  // override with server.use().
-  http.post('https://api.anthropic.com/v1/messages', () =>
-    HttpResponse.json(anthropic.default),
+  // Anthropic title-cleanup (SPEC 7.5, 8.4 step 2) — serves the recorded
+  // reply for the raw title in the request when one exists, else the single
+  // default exchange; tests needing a different exchange override with
+  // server.use().
+  http.post('https://api.anthropic.com/v1/messages', async ({ request }) => {
+    const body = (await request.json().catch(() => null)) as { messages?: { content?: unknown }[] } | null
+    const content = body?.messages?.[0]?.content
+    let rawTitle: unknown
+    if (typeof content === 'string') {
+      try {
+        rawTitle = (JSON.parse(content) as { raw_title?: unknown }).raw_title
+      } catch {
+        rawTitle = undefined
+      }
+    }
+    const reply =
+      (typeof rawTitle === 'string' ? anthropic.replies?.[normalizeQueryKey(rawTitle)] : undefined) ??
+      anthropic.default
+    return HttpResponse.json(reply)
+  }),
+
+  // SoundCloud oEmbed metadata (SPEC 7.4) — no key, title is "Track by Artist".
+  http.get('https://soundcloud.com/oembed', ({ request }) => {
+    const path = parseSoundcloudPath(new URL(request.url).searchParams.get('url') ?? '')
+    const body = path ? soundcloud.tracks[path] : undefined
+    if (!body) {
+      const unknown = soundcloud.unknown
+      return new HttpResponse(unknown.body, {
+        status: unknown.status,
+        headers: { 'content-type': unknown.contentType },
+      })
+    }
+    return HttpResponse.json(body)
+  }),
+
+  // on.soundcloud.com short links (SPEC 7.4): the app follows the redirect
+  // server-side; the fixture redirects the recorded short code to its track.
+  http.get('https://on.soundcloud.com/:code', () =>
+    HttpResponse.redirect('https://soundcloud.com/theweeknd/blinding-lights', 302),
   ),
 ]
