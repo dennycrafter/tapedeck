@@ -1,12 +1,15 @@
 // Unit tests for /api/health (SPEC T0 step 6).
 //
-// All three adapter seams are mocked by exact specifier:
+// All four adapter seams are mocked by exact specifier:
 // - the `sql` tagged template from lib/db
 // - the getStorage() facade (driverName/uploadUrl/downloadUrl/head/delete)
 //   from lib/storage
 // - httpResponse from lib/http (mocked so no unit test touches the network;
 //   non-2xx/timeout failures are simulated by rejecting it like the real
 //   wrapper does)
+// - the local-storage route's PUT handler, which the health route dispatches
+//   the local upload probe to in-process (mocked here; the route's own tests
+//   cover it against the real signature machinery)
 //
 // Assertions go through the hoisted mock handles. The only static import from
 // the mocked modules is the type-only StorageDriver, which is erased before
@@ -18,6 +21,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { GET } from './route'
 import { httpResponse } from '../../../lib/http'
+import { PUT as localStoragePut } from '../local-storage/[...key]/route'
 import type { StorageDriver } from '../../../lib/storage'
 
 const mocks = vi.hoisted(() => ({
@@ -28,6 +32,7 @@ const mocks = vi.hoisted(() => ({
   headMock: vi.fn(),
   deleteMock: vi.fn(),
   httpResponseMock: vi.fn(),
+  localStoragePutMock: vi.fn(),
 }))
 
 vi.mock('../../../lib/db', () => ({ sql: mocks.sqlMock }))
@@ -36,11 +41,14 @@ vi.mock('../../../lib/storage', () => ({ getStorage: mocks.getStorageMock }))
 
 vi.mock('../../../lib/http', () => ({ httpResponse: mocks.httpResponseMock }))
 
+vi.mock('../local-storage/[...key]/route', () => ({ PUT: mocks.localStoragePutMock }))
+
 const PROBE_PAYLOAD = 'tapedeck-health-probe'
 
 // Builds the mocked StorageDriver handed back by getStorage(); tests pass
 // 'r2' to exercise the facade's real-driver path. setCors is a no-op: the
-// route probes through uploadUrl/downloadUrl/head/delete only.
+// route probes through uploadUrl/head/delete and the in-process PUT dispatch
+// only.
 function fakeDriver(driverName: StorageDriver['driverName'] = 'local'): StorageDriver {
   return {
     driverName,
@@ -67,6 +75,8 @@ beforeEach(() => {
   mocks.deleteMock.mockResolvedValue(undefined)
   // 2xx with the probe payload as body: enough for every check to pass.
   mocks.httpResponseMock.mockImplementation(async () => new Response(PROBE_PAYLOAD))
+  // The local-storage route accepts the in-process upload probe by default.
+  mocks.localStoragePutMock.mockResolvedValue(new Response(null, { status: 200 }))
 
   vi.stubEnv('TAPEDECK_TEST', '1')
   // Empty string behaves as unset for every env read in the route.
@@ -104,18 +114,28 @@ describe('/api/health', () => {
     expect(body.deezer).toBe('OK')
   })
 
-  it('proves the local storage stand-in with a write/read/delete round trip through signed URLs', async () => {
+  it('proves the local storage stand-in with an in-process signed-URL round trip: upload probe, head, delete', async () => {
     const body = await getHealthBody()
 
     expect(body.storage).toBe('STAND-IN')
-    const putCall = vi
-      .mocked(httpResponse)
-      .mock.calls.find(([, init]) => init?.method === 'PUT')
-    expect(putCall?.[0]).toContain('/api/local-storage/health-probe/')
-    expect(putCall?.[1]).toMatchObject({ method: 'PUT', body: PROBE_PAYLOAD })
-    expect(mocks.deleteMock).toHaveBeenCalledWith(
-      expect.stringMatching(/^health-probe\//),
-    )
+
+    // Upload probe: the driver's signed PUT URL, dispatched through the
+    // local-storage route handler in-process.
+    const [putRequest, putContext] = vi.mocked(localStoragePut).mock.calls[0]
+    expect(putRequest).toBeInstanceOf(Request)
+    expect(putRequest.method).toBe('PUT')
+    expect(putRequest.url).toContain('/api/local-storage/health-probe/')
+    expect(await putRequest.text()).toBe(PROBE_PAYLOAD)
+    expect((await putContext.params).key?.[0]).toBe('health-probe')
+
+    // Read side and cleanup run through the driver itself.
+    expect(mocks.headMock).toHaveBeenCalledWith(expect.stringMatching(/^health-probe\//))
+    expect(mocks.deleteMock).toHaveBeenCalledWith(expect.stringMatching(/^health-probe\//))
+
+    // No server-side self-fetch: the signed URL never goes back over the wire
+    // (the harness TLS is self-signed and cannot be verified server-side).
+    const httpUrls = vi.mocked(httpResponse).mock.calls.map(([url]) => String(url))
+    expect(httpUrls.some((url) => url.includes('/api/local-storage/'))).toBe(false)
   })
 
   it('never calls keyed APIs when their keys are not set, but probes keyless services', async () => {
@@ -183,11 +203,8 @@ describe('/api/health', () => {
     expect(body.itunes).toBe('OK')
   })
 
-  it('reports the error and cleans up when the local storage write fails', async () => {
-    vi.mocked(httpResponse).mockImplementation(async (_url, init) => {
-      if (init?.method === 'PUT') throw new Error('HTTP 500 calling local storage')
-      return new Response(PROBE_PAYLOAD)
-    })
+  it('reports the error and cleans up when the local storage upload probe fails', async () => {
+    vi.mocked(localStoragePut).mockRejectedValue(new Error('HTTP 500 calling local storage'))
 
     const body = await getHealthBody()
 
@@ -195,5 +212,31 @@ describe('/api/health', () => {
     expect(mocks.deleteMock).toHaveBeenCalledWith(
       expect.stringMatching(/^health-probe\//),
     )
+  })
+
+  it('reports the reason when the local-storage route rejects the probe upload', async () => {
+    vi.mocked(localStoragePut).mockResolvedValue(
+      new Response('forbidden: expired signature', { status: 403 }),
+    )
+
+    const body = await getHealthBody()
+
+    expect(body.storage).toBe('local storage PUT probe returned 403: forbidden: expired signature')
+  })
+
+  it('reports the probe failure when the uploaded object cannot be found again', async () => {
+    mocks.headMock.mockResolvedValue({ exists: false })
+
+    const body = await getHealthBody()
+
+    expect(body.storage).toBe('local storage probe object missing after upload')
+  })
+
+  it('reports the probe failure when the stored object has the wrong size', async () => {
+    mocks.headMock.mockResolvedValue({ exists: true, bytes: PROBE_PAYLOAD.length + 1 })
+
+    const body = await getHealthBody()
+
+    expect(body.storage).toBe('local storage probe object has the wrong size')
   })
 })

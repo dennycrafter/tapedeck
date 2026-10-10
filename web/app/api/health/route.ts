@@ -14,9 +14,12 @@
 import { sql } from '../../../lib/db'
 import { getStorage, type StorageDriver } from '../../../lib/storage'
 import { httpResponse } from '../../../lib/http'
+// The local stand-in's signed-URL round trip is dispatched in-process through
+// the local-storage route's PUT handler (see checkLocalStorage below).
+import { PUT as localStoragePut } from '../local-storage/[...key]/route'
 
-// Local probes fail fast instead of holding the response for the wrapper's
-// 10s default.
+// Outbound service probes fail fast instead of holding the response for the
+// wrapper's 10s default.
 const PROBE_TIMEOUT_MS = 5000
 
 // "Me at the zoo", the first YouTube video - stable, and exactly the id the
@@ -84,21 +87,31 @@ async function cleanupProbeKey(storage: StorageDriver, key: string): Promise<voi
 }
 
 async function checkLocalStorage(storage: StorageDriver, origin: string): Promise<string> {
-  // Local driver (4.1): prove write/read/delete of a tiny file through the
-  // adapter's signed-URL surface - uploadUrl -> PUT, downloadUrl -> GET,
-  // then delete(key). The signed round trip also exercises the signature
-  // machinery the whole local driver depends on.
+  // Local driver (4.1): prove the signed-URL round trip - uploadUrl() mints
+  // the signed PUT URL, the local-storage route consumes it, then head() and
+  // delete() run on the driver itself. The route handler is called
+  // IN-PROCESS, never fetched back over HTTP: the e2e harness serves
+  // self-signed TLS (8.1 marks the session cookie Secure), which a
+  // server-side self-fetch cannot verify. Calling the handler still exercises
+  // the signature machinery the whole local driver depends on, end to end.
   const key = `health-probe/${crypto.randomUUID()}`
-  const payload = 'tapedeck-health-probe'
+  const payload = new TextEncoder().encode('tapedeck-health-probe')
   try {
+    // Upload probe through the adapter's signed-URL surface.
     const putUrl = new URL(await storage.uploadUrl(key), origin).toString()
-    await httpResponse(putUrl, { method: 'PUT', body: payload, timeoutMs: PROBE_TIMEOUT_MS })
-
-    const getUrl = new URL(await storage.downloadUrl(key), origin).toString()
-    const get = await httpResponse(getUrl, { timeoutMs: PROBE_TIMEOUT_MS })
-    if ((await get.text()) !== payload) {
-      return 'local storage readback did not match what was written'
+    const put = await localStoragePut(new Request(putUrl, { method: 'PUT', body: payload }), {
+      params: Promise.resolve({ key: key.split('/') }),
+    })
+    if (!put.ok) {
+      const reason = (await put.text()).slice(0, 200)
+      return `local storage PUT probe returned ${put.status}${reason ? `: ${reason}` : ''}`
     }
+
+    // Read side through the driver: the probe object landed with the exact
+    // byte count written above.
+    const head = await storage.head(key)
+    if (!head.exists) return 'local storage probe object missing after upload'
+    if (head.bytes !== payload.byteLength) return 'local storage probe object has the wrong size'
   } catch (err) {
     await cleanupProbeKey(storage, key)
     return errorText(err)
