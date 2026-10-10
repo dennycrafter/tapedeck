@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+
+# Next.js build output
+.next/
+
+# Environment files (real values are never committed)
+.env*
+!.env.example
+
+# Local stand-in data (PGlite database, local storage driver, dev secrets)
+.data/
+
+# Test artifacts
+test-results/
+playwright-report/
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Logs
+logs/
+agent/logs/
+
+# Audio files (never commit audio; the two generated test tones are allowed)
+*.m4a
+*.mp3
+*.webm
+*.opus
+*.wav
+!web/public/test-audio/*
