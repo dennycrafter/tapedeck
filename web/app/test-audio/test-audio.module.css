@@ -1,0 +1,134 @@
+/* SPEC 10 design rules, scoped to this page (dark only, four greys, accent on the one main action). */
+.page {
+  --bg: #0b0b0d;
+  --surface: #121215;
+  --surface-2: #1c1c20;
+  --line: #2a2a30;
+  --fg: #f2f2f4;
+  --muted: #9a9aa3;
+  --silver: #e8e8ea;
+  --accent: #ff7a1a;
+
+  color-scheme: dark;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: -apple-system, "Segoe UI", Inter, sans-serif;
+  padding: max(24px, env(safe-area-inset-top)) clamp(16px, 2.6vw, 40px)
+    max(24px, env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.heading {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.intro {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.queue {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  font-size: 14px;
+}
+
+.row + .row {
+  border-top: 1px solid var(--line);
+}
+
+.rowTitle {
+  font-weight: 600;
+}
+
+.rowDetail {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.buttonList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.playButton,
+.secondaryButton {
+  border-radius: 6px;
+  min-height: 48px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 0 16px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.playButton {
+  border: 1px solid transparent;
+  background: var(--accent);
+  color: #0b0b0d;
+}
+
+.secondaryButton {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--fg);
+}
+
+.secondaryButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.playButton:focus-visible,
+.secondaryButton:focus-visible {
+  outline: 2px solid var(--silver);
+  outline-offset: 2px;
+}
+
+.nowPlaying {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--silver);
+}
+
+.status {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
