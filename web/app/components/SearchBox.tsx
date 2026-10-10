@@ -107,7 +107,7 @@ export function SearchBox() {
           {requestError}
         </p>
       )}
-      {hits && (
+      {hits && hits.length > 0 && (
         <ul className="mt-2 flex flex-col gap-3" data-testid="search-results">
           {hits.map((hit) => (
             <li key={hit.videoId} className="flex items-center gap-3">

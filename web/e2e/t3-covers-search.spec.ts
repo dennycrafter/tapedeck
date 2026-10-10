@@ -1,7 +1,8 @@
 import { test, expect, type Page } from '@playwright/test';
 import { login } from './helpers/login';
-import { runSelftest } from './helpers/agent';
+import { BASE_URL, TEST_AGENT_TOKEN } from './helpers/env';
 import { skipWithoutNet } from './helpers/net';
+import { restoreOriginalArtist } from '../lib/clean-title';
 
 /*
  * T3 covers, cleanup and search @T3, iphone project (SPEC 9 T3 checks):
@@ -16,6 +17,16 @@ import { skipWithoutNet } from './helpers/net';
  * keyed-search paths are covered by the vitest suites with MSW. Adds make
  * real no-key calls server-side (oEmbed, iTunes, Deezer), so the network
  * tests carry @net.
+ *
+ * The edit test readies its track through the agent complete API instead
+ * of a downloader --selftest: two selftests in one battery race the claim
+ * queue (`for update skip locked` hands the oldest waiting rows to one of
+ * them and the other's track sticks in `downloading` until the 15-minute
+ * stale reset). The complete route is a single UPDATE by id — it never
+ * touches the queue, so the T1 tracer keeps its claim lane to itself.
+ * Rows are always scoped by data-track-id: the library list is shared
+ * between tests, so `.first()`-by-position and hasText filters can match
+ * another test's row.
  */
 
 // One stable video per test — shared in-memory database means every test
@@ -82,32 +93,61 @@ test.describe('T3 search box @T3', () => {
 test.describe('T3 adds with cleanup and covers @T3', () => {
   test.skip(({ browserName }) => browserName !== 'webkit', 'T3 checks run on the iphone project like the T1 tracer');
   skipWithoutNet();
+  // The tests share one library list — run them in order so one test's
+  // fresh row (`.first()` right after its toast) is never another test's.
+  test.describe.configure({ mode: 'serial' });
 
   test('edit details changes the row and restore original brings the raw values back', async ({ page }) => {
-    test.setTimeout(240_000); // the --selftest child may take a couple of minutes
-
     await login(page);
     await page.goto('/');
-    await pasteAndSubmit(page, EDIT_FIXTURE_URL);
-    await expect(page.getByTestId('toast')).toHaveText('1 added');
 
-    const row = page.getByTestId('track-row').first();
+    // The raw values the app will keep: live oEmbed for the fixture, the
+    // same upstream the add pipeline reads seconds later. The row right
+    // after an add shows the CLEANED title, so raw values can only come
+    // from here — restore's contract (8.5) is to bring them back.
+    const oembedResponse = await page.request.get(
+      `https://www.youtube.com/oembed?url=${encodeURIComponent(EDIT_FIXTURE_URL)}&format=json`,
+    );
+    expect(oembedResponse.status(), 'oEmbed answered for the fixture').toBe(200);
+    const oembed = (await oembedResponse.json()) as { title: string; author_name: string };
+    const rawTitle = oembed.title;
+    const restoredArtist = restoreOriginalArtist(oembed.author_name);
+
+    // Add through the same API the UI posts to (the session cookie rides
+    // on the request context), then ready the track over the agent API.
+    const addResponse = await page.request.post(`${BASE_URL}/api/tracks`, {
+      data: { urls: [EDIT_FIXTURE_URL] },
+    });
+    expect(addResponse.status(), 'the add request succeeded').toBe(200);
+    const addBody = (await addResponse.json()) as {
+      results: Array<{ status: string; track?: { id: string } }>;
+    };
+    const trackId = addBody.results[0]?.track?.id;
+    if (!trackId) throw new Error(`the add response carried no track: ${JSON.stringify(addBody)}`);
+
+    // The complete route is a single UPDATE by id (no claim-queue contact
+    // — see the file header); the key is the one storage layout (SPEC 4).
+    const completeResponse = await page.request.post(`${BASE_URL}/api/agent/complete`, {
+      headers: { Authorization: `Bearer ${TEST_AGENT_TOKEN}` },
+      data: { trackId, key: `tracks/${trackId}.m4a`, bytes: 1_000_000 },
+    });
+    expect(completeResponse.status(), 'the agent complete accepted the track').toBe(200);
+
+    await page.reload();
+    const row = page.locator(`[data-track-id="${trackId}"]`);
     await expect(row).toBeVisible();
-    // The raw values come from live oEmbed — capture them instead of
-    // hardcoding, so the restore assertion survives upstream title drift.
-    const rawTitle = await row.getByTestId('track-title').textContent();
-    const rawSubtitle = await row.getByTestId('track-subtitle').textContent();
-    expect(rawTitle).toBeTruthy();
-    const trackId = await row.getAttribute('data-track-id');
-    expect(trackId, 'row exposes its track id for the selftest').toBeTruthy();
+    await expect(row.getByTestId('track-status')).toHaveCount(0);
 
-    const selftest = await runSelftest(trackId as string);
-    expect(selftest.code, `selftest failed:\n${selftest.stdout}\n${selftest.stderr}`).toBe(0);
-    await expect(row.getByTestId('track-status')).toHaveCount(0, { timeout: 30_000 });
+    // The add cleaned the title: the row never shows the raw title before
+    // the edit (five-video test pins the cleaner's exact outputs).
+    const shownTitle = await row.getByTestId('track-title').textContent();
+    expect(shownTitle, 'cleanup stripped the junk from the raw title').not.toBe(rawTitle);
 
     // Play the song to load the player bar, then open Edit details.
+    // The bar renders desktop and mobile layouts; both Edit buttons are in
+    // the DOM (one CSS-hidden on this viewport) and do the same thing.
     await row.click();
-    const editButton = page.getByTestId('player-edit');
+    const editButton = page.getByTestId('player-edit').first();
     await expect(editButton).toBeVisible();
     await editButton.click();
     await expect(page.getByTestId('edit-dialog')).toBeVisible();
@@ -119,21 +159,18 @@ test.describe('T3 adds with cleanup and covers @T3', () => {
     await expect(page.getByTestId('edit-dialog')).toHaveCount(0);
 
     // The library refetches: the row shows the edited values.
-    const editedRow = page.getByTestId('track-row').filter({ hasText: 'Edited Title' });
-    await expect(editedRow).toHaveCount(1);
-    await expect(editedRow.getByTestId('track-title')).toHaveText('Edited Title');
-    await expect(editedRow.getByTestId('track-subtitle')).toHaveText('Edited Artist · Edited Album');
+    await expect(row.getByTestId('track-title')).toHaveText('Edited Title');
+    await expect(row.getByTestId('track-subtitle')).toHaveText('Edited Artist · Edited Album');
 
-    // Restore original: the kept raw title and channel artist come back.
+    // Restore original: the kept raw title and suffix-stripped raw artist
+    // come back, and the edited album clears.
     await editButton.click();
     await expect(page.getByTestId('edit-dialog')).toBeVisible();
     await page.getByTestId('edit-restore').click();
     await expect(page.getByTestId('edit-dialog')).toHaveCount(0);
 
-    const restoredRow = page.getByTestId('track-row').filter({ hasText: rawTitle as string });
-    await expect(restoredRow).toHaveCount(1);
-    await expect(restoredRow.getByTestId('track-title')).toHaveText(rawTitle as string);
-    await expect(restoredRow.getByTestId('track-subtitle')).toHaveText(rawSubtitle as string);
+    await expect(row.getByTestId('track-title')).toHaveText(rawTitle);
+    await expect(row.getByTestId('track-subtitle')).toHaveText(restoredArtist);
   });
 
   test('a SoundCloud song adds with a clean title and a set link is rejected', async ({ page }) => {
@@ -144,10 +181,18 @@ test.describe('T3 adds with cleanup and covers @T3', () => {
     // cleanup, cover art — the row shows the cleaned title and artist.
     await pasteAndSubmit(page, SOUNDCLOUD_SONG_URL);
     await expect(page.getByTestId('toast')).toHaveText('1 added');
-    const row = page.getByTestId('track-row').filter({ hasText: 'Blinding Lights' });
-    await expect(row).toHaveCount(1);
-    await expect(row.getByTestId('track-title')).toHaveText('Blinding Lights');
-    await expect(row.getByTestId('track-subtitle')).toHaveText('The Weeknd');
+    // The toast means this test's add just landed — capture its row id
+    // immediately, then scope every assertion to that row (a second
+    // "Blinding Lights" row exists once the five-video test has run).
+    const row = page.getByTestId('track-row').first();
+    await expect(row).toBeVisible();
+    const trackId = await row.getAttribute('data-track-id');
+    if (!trackId) throw new Error('the new row did not expose its track id');
+    const songRow = page.locator(`[data-track-id="${trackId}"]`);
+    await expect(songRow.getByTestId('track-title')).toHaveText('Blinding Lights');
+    // The subtitle carries the cover-matched album after the artist when
+    // one matched, so assert the artist rather than the exact line.
+    await expect(songRow.getByTestId('track-subtitle')).toContainText('The Weeknd');
 
     // A set link is a per-line error and adds nothing (SPEC 8.9).
     await pasteAndSubmit(page, SOUNDCLOUD_SET_URL);
@@ -166,8 +211,11 @@ test.describe('T3 adds with cleanup and covers @T3', () => {
     await expect(page.getByTestId('toast')).toHaveText('5 added', { timeout: 30_000 });
 
     for (const expected of FIVE_MV_EXPECTED) {
-      const row = page.getByTestId('track-row').filter({ hasText: expected.title });
-      await expect(row, `row for ${expected.title}`).toHaveCount(1);
+      // `.first()`: the SoundCloud test added a same-titled "Blinding
+      // Lights" earlier — the '5 added' toast already proves these five
+      // are new, and the duplicated title's rows carry identical values.
+      const row = page.getByTestId('track-row').filter({ hasText: expected.title }).first();
+      await expect(row, `row for ${expected.title}`).toBeVisible();
       await expect(row.getByTestId('track-title')).toHaveText(expected.title);
       await expect(row.getByTestId('track-subtitle')).toContainText(expected.artist);
       // The cover matched: the row renders the artwork image, not the

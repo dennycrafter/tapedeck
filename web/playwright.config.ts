@@ -31,7 +31,14 @@ export default defineConfig({
   testDir: './e2e',
   // Playwright owns *.spec.ts; vitest owns *.test.ts (e.g. e2e/mocks/).
   testMatch: '**/*.spec.ts',
-  fullyParallel: true,
+  fullyParallel: false,
+  // One worker: the app server's in-memory PGlite is a single library every
+  // spec in a run shares, and specs assert on it (t1's empty state, t3's
+  // row checks). Parallel workers added rows to each other's libraries and
+  // flipped shared status mid-assertion; serial tests make the shared state
+  // deterministic (t0's smoke runs first, then t1 on a still-empty
+  // library, then later tickets add on top).
+  workers: 1,
   forbidOnly: true,
   retries: process.env.CI ? 1 : 0,
   timeout: 60_000,
