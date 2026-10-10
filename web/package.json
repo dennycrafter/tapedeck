@@ -7,7 +7,21 @@
     "build": "next build && serwist build serwist.config.mjs",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "e2e": "playwright test --grep-invert @live",
+    "e2e:desktop": "playwright test --project=desktop",
+    "e2e:iphone": "playwright test --project=iphone",
+    "e2e:android": "playwright test --project=android",
+    "e2e:t0": "playwright test --grep @T0",
+    "e2e:t1": "playwright test --grep \"@T0|@T1\"",
+    "e2e:t2": "playwright test --grep \"@T0|@T1|@T2\"",
+    "e2e:t3": "playwright test --grep \"@T0|@T1|@T2|@T3\"",
+    "e2e:t4": "playwright test --grep \"@T0|@T1|@T2|@T3|@T4\"",
+    "e2e:t5": "playwright test --grep \"@T0|@T1|@T2|@T3|@T4|@T5\"",
+    "e2e:t6": "playwright test --grep \"@T0|@T1|@T2|@T3|@T4|@T5|@T6\"",
+    "e2e:t7": "playwright test --grep \"@T0|@T1|@T2|@T3|@T4|@T5|@T6|@T7\"",
+    "e2e:t8": "playwright test --grep \"@T0|@T1|@T2|@T3|@T4|@T5|@T6|@T7|@T8\"",
+    "e2e:live": "playwright test --grep @live"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1149.0",
