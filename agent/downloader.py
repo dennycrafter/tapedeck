@@ -216,6 +216,9 @@ def run_loop(logger: logging.Logger, cfg: DownloaderConfig) -> None:
                 path = convert_check(logger, track, path)
                 path = tag_track(logger, track, path)
                 upload_track(logger, cfg, track, path)
+                # SPEC 8.3 step 2 also says "Delete temp files": T1a must
+                # remove the downloaded/converted intermediates after upload
+                # (and in the failure path) so the work dir cannot grow.
                 # Optional Apple Music copy lands with T6 (SPEC 8.11).
             except Exception as exc:  # SPEC 8.3 step 2: report every failure to the app.
                 logger.error("track %s failed: %s", track["id"], exc)
