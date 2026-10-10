@@ -1,3 +1,6 @@
+import { execFileSync } from 'node:child_process';
+import { mkdtempSync } from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 
 // This file lives at web/e2e/helpers/env.ts.
@@ -6,9 +9,12 @@ export const REPO_ROOT = path.resolve(WEB_ROOT, '..');
 export const AGENT_SCRIPT = path.join(REPO_ROOT, 'agent', 'downloader.py');
 
 // SPEC 9.0: the e2e server runs on its own fixed port so a developer's
-// `npm run dev` on 3000 never collides with a test run.
+// `npm run dev` on 3000 never collides with a test run. The server is https:
+// SPEC 8.1 marks the session cookie Secure, and WebKit rejects Secure
+// cookies on plain http://localhost (Chromium exempts it — the smoke caught
+// the difference), so the contract is only exercised faithfully over TLS.
 export const E2E_PORT = 3100;
-export const BASE_URL = `http://localhost:${E2E_PORT}`;
+export const BASE_URL = `https://localhost:${E2E_PORT}`;
 
 // SPEC 4.1: APP_PASSWORD defaults to `tapedeck-dev` in development.
 // Tests pass it explicitly (appEnv below) so every run is deterministic.
@@ -24,6 +30,41 @@ export const APP_PASSWORD = 'tapedeck-dev';
 export const TEST_SESSION_SECRET = '985f0778eb4219b59803c37237c7167b31ca025500bdf2e166720c9aa7ee122a';
 export const TEST_AGENT_TOKEN = '6e05ba201312f6c769135801d4f54c3ba2011d25f262d9bff7f4ce5ded383b58';
 export const TEST_CRON_SECRET = '98b4a0fa034a44303ad1c30a5c52a45ea2096a94b69b7133880830d604a3654c';
+
+export type E2ECertificate = { dir: string; keyPath: string; certPath: string };
+
+/*
+ * Throwaway self-signed certificate for the https dev server. Generated once
+ * per invocation in the config master process and shared with workers and
+ * agent children through TAPEDECK_E2E_KEY_FILE / TAPEDECK_E2E_CERT_FILE, so
+ * every consumer sees the same key pair. Not a secret: it only covers
+ * localhost for this one run.
+ */
+export function ensureE2ECertificate(): E2ECertificate {
+  const certFile = process.env.TAPEDECK_E2E_CERT_FILE;
+  const keyFile = process.env.TAPEDECK_E2E_KEY_FILE;
+  if (certFile && keyFile) return { dir: path.dirname(certFile), keyPath: keyFile, certPath: certFile };
+
+  const dir = mkdtempSync(path.join(os.tmpdir(), 'tapedeck-e2e-cert-'));
+  const keyPath = path.join(dir, 'key.pem');
+  const certPath = path.join(dir, 'cert.pem');
+  execFileSync('openssl', [
+    'req', '-x509', '-newkey', 'rsa:2048', '-nodes',
+    '-keyout', keyPath, '-out', certPath,
+    '-days', '2', '-subj', '/CN=localhost',
+    '-addext', 'subjectAltName=DNS:localhost',
+  ]);
+  process.env.TAPEDECK_E2E_KEY_FILE = keyPath;
+  process.env.TAPEDECK_E2E_CERT_FILE = certPath;
+  return { dir, keyPath, certPath };
+}
+
+/* The generated cert, for consumers that must trust it (agent children). */
+export function e2eCertFile(): string {
+  const certFile = process.env.TAPEDECK_E2E_CERT_FILE;
+  if (!certFile) throw new Error('e2e certificate not generated yet — playwright.config.ts generates it per run');
+  return certFile;
+}
 
 /*
  * The exact environment the app-under-test needs to run on the 4.1 stand-ins

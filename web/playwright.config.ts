@@ -2,7 +2,7 @@ import { mkdtempSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { defineConfig, devices } from '@playwright/test';
-import { appEnv, BASE_URL, E2E_PORT } from './e2e/helpers/env';
+import { appEnv, BASE_URL, E2E_PORT, ensureE2ECertificate } from './e2e/helpers/env';
 
 /*
  * SPEC 9.0 — Playwright starts the app itself with the 4.1 stand-ins:
@@ -22,6 +22,11 @@ import { appEnv, BASE_URL, E2E_PORT } from './e2e/helpers/env';
 const dataDir = process.env.TAPEDECK_E2E_DATA_DIR ?? mkdtempSync(path.join(os.tmpdir(), 'tapedeck-e2e-'));
 process.env.TAPEDECK_E2E_DATA_DIR = dataDir;
 
+// Throwaway self-signed cert covering localhost (see helpers/env.ts): SPEC 8.1
+// marks the session cookie Secure, and WebKit only stores Secure cookies over
+// https, so the harness serves TLS too.
+const e2eCert = ensureE2ECertificate();
+
 export default defineConfig({
   testDir: './e2e',
   // Playwright owns *.spec.ts; vitest owns *.test.ts (e.g. e2e/mocks/).
@@ -35,6 +40,7 @@ export default defineConfig({
   globalTeardown: './e2e/global-teardown.ts',
   use: {
     baseURL: BASE_URL,
+    ignoreHTTPSErrors: true, // the self-signed run certificate
     trace: 'retain-on-failure',
   },
   projects: [
@@ -56,8 +62,9 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `npm run dev -- -p ${E2E_PORT}`,
+    command: `npm run dev -- -p ${E2E_PORT} --experimental-https --experimental-https-key "${e2eCert.keyPath}" --experimental-https-cert "${e2eCert.certPath}"`,
     url: BASE_URL,
+    ignoreHTTPSErrors: true,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
     // App env carries TAPEDECK_TEST=1, the throwaway test secrets and the

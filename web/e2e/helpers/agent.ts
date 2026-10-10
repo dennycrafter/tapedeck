@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process';
-import { appEnv, AGENT_SCRIPT, BASE_URL, REPO_ROOT, TEST_AGENT_TOKEN } from './env';
+import { appEnv, AGENT_SCRIPT, BASE_URL, e2eCertFile, REPO_ROOT, TEST_AGENT_TOKEN } from './env';
 
 export type SelftestResult = {
   code: number;
@@ -19,7 +19,9 @@ export async function runSelftest(trackId: string, opts: { timeoutMs?: number } 
   const result = await new Promise<SelftestResult>((resolve, reject) => {
     const child = spawn(process.env.E2E_PYTHON ?? 'python3', [AGENT_SCRIPT, '--selftest', '--track', trackId], {
       cwd: REPO_ROOT,
-      env: { ...process.env, ...appEnv(), APP_URL: BASE_URL },
+      // The test server is https with the run's self-signed certificate
+      // (see env.ts); the child must trust that same cert to call it.
+      env: { ...process.env, ...appEnv(), APP_URL: BASE_URL, SSL_CERT_FILE: e2eCertFile(), REQUESTS_CA_BUNDLE: e2eCertFile() },
       stdio: ['ignore', 'pipe', 'pipe'],
     });
     let stdout = '';

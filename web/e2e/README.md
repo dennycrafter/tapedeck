@@ -1,10 +1,13 @@
 # E2E tests (SPEC 9.0)
 
 Playwright runs the whole app by itself, with the 4.1 stand-ins: the config
-starts `next dev` on port 3100 with `TAPEDECK_TEST=1` (in-memory PGlite, local
-storage in a temp folder) and the MSW fixtures under `fixtures/` answer every
-external call. Tests log in with the dev password (`tapedeck-dev`). No secrets
-are needed for any test except the `@live` ones.
+starts `next dev` on port 3100 over https (a throwaway self-signed cert is
+generated per run — SPEC 8.1 marks the session cookie Secure, and WebKit
+rejects Secure cookies on plain http) with `TAPEDECK_TEST=1` (in-memory
+PGlite, local storage in a temp folder) and the MSW fixtures under
+`fixtures/` answer every external call. Tests log in with the dev password
+(`tapedeck-dev`). No secrets are needed for any test except the `@live`
+ones.
 
 ## Running
 
