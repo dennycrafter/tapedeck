@@ -52,3 +52,36 @@ Playwright ran the one @T0 spec (`e2e/t0-smoke.spec.ts`, the three-assertion smo
 - **NOTE — dev stand-in robustness (not a check failure):** on a wiped `.data`, the first database contact returns a retryable 200 `ok:false` with a raw `ENOENT … mkdir 'web/.data/pglite'` until some route creates `.data` (the login route does, by persisting `.data/dev-secrets.json`). Unreachable through the UI in development (`/setup` redirects to `/login` there, and login creates the directory first); production uses Postgres and never touches PGlite. No owner action needed.
 - **NOTE — accepted deviations, not re-reported as findings:** `vercel.json` lives at `web/vercel.json`; `CRON_SECRET` resolves from `process.env` only; vitest `testTimeout` is 20000; Python 3.12-semantics tested on 3.13.14 (DECISIONS.md); the 2.92 MB test tones are not precached by Serwist.
 - **NOTE — iphone playback coverage:** the @T0 `/test-audio` Play-advance and offline-copy behaviors are covered at logic level by `app/test-audio/tones.test.ts` (auto-advance via `nextIndex`; Media Session payload titles "Test tone 1" / "Test tone 2"); the browser-level smoke asserts the gated page and its controls on all three projects.
+
+---
+
+## T0 recheck — setup-page fix verification (BLOCKERS.md entry resolved)
+
+- **Ticket:** T0 (independent checkpoint verifier, recheck round)
+- **Date:** 2026-10-10
+- **Baseline:** `origin/main` at `542bc87` (PR #2: exempt the `/setup` page from the setup-mode gate), branch `t0/checkpoint-t0-recheck`
+
+### Previously failed check — now PASSING
+
+Production build with zero variables (`npm run build` exit 0, `next start` with no env vars set):
+
+- `GET /` → 307 to `/setup`
+- `GET /setup` → **200** (no redirect; the loop is gone)
+- The page renders all nine required variables with a red dot and "not set yet" (DATABASE_URL, R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET, APP_PASSWORD, SESSION_SECRET, AGENT_TOKEN, CRON_SECRET) plus the two optional variables with amber dots (YOUTUBE_API_KEY, ANTHROPIC_API_KEY)
+- "Three fresh secrets for step 5": three 64-character lowercase-hex values (SESSION_SECRET, AGENT_TOKEN, CRON_SECRET), each with a Copy button
+- No variable values shown: the only 64-hex strings on the page are the three generated secrets; no "tapedeck-dev" or any other variable value appears
+- Verified twice: in the server HTML (curl: 9 red-dot spans, 9 "not set yet", 3 Copy buttons) and in a real Chromium run with 7/7 assertions passing (URL stays on /setup, h1 "Almost ready", 9 red dots, 3 Copy buttons, three 64-hex values, exactly 3 hex strings in the text, no leaks)
+- PWA files in the same production build: `/sw.js` → 200 `application/javascript` and `/manifest.webmanifest` → 200, both without a cookie
+
+### Spot re-confirmation suites
+
+| Suite | Command | Passed | Failed | Skipped |
+|---|---|---|---|---|
+| Unit (vitest, `/web`) | `npx vitest run` | 194 across 14 files (was 193; PR #2 added the no-self-redirect regression case) | 0 | 0 |
+| E2E desktop | `npx playwright test --grep @T0` | 3 | 0 | 0 |
+| E2E iphone | `npx playwright test --grep @T0` | 3 | 0 | 0 |
+| E2E android | `npx playwright test --grep @T0` | 3 | 0 | 0 |
+| E2E total | — | 9 | 0 | 0 |
+| Agent (pytest, `/agent`) | `python3 -m pytest` | 15 | 0 | 0 |
+
+No new failed or skipped checks in this round. The BLOCKERS.md entry "The setup page never opens on a fresh deployment" is marked resolved 2026-10-10 (fixed by `542bc87`). The @live finish check stays deferred until go-live credentials exist, unchanged from the T0 block above.

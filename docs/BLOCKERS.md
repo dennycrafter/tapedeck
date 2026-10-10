@@ -6,7 +6,9 @@ Each entry states what failed, why, and the exact steps the owner must take to f
 
 ---
 
-## The setup page never opens on a fresh deployment (found 2026-10-10, T0 checkpoint verification)
+## The setup page never opens on a fresh deployment (found 2026-10-10, T0 checkpoint verification — RESOLVED 2026-10-10)
+
+**Resolved 2026-10-10:** Fixed on main by `542bc87` (PR #2) — `isSetupModeExempt` now allows the `/setup` page, with the regression tests from step 3 included. Re-verified independently on a no-variables production build: `/` → 307 `/setup`, `/setup` renders with nine red dots, three 64-character Copy secrets, and no values shown; vitest 194/194, Playwright @T0 9/9, pytest 15/15. See TEST-REPORT.md, "T0 recheck" block. The steps below are kept as written.
 
 **What failed:** When Tapedeck is deployed for the very first time — before any settings exist — the browser can never open the setup page. Visiting `/setup` redirects to `/setup` forever, and the browser gives up with "this page isn't working / too many redirects" (`ERR_TOO_MANY_REDIRECTS`). The three secret values the owner must copy into Vercel (SESSION_SECRET, AGENT_TOKEN, CRON_SECRET) are generated on, and shown only by, that page — so first-time setup cannot be completed in the browser while this is broken. The redirect from `/` to `/setup` works; it is the setup page itself that loops.
 
