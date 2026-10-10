@@ -12,6 +12,7 @@ import { afterAll, beforeEach, describe, expect, it } from 'vitest'
 import { HttpResponse, http } from 'msw'
 
 import { resetDb, sql, type Row } from './db'
+import searchFixture from '../e2e/fixtures/youtube-search.json'
 import { server, startTestMocks, stopTestMocks } from '../e2e/mocks/server'
 import {
   SEARCH_OFF_MESSAGE,
@@ -99,7 +100,28 @@ describe('searchYoutube (8.7)', () => {
     expect(rows[0].q).toBe('get lucky')
   })
 
-  it('serves a fresh cache hit without the network', async () => {
+  it('serves the same search within 24 hours from search_cache: one network call across two searches', async () => {
+    // Counting wrapper serving the recorded "get lucky" body: the second
+    // search must not reach it (SPEC 9 T3: MSW request count stays the same).
+    let searchCalls = 0
+    const searchBody = (searchFixture as { queries: Record<string, { kind: string; etag: string; items: { id?: { videoId?: string }; snippet?: { title?: string; channelTitle?: string } }[] }> }).queries['get lucky']
+    server.use(
+      http.get('https://www.googleapis.com/youtube/v3/search', () => {
+        searchCalls++
+        return HttpResponse.json(searchBody)
+      }),
+    )
+    try {
+      const first = await searchYoutube(QUERY, 'test-key')
+      const second = await searchYoutube(QUERY, 'test-key')
+      expect(searchCalls).toBe(1)
+      expect(second.results).toEqual(first.results)
+    } finally {
+      server.resetHandlers()
+    }
+  })
+
+  it('serves a seeded fresh cache hit without the network', async () => {
     const seeded = [
       { videoId: 'seed1', title: 'Seeded Song', channel: 'Seeds', thumbnailUrl: null, durationSec: 90 },
     ]

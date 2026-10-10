@@ -6,10 +6,11 @@
  * times. Phone: mini player above the tab bar with a thin progress line;
  * the full Now playing sheet arrives with T2. Hidden until a track plays.
  */
-import { useSyncExternalStore } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { usePlayer } from "./PlayerProvider";
 import { Cover } from "./Cover";
 import { PauseIcon, PlayIcon } from "./icons";
+import { TrackEditDialog } from "./TrackEditDialog";
 import { formatClock } from "@/lib/player/format";
 
 const SEEK_MAX_FALLBACK_S = 1;
@@ -18,6 +19,7 @@ export function PlayerBar() {
   const player = usePlayer();
   const state = useSyncExternalStore(player.subscribe, player.getState, player.getState);
   const track = state.index >= 0 ? (state.queue[state.index] ?? null) : null;
+  const [editing, setEditing] = useState(false);
   if (!track) return null;
 
   const duration = state.duration > 0 ? state.duration : (track.durationSec ?? 0);
@@ -46,6 +48,14 @@ export function PlayerBar() {
             <p className="truncate text-sm text-muted">{track.artist}</p>
           )}
         </div>
+        <button
+          type="button"
+          onClick={() => setEditing(true)}
+          data-testid="player-edit"
+          className="flex-none rounded-btn border border-line px-2 py-1 text-xs text-muted hover:text-fg focus:outline-2 focus:outline-offset-2 focus:outline-silver"
+        >
+          Edit
+        </button>
         <PlayPauseButton />
         <div
           className="absolute inset-x-0 bottom-0 h-0.5 bg-line"
@@ -76,6 +86,14 @@ export function PlayerBar() {
           )}
         </div>
         <PlayPauseButton />
+        <button
+          type="button"
+          onClick={() => setEditing(true)}
+          data-testid="player-edit"
+          className="flex-none rounded-btn border border-line px-2 py-1 text-xs text-muted hover:text-fg focus:outline-2 focus:outline-offset-2 focus:outline-silver"
+        >
+          Edit
+        </button>
         <span className="w-12 text-right text-xs tabular-nums text-muted" data-testid="player-position">
           {formatClock(state.position)}
         </span>
@@ -94,6 +112,8 @@ export function PlayerBar() {
           {formatClock(duration)}
         </span>
       </div>
+
+      {editing && <TrackEditDialog track={track} onClose={() => setEditing(false)} />}
     </div>
   );
 }

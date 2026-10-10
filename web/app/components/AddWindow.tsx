@@ -11,6 +11,7 @@ import { addTracks, type AddLineResult } from "../lib/api";
 import { summarizeAddResults } from "../lib/ui";
 import { useOverlays } from "./Overlays";
 import { CloseIcon } from "./icons";
+import { SearchBox } from "./SearchBox";
 
 function errorText(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
@@ -144,6 +145,7 @@ export function AddWindow({ onClose }: { onClose: () => void }) {
         >
           {submitting ? "Adding..." : "Add"}
         </button>
+        <SearchBox />
       </div>
     </div>
   );
