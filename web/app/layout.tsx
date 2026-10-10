@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SerwistProvider } from "@serwist/next/react";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,7 +24,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {/* Registers /sw.js in the browser (SPEC 8.9); the build step writes
+            it only in production, so development disables the provider. */}
+        <SerwistProvider swUrl="/sw.js" disable={process.env.NODE_ENV === "development"}>
+          {children}
+        </SerwistProvider>
+      </body>
     </html>
   );
 }
