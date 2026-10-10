@@ -74,7 +74,7 @@ export function TrackRow({ track, onPlay, onRetry, retrying, current }: TrackRow
 
   if (!playable) {
     return (
-      <div className="flex items-center gap-3 px-3 py-2.5" data-testid="track-row">
+      <div className="flex items-center gap-3 px-3 py-2.5" data-testid="track-row" data-track-id={track.id}>
         {content}
       </div>
     );
@@ -84,6 +84,7 @@ export function TrackRow({ track, onPlay, onRetry, retrying, current }: TrackRow
       type="button"
       onClick={() => onPlay(track)}
       data-testid="track-row"
+      data-track-id={track.id}
       className={
         "flex w-full items-center gap-3 px-3 py-2.5 text-left hover:bg-surface-2 " +
         "focus:outline-2 focus:outline-offset-[-2px] focus:outline-silver"

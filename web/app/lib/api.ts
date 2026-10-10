@@ -38,10 +38,28 @@ export interface LibraryResponse {
 
 export type AddOutcome = "added" | "already" | "error";
 
+/** POST /api/tracks line result — T1c's contract from web/app/api/tracks/route.ts. */
 export interface AddLineResult {
-  url: string;
-  outcome: AddOutcome;
-  message?: string;
+  /** Position of the line in the textarea, preserving paste order. */
+  index: number;
+  line: string;
+  status: AddOutcome;
+  /** "Added", "Already in your library", or the per-line error text. */
+  message: string;
+  /** The created track, present only for added lines. */
+  track?: AddLineTrack;
+}
+
+export interface AddLineTrack {
+  id: string;
+  source: string;
+  sourceId: string;
+  sourceUrl: string;
+  title: string;
+  artist: string;
+  coverUrl: string | null;
+  durationSec: number | null;
+  status: string;
 }
 
 export interface AddTracksResponse {
@@ -71,7 +89,13 @@ async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> {
     headers: { "Content-Type": "application/json", ...init?.headers },
   });
   if (!response.ok) {
-    throw new ApiError(response.status, `${init?.method ?? "GET"} ${url} failed (${response.status})`);
+    // Error bodies carry { error } on the routes that validate input.
+    const body = (await response.json().catch(() => null)) as { error?: unknown } | null;
+    const detail = typeof body?.error === "string" && body.error.length > 0 ? body.error : "";
+    throw new ApiError(
+      response.status,
+      detail || `${init?.method ?? "GET"} ${url} failed (${response.status})`,
+    );
   }
   return (await response.json()) as T;
 }

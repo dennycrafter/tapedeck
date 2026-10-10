@@ -14,10 +14,10 @@ const MINUTE_MS = 60_000;
 describe("summarizeAddResults", () => {
   it("counts each outcome into the SPEC 8.2 toast copy", () => {
     const results = [
-      { url: "a", outcome: "added" as const },
-      { url: "b", outcome: "added" as const },
-      { url: "c", outcome: "added" as const },
-      { url: "d", outcome: "already" as const },
+      { index: 0, line: "a", status: "added" as const, message: "Added" },
+      { index: 1, line: "b", status: "added" as const, message: "Added" },
+      { index: 2, line: "c", status: "added" as const, message: "Added" },
+      { index: 3, line: "d", status: "already" as const, message: "Already in your library" },
     ];
     expect(summarizeAddResults(results)).toBe("3 added, 1 already in library");
   });
@@ -25,8 +25,8 @@ describe("summarizeAddResults", () => {
   it("mentions failures", () => {
     expect(
       summarizeAddResults([
-        { url: "a", outcome: "error", message: "Not a YouTube or SoundCloud song link" },
-        { url: "b", outcome: "added" },
+        { index: 0, line: "a", status: "error", message: "Not a YouTube or SoundCloud song link" },
+        { index: 1, line: "b", status: "added", message: "Added" },
       ]),
     ).toBe("1 added, 1 failed");
   });

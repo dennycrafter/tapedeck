@@ -21,9 +21,9 @@ export const STATUS_META: Record<TrackStatus, StatusMeta> = {
 
 /** Summary toast copy: "3 added, 1 already in library" (SPEC 8.2). */
 export function summarizeAddResults(results: readonly AddLineResult[]): string | null {
-  const added = results.filter((r) => r.outcome === "added").length;
-  const already = results.filter((r) => r.outcome === "already").length;
-  const failed = results.filter((r) => r.outcome === "error").length;
+  const added = results.filter((r) => r.status === "added").length;
+  const already = results.filter((r) => r.status === "already").length;
+  const failed = results.filter((r) => r.status === "error").length;
   const parts: string[] = [];
   if (added > 0) parts.push(`${added} added`);
   if (already > 0) parts.push(`${already} already in library`);

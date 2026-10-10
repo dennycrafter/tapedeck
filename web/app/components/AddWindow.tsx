@@ -16,15 +16,14 @@ function errorText(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
 }
 
+/** Per-line copy comes from the route verbatim (SPEC 8.2: "Added", ...). */
 function resultLabel(result: AddLineResult): string {
-  if (result.outcome === "added") return "Added";
-  if (result.outcome === "already") return "Already in your library";
-  return result.message ?? "Could not add this link";
+  return result.message || "Could not add this link";
 }
 
 function resultClass(result: AddLineResult): string {
-  if (result.outcome === "added") return "text-ok";
-  if (result.outcome === "already") return "text-muted";
+  if (result.status === "added") return "text-ok";
+  if (result.status === "already") return "text-muted";
   return "text-bad";
 }
 
@@ -60,7 +59,7 @@ export function AddWindow({ onClose }: { onClose: () => void }) {
       const response = await addTracks(urls);
       setResults(response.results);
       const summary = summarizeAddResults(response.results);
-      const everyLineFailed = response.results.every((r) => r.outcome === "error");
+      const everyLineFailed = response.results.every((r) => r.status === "error");
       if (!everyLineFailed && summary) {
         // Success: toast + close (SPEC 8.2). The list refetches via the bump.
         showToast(summary);
@@ -125,10 +124,10 @@ export function AddWindow({ onClose }: { onClose: () => void }) {
         )}
         {results && (
           <ul className="mt-2 flex flex-col gap-1" data-testid="add-results">
-            {results.map((result, index) => (
-              <li key={`${result.url}-${index}`} className="flex flex-col">
+            {results.map((result) => (
+              <li key={`${result.index}-${result.line}`} className="flex flex-col">
                 <span className={`text-sm ${resultClass(result)}`}>{resultLabel(result)}</span>
-                <span className="truncate text-xs text-muted">{result.url}</span>
+                <span className="truncate text-xs text-muted">{result.line}</span>
               </li>
             ))}
           </ul>
@@ -145,7 +144,6 @@ export function AddWindow({ onClose }: { onClose: () => void }) {
         >
           {submitting ? "Adding..." : "Add"}
         </button>
-        <p className="mt-2 text-xs text-muted">Paste YouTube or SoundCloud links, one per line.</p>
       </div>
     </div>
   );
