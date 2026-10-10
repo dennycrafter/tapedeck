@@ -33,12 +33,14 @@ async function insertTrack(overrides: {
 }
 
 describe("GET /api/library", () => {
+  const request = (): Request => new Request("http://localhost/api/library");
+
   it("lists every track newest first with the fields the rows render", async () => {
     await insertTrack({ sourceId: "aaaaaaaaaaa", title: "Older song", hoursAgo: 2 });
     await insertTrack({ sourceId: "bbbbbbbbbbb", title: "Newest song", status: "ready" });
     await insertTrack({ sourceId: "ccccccccccc", title: "Middle song", status: "failed" });
 
-    const response = await GET();
+    const response = await GET(request());
     expect(response.status).toBe(200);
     const body = (await response.json()) as {
       tracks: {
@@ -74,14 +76,14 @@ describe("GET /api/library", () => {
     await insertTrack({ sourceId: "bbbbbbbbbbb" });
     await insertTrack({ sourceId: "ccccccccccc", status: "downloading" });
 
-    const before = await GET();
+    const before = await GET(request());
     expect(before.status).toBe(200);
     const empty = (await before.json()) as { downloader: { lastSeenAt: string | null; waitingCount: number } };
     expect(empty.downloader.lastSeenAt).toBeNull();
     expect(empty.downloader.waitingCount).toBe(2);
 
     await sql`update settings set agent_last_seen = now() where id = 1`;
-    const after = await GET();
+    const after = await GET(request());
     const seen = (await after.json()) as { downloader: { lastSeenAt: string | null; waitingCount: number } };
     expect(seen.downloader.waitingCount).toBe(2);
     expect(seen.downloader.lastSeenAt).not.toBeNull();

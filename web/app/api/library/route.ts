@@ -28,7 +28,12 @@ function toIso(value: Row['created_at'] | Row['agent_last_seen']): string | null
   return value instanceof Date ? value.toISOString() : String(value)
 }
 
-export async function GET(): Promise<Response> {
+export async function GET(request: Request): Promise<Response> {
+  // Per-request like every stateful GET in this app (see /api/health):
+  // reading the request keeps Cache Components from freezing this handler at
+  // build time — the snapshot (last seen, waiting count) is only valid right
+  // now. Unknown query params (the page's poll cache-buster) are ignored.
+  new URL(request.url)
   try {
     const trackRows = (await sql`
       select id, source, source_url, title, artist, album, cover_url,
@@ -42,25 +47,28 @@ export async function GET(): Promise<Response> {
     const waitingRows = (await sql`
       select count(*) as count from tracks where status = 'waiting'
     `) as { count: string | number }[]
-    return Response.json({
-      tracks: trackRows.map((row) => ({
-        id: row.id,
-        source: row.source === 'soundcloud' ? 'soundcloud' : 'youtube',
-        sourceUrl: row.source_url,
-        title: row.title,
-        artist: row.artist,
-        album: row.album,
-        coverUrl: row.cover_url,
-        durationSec: row.duration_sec,
-        status: row.status,
-        error: row.error,
-        createdAt: toIso(row.created_at),
-      })),
-      downloader: {
-        lastSeenAt: toIso(settingsRows[0]?.agent_last_seen),
-        waitingCount: Number(waitingRows[0]?.count ?? 0),
+    return Response.json(
+      {
+        tracks: trackRows.map((row) => ({
+          id: row.id,
+          source: row.source === 'soundcloud' ? 'soundcloud' : 'youtube',
+          sourceUrl: row.source_url,
+          title: row.title,
+          artist: row.artist,
+          album: row.album,
+          coverUrl: row.cover_url,
+          durationSec: row.duration_sec,
+          status: row.status,
+          error: row.error,
+          createdAt: toIso(row.created_at),
+        })),
+        downloader: {
+          lastSeenAt: toIso(settingsRows[0]?.agent_last_seen),
+          waitingCount: Number(waitingRows[0]?.count ?? 0),
+        },
       },
-    })
+      { headers: { 'Cache-Control': 'no-store' } },
+    )
   } catch (error) {
     console.error('[library] failed:', error)
     return jsonError(500, 'Library unavailable')
