@@ -116,6 +116,13 @@ class FakeAgentServer:
             return 200, {}
         if path == "/api/agent/fail":
             return 200, {}
+        if path == "/api/agent/settings":
+            # GET /api/agent/settings: the Apple Music export toggle is
+            # off unless a test overrides it (SPEC 8.3, 8.11).
+            return 200, {"apple_music_export": False}
+        if path == "/api/agent/apple-music-done":
+            # POST /api/agent/apple-music-done: recorded, 200 {ok: true}.
+            return 200, {"ok": True}
         return 404, {"error": f"no route for {method} {path}"}
 
     @property
