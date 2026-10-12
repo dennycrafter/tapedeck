@@ -23,7 +23,10 @@ export const viewport: Viewport = {
   themeColor: "#0b0b0d",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+// Explicit prop type instead of Next's generated global `LayoutProps<"/">`:
+// that global only exists after `next typegen`/`next build` writes
+// .next/types, so a fresh clone (and plain `tsc --noEmit`) could not see it.
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="h-full antialiased">
       <body className="flex min-h-full flex-col bg-bg font-sans text-fg">
