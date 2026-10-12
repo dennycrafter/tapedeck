@@ -7,9 +7,29 @@
  * source is already known, the `ended` handler sets `src` and calls `play()`
  * synchronously, with no awaits in between. The next URL is prefetched as
  * soon as the current track starts.
+ *
+ * Which song plays next (queue, play next, shuffle, repeat, previous) is pure
+ * logic in ./queue.ts. Plays are counted here (SPEC 8.6): once per track
+ * start, when 30 seconds have been listened or the track ends.
  */
+import {
+  addToQueue as queueAdd,
+  emptyQueue,
+  move as queueMove,
+  nextIndex,
+  nextRepeat,
+  playNext as queuePlayNext,
+  previousAction,
+  removeAt as queueRemoveAt,
+  removeTrack as queueRemoveTrack,
+  setShuffle as queueSetShuffle,
+  startQueue,
+  type QueueState,
+  type RepeatMode,
+} from "./queue";
 
 export type TrackStatus = "waiting" | "downloading" | "ready" | "failed";
+export type { RepeatMode } from "./queue";
 
 export interface PlayerTrack {
   readonly id: string;
@@ -22,7 +42,7 @@ export interface PlayerTrack {
 }
 
 export interface PlayerState {
-  /** The list playback was started from (SPEC 8.8 queue basics). */
+  /** Play order (shuffled order when shuffle is on). */
   readonly queue: readonly PlayerTrack[];
   /** Position in the queue; -1 when nothing is loaded. */
   readonly index: number;
@@ -32,6 +52,10 @@ export interface PlayerState {
   readonly duration: number;
   /** Last playback failure, surfaced in the player bar; null when healthy. */
   readonly error: string | null;
+  readonly shuffle: boolean;
+  readonly repeat: RepeatMode;
+  /** 0 to 1. Desktop only; iPhone ignores audio.volume (SPEC 12). */
+  readonly volume: number;
 }
 
 export interface PersistedPlayer {
@@ -39,10 +63,18 @@ export interface PersistedPlayer {
   readonly index: number;
   readonly position: number;
   readonly savedAt: number;
+  readonly shuffle?: boolean;
+  readonly repeat?: RepeatMode;
+  readonly volume?: number;
+  /** List order before shuffle, so shuffle off still restores it after a reload. */
+  readonly original?: readonly PlayerTrack[] | null;
 }
 
-/** Where the store loads the presigned playback URL from (SPEC 8.8). */
+/** Where the store loads the playback URL from (SPEC 8.8). */
 export type PlaybackUrlFetcher = (trackId: string) => Promise<string>;
+
+/** Records one play (SPEC 8.6: POST /api/plays { trackId, seconds }). */
+export type PlayRecorder = (trackId: string, seconds: number) => void;
 
 export interface PlayerPersistence {
   load(): PersistedPlayer | null;
@@ -52,7 +84,9 @@ export interface PlayerPersistence {
 export interface PlayerDeps {
   fetchPlaybackUrl?: PlaybackUrlFetcher;
   persistence?: PlayerPersistence;
+  recordPlay?: PlayRecorder;
   now?: () => number;
+  random?: () => number;
 }
 
 export interface PlayerStoreApi {
@@ -60,19 +94,34 @@ export interface PlayerStoreApi {
   subscribe(listener: () => void): () => void;
   /** Bind the one <audio> element; pass null to unbind. Idempotent. */
   attachAudio(element: HTMLAudioElement | null): void;
-  /** Set the queue and start the track at `startIndex`; non-ready tracks are skipped. */
+  /** Set the queue to `tracks` and start at `startIndex`; non-ready tracks are skipped. */
   playTracks(tracks: readonly PlayerTrack[], startIndex: number): void;
   toggle(): void;
   seek(seconds: number): void;
   next(): void;
   previous(): void;
+  /** Start the queue entry at `index` (tapping a song in the queue view). */
+  jumpTo(index: number): void;
+  playNext(track: PlayerTrack): void;
+  addToQueue(track: PlayerTrack): void;
+  removeFromQueue(index: number): void;
+  moveInQueue(from: number, to: number): void;
+  toggleShuffle(): void;
+  cycleRepeat(): void;
+  setVolume(volume: number): void;
+  /** A song was deleted: drop it from the queue (stops it if it was playing). */
+  removeTrack(trackId: string): void;
+  /** Fresh library data (edits, status changes): update queued copies in place. */
+  syncTracks(tracks: readonly PlayerTrack[]): void;
 }
 
 const STORAGE_KEY = "tapedeck.player.v1";
 const SAVE_INTERVAL_MS = 5_000;
 const POSITION_STATE_THROTTLE_MS = 1_000;
-/** Previous restarts the song when more than this much has been listened (SPEC 8.8). */
-const RESTART_THRESHOLD_S = 3;
+/** A play counts after this much listening, or when the song ends (SPEC 8.6). */
+export const PLAY_THRESHOLD_S = 30;
+/** timeupdate gaps bigger than this are seeks, not listening. */
+const MAX_LISTEN_STEP_S = 2;
 const SEEK_BACKWARD_S = 10;
 const SEEK_FORWARD_S = 10;
 const MEDIA_SESSION_ACTIONS = [
@@ -102,6 +151,19 @@ async function defaultFetchPlaybackUrl(trackId: string): Promise<string> {
   return body.url;
 }
 
+/** POST /api/plays, fire and forget: a lost play must never interrupt the music. */
+function defaultRecordPlay(trackId: string, seconds: number): void {
+  if (typeof fetch === "undefined") return;
+  fetch("/api/plays", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ trackId, seconds }),
+    keepalive: true,
+  }).catch((error: unknown) => {
+    console.warn(`player: recording a play failed: ${errorText(error)}`);
+  });
+}
+
 /** localStorage persistence, best effort: private mode or a full quota throws. */
 function windowPersistence(): PlayerPersistence {
   return {
@@ -127,10 +189,7 @@ function windowPersistence(): PlayerPersistence {
 const noopPersistence: PlayerPersistence = { load: () => null, save: () => {} };
 
 /** First index after `from` whose track is playable (ready), or null. */
-export function nextPlayableIndex(
-  queue: readonly PlayerTrack[],
-  from: number,
-): number | null {
+export function nextPlayableIndex(queue: readonly PlayerTrack[], from: number): number | null {
   for (let i = from + 1; i < queue.length; i++) {
     if (queue[i]?.status === "ready") return i;
   }
@@ -138,10 +197,7 @@ export function nextPlayableIndex(
 }
 
 /** Last index before `from` whose track is playable, or null. */
-export function previousPlayableIndex(
-  queue: readonly PlayerTrack[],
-  from: number,
-): number | null {
+export function previousPlayableIndex(queue: readonly PlayerTrack[], from: number): number | null {
   for (let i = Math.min(from, queue.length) - 1; i >= 0; i--) {
     if (queue[i]?.status === "ready") return i;
   }
@@ -162,12 +218,32 @@ export function isPositionUpdateDue(lastAt: number, nowMs: number): boolean {
   return nowMs - lastAt >= POSITION_STATE_THROTTLE_MS;
 }
 
+function clampVolume(volume: unknown): number {
+  return typeof volume === "number" && Number.isFinite(volume) ? Math.min(1, Math.max(0, volume)) : 1;
+}
+
+function isRepeat(value: unknown): value is RepeatMode {
+  return value === "off" || value === "all" || value === "one";
+}
+
+function sameTrack(a: PlayerTrack, b: PlayerTrack): boolean {
+  return (
+    a.title === b.title &&
+    a.artist === b.artist &&
+    a.album === b.album &&
+    a.coverUrl === b.coverUrl &&
+    a.status === b.status &&
+    a.durationSec === b.durationSec
+  );
+}
+
 export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
   const fetchPlaybackUrl = deps.fetchPlaybackUrl ?? defaultFetchPlaybackUrl;
   const persistence =
-    deps.persistence ??
-    (typeof window === "undefined" ? noopPersistence : windowPersistence());
+    deps.persistence ?? (typeof window === "undefined" ? noopPersistence : windowPersistence());
+  const recordPlay = deps.recordPlay ?? defaultRecordPlay;
   const now = deps.now ?? (() => Date.now());
+  const random = deps.random ?? Math.random;
 
   let state: PlayerState = {
     queue: [],
@@ -176,7 +252,12 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     position: 0,
     duration: 0,
     error: null,
+    shuffle: false,
+    repeat: "off",
+    volume: 1,
   };
+  /** Pre-shuffle order (QueueState.original), kept beside the public state. */
+  let original: readonly PlayerTrack[] | null = null;
   const listeners = new Set<() => void>();
 
   let audio: HTMLAudioElement | null = null;
@@ -192,9 +273,26 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
   let restored = false;
   let unbindMediaSession: (() => void) | null = null;
 
+  // Play counting for the current track start (SPEC 8.6).
+  let listened = 0;
+  let lastTime = 0;
+  let playRecorded = false;
+  let listeningTrackId: string | null = null;
+
   function set(patch: Partial<PlayerState>): void {
     state = { ...state, ...patch };
     for (const listener of listeners) listener();
+  }
+
+  function queueState(): QueueState<PlayerTrack> {
+    return { tracks: state.queue, index: state.index, shuffle: state.shuffle, repeat: state.repeat, original };
+  }
+
+  /** Apply a queue change (no playback change). */
+  function applyQueue(next: QueueState<PlayerTrack>): void {
+    original = next.original;
+    set({ queue: next.tracks, index: next.index, shuffle: next.shuffle, repeat: next.repeat });
+    persist();
   }
 
   function currentTrack(): PlayerTrack | null {
@@ -202,14 +300,31 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
   }
 
   function persist(): void {
-    if (state.index < 0) return;
     lastSaveAt = now();
     persistence.save({
       queue: state.queue,
       index: state.index,
-      position: audio ? audio.currentTime : state.position,
+      position: audio && audio.src ? audio.currentTime : state.position,
       savedAt: now(),
+      shuffle: state.shuffle,
+      repeat: state.repeat,
+      volume: state.volume,
+      original,
     });
+  }
+
+  function resetListening(trackId: string | null): void {
+    listened = 0;
+    lastTime = 0;
+    playRecorded = false;
+    listeningTrackId = trackId;
+  }
+
+  function maybeRecordPlay(force: boolean): void {
+    if (playRecorded || !listeningTrackId) return;
+    if (!force && listened < PLAY_THRESHOLD_S) return;
+    playRecorded = true;
+    recordPlay(listeningTrackId, Math.round(listened));
   }
 
   function syncPositionState(): void {
@@ -230,8 +345,9 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
 
   function setMetadata(track: PlayerTrack): void {
     if (typeof navigator === "undefined" || !("mediaSession" in navigator)) return;
+    if (typeof MediaMetadata === "undefined") return;
     // Artwork omitted when there is no cover (SPEC 8.8); artwork URLs must be
-    // absolute https for the lock screen (SPEC 12) — the server supplies them.
+    // absolute https for the lock screen (SPEC 12). The server supplies them.
     const metadataInit: MediaMetadataInit = {
       title: track.title,
       artist: track.artist,
@@ -258,8 +374,8 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     );
   }
 
-  function prefetchNext(index: number): void {
-    const nextIdx = nextPlayableIndex(state.queue, index);
+  function prefetchNext(): void {
+    const nextIdx = nextIndex(queueState(), true);
     if (nextIdx === null) return;
     const next = state.queue[nextIdx];
     if (!next || urlCache.has(next.id)) return;
@@ -277,6 +393,8 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
   function startTrack(index: number): void {
     const track = state.queue[index];
     if (!track || !audio) return;
+    maybeRecordPlay(false);
+    resetListening(track.id);
     set({ index, position: 0, duration: track.durationSec ?? 0 });
     const cached = urlCache.get(track.id);
     if (cached) {
@@ -286,14 +404,16 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
       fetchPlaybackUrl(track.id).then(
         (url) => {
           urlCache.set(track.id, url);
-          if (state.index === index && audio) beginPlayback(track, url, 0);
+          if (state.index === index && state.queue[index]?.id === track.id && audio) {
+            beginPlayback(track, url, 0);
+          }
         },
         (error: unknown) => {
           set({ playing: false, error: errorText(error) });
         },
       );
     }
-    prefetchNext(index);
+    prefetchNext();
     persist();
   }
 
@@ -310,11 +430,13 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     }
     // Restored session: the src was never loaded; load at the saved position.
     const position = state.position;
+    resetListening(track.id);
+    lastTime = position;
     fetchPlaybackUrl(track.id).then(
       (url) => {
         urlCache.set(track.id, url);
         beginPlayback(track, url, position);
-        prefetchNext(state.index);
+        prefetchNext();
       },
       (error: unknown) => set({ playing: false, error: errorText(error) }),
     );
@@ -326,7 +448,16 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
 
   function handleTimeUpdate(): void {
     if (!audio) return;
-    set({ position: audio.currentTime });
+    const time = audio.currentTime;
+    if (!audio.paused) {
+      const step = time - lastTime;
+      if (step > 0 && step <= MAX_LISTEN_STEP_S) {
+        listened += step;
+        maybeRecordPlay(false);
+      }
+    }
+    lastTime = time;
+    set({ position: time });
     const t = now();
     if (typeof navigator !== "undefined" && "mediaSession" in navigator) {
       if (isPositionUpdateDue(lastPositionStateAt, t)) {
@@ -339,13 +470,25 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
   }
 
   function handleEnded(): void {
-    // Synchronous when the next URL is prefetched: no awaits before play().
-    const nextIdx = nextPlayableIndex(state.queue, state.index);
+    // The song ended: that is a play even under 30 seconds (SPEC 8.6).
+    maybeRecordPlay(true);
+    const nextIdx = nextIndex(queueState(), true);
     if (nextIdx === null) {
       set({ playing: false });
       persist();
       return;
     }
+    if (nextIdx === state.index && audio) {
+      // Repeat one: same source, replay synchronously (no awaits, SPEC 12).
+      resetListening(state.queue[nextIdx]?.id ?? null);
+      audio.currentTime = 0;
+      audio.play().then(
+        () => set({ playing: true }),
+        (error: unknown) => set({ playing: false, error: errorText(error) }),
+      );
+      return;
+    }
+    // Synchronous when the next URL is prefetched: no awaits before play().
     startTrack(nextIdx);
   }
 
@@ -356,6 +499,7 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     // resumes at the same position.
     if (!refetchedIds.has(track.id)) {
       refetchedIds.add(track.id);
+      urlCache.delete(track.id);
       const position = audio.currentTime;
       fetchPlaybackUrl(track.id).then(
         (url) => {
@@ -388,6 +532,7 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
   }
 
   function onPlayEvent(): void {
+    if (audio) lastTime = audio.currentTime;
     set({ playing: true });
   }
 
@@ -401,6 +546,7 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     set({ duration: Number.isFinite(audio.duration) ? audio.duration : 0 });
     if (pendingSeek != null) {
       audio.currentTime = clampSeek(pendingSeek, audio.duration);
+      lastTime = audio.currentTime;
       pendingSeek = null;
       set({ position: audio.currentTime });
     }
@@ -411,11 +557,25 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     restored = true;
     const saved = persistence.load();
     if (!saved || !Array.isArray(saved.queue)) return;
-    if (saved.index < 0 || saved.index >= saved.queue.length) return;
-    const track = saved.queue[saved.index];
-    if (!track || typeof track.id !== "string") return;
+    const volume = clampVolume(saved.volume);
+    const shuffle = saved.shuffle === true;
+    const repeat = isRepeat(saved.repeat) ? saved.repeat : "off";
+    original = Array.isArray(saved.original) ? saved.original : null;
+    const validIndex = saved.index >= 0 && saved.index < saved.queue.length;
+    const track = validIndex ? saved.queue[saved.index] : undefined;
+    if (!track || typeof track.id !== "string") {
+      set({ volume, shuffle, repeat });
+      return;
+    }
     // Reopen paused at the remembered point (SPEC 8.8); the URL loads on resume.
-    set({ queue: saved.queue, index: saved.index, position: saved.position });
+    set({
+      queue: saved.queue,
+      index: saved.index,
+      position: typeof saved.position === "number" ? saved.position : 0,
+      volume,
+      shuffle,
+      repeat,
+    });
   }
 
   function registerMediaSessionHandlers(): void {
@@ -467,6 +627,11 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
       }
       bind(element);
       restoreFromPersistence();
+      try {
+        element.volume = state.volume;
+      } catch {
+        // Some engines expose a read-only volume; nothing to do.
+      }
       if (state.index >= 0) {
         const track = currentTrack();
         if (track) setMetadata(track);
@@ -476,12 +641,11 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     playTracks(tracks, startIndex) {
       if (!audio) return;
       refetchedIds.clear();
-      set({ queue: [...tracks], index: -1, playing: false });
-      // Guard: tapping must start a playable track even if the caller passed
-      // a non-ready index; waiting/failed entries are skipped (SPEC 8.8).
-      const first = tracks[startIndex]?.status === "ready" ? startIndex : nextPlayableIndex(tracks, startIndex - 1);
-      if (first == null) return;
-      startTrack(first);
+      const next = startQueue(queueState(), tracks, startIndex, random);
+      original = next.original;
+      set({ queue: next.tracks, index: -1, playing: false });
+      if (next.index < 0) return;
+      startTrack(next.index);
     },
     toggle() {
       if (!audio) return;
@@ -498,13 +662,15 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
       }
       const target = clampSeek(seconds, audio.duration);
       audio.currentTime = target;
+      lastTime = target;
       set({ position: target });
       persist();
     },
     next() {
-      const nextIdx = nextPlayableIndex(state.queue, state.index);
+      const nextIdx = nextIndex(queueState(), false);
       if (nextIdx == null) {
-        // End of the queue: stop (repeat modes arrive with the full player, T2).
+        // End of the queue with repeat off: stop.
+        audio?.pause();
         set({ playing: false });
         return;
       }
@@ -512,17 +678,93 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     },
     previous() {
       if (!audio) return;
-      // More than 3 s in restarts the song; otherwise go to the previous one.
-      if (audio.currentTime > RESTART_THRESHOLD_S) {
+      const action = previousAction(queueState(), audio.currentTime);
+      if (action.kind === "restart") {
         store.seek(0);
         return;
       }
-      const prevIdx = previousPlayableIndex(state.queue, state.index);
-      if (prevIdx == null) {
-        store.seek(0);
+      startTrack(action.index);
+    },
+    jumpTo(index) {
+      if (!audio || state.queue[index]?.status !== "ready") return;
+      startTrack(index);
+    },
+    playNext(track) {
+      const wasEmpty = state.index < 0;
+      applyQueue(queuePlayNext(queueState(), track));
+      if (wasEmpty && audio) startTrack(state.index);
+      else prefetchNext();
+    },
+    addToQueue(track) {
+      const wasEmpty = state.index < 0 && state.queue.length === 0;
+      const next = queueAdd(queueState(), track);
+      if (wasEmpty) {
+        applyQueue({ ...next, index: 0 });
+        if (audio) startTrack(0);
         return;
       }
-      startTrack(prevIdx);
+      applyQueue(next);
+      prefetchNext();
+    },
+    removeFromQueue(index) {
+      applyQueue(queueRemoveAt(queueState(), index));
+      prefetchNext();
+    },
+    moveInQueue(from, to) {
+      applyQueue(queueMove(queueState(), from, to));
+      prefetchNext();
+    },
+    toggleShuffle() {
+      applyQueue(queueSetShuffle(queueState(), !state.shuffle, random));
+      prefetchNext();
+    },
+    cycleRepeat() {
+      applyQueue({ ...queueState(), repeat: nextRepeat(state.repeat) });
+      prefetchNext();
+    },
+    setVolume(volume) {
+      const v = clampVolume(volume);
+      if (audio) {
+        try {
+          audio.volume = v;
+        } catch {
+          // Read-only volume (iPhone): the slider is hidden there anyway.
+        }
+      }
+      set({ volume: v });
+      persist();
+    },
+    removeTrack(trackId) {
+      const { state: next, removedCurrent } = queueRemoveTrack(queueState(), trackId);
+      urlCache.delete(trackId);
+      if (removedCurrent && audio) {
+        audio.pause();
+        audio.removeAttribute("src");
+        try {
+          audio.load();
+        } catch {
+          // Resetting the element is best effort.
+        }
+        resetListening(null);
+        set({ playing: false, position: 0, duration: 0 });
+      }
+      applyQueue(next);
+    },
+    syncTracks(tracks) {
+      const byId = new Map(tracks.map((t) => [t.id, t]));
+      let changed = false;
+      const queue = state.queue.map((queued) => {
+        const fresh = byId.get(queued.id);
+        if (!fresh || sameTrack(queued, fresh)) return queued;
+        changed = true;
+        return fresh;
+      });
+      if (!changed) return;
+      const before = currentTrack();
+      set({ queue });
+      const after = currentTrack();
+      if (before && after && !sameTrack(before, after)) setMetadata(after);
+      persist();
     },
   };
 

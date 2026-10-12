@@ -31,6 +31,13 @@ class FakeAudio {
   duration = 0;
   paused = true;
   playbackRate = 1;
+  volume = 1;
+
+  removeAttribute(name: string): void {
+    if (name === "src") this.src = "";
+  }
+
+  load(): void {}
 
   readonly play = vi.fn((): Promise<void> => {
     this.paused = false;
@@ -313,5 +320,130 @@ describe("player store", () => {
 
     expect(store.getState().index).toBe(1);
     expect(audio.src).toBe("/audio/t2.m4a");
+  });
+});
+
+describe("player store, T2 behaviour", () => {
+  function playing(ids: string[], start = 0, overrides: Partial<PlayerDeps> = {}) {
+    const ctx = makeStore(overrides);
+    for (const id of ids) ctx.urlByTrack.set(id, `/audio/${id}.m4a`);
+    ctx.store.attachAudio(asAudio(ctx.audio));
+    ctx.store.playTracks(ids.map((id) => makeTrack({ id })), start);
+    return ctx;
+  }
+
+  /** Simulate steady playback: timeupdate every 0.25 s up to `seconds`. */
+  function listen(audio: FakeAudio, seconds: number): void {
+    const start = audio.currentTime;
+    for (let t = start + 0.25; t <= start + seconds + 1e-9; t += 0.25) {
+      audio.currentTime = t;
+      audio.emit("timeupdate");
+    }
+  }
+
+  it("records one play after 30 seconds of listening, not before, and only once", async () => {
+    const recordPlay = vi.fn();
+    const { audio } = playing(["t1", "t2"], 0, { recordPlay });
+    await flush();
+    listen(audio, 29.5);
+    expect(recordPlay).not.toHaveBeenCalled();
+    listen(audio, 1);
+    expect(recordPlay).toHaveBeenCalledTimes(1);
+    expect(recordPlay).toHaveBeenCalledWith("t1", 30);
+    listen(audio, 40);
+    expect(recordPlay).toHaveBeenCalledTimes(1);
+  });
+
+  it("seeking forward does not count as listening", async () => {
+    const recordPlay = vi.fn();
+    const { audio, store } = playing(["t1"], 0, { recordPlay });
+    await flush();
+    audio.duration = 180;
+    store.seek(120);
+    audio.emit("timeupdate");
+    listen(audio, 5);
+    expect(recordPlay).not.toHaveBeenCalled();
+  });
+
+  it("records a play when the song ends before 30 seconds", async () => {
+    const recordPlay = vi.fn();
+    const { audio } = playing(["t1", "t2"], 0, { recordPlay });
+    await flush();
+    listen(audio, 4);
+    audio.emit("ended");
+    expect(recordPlay).toHaveBeenCalledWith("t1", 4);
+  });
+
+  it("repeat one replays the same song on ended without a new source", async () => {
+    const { audio, store, fetchPlaybackUrl } = playing(["t1", "t2"]);
+    await flush();
+    store.cycleRepeat();
+    store.cycleRepeat();
+    expect(store.getState().repeat).toBe("one");
+    audio.currentTime = 179;
+    audio.emit("ended");
+    expect(store.getState().index).toBe(0);
+    expect(audio.src).toBe("/audio/t1.m4a");
+    expect(audio.currentTime).toBe(0);
+    expect(audio.play).toHaveBeenCalledTimes(2);
+    expect(fetchPlaybackUrl).toHaveBeenCalledTimes(2);
+  });
+
+  it("repeat all wraps from the last song to the first", async () => {
+    const { audio, store } = playing(["t1", "t2"], 1);
+    await flush();
+    store.cycleRepeat();
+    audio.emit("ended");
+    await flush();
+    expect(store.getState().index).toBe(0);
+    expect(audio.src).toBe("/audio/t1.m4a");
+  });
+
+  it("play next queues a song right after the current one", async () => {
+    const { store } = playing(["t1", "t2"]);
+    await flush();
+    store.playNext(makeTrack({ id: "x" }));
+    expect(store.getState().queue.map((t) => t.id)).toEqual(["t1", "x", "t2"]);
+  });
+
+  it("shuffle keeps the current song first", async () => {
+    const { store } = playing(["t1", "t2", "t3", "t4"], 2);
+    await flush();
+    store.toggleShuffle();
+    expect(store.getState().shuffle).toBe(true);
+    expect(store.getState().index).toBe(0);
+    expect(store.getState().queue[0]?.id).toBe("t3");
+  });
+
+  it("remembers shuffle, repeat and volume across a reload", async () => {
+    const { store, persistence } = playing(["t1", "t2", "t3"]);
+    await flush();
+    store.toggleShuffle();
+    store.cycleRepeat();
+    store.setVolume(0.4);
+    const reloaded = createPlayerStore({ fetchPlaybackUrl: () => Promise.resolve("/x"), persistence });
+    reloaded.attachAudio(asAudio(new FakeAudio()));
+    const s = reloaded.getState();
+    expect(s.shuffle).toBe(true);
+    expect(s.repeat).toBe("all");
+    expect(s.volume).toBe(0.4);
+    expect(s.queue.map((t) => t.id).sort()).toEqual(["t1", "t2", "t3"]);
+  });
+
+  it("removing the playing song stops it and drops it from the queue", async () => {
+    const { store, audio } = playing(["t1", "t2"]);
+    await flush();
+    store.removeTrack("t1");
+    expect(store.getState().queue.map((t) => t.id)).toEqual(["t2"]);
+    expect(store.getState().index).toBe(-1);
+    expect(store.getState().playing).toBe(false);
+    expect(audio.pause).toHaveBeenCalled();
+  });
+
+  it("syncTracks refreshes queued copies after an edit", async () => {
+    const { store } = playing(["t1", "t2"]);
+    await flush();
+    store.syncTracks([makeTrack({ id: "t2", title: "Renamed" })]);
+    expect(store.getState().queue[1]?.title).toBe("Renamed");
   });
 });
