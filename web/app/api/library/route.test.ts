@@ -37,7 +37,9 @@ describe("GET /api/library", () => {
 
   it("lists every track newest first with the fields the rows render", async () => {
     await insertTrack({ sourceId: "aaaaaaaaaaa", title: "Older song", hoursAgo: 2 });
-    await insertTrack({ sourceId: "bbbbbbbbbbb", title: "Newest song", status: "ready" });
+    // Distinct created_at values: two inserts in the same instant tie and the
+    // id tiebreak (random UUIDs) made this order flaky on fast machines.
+    await insertTrack({ sourceId: "bbbbbbbbbbb", title: "Newest song", status: "ready", hoursAgo: 1 });
     await insertTrack({ sourceId: "ccccccccccc", title: "Middle song", status: "failed" });
 
     const response = await GET(request());
