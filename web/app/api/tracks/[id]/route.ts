@@ -8,6 +8,7 @@
 
 import { isUuid, jsonError } from '../../agent/requests'
 import { sql, type Row } from '../../../../lib/db'
+import { deleteTrack } from '../../../../lib/library'
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -133,5 +134,23 @@ export async function PATCH(request: Request, ctx: RouteContext): Promise<Respon
   } catch (error) {
     console.error('[tracks/patch] failed:', error)
     return jsonError(500, 'Could not update the track')
+  }
+}
+
+// DELETE /api/tracks/[id] (SPEC 8.6): delete a song. The UI confirms first.
+// Removes the stored audio file, then the row; playlist entries cascade.
+// The phone's offline copy is removed by the client (SPEC 8.9).
+export async function DELETE(_request: Request, ctx: RouteContext): Promise<Response> {
+  const { id } = await ctx.params
+  if (!isUuid(id)) {
+    return jsonError(400, 'Track id must be a UUID')
+  }
+  try {
+    const result = await deleteTrack(id)
+    if (!result.found) return jsonError(404, 'Track not found')
+    return Response.json({ ok: true })
+  } catch (error) {
+    console.error('[tracks/delete] failed:', error)
+    return jsonError(500, 'Could not delete the song')
   }
 }
