@@ -1,6 +1,6 @@
 # Tapedeck Handoff
 
-Updated 12 Oct 2026, 5 pm. Pick up from here.
+Updated 12 Oct 2026, 5:45 pm. Pick up from here.
 
 ## What it is
 My personal Spotify replacement. Paste a YouTube or SoundCloud link (or search YouTube). The title, artist and cover get cleaned up, and the song lands in the library as "Waiting". A Python downloader on my Windows PC grabs the audio with yt-dlp and uploads it to Cloudflare R2. Then it plays on my iPhone (home screen app) and in PC Chrome.
@@ -14,11 +14,14 @@ My personal Spotify replacement. Paste a YouTube or SoundCloud link (or search Y
 - **T1:** the core loop works end to end: paste link, queue, PC downloader, playback. Fully verified.
 - **Most of T3:** AI title cleanup, cover art, edit/restore, YouTube search, SoundCloud links.
 - **Downloader half of T6:** copies finished songs into Apple Music's auto-add folder.
+- **PR #12:** fixed the `LayoutProps` type error, fixed a flaky library test, added the GitHub CI check.
+- **PR #13 (T2 checkpoint, first half of T2):** see below. CI fully green before merge.
 
-## Waiting for me to merge
-- **PR #12** (`fix/layout-props-and-ci`): fixes the `LayoutProps` type error, fixes a flaky library test, and adds a CI check on GitHub. CI is fully green (all 3 Playwright projects, including iPhone). Claude was not allowed to merge it by itself. To merge: open github.com/dennycrafter/tapedeck/pull/12, press "Squash and merge", then "Confirm".
+## Commits
+- Always author commits as `dennycrafter <dennycrafter@gmail.com>` (`git config user.name dennycrafter` and `git config user.email dennycrafter@gmail.com` in the repo). Squash merges on GitHub show as Denis Popov.
 
-## In progress: T2 (branch `t2-library-player`, pushed, NOT merged)
+## In progress: T2 (next work goes on branch `t2-ui`)
+The first half is merged to main (PR #13):
 Built and unit tested (459 of 459 unit tests pass, tsc and lint clean):
 - `web/lib/player/queue.ts`: play next, add to queue, shuffle (current song stays first), repeat off/all/one, previous after 3 s restarts, remove, drag reorder. 31 tests.
 - `web/lib/player/store.ts`: player now uses the queue, remembers shuffle/repeat/volume, counts a play after 30 s or when the song ends, can drop a deleted song, refreshes queued songs after edits.
@@ -33,7 +36,7 @@ Still to do for T2:
 3. UI: a LibraryProvider (load + poll `/api/library`), Home at `/` (greeting, status line, recently played, favourite albums, playlists, recently added as track rows), `/library` tabs (songs with sort, liked, playlists, albums, artists, recently played), playlist page with dnd-kit reorder, album page (favourite heart, play, shuffle), artist page, `/search` page, song "..." menu, desktop sidebar, phone tab bar (Home, Search, Library, Add), full player bar (prev/next, shuffle, repeat, volume on desktop, queue), Now playing sheet and queue view, keyboard shortcuts, profile stats and editable name.
 4. e2e `web/e2e/t2-library.spec.ts` for the 8 T2 checks. Keep T1 and T3 working: `/` must still show `library-empty`, `track-row`, `downloader-status` and `add-open`. Every T2 test must clean up its songs, playlists and favourites, because all three projects share one in-memory database and T1 (iPhone) expects an empty library.
 5. Make seeded songs ready through the agent API (upload-url, PUT a test tone, complete), not `--selftest`, to avoid the claim race noted in the T3 spec.
-6. Log the seed route and agent-API readiness in `docs/DECISIONS.md`, append results to `docs/TEST-REPORT.md`, PR, merge when CI is green.
+6. Log the seed route and agent-API readiness in `docs/DECISIONS.md`, append results to `docs/TEST-REPORT.md`, PR from `t2-ui`, merge when CI is green.
 
 ## Left to build after T2 (in this order)
 1. **T3 leftovers:** Edit details still has no cover field (keep / remove / paste URL); check the rest of the T3 checklist.
