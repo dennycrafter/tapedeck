@@ -4,6 +4,9 @@ This file records every deviation from SPEC.md and every choice the spec left op
 
 Each entry lists the date, the ticket, the decision, and a one line reason for it, newest first. Entries are never edited after the fact; a later decision that replaces an earlier one is added as a new entry that names the entry it replaces.
 
+- 2026-10-14 (T5): Screenshots are saved as JPEG (quality 82) at device scale 2 on the phone. Reason: 34 PNGs would add about 10 MB to the repo for no visible gain.
+- 2026-10-14 (T5): Lighthouse runs inside Playwright (`web/e2e/t5-lighthouse.spec.ts`) with Playwright's Chromium and the session cookie, against the production e2e server. Reason: the pages are behind the password and served with the run's self-signed certificate; running it as a test also puts it in CI.
+- 2026-10-14 (T5): The UI checks run with the service worker on (as real users have it). Reason: with it blocked, the service worker helper itself logs an error on every page.
 - 2026-10-14 (T4 fix): Downloaded songs are handed to the player as blobs labelled `audio/x-m4a` (Apple's type for .m4a), not `audio/mp4`; Save to Files still builds an `audio/mp4` File as SPEC 8.10 says. Reason: a probe on GitHub's WebKit showed `audio/mp4` blobs failing with "not supported" on some machines while `audio/x-m4a` played every time.
 - 2026-10-14 (T4 fix): The service worker no longer uses navigation preload. Reason: offline, a page sometimes opened with the previous page's content; pages are small and the network-first rule is enough.
 - 2026-10-14 (T6): "Add to Apple Music" shows in the song menu until the song is flagged (ready, waiting or downloading songs; not failed ones). Flagging a ready song also resets its attempts to 0 when it goes back to `waiting`. Reason: SPEC 8.11 sends ready songs back to the queue; a reset counter keeps the retry ladder fair for this second pass.

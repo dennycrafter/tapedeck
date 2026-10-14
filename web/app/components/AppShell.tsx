@@ -20,12 +20,12 @@ import { PlaylistCover } from "./PlaylistCover";
 import { NewPlaylistDialog } from "./NewPlaylistDialog";
 import { HomeIcon, PlusIcon, SearchIcon } from "./icons";
 import { FOCUS } from "./ui";
+import { isBarePath } from "../lib/routes";
 
-const BARE_PREFIXES = ["/login", "/setup", "/test-audio", "/~offline"];
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  if (BARE_PREFIXES.some((prefix) => pathname.startsWith(prefix))) {
+  if (isBarePath(pathname)) {
     return (
       <div className="mx-auto w-full max-w-[1760px] px-[clamp(16px,2.6vw,40px)]">
         <div className="flex flex-1 flex-col">{children}</div>
