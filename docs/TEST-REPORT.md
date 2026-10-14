@@ -231,3 +231,17 @@ The downloader side was already built and tested (pytest `agent/tests/test_apple
 | e2e: the profile toggle and "Add to Apple Music" update the database | PASS desktop, android; iphone in CI |
 
 Unit: 5 new route tests (ready song goes back to waiting with attempts 0, waiting and downloading songs only get the flag, 404 and 400, the setting on and off, bad body).
+
+
+## T5: UI polish (14 Oct 2026)
+
+| Check | Result |
+|---|---|
+| At 390px no page scrolls sideways | PASS (every page, every project) |
+| No U+2013 or U+2014 in rendered text | PASS |
+| At most one visible accent element per page | PASS |
+| No console errors on any page | PASS (after fixing the 401s on the login page) |
+| Lighthouse accessibility 90 or more on Home and Library | PASS: Home 100, Library 100 |
+| `docs/UI-REVIEW.md` lists every screen with every rule passing | PASS |
+
+Screenshots: 34 in `docs/screenshots/` (17 screens at desktop and phone width).
