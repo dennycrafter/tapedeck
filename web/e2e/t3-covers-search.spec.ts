@@ -128,6 +128,16 @@ test.describe('T3 adds with cleanup and covers @T3', () => {
     const rawTitle = oembed.title;
     const restoredArtist = restoreOriginalArtist(oembed.author_name);
 
+    // A retry finds the first attempt's song still there: remove it first so
+    // the add below creates a fresh row.
+    const existing = (await (await page.request.get(`${BASE_URL}/api/library`)).json()) as {
+      tracks: { id: string; sourceUrl: string }[];
+    };
+    const videoId = new URL(EDIT_FIXTURE_URL).pathname.slice(1);
+    for (const track of existing.tracks.filter((t) => t.sourceUrl.includes(videoId))) {
+      await page.request.delete(`${BASE_URL}/api/tracks/${track.id}`);
+    }
+
     // Add through the same API the UI posts to (the session cookie rides
     // on the request context), then ready the track over the agent API.
     const addResponse = await page.request.post(`${BASE_URL}/api/tracks`, {
@@ -196,13 +206,14 @@ test.describe('T3 adds with cleanup and covers @T3', () => {
 
     // The song goes through the same pipeline (SPEC 8.9): oEmbed metadata,
     // cleanup, cover art — the row shows the cleaned title and artist.
+    const before = await page.getByTestId('track-row').first().getAttribute('data-track-id').catch(() => null);
     await pasteAndSubmit(page, SOUNDCLOUD_SONG_URL);
     await expect(page.getByTestId('toast')).toHaveText('1 added');
-    // The toast means this test's add just landed — capture its row id
-    // immediately, then scope every assertion to that row (a second
-    // "Blinding Lights" row exists once the five-video test has run).
+    // The list refreshes a moment after the toast: wait for the new top row,
+    // then scope every assertion to it (a second "Blinding Lights" row exists
+    // once the five-video test has run).
     const row = page.getByTestId('track-row').first();
-    await expect(row).toBeVisible();
+    await expect.poll(() => row.getAttribute('data-track-id'), { timeout: 15_000 }).not.toBe(before);
     const trackId = await row.getAttribute('data-track-id');
     if (!trackId) throw new Error('the new row did not expose its track id');
     const songRow = page.locator(`[data-track-id="${trackId}"]`);

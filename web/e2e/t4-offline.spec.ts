@@ -96,7 +96,23 @@ async function audioTime(page: Page): Promise<number> {
 
 async function expectPlaying(page: Page): Promise<void> {
   const start = await audioTime(page);
-  await expect.poll(() => audioTime(page), { timeout: 20_000 }).toBeGreaterThan(start + 0.2);
+  try {
+    await expect.poll(() => audioTime(page), { timeout: 20_000 }).toBeGreaterThan(start + 0.2);
+  } catch (error) {
+    // Say why: the element's state and the player's own error line.
+    const state = await page.evaluate(() => {
+      const audio = document.querySelector('audio') as HTMLAudioElement;
+      return {
+        src: audio.currentSrc.slice(0, 40),
+        paused: audio.paused,
+        readyState: audio.readyState,
+        networkState: audio.networkState,
+        error: audio.error ? `${audio.error.code} ${audio.error.message}` : null,
+        playerError: document.querySelector('[data-testid="player-error"]')?.textContent ?? null,
+      };
+    });
+    throw new Error(`audio did not play: ${JSON.stringify(state)}\n${String(error)}`);
+  }
 }
 
 test.describe('T4 offline @T4', () => {

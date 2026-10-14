@@ -171,7 +171,11 @@ test.describe('T2 library and player @T2', () => {
     await tiles.filter({ hasText: album }).click();
     await expect(page.getByTestId('album-name')).toHaveText(album);
     await expect(page.getByTestId('album-tracks').getByTestId('track-row')).toHaveCount(2);
+    const saved = page.waitForResponse(
+      (response) => response.url().includes('/api/albums/favorite') && response.request().method() === 'PUT',
+    );
     await page.getByTestId('album-favorite').click();
+    expect((await saved).status()).toBe(200);
     await expect(page.getByTestId('album-favorite')).toHaveAttribute('aria-pressed', 'true');
 
     await page.goto('/library?tab=albums');
