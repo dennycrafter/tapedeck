@@ -60,7 +60,7 @@ export function TrackEditDialog({ track, onClose }: TrackEditDialogProps) {
   return (
     <div
       className={
-        "fixed inset-0 z-40 flex items-end justify-center bg-black/60 px-4 " +
+        "fixed inset-0 z-50 flex items-end justify-center bg-black/60 px-4 " +
         "pb-[calc(5rem+env(safe-area-inset-bottom))] sm:items-center sm:pb-0"
       }
       onMouseDown={(event) => {

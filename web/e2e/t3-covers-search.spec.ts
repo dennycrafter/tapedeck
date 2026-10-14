@@ -143,12 +143,14 @@ test.describe('T3 adds with cleanup and covers @T3', () => {
     const shownTitle = await row.getByTestId('track-title').textContent();
     expect(shownTitle, 'cleanup stripped the junk from the raw title').not.toBe(rawTitle);
 
-    // Play the song to load the player bar, then open Edit details.
-    // The bar renders desktop and mobile layouts; both Edit buttons are in
-    // the DOM (one CSS-hidden on this viewport) and do the same thing.
-    await row.click();
-    const editButton = page.getByTestId('player-edit').first();
-    await expect(editButton).toBeVisible();
+    // Open Edit details from the song's "..." menu (SPEC 10), which sits
+    // beside the row button.
+    const editButton = {
+      click: async () => {
+        await page.locator(`[data-item-id="${trackId}"]`).getByTestId('song-menu-button').click();
+        await page.getByTestId('menu-edit').click();
+      },
+    };
     await editButton.click();
     await expect(page.getByTestId('edit-dialog')).toBeVisible();
 

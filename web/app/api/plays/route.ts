@@ -8,7 +8,11 @@ import { recordPlay } from '../../../lib/library'
 export async function POST(request: Request): Promise<Response> {
   const body = await readJsonObject(request)
   if (!body || !isUuid(body.trackId)) return jsonError(400, 'Expected { trackId, seconds }')
-  const seconds = Number(body.seconds)
+  // Only a real number or a numeric string: Number(null), Number('') and
+  // Number(false) are all 0 and would slip through as a 0-second play.
+  const raw = body.seconds
+  const seconds =
+    typeof raw === 'number' ? raw : typeof raw === 'string' && raw.trim() !== '' ? Number(raw) : Number.NaN
   if (!Number.isFinite(seconds) || seconds < 0) return jsonError(400, 'seconds must be 0 or more')
   let playedAt: Date | undefined
   if (body.playedAt !== undefined) {

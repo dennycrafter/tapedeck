@@ -151,3 +151,29 @@ No new failed or skipped checks in this round. The BLOCKERS.md entry "The setup 
 - **DEFERRED (not a T1 check) — cover-art lookup** (SPEC 8.5): owned by T3; the downloader tags title/artist, and cover art arrives with T3's art fetcher. Logged here so the absence is not silent.
 - **NOTE — one mis-targeted check in my own verification script** (not a product failure): a raw test-tone upload that intentionally bypasses the downloader's tagging step of course has no tags; the tag check is only meaningful for downloader-completed tracks, where it passes (item 6).
 - **NOTE — no failed checks this round.** The BLOCKERS.md addition below is the standing owner-only @live item, not a new failure; the resolved T0 setup-page entry stays as is.
+
+
+## T2: Library, playlists, albums, full player (14 Oct 2026)
+
+Run in Claude's cloud workspace. Unit tests run here; e2e runs `desktop` and `android` here, and all three projects (including `iphone`, WebKit) on GitHub's CI for the PR.
+
+**Unit (Vitest):** 609 of 609 pass (42 files). New this ticket: `lib/library.test.ts` (50), `app/lib/library-view.test.ts` (24), `app/lib/api.test.ts` (24), and route tests for like, delete, playlists, playlist tracks, album favourite, plays, profile and the test seed route (52). Queue logic (`lib/player/queue.test.ts`, 31) covers play next, add to queue, shuffle keeps the current song first, repeat off/all/one and previous after 3 seconds restarts. tsc and eslint clean.
+
+**Bug found by the new tests and fixed:** `POST /api/plays` accepted `seconds: null`, `""`, `false` or `[]` as a 0-second play (`Number(null)` is 0). It now answers 400.
+
+**e2e @T2 checks (`web/e2e/t2-library.spec.ts`):**
+
+| # | Check | desktop | android | iphone |
+|---|---|---|---|---|
+| 1 | Playlist: create, add 3 songs, drag to reorder, reload, order persists | PASS | PASS | CI |
+| 2 | Like a song: it is first in Liked songs | PASS | PASS | CI |
+| 3 | Same album + album artist show as one album; favouriting moves it first | PASS | PASS | CI |
+| 4 | Unit: queue logic | PASS (Vitest) | | |
+| 5 | End of a track starts the next and updates Media Session; nexttrack and previoustrack work | skipped (no AAC) | skipped (no AAC) | CI |
+| 6 | Reload mid-song: same song, same position within 5 s, paused | skipped (no AAC) | skipped (no AAC) | CI |
+| 7 | 30 seconds listened creates one play; profile stats equal the database | skipped (no AAC) | skipped (no AAC) | CI |
+| 8 | Delete a song: row gone, stored file gone | PASS | PASS | CI |
+
+Earlier tickets on `desktop` and `android` here: T0, T1 and T3 all pass or skip as before (T1 and T3 UI checks are iphone only). The iphone column is filled from the PR's CI run.
+
+**Screens checked by eye** with made-up songs at desktop (1440x900) and phone (Pixel 7) width: Home, Library tabs, album, playlist with the song menu open, queue, Now playing, search and profile.

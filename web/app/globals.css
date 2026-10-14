@@ -33,10 +33,10 @@
   /* Corners: boxes and cover art 8px (--r), buttons and inputs 6px (SPEC 10). */
   --radius-box: var(--r);
   --radius-btn: 6px;
-  /* System font for all text (SPEC 10); the display font lands with the
-     first big-number screen (profile stats, T2). */
+  /* System font for all text (SPEC 10); Saira only for big numbers. */
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
     "Helvetica Neue", Arial, sans-serif;
+  --font-display: Saira, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 body {

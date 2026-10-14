@@ -1,14 +1,14 @@
 "use client";
 
 /**
- * Profile page, T1 scope (SPEC 8.6): downloader status, and the
- * "Downloader setup" panel showing APP_URL and AGENT_TOKEN, each with a
- * Copy button. The full profile (display name, stats strip, top artists)
- * arrives in T2 — the column is laid out for it.
+ * Profile page (SPEC 8.6): name, stats strip and top artists (see
+ * ProfileOverview), then downloader status and the "Downloader setup" panel
+ * showing APP_URL and AGENT_TOKEN, each with a Copy button.
  */
 import { useEffect, useState } from "react";
 import { DownloaderStatus } from "../components/DownloaderStatus";
 import { fetchDownloaderSetup, type DownloaderSetupResponse } from "../lib/api";
+import { ProfileOverview } from "./ProfileOverview";
 
 function errorText(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
@@ -72,8 +72,9 @@ export default function ProfilePage() {
   }
 
   return (
-    <main className="mx-auto flex w-full max-w-2xl flex-col gap-4 pb-40 pt-6 lg:pb-28">
-      <h1 className="text-2xl font-bold">Profile</h1>
+    <main className="flex w-full max-w-4xl flex-col gap-4 pt-2">
+      <ProfileOverview />
+      <h2 className="mt-6 text-lg font-bold">Downloader</h2>
 
       {loading && (
         <p className="text-sm text-muted" data-testid="profile-loading">
@@ -91,7 +92,7 @@ export default function ProfilePage() {
         <>
           {data.lastSeenAt !== undefined && (
             <section aria-label="Downloader status" className="rounded-box border border-line bg-surface p-4">
-              <h2 className="text-base font-semibold">Downloader</h2>
+              <h3 className="text-base font-semibold">Status</h3>
               <div className="mt-2">
                 <DownloaderStatus
                   snapshot={{ lastSeenAt: data.lastSeenAt, waitingCount: data.waitingCount }}
@@ -105,9 +106,9 @@ export default function ProfilePage() {
             className="rounded-box border border-line bg-surface p-4"
             data-testid="downloader-setup"
           >
-            <h2 id="downloader-setup-heading" className="text-base font-semibold">
+            <h3 id="downloader-setup-heading" className="text-base font-semibold">
               Downloader setup
-            </h2>
+            </h3>
             <p className="mt-1 text-sm text-muted">
               Copy these two values into the downloader .env on your PC, then start the downloader.
             </p>

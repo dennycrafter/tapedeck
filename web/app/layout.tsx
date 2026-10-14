@@ -1,9 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { SerwistProvider } from "@serwist/next/react";
 import { PlayerProvider } from "./components/PlayerProvider";
-import { PlayerBar } from "./components/PlayerBar";
 import { OverlaysProvider } from "./components/Overlays";
-import { PhoneTabBar } from "./components/PhoneTabBar";
+import { LibraryProvider } from "./components/LibraryProvider";
+import { AppShell } from "./components/AppShell";
+// Saira, the display font for big numbers only (SPEC 10), self-hosted from
+// npm so the app makes no outside font requests and works offline.
+import "@fontsource/saira/latin-600.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -33,11 +36,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <SerwistProvider swUrl="/sw.js" disable={process.env.NODE_ENV === "development"}>
           <PlayerProvider>
             <OverlaysProvider>
-              <div className="mx-auto w-full max-w-[1760px] px-[clamp(16px,2.6vw,40px)]">
-                <div className="flex flex-1 flex-col">{children}</div>
-              </div>
-              <PlayerBar />
-              <PhoneTabBar />
+              <LibraryProvider>
+                <AppShell>{children}</AppShell>
+              </LibraryProvider>
             </OverlaysProvider>
           </PlayerProvider>
         </SerwistProvider>
