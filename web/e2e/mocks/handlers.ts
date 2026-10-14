@@ -10,7 +10,7 @@ import videosFixture from '../fixtures/youtube-videos-list.json'
 
 /**
  * Recorded-fixture handlers for the external APIs Tapedeck calls (SPEC 4.1,
- * 7.3, 7.5, 7.6, 9.0). Every response body comes from web/e2e/fixtures/ —
+ * 7.3, 7.5, 7.6, 9.0). Every response body comes from web/e2e/fixtures/;
  * nothing here reaches the network. The unknown/empty responses mirror the
  * recorded live behaviour so tests stay deterministic on both paths.
  *
@@ -137,7 +137,7 @@ function videoListResponse(ids: string[]) {
 }
 
 export const handlers = [
-  // YouTube Data API v3: videos.list (SPEC 7.3) — 1 quota unit.
+  // YouTube Data API v3: videos.list (SPEC 7.3), 1 quota unit.
   http.get('https://www.googleapis.com/youtube/v3/videos', ({ request }) => {
     const ids = (new URL(request.url).searchParams.get('id') ?? '')
       .split(',')
@@ -166,19 +166,19 @@ export const handlers = [
     return HttpResponse.json(body)
   }),
 
-  // iTunes Search API cover lookup (SPEC 7.6) — tried first.
+  // iTunes Search API cover lookup (SPEC 7.6), tried first.
   http.get('https://itunes.apple.com/search', ({ request }) => {
     const term = normalizeQueryKey(new URL(request.url).searchParams.get('term') ?? '')
     return HttpResponse.json(itunes.terms[term] ?? itunes.empty)
   }),
 
-  // Deezer cover lookup (SPEC 7.6) — fallback.
+  // Deezer cover lookup (SPEC 7.6), the fallback.
   http.get('https://api.deezer.com/search', ({ request }) => {
     const key = deezerQueryKey(new URL(request.url).searchParams.get('q') ?? '')
     return HttpResponse.json(deezer.queries[key] ?? deezer.empty)
   }),
 
-  // Anthropic title-cleanup (SPEC 7.5, 8.4 step 2) — serves the recorded
+  // Anthropic title-cleanup (SPEC 7.5, 8.4 step 2): serves the recorded
   // reply for the raw title in the request when one exists, else the single
   // default exchange; tests needing a different exchange override with
   // server.use().
@@ -199,7 +199,7 @@ export const handlers = [
     return HttpResponse.json(reply)
   }),
 
-  // SoundCloud oEmbed metadata (SPEC 7.4) — no key, title is "Track by Artist".
+  // SoundCloud oEmbed metadata (SPEC 7.4): no key, title is "Track by Artist".
   http.get('https://soundcloud.com/oembed', ({ request }) => {
     const path = parseSoundcloudPath(new URL(request.url).searchParams.get('url') ?? '')
     const body = path ? soundcloud.tracks[path] : undefined

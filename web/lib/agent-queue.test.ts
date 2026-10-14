@@ -1,8 +1,8 @@
 /**
  * Queue mechanics tests (SPEC 8.3) against the real adapter: TAPEDECK_TEST=1
  * boots an in-memory PGlite (SPEC 4.1), so these exercise actual Postgres
- * semantics — the data-modifying claim CTE, `for update skip locked`, the
- * stale-claim reset and the attempts ladder — not mocks.
+ * semantics (the data-modifying claim CTE, `for update skip locked`, the
+ * stale-claim reset and the attempts ladder), not mocks.
  *
  * HTTP concerns (auth, status codes, JSON shapes) live in
  * app/api/agent/agent-api.test.ts; this file pins the database behavior.
@@ -38,7 +38,7 @@ interface SeedOptions {
   error?: string
   /** Claimed this many seconds ago (downloading rows). */
   claimedSecondsAgo?: number
-  /** Inserted "this many seconds ago" — controls claim order, oldest first. */
+  /** Inserted "this many seconds ago"; controls claim order, oldest first. */
   createdSecondsAgo?: number
   appleMusic?: boolean
 }
@@ -140,7 +140,7 @@ describe('claimTracks (SPEC 8.3)', () => {
     expect(await claimTracks()).toEqual([])
   })
 
-  it('claims only waiting rows — ready, failed and downloading stay untouched', async () => {
+  it('claims only waiting rows; ready, failed and downloading stay untouched', async () => {
     await seedTrack({ status: 'ready', createdSecondsAgo: 100 })
     await seedTrack({ status: 'failed', attempts: 3, createdSecondsAgo: 90 })
     await seedTrack({ status: 'downloading', attempts: 1, claimedSecondsAgo: 10, createdSecondsAgo: 80 })

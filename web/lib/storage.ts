@@ -380,7 +380,7 @@ function localConfigFromEnv(): LocalStorageConfig {
 
 /**
  * Configuration for the local stand-in route, or null when the stand-in is
- * disabled (R2 active, or a production build — SPEC 4.1). The route serves
+ * disabled (R2 active, or a production build; SPEC 4.1). The route serves
  * 404 in the disabled case.
  */
 export function localStorageConfig(): { baseDir: string; secret: string } | null {

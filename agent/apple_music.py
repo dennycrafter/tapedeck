@@ -6,7 +6,7 @@ the finished .m4a into Apple Music's "Automatically Add" folder on the
 PC. Apple Music watches that folder, imports the file and removes it by
 itself; getting the songs onto the iPhone then needs a cable or Wi-Fi
 sync from the Apple Devices app (the owner has no Apple Music
-subscription) — the app does not automate that part (SPEC 8.11).
+subscription). The app does not automate that part (SPEC 8.11).
 
 This module holds the filesystem side of that step and is deliberately
 HTTP-free: the /api/agent settings fetch and the apple-music-done report
@@ -18,7 +18,7 @@ Folder detection chain (SPEC 8.11, first that exists):
 1. the `APPLE_MUSIC_FOLDER` override from agent/.env,
 2. any folder whose name starts with "Automatically Add" within 3 levels
    under `%USERPROFILE%\\Music\\Apple Music`,
-3. the iTunes media folder's "Automatically Add to iTunes" — parsed
+3. the iTunes media folder's "Automatically Add to iTunes", parsed
    best-effort from iTunesPrefs (a moved library) when available, with
    the default `%USERPROFILE%\\Music\\iTunes\\iTunes Media` location as
    the backstop.
@@ -131,7 +131,7 @@ def find_apple_music_folder(
         )
 
     # 2. Any "Automatically Add*" directory within 3 levels under
-    # Music\\Apple Music — the folder itself sits at relative depth
+    # Music\\Apple Music. The folder itself sits at relative depth
     # 1..3, shallowest first for determinism.
     music_root = userprofile / "Music" / "Apple Music"
     if music_root.is_dir():
@@ -186,7 +186,7 @@ def copy_into_folder(
 
     A copy, never a move: Apple Music imports and removes the files from
     that folder by itself (SPEC 8.11). An identical target (the same song
-    processed twice) is overwritten — that is the wanted dedup, since a
+    processed twice) is overwritten; that is the wanted dedup, since a
     re-export of one song should not pile up duplicates.
     """
     target = folder / export_filename(track["artist"], track["title"], track["id"])

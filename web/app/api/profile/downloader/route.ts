@@ -1,10 +1,10 @@
-// GET /api/profile/downloader (SPEC 8.6): the Downloader setup panel's data —
+// GET /api/profile/downloader (SPEC 8.6): the Downloader setup panel's data:
 // APP_URL and AGENT_TOKEN to copy into the downloader's .env, plus the live
 // downloader status. AGENT_TOKEN is the bearer secret the downloader already
 // uses; the proxy's session gate keeps this owner-only (SPEC 8.1).
 //
 // Ownership note (T1d coordination): unowned read side shipped by the UI
-// tracer — T1b owns the agent API, T1c the add pipeline; flagged to the
+// tracer (T1b owns the agent API, T1c the add pipeline); flagged to the
 // coordinator in the task report.
 import { sql, type Row } from '../../../../lib/db'
 import { jsonError } from '../../agent/requests'

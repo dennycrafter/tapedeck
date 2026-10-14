@@ -15,7 +15,7 @@ let started = false
 
 /**
  * Register the mock handlers. No-op and returns false unless TAPEDECK_TEST=1;
- * returns true when interception is (already) active. Idempotent — MSW warns
+ * returns true when interception is (already) active. Idempotent: MSW warns
  * on a second listen, so repeat calls reuse the running server.
  */
 export function startTestMocks(

@@ -1,7 +1,8 @@
+import { createHash } from 'node:crypto'
 // Unit tests for /api/cron/keepalive (SPEC 7.8, T0 step 7; the T0 check:
 // "without bearer = 401, with bearer = 200").
 //
-// The db seam is mocked by exact specifier like the health route tests — the
+// The db seam is mocked by exact specifier like the health route tests; the
 // route's contract here is "one select on settings", not driver behavior
 // (PGlite/Postgres drivers are covered by lib/db's own tests). The real
 // constantTimeEqual from login/session runs: the bearer check is exactly what
@@ -17,7 +18,7 @@ const mocks = vi.hoisted(() => ({
 vi.mock('../../../../lib/db', () => ({ sql: mocks.sqlMock }))
 
 // Shape matches the SPEC's 64-hex CRON_SECRET; the value itself is arbitrary.
-const SECRET = '98b4a0fa034a44303ad1c30a5c52a45ea2096a94b69b7133880830d604a3654c'
+const SECRET = createHash('sha256').update('keepalive-route-test').digest('hex')
 
 function cronRequest(authorization?: string): Request {
   return new Request('https://tapedeck.example.com/api/cron/keepalive', {
@@ -70,7 +71,7 @@ describe('GET /api/cron/keepalive', () => {
     expect(response.status).toBe(200)
     await expect(response.json()).resolves.toEqual({ ok: true })
     expect(mocks.sqlMock).toHaveBeenCalledTimes(1)
-    // The tagged template's text — one query against the settings table.
+    // The tagged template's text: one query against the settings table.
     const [strings] = mocks.sqlMock.mock.calls[0] as unknown as [TemplateStringsArray]
     expect(strings.join('?')).toContain('settings')
   })

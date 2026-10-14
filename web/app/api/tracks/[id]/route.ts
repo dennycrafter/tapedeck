@@ -1,9 +1,9 @@
-// PATCH /api/tracks/[id] — the song menu's "Edit details" (title, artist,
+// PATCH /api/tracks/[id]: the song menu's "Edit details" (title, artist,
 // album, cover: keep / remove / paste image URL). Absent fields stay as they
 // are; null clears album or cover. Originals were kept at insert time
 // (raw_title / raw_artist), so "Restore original" is the sibling route at
 // tracks/[id]/restore. Session-gated like every /api/tracks route (the
-// proxy's cookie check is the guard; no bearer here — this endpoint belongs
+// proxy's cookie check is the guard; no bearer here, as this endpoint belongs
 // to the owner's browser, not the downloader).
 
 import { isUuid, jsonError } from '../../agent/requests'
@@ -89,7 +89,7 @@ export async function PATCH(request: Request, ctx: RouteContext): Promise<Respon
   if (cover.error) return jsonError(400, cover.error)
 
   // The executor has no fragment-join helper, so the SET clause is built as
-  // text with positional params — column names are hardcoded here, values
+  // text with positional params: column names are hardcoded here, values
   // always travel as bound parameters.
   const sets: string[] = []
   const params: string[] = []
@@ -100,7 +100,7 @@ export async function PATCH(request: Request, ctx: RouteContext): Promise<Respon
   if (title !== undefined) setColumn('title', title)
   if (artist !== undefined) setColumn('artist', artist)
   if (album !== undefined) {
-    // A hand-edited album is no longer the looked-up match — drop album_artist.
+    // A hand-edited album is no longer the looked-up match, so drop album_artist.
     setColumn('album', album)
     sets.push('album_artist = null')
   }

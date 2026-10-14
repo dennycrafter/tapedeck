@@ -3,7 +3,7 @@ import { APP_PASSWORD } from './env';
 
 // SPEC 8.1: /login is one password field with an "Unlock" button; a successful
 // POST /api/login sets the `tapedeck_session` cookie. SPEC 9.0: tests log in
-// with the dev password. Only correct-password attempts are made here — the
+// with the dev password. Only correct-password attempts are made here, because the
 // login route 429s after 5 wrong attempts in 10 minutes (SPEC 8.1).
 export async function login(page: Page, password: string = APP_PASSWORD): Promise<void> {
   await page.goto('/login');
@@ -11,7 +11,7 @@ export async function login(page: Page, password: string = APP_PASSWORD): Promis
 
   const input = page.locator('input[type="password"]');
   // React hydration wipes a fill that lands before the controlled input is
-  // wired up — the form then submits an empty password (the WebKit project
+  // wired up, and the form then submits an empty password (the WebKit project
   // hydrates slower than Chromium, which is how the smoke caught this).
   // Wait for React to own the input before filling.
   await page.waitForFunction(() => {

@@ -3,7 +3,7 @@
 // with storage_key, bytes and duration_sec set, ready_at=now(), error
 // cleared. The key is echoed from upload-url's response; durationSec is the
 // real duration from ffprobe (rounded to the int column; omitted or null
-// leaves the stored value — completing must not erase known metadata).
+// leaves the stored value, since completing must not erase known metadata).
 // Auth: bearer AGENT_TOKEN only (the proxy exempts /api/agent/, SPEC 2).
 
 import { agentAuthorized } from '../auth'

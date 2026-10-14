@@ -4,8 +4,8 @@
  * The proxy's session gate exempts /api/agent/ ("uses its own bearer token",
  * SPEC 2) because the PC downloader has no session cookie, so this check is
  * the only guard for every agent route. Exactly `Bearer ${AGENT_TOKEN}`
- * authorizes; anything else — missing header, wrong scheme, wrong token, or
- * no AGENT_TOKEN configured — fails closed. The comparison is constant-time
+ * authorizes; anything else (missing header, wrong scheme, wrong token, or
+ * no AGENT_TOKEN configured) fails closed. The comparison is constant-time
  * (the same `constantTimeEqual` helper the login and keepalive routes use)
  * so request timing cannot probe the token.
  */

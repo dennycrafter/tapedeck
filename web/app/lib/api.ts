@@ -74,7 +74,7 @@ export interface ProfileResponse {
 
 export type AddOutcome = "added" | "already" | "error";
 
-/** POST /api/tracks line result — T1c's contract from web/app/api/tracks/route.ts. */
+/** POST /api/tracks line result: T1c's contract from web/app/api/tracks/route.ts. */
 export interface AddLineResult {
   /** Position of the line in the textarea, preserving paste order. */
   index: number;
@@ -168,7 +168,7 @@ export function searchYouTube(q: string): Promise<SearchResponse> {
 }
 
 /**
- * PATCH /api/tracks/:id — edit details (SPEC 8.4). Omitted fields stay
+ * PATCH /api/tracks/:id: edit details (SPEC 8.4). Omitted fields stay
  * unchanged; empty album/cover clear them. Returns the updated track.
  */
 export function editTrack(
@@ -181,7 +181,7 @@ export function editTrack(
   });
 }
 
-/** POST /api/tracks/:id/restore — restore the raw title/artist (SPEC 8.4). */
+/** POST /api/tracks/:id/restore: restore the raw title/artist (SPEC 8.4). */
 export async function restoreTrack(trackId: string): Promise<TrackDto> {
   return fetchJson<TrackDto>(`/api/tracks/${encodeURIComponent(trackId)}/restore`, { method: "POST" });
 }

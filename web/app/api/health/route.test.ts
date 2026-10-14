@@ -152,8 +152,8 @@ describe('/api/health', () => {
   })
 
   it('probes keyed services with the documented URLs and headers when keys are set', async () => {
-    vi.stubEnv('YOUTUBE_API_KEY', 'AIza-test-key')
-    vi.stubEnv('ANTHROPIC_API_KEY', 'sk-ant-test-key')
+    vi.stubEnv('YOUTUBE_API_KEY', 'test-youtube-key')
+    vi.stubEnv('ANTHROPIC_API_KEY', 'test-anthropic-key')
 
     const body = await getHealthBody()
 
@@ -170,7 +170,7 @@ describe('/api/health', () => {
     )
     expect(anthropicCall?.[1]).toMatchObject({
       headers: expect.objectContaining({
-        'x-api-key': 'sk-ant-test-key',
+        'x-api-key': 'test-anthropic-key',
         'anthropic-version': '2023-06-01',
       }),
     })

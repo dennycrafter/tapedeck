@@ -1,11 +1,11 @@
 /**
  * Download-queue mechanics (SPEC 8.3): the state machine the PC downloader
  * drives through /api/agent/* and the library UI drives through the retry
- * route. Pure database logic, no HTTP — routes stay thin and the mechanics
+ * route. Pure database logic, no HTTP: routes stay thin and the mechanics
  * are unit-testable against the real adapter (in-memory PGlite, SPEC 4.1).
  *
  * Concurrency: the claim is one data-modifying CTE whose inner
- * `for update skip locked` makes two parallel claims disjoint — a claimer
+ * `for update skip locked` makes two parallel claims disjoint: a claimer
  * skips rows another claimer currently holds, so the same track is never
  * handed out twice. The stale-claim reset runs as its own statement BEFORE
  * the claim CTE (not a sibling CTE) because Postgres CTEs share one
@@ -23,7 +23,7 @@ export function trackKey(trackId: string): string {
 
 /**
  * A row as POST /api/agent/claim returns it to the downloader (SPEC 8.3).
- * Keys are the database columns on purpose — SPEC 8.3 names this exact
+ * Keys are the database columns on purpose: SPEC 8.3 names this exact
  * field list (snake_case), and agent/downloader.py's ClaimedTrack maps it.
  */
 export interface ClaimedTrack {

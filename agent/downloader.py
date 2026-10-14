@@ -720,7 +720,7 @@ def tag_track(logger: logging.Logger, track: ClaimedTrack, path: Path) -> Path:
     Returns the tagged path.
 
     The claim row (SPEC 8.3) has no album_artist field, so the album
-    artist falls back to the track artist whenever an album is set —
+    artist falls back to the track artist whenever an album is set,
     the standard single-artist tagging practice.
     """
     from mutagen.mp4 import MP4, MP4Cover
@@ -805,7 +805,7 @@ def fetch_apple_music_export(logger: logging.Logger, cfg: DownloaderConfig) -> b
     `apple_music_export` decides whether every finished song is also
     copied into the Apple Music auto-add folder (8.11), on top of the
     per-song flag. Never raises: when the endpoint is unreachable the
-    export simply stays off for this loop — the copy is optional.
+    export simply stays off for this loop (the copy is optional).
     """
     import requests
 
@@ -867,7 +867,7 @@ def maybe_export_to_apple_music(
 
     Runs when the profile setting is on or the single track carries the
     per-song Apple Music flag. Fails the Apple Music step only: any
-    problem is logged with the SPEC wording and the song stays ready —
+    problem is logged with the SPEC wording and the song stays ready,
     never requeued through /api/agent/fail. Never raises.
     """
     if not (setting_on or track["apple_music"]):
@@ -1058,10 +1058,10 @@ def run_probe(logger: logging.Logger, url: str) -> int:
         for line in output.splitlines()[-10:]:
             logger.info("probe: %s", line)
     if result.returncode == 0:
-        logger.info("probe: SUCCESS — yt-dlp could read the URL (works on a home PC).")
+        logger.info("probe: SUCCESS: yt-dlp could read the URL (works on a home PC).")
     else:
         logger.info(
-            "probe: BLOCKED — exit %s. From a cloud machine this is the expected "
+            "probe: BLOCKED (exit %s). From a cloud machine this is the expected "
             "YouTube bot check (SPEC 9.0); record it in the test report, not a failure.",
             result.returncode,
         )

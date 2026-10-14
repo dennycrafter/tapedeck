@@ -1,7 +1,7 @@
 // POST /api/agent/upload-url (SPEC 8.3): the downloader asks where to PUT the
 // finished .m4a. Body `{ trackId }` → `{ url, key }`, a presigned PUT valid
 // for 15 minutes (storage.ts UPLOAD_URL_TTL_SECONDS) with the object key from
-// SPEC 4: `tracks/<track_id>.m4a`. The track must exist — a stale id (the
+// SPEC 4: `tracks/<track_id>.m4a`. The track must exist: a stale id (the
 // song was deleted while queued) is a 404 the downloader logs and moves past.
 // Auth: bearer AGENT_TOKEN only (the proxy exempts /api/agent/, SPEC 2).
 

@@ -1,4 +1,4 @@
-// GET /api/search?q= — YouTube search for the Add window (SPEC 8.7).
+// GET /api/search?q=: YouTube search for the Add window (SPEC 8.7).
 // Session-gated like every /api route (the proxy's cookie check is the
 // guard). Runs only on an explicit submit (the UI's job, to save quota),
 // requires at least 2 characters, and surfaces the SPEC's no-key and quota

@@ -15,13 +15,13 @@ import {
 import { toSetupDb } from "../../../setup/db-surface";
 
 /**
- * POST /api/setup/finish — the "Finish setup" button (SPEC 8.12). Public by
+ * POST /api/setup/finish: the "Finish setup" button (SPEC 8.12). Public by
  * design (no session exists yet): the password check is the gate. Runs the
  * schema, applies R2 CORS, checks every service, and reports per-service
  * results in plain language.
  *
  * Route handlers run per request and on the default Node.js runtime
- * (node:crypto, the Postgres drivers) — no segment config needed; this
+ * (node:crypto, the Postgres drivers), so no segment config is needed; this
  * project's `cacheComponents` build rejects `runtime`/`dynamic` exports.
  */
 
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
         name: "storage",
         required: true,
         // Lazily: getStorage() throws in a production build without the R2
-        // variables — exactly the state Setup onboards — and runFinish turns
+        // variables (exactly the state Setup onboards), and runFinish turns
         // that into the plain-language ERROR the page shows.
         run: () => storageCheck(getStorage()).run(),
       },

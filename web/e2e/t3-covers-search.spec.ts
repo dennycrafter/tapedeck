@@ -13,7 +13,7 @@ import { restoreOriginalArtist } from '../lib/clean-title';
  * out with clean titles, channel-based artists and matched cover art.
  *
  * The e2e app server runs keyless (helpers/env.ts), so cleanup here is the
- * deterministic rule cleaner and search stays off — the fixture-AI and
+ * deterministic rule cleaner and search stays off; the fixture-AI and
  * keyed-search paths are covered by the vitest suites with MSW. Adds make
  * real no-key calls server-side (oEmbed, iTunes, Deezer), so the network
  * tests carry @net.
@@ -22,21 +22,21 @@ import { restoreOriginalArtist } from '../lib/clean-title';
  * of a downloader --selftest: two selftests in one battery race the claim
  * queue (`for update skip locked` hands the oldest waiting rows to one of
  * them and the other's track sticks in `downloading` until the 15-minute
- * stale reset). The complete route is a single UPDATE by id — it never
+ * stale reset). The complete route is a single UPDATE by id; it never
  * touches the queue, so the T1 tracer keeps its claim lane to itself.
  * Rows are always scoped by data-track-id: the library list is shared
  * between tests, so `.first()`-by-position and hasText filters can match
  * another test's row.
  */
 
-// One stable video per test — shared in-memory database means every test
+// One stable video per test: a shared in-memory database means every test
 // adds a distinct song (a duplicate answers "already in your library").
 const EDIT_FIXTURE_URL = 'https://youtu.be/dQw4w9WgXcQ';
 const SOUNDCLOUD_SONG_URL = 'https://soundcloud.com/theweeknd/blinding-lights';
 const SOUNDCLOUD_SET_URL = 'https://soundcloud.com/theweeknd/sets/house-of-balloons';
 
 // The five recorded music videos (e2e/fixtures/youtube-oembed.json) with
-// their rule-cleaner results — captured by running cleanTitleRules on the
+// their rule-cleaner results, captured by running cleanTitleRules on the
 // recorded raw titles (the AI path is Anthropic-optional and absent here).
 const FIVE_MV_URLS = [
   'https://youtu.be/4NRXx6U8ABQ',
@@ -108,7 +108,7 @@ test.describe('T3 search box @T3', () => {
 test.describe('T3 adds with cleanup and covers @T3', () => {
   test.skip(({ browserName }) => browserName !== 'webkit', 'T3 checks run on the iphone project like the T1 tracer');
   skipWithoutNet();
-  // The tests share one library list — run them in order so one test's
+  // The tests share one library list, so run them in order so one test's
   // fresh row (`.first()` right after its toast) is never another test's.
   test.describe.configure({ mode: 'serial' });
 
@@ -119,7 +119,7 @@ test.describe('T3 adds with cleanup and covers @T3', () => {
     // The raw values the app will keep: live oEmbed for the fixture, the
     // same upstream the add pipeline reads seconds later. The row right
     // after an add shows the CLEANED title, so raw values can only come
-    // from here — restore's contract (8.5) is to bring them back.
+    // from here; restore's contract (8.5) is to bring them back.
     const oembedResponse = await page.request.get(
       `https://www.youtube.com/oembed?url=${encodeURIComponent(EDIT_FIXTURE_URL)}&format=json`,
     );
@@ -150,8 +150,8 @@ test.describe('T3 adds with cleanup and covers @T3', () => {
     const trackId = addBody.results[0]?.track?.id;
     if (!trackId) throw new Error(`the add response carried no track: ${JSON.stringify(addBody)}`);
 
-    // The complete route is a single UPDATE by id (no claim-queue contact
-    // — see the file header); the key is the one storage layout (SPEC 4).
+    // The complete route is a single UPDATE by id (no claim-queue contact;
+    // see the file header); the key is the one storage layout (SPEC 4).
     const completeResponse = await page.request.post(`${BASE_URL}/api/agent/complete`, {
       headers: { Authorization: `Bearer ${TEST_AGENT_TOKEN}` },
       data: { trackId, key: `tracks/${trackId}.m4a`, bytes: 1_000_000 },
@@ -205,7 +205,7 @@ test.describe('T3 adds with cleanup and covers @T3', () => {
     await page.goto('/');
 
     // The song goes through the same pipeline (SPEC 8.9): oEmbed metadata,
-    // cleanup, cover art — the row shows the cleaned title and artist.
+    // cleanup, cover art. The row shows the cleaned title and artist.
     const before = await page.getByTestId('track-row').first().getAttribute('data-track-id').catch(() => null);
     await pasteAndSubmit(page, SOUNDCLOUD_SONG_URL);
     await expect(page.getByTestId('toast')).toHaveText('1 added');

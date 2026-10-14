@@ -1,7 +1,7 @@
 /**
  * Unit tests for the raw metadata fetchers (SPEC 7.3, 7.4). Every external
- * call is served by the recorded T0 fixtures through MSW (9.0) — the same
- * handlers the e2e harness defines — plus local overrides for the cases the
+ * call is served by the recorded T0 fixtures through MSW (9.0), the same
+ * handlers the e2e harness defines, plus local overrides for the cases the
  * recorded set does not cover (SoundCloud, redirects).
  */
 

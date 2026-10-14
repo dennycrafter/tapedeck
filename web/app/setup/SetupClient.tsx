@@ -11,7 +11,7 @@ import {
 /**
  * The Setup page body (SPEC 8.12). Shows variable NAMES and status dots
  * (never values), the go-live steps, three freshly generated secrets with
- * Copy buttons, and — once every required variable is set — the password box
+ * Copy buttons, and (once every required variable is set) the password box
  * with the "Finish setup" button.
  */
 

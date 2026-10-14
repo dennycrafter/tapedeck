@@ -4,8 +4,8 @@ import { forbidNonLocalRequests } from './helpers/net';
 
 /*
  * SPEC 9.0 harness smoke (@T0): the e2e harness runs against the app's
- * stand-ins. Three assertions per the T0e-w1 verification contract — login,
- * /api/health, /test-audio loads — on all three projects, with a tripwire
+ * stand-ins. Three assertions per the T0e-w1 verification contract (login,
+ * /api/health, /test-audio loads) on all three projects, with a tripwire
  * proving the browser makes no requests beyond localhost.
  */
 
@@ -19,7 +19,7 @@ test.describe('T0 smoke @T0', () => {
     await login(page); // throws if no tapedeck_session cookie was set (SPEC 8.1)
 
     // SPEC T0 check: the right password reaches Home. Content is not asserted
-    // here — Home's shape evolves with later tickets.
+    // here; Home's shape evolves with later tickets.
     await expect(page).not.toHaveURL(/\/login/);
   });
 

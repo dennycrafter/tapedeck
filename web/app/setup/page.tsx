@@ -7,13 +7,13 @@ import { settingsTableExists } from "./db-surface";
 import { OPTIONAL_VARS, REQUIRED_VARS } from "./setup-config";
 
 /**
- * /setup — first-run setup, before the owner goes live (SPEC 8.12). Only
+ * /setup: first-run setup, before the owner goes live (SPEC 8.12). Only
  * exists in production builds: development and tests use the stand-ins from
  * SPEC 4.1 and this page never shows. Reachable without a password by
  * design; it displays variable NAMES and status only, never values.
  *
  * The content below is uncached request-time work (env reads, database
- * check) inside a Suspense boundary — this project's `cacheComponents`
+ * check) inside a Suspense boundary, because this project's `cacheComponents`
  * build rejects `dynamic = "force-dynamic"` and prerenders anything
  * reachable without one, which would bake build-time variable state into
  * the HTML and lie to the owner.
