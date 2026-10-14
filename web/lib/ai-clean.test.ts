@@ -9,7 +9,7 @@ import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 
 import { server, startTestMocks, stopTestMocks } from '../e2e/mocks/server'
 import aiFixture from '../e2e/fixtures/anthropic-messages.json'
-import { AI_CONFIDENCE_GATE, aiCleanTitle, parseAiReply, stripCodeFences } from './ai-clean'
+import { AI_CONFIDENCE_GATE, SYSTEM_PROMPT, aiCleanTitle, cleanWithFallback, parseAiReply, stripCodeFences } from './ai-clean'
 
 beforeAll(() => {
   process.env.TAPEDECK_TEST = '1'
@@ -181,5 +181,82 @@ describe('aiCleanTitle (SPEC 7.5 request, 8.4 step 2)', () => {
 describe('AI_CONFIDENCE_GATE', () => {
   it('is the SPEC 8.4 threshold', () => {
     expect(AI_CONFIDENCE_GATE).toBe(0.5)
+  })
+})
+
+/** SPEC 8.4 step 2, copied verbatim from SPEC.md ("System prompt (use exactly)"). */
+const SPEC_SYSTEM_PROMPT = `You clean music metadata for a personal music library. You get a raw video or track title, the uploader name and part of the description. Reply with only a JSON object, no other text:
+{"title": string, "artist": string, "is_music": boolean, "confidence": number}
+Rules:
+- title is the song name only. Remove marketing words like Official Video, Official Audio, Lyrics, Visualizer, HD, 4K, MV.
+- Keep real version info in the title in parentheses: (Remix), (X Remix), (Live), (Acoustic), (Sped Up), (Slowed), (Instrumental), (Extended Mix).
+- Featured artists go at the end of the title as (feat. Name, Name).
+- artist is the main artist or artists, joined with " & ". Uploader names ending in " - Topic" or "VEVO" are the artist without that suffix.
+- If the uploader is a label or channel that is not the artist, take the artist from the title.
+- is_music is false for podcasts, interviews, tutorials and anything that is not a song.
+- confidence is 0 to 1: how sure you are that title and artist are correct.`
+
+describe('SYSTEM_PROMPT (SPEC 8.4 "use exactly")', () => {
+  it('equals the SPEC 8.4 text exactly', () => {
+    expect(SYSTEM_PROMPT).toBe(SPEC_SYSTEM_PROMPT)
+  })
+
+  it('is the system field the request sends', async () => {
+    let system: unknown
+    server.use(
+      http.post('https://api.anthropic.com/v1/messages', async ({ request }) => {
+        system = ((await request.json()) as { system?: unknown }).system
+        return HttpResponse.json(anthropicBody(replyFor('Clean', 'Artist', true, 0.9)))
+      }),
+    )
+    await aiCleanTitle({ rawTitle: 'Raw', rawArtist: 'A', description: '' }, KEY)
+    expect(system).toBe(SPEC_SYSTEM_PROMPT)
+  })
+})
+
+describe('cleanWithFallback (SPEC 8.4 confidence gate)', () => {
+  const metadata = { rawTitle: 'Daft Punk - Get Lucky (Official Video)', rawArtist: 'DaftPunkVEVO', description: '' }
+
+  it('uses the AI title and artist for a music reply at the gate', async () => {
+    overrideReply(anthropicBody(replyFor('Get Lucky (feat. Pharrell Williams)', 'Daft Punk', true, 0.5)))
+    await expect(cleanWithFallback(metadata, KEY, 'youtube')).resolves.toEqual({
+      title: 'Get Lucky (feat. Pharrell Williams)',
+      artist: 'Daft Punk',
+      aiCleaned: true,
+      aiConfidence: 0.5,
+      isMusic: true,
+    })
+  })
+
+  it('uses the AI title and artist for a non-music reply at or above the gate (is_music only skips covers)', async () => {
+    overrideReply(anthropicBody(replyFor('How To Tie A Tie', 'Tie Channel', false, 0.8)))
+    await expect(cleanWithFallback(metadata, KEY, 'youtube')).resolves.toEqual({
+      title: 'How To Tie A Tie',
+      artist: 'Tie Channel',
+      aiCleaned: true,
+      aiConfidence: 0.8,
+      isMusic: false,
+    })
+  })
+
+  it('discards a reply below the gate whole: rule result, cover lookup stays on', async () => {
+    overrideReply(anthropicBody(replyFor('Wrong Title', 'Wrong Artist', false, 0.49)))
+    await expect(cleanWithFallback(metadata, KEY, 'youtube')).resolves.toEqual({
+      title: 'Get Lucky',
+      artist: 'Daft Punk',
+      aiCleaned: false,
+      aiConfidence: null,
+      isMusic: null,
+    })
+  })
+
+  it('keeps the rule result with no key', async () => {
+    await expect(cleanWithFallback(metadata, undefined, 'youtube')).resolves.toEqual({
+      title: 'Get Lucky',
+      artist: 'Daft Punk',
+      aiCleaned: false,
+      aiConfidence: null,
+      isMusic: null,
+    })
   })
 })

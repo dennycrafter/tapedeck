@@ -1,13 +1,13 @@
 /**
  * Rule-cleaner fixtures (SPEC 8.4 step 1). The T1 bar is "the rule cleaner
- * pass with the SPEC examples"; these fixtures already cover the T3 bar of
- * 15+ realistic titles (marketing words, " - Topic", VEVO, feat variants,
- * remixes, "X by Y").
+ * pass with the SPEC examples"; the REALISTIC_FIXTURES table below covers
+ * the T3 bar of 15+ realistic titles (marketing words, " - Topic", VEVO,
+ * feat variants, remixes, "X by Y") with 20+ entries.
  */
 
 import { describe, expect, it } from 'vitest'
 
-import { UNKNOWN_ARTIST, cleanTitleRules } from './clean-title'
+import { UNKNOWN_ARTIST, cleanTitleRules, restoreOriginalArtist } from './clean-title'
 
 function cleanYouTube(title: string, artist = '') {
   return cleanTitleRules(title, artist, 'youtube')
@@ -230,5 +230,131 @@ describe('degenerate inputs', () => {
 
   it('handles the T1 fixture video end to end', () => {
     expect(cleanYouTube('Me at the zoo', 'jawed')).toEqual({ title: 'Me at the zoo', artist: 'jawed' })
+  })
+})
+
+/**
+ * Realistic raw titles (T3: "at least 15 realistic title fixtures"). The
+ * first six are the recorded fixtures (e2e/fixtures/youtube-oembed.json and
+ * anthropic-messages.json) the T3 e2e and route tests add; the rest are
+ * real uploads in the shapes the cleaner meets most: remixes, feat. inside
+ * brackets, " - Topic" and VEVO channels, SoundCloud "X by Y".
+ */
+const REALISTIC_FIXTURES: Array<{
+  raw: string
+  channel: string
+  source?: 'youtube' | 'soundcloud'
+  title: string
+  artist: string
+}> = [
+  // Recorded fixtures.
+  { raw: 'The Weeknd - Blinding Lights (Official Video)', channel: 'TheWeekndVEVO', title: 'Blinding Lights', artist: 'The Weeknd' },
+  { raw: 'Luis Fonsi - Despacito ft. Daddy Yankee', channel: 'LuisFonsiVEVO', title: 'Despacito (feat. Daddy Yankee)', artist: 'Luis Fonsi' },
+  { raw: 'PSY - GANGNAM STYLE(강남스타일) M/V', channel: 'officialpsy', title: 'GANGNAM STYLE (강남스타일)', artist: 'PSY' },
+  {
+    raw: 'Wiz Khalifa - See You Again ft. Charlie Puth [Official Video] Furious 7 Soundtrack',
+    channel: 'Wiz Khalifa Music',
+    title: 'See You Again (feat. Charlie Puth)',
+    artist: 'Wiz Khalifa',
+  },
+  { raw: 'Mark Ronson - Uptown Funk (Official Video) ft. Bruno Mars', channel: 'MarkRonsonVEVO', title: 'Uptown Funk (feat. Bruno Mars)', artist: 'Mark Ronson' },
+  { raw: 'Blinding Lights by The Weeknd', channel: 'The Weeknd', source: 'soundcloud', title: 'Blinding Lights', artist: 'The Weeknd' },
+  { raw: 'Mystery Upload Official Video', channel: 'Mystery Channel', title: 'Mystery Upload', artist: 'Mystery Channel' },
+  { raw: 'Me at the zoo', channel: 'jawed', title: 'Me at the zoo', artist: 'jawed' },
+  // Remixes and version info.
+  {
+    raw: 'Calvin Harris - Summer (R3hab & Ummet Ozcan Remix) [Official Audio]',
+    channel: 'CalvinHarrisVEVO',
+    title: 'Summer (R3hab & Ummet Ozcan Remix)',
+    artist: 'Calvin Harris',
+  },
+  { raw: 'Lady Gaga - Bloody Mary (Sped Up)', channel: 'Lady Gaga', title: 'Bloody Mary (Sped Up)', artist: 'Lady Gaga' },
+  {
+    raw: 'Ed Sheeran - Shape of You (Live at the BRITs) ft. Stormzy [HD]',
+    channel: 'Ed Sheeran',
+    title: 'Shape of You (Live at the BRITs) (feat. Stormzy)',
+    artist: 'Ed Sheeran',
+  },
+  {
+    raw: 'Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster)',
+    channel: 'Rick Astley',
+    title: 'Never Gonna Give You Up (4K Remaster)',
+    artist: 'Rick Astley',
+  },
+  // feat. inside brackets.
+  {
+    raw: 'DJ Snake - Taki Taki (feat. Selena Gomez, Ozuna & Cardi B) [Official Music Video]',
+    channel: 'DJSnakeVEVO',
+    title: 'Taki Taki (feat. Selena Gomez, Ozuna & Cardi B)',
+    artist: 'DJ Snake',
+  },
+  { raw: 'Post Malone - Sunflower (feat. Swae Lee) (Spider-Man: Into the Spider-Verse)', channel: 'PostMaloneVEVO', title: 'Sunflower (Spider-Man: Into the Spider-Verse) (feat. Swae Lee)', artist: 'Post Malone' },
+  { raw: 'Ariana Grande - 7 rings (Remix ft. 2 Chainz) [Audio]', channel: 'ArianaGrandeVevo', title: '7 rings (Remix) (feat. 2 Chainz)', artist: 'Ariana Grande' },
+  // " - Topic" and VEVO channels with no dash in the title.
+  { raw: 'Levitating', channel: 'Dua Lipa - Topic', title: 'Levitating', artist: 'Dua Lipa' },
+  { raw: 'Get Lucky (feat. Pharrell Williams & Nile Rodgers)', channel: 'Daft Punk - Topic', title: 'Get Lucky (feat. Pharrell Williams & Nile Rodgers)', artist: 'Daft Punk' },
+  { raw: 'Rolling in the Deep (Official Music Video)', channel: 'AdeleVEVO', title: 'Rolling in the Deep', artist: 'Adele' },
+  // Other marketing shapes.
+  { raw: 'Billie Eilish - bad guy (Official Lyric Video)', channel: 'BillieEilishVEVO', title: 'bad guy', artist: 'Billie Eilish' },
+  { raw: 'Stromae - Alors on danse (Clip Officiel)', channel: 'stromae', title: 'Alors on danse', artist: 'Stromae' },
+  { raw: 'Avicii - Wake Me Up | Official Visualizer', channel: 'AviciiOfficialVEVO', title: 'Wake Me Up', artist: 'Avicii' },
+  { raw: '[MV] IU - Blueming', channel: '1theK', title: 'Blueming', artist: 'IU' },
+  // SoundCloud uploads.
+  { raw: 'Flickermood', channel: 'Forss', source: 'soundcloud', title: 'Flickermood', artist: 'Forss' },
+]
+
+describe('realistic raw titles (T3 fixtures)', () => {
+  it('has at least 20 realistic fixtures', () => {
+    expect(REALISTIC_FIXTURES.length).toBeGreaterThanOrEqual(20)
+  })
+
+  for (const fixture of REALISTIC_FIXTURES) {
+    it(`cleans ${JSON.stringify(fixture.raw)}`, () => {
+      expect(cleanTitleRules(fixture.raw, fixture.channel, fixture.source ?? 'youtube')).toEqual({
+        title: fixture.title,
+        artist: fixture.artist,
+      })
+    })
+  }
+})
+
+describe('bracket and feat boundaries (8.4)', () => {
+  it('puts one space before a kept bracket glued to the title', () => {
+    expect(cleanYouTube('Artist - Song(Live)').title).toBe('Song (Live)')
+    expect(cleanYouTube('Artist - Song  (Live)').title).toBe('Song (Live)')
+  })
+
+  it('stops featured names at a bracket, removed or kept', () => {
+    expect(cleanYouTube('Artist - Song ft. Alice (Live)').title).toBe('Song (Live) (feat. Alice)')
+    expect(cleanYouTube('Artist - Song ft. Alice [Official Video]').title).toBe('Song (feat. Alice)')
+  })
+
+  it('drops loose words after a removed marketing bracket but keeps later version brackets', () => {
+    expect(cleanYouTube('Artist - Song [Official Video] Some Movie Soundtrack').title).toBe('Song')
+    expect(cleanYouTube('Artist - Song (Official Video) (Acoustic)').title).toBe('Song (Acoustic)')
+  })
+
+  it('cuts a leading marketing bracket without dropping the song after it', () => {
+    expect(cleanYouTube('[MV] Artist - Song')).toEqual({ title: 'Song', artist: 'Artist' })
+  })
+})
+
+describe('restoreOriginalArtist (8.4 Undo)', () => {
+  it('strips only " - Topic" and "VEVO"', () => {
+    expect(restoreOriginalArtist('Dua Lipa - Topic')).toBe('Dua Lipa')
+    expect(restoreOriginalArtist('TheWeekndVEVO')).toBe('TheWeeknd')
+    expect(restoreOriginalArtist('Daft Punk - VEVO')).toBe('Daft Punk')
+    expect(restoreOriginalArtist('artist - TOPIC')).toBe('artist')
+  })
+
+  it('keeps "Official" in the raw artist', () => {
+    expect(restoreOriginalArtist('Daft Punk Official')).toBe('Daft Punk Official')
+    expect(restoreOriginalArtist('officialpsy')).toBe('officialpsy')
+  })
+
+  it('never returns an empty artist', () => {
+    expect(restoreOriginalArtist('VEVO')).toBe('VEVO')
+    expect(restoreOriginalArtist('')).toBe(UNKNOWN_ARTIST)
+    expect(restoreOriginalArtist('   ')).toBe(UNKNOWN_ARTIST)
   })
 })

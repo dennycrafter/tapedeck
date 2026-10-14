@@ -136,6 +136,17 @@ describe('POST /api/tracks/[id]/restore (Restore original)', () => {
     expect(flags[0].raw_artist).toBe(RAW_ARTIST)
   })
 
+  it('strips only " - Topic" and "VEVO" from the raw artist, keeping "Official" (8.4 Undo)', async () => {
+    const id = await seedTrack()
+    await sql`update tracks set raw_artist = 'Wiz Khalifa Official' where id = ${id}`
+    const official = (await (await restore(id)).json()) as { artist: string }
+    expect(official.artist).toBe('Wiz Khalifa Official')
+
+    await sql`update tracks set raw_artist = 'WizKhalifaVEVO' where id = ${id}`
+    const vevo = (await (await restore(id)).json()) as { artist: string }
+    expect(vevo.artist).toBe('WizKhalifa')
+  })
+
   it('is repeatable, and 404s an unknown id', async () => {
     const id = await seedTrack()
     expect(((await restore(id)) as Response).status).toBe(200)

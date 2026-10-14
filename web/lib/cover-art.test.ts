@@ -15,6 +15,7 @@ import {
   artistMatches,
   candidateMatches,
   type CoverCandidate,
+  deezerBigArtwork,
   itunesBigArtwork,
   jaccardOverlap,
   lookupCoverArt,
@@ -161,6 +162,18 @@ describe('itunesBigArtwork (SPEC 7.6)', () => {
   })
 })
 
+describe('deezerBigArtwork (SPEC 7.6 600x600 cover)', () => {
+  it('rewrites the cover_xl 1000x1000 size segment to 600x600', () => {
+    expect(
+      deezerBigArtwork('https://cdn-images.dzcdn.net/images/cover/bc49adb87758e0c8c4e508a9c5cce85d/1000x1000-000000-80-0-0.jpg'),
+    ).toBe('https://cdn-images.dzcdn.net/images/cover/bc49adb87758e0c8c4e508a9c5cce85d/600x600-000000-80-0-0.jpg')
+  })
+
+  it('keeps a URL without the size segment unchanged', () => {
+    expect(deezerBigArtwork('https://example.com/cover.jpg')).toBe('https://example.com/cover.jpg')
+  })
+})
+
 describe('pickCoverMatch (SPEC 8.5 first match wins)', () => {
   it('returns the first candidate that passes the rule, with stripped album', () => {
     // "(Remix)" is bracket text, so normalization makes this candidate an
@@ -213,6 +226,8 @@ describe('lookupCoverArt (SPEC 8.5 flow over SPEC 7.6 providers)', () => {
     const match = await lookupCoverArt('Get Lucky', 'Daft Punk')
     expect(match).not.toBeNull()
     expect(match?.coverUrl).toContain('dzcdn.net')
+    // SPEC 7.6: the stored cover is the 600x600 one, not cover_xl's 1000x1000.
+    expect(match?.coverUrl).toMatch(/\/600x600-000000-80-0-0\.jpg$/)
     expect(match?.albumArtist).toBe('Daft Punk')
   })
 

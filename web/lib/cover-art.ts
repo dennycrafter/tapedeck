@@ -178,6 +178,17 @@ interface DeezerResponse {
   data?: DeezerData[]
 }
 
+/**
+ * The 600x600 cover the SPEC asks for (7.6 sizes the iTunes cover at
+ * 600x600bb). Deezer has no 600 field (cover_big is 500, cover_xl is 1000),
+ * but its CDN path carries the size, so cover_xl's `1000x1000` segment is
+ * rewritten to `600x600`, the same move as the iTunes rewrite. A URL
+ * without that segment is kept as is.
+ */
+export function deezerBigArtwork(coverXl: string): string {
+  return coverXl.replace(/\/1000x1000-/, '/600x600-')
+}
+
 function deezerCandidates(body: DeezerResponse): CoverCandidate[] {
   const candidates: CoverCandidate[] = []
   for (const row of body.data ?? []) {
@@ -186,7 +197,7 @@ function deezerCandidates(body: DeezerResponse): CoverCandidate[] {
       title: row.title,
       artist: row.artist.name,
       album: row.album.title ?? '',
-      artworkUrl: row.album.cover_xl,
+      artworkUrl: deezerBigArtwork(row.album.cover_xl),
     })
   }
   return candidates

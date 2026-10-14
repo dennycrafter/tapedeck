@@ -177,3 +177,23 @@ Run in Claude's cloud workspace. Unit tests run here; e2e runs `desktop` and `an
 Earlier tickets on `desktop` and `android` here: T0, T1 and T3 all pass or skip as before (T1 and T3 UI checks are iphone only). The iphone column is filled from the PR's CI run.
 
 **Screens checked by eye** with made-up songs at desktop (1440x900) and phone (Pixel 7) width: Home, Library tabs, album, playlist with the song menu open, queue, Now playing, search and profile.
+
+
+## T3 leftovers (14 Oct 2026)
+
+An audit of the 8 T3 checks found four only partly tested and three small bugs. All fixed on branch `t3-leftovers`.
+
+**Unit:** Vitest 660 of 660 (44 files), pytest 125 of 125. New: `app/api/tracks/route.ai.test.ts` (5 music videos with the fixture AI replies store the clean title, artist, `ai_cleaned` and `ai_confidence`; "Me at the zoo" is added with `cover_url` and `album` null and no YouTube thumbnail; a non-music reply at 0.6 uses the AI title and makes no iTunes or Deezer request; the 0.3 "mystery upload" keeps the rule result; SoundCloud fixture gives "Blinding Lights" by "The Weeknd"), the AI system prompt equals the SPEC text exactly, 23 realistic rule cleaner fixtures (was 15), Deezer 600x600 cover, the pasted cover link check, and a SoundCloud `--selftest`.
+
+**e2e:** new `t3-cover-edit.spec.ts` (paste a cover link, Keep leaves it, Remove clears it; refuses a link that is not http(s)) passes on desktop and android here and runs on iphone in CI. `t3-covers-search.spec.ts` now asks for at least 4 of 5 covers (SPEC wording), checks iTunes covers are the 600x600 size, and checks that typing "get lucky" sends no search request until the button is pressed. T0, T1, T2 still pass.
+
+| T3 check | Status |
+|---|---|
+| Rule cleaner, 15+ fixtures | PASS (23) |
+| Matching accepts true matches, rejects 5 near misses | PASS |
+| 5 music videos clean with fixture AI replies; `@net` 4 of 5 get a 600x600 cover | PASS (unit); `@net` part in CI |
+| Non-music video gets `cover_url = null` | PASS |
+| No key uses the rule cleaner; AI used at confidence 0.5 or more | PASS |
+| Restore original and Edit details | PASS (cover field added) |
+| Search: 10 results, 24 h cache, no-key message | PASS |
+| SoundCloud link, `--selftest`, `/sets/` rejected | PASS |

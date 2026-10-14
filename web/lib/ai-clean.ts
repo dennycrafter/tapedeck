@@ -10,9 +10,12 @@
  *    parsing); `parseAiReply` also unwraps a reply that arrives as a quoted
  *    JSON string, and accepts nothing else — the model never invents text
  *    into the library because every unusable reply yields null.
- *  - The confidence gate (8.4): the caller uses the AI title/artist only
- *    when `confidence >= 0.5` (AI_CONFIDENCE_GATE); a reply below the gate
- *    is discarded whole, `is_music` included.
+ *  - The confidence gate (8.4): a parsed reply with `confidence >= 0.5`
+ *    (AI_CONFIDENCE_GATE) supplies the title and artist whatever its
+ *    `is_music` verdict; `is_music = false` never blocks the add, it only
+ *    skips the cover lookup. A reply below the gate is discarded whole,
+ *    `is_music` included: the rule result stays and the song counts as
+ *    music, so the cover lookup still runs.
  *  - Never fail an add because AI cleanup is unavailable (task rule): no
  *    key → null before any request; network, status, parse or validation
  *    failure → null after a logged warning. The caller keeps the rule result.
@@ -41,15 +44,17 @@ export interface CleanOutcome {
   /** True when the AI reply won; false for the rule cleaner. */
   aiCleaned: boolean
   aiConfidence: number | null
-  /** The reply's is_music verdict; null when the AI was unavailable or unusable. */
+  /** The accepted reply's is_music verdict; null when no reply was accepted (rule result, cover lookup runs). */
   isMusic: boolean | null
 }
 
 /**
  * The 8.4 cleanup for one track: the AI reply's title and artist when it
- * says music with confidence at or above the gate, the rule cleaner
- * otherwise — the fallback also covers every AI failure mode (no key,
- * failed request, unusable reply), so an add never fails on cleanup.
+ * parses with confidence at or above the gate (music or not), the rule
+ * cleaner otherwise. The fallback also covers every AI failure mode (no
+ * key, failed request, unusable reply, low confidence), so an add never
+ * fails on cleanup. `isMusic` is false only for an accepted non-music
+ * reply; every other outcome leaves the cover lookup on.
  */
 export async function cleanWithFallback(
   metadata: { rawTitle: string; rawArtist: string; description: string },
@@ -57,18 +62,24 @@ export async function cleanWithFallback(
   source: TrackSource,
 ): Promise<CleanOutcome> {
   const reply = await aiCleanTitle(metadata, key)
-  if (reply && reply.isMusic && reply.confidence >= AI_CONFIDENCE_GATE) {
-    return { title: reply.title, artist: reply.artist, aiCleaned: true, aiConfidence: reply.confidence, isMusic: true }
+  if (reply && reply.confidence >= AI_CONFIDENCE_GATE) {
+    return {
+      title: reply.title,
+      artist: reply.artist,
+      aiCleaned: true,
+      aiConfidence: reply.confidence,
+      isMusic: reply.isMusic,
+    }
   }
+  // No reply, or one below the gate: discarded whole, so the rule result
+  // stands and the song is treated as music (the cover lookup runs).
   const rules = cleanTitleRules(metadata.rawTitle, metadata.rawArtist, source)
   return {
     title: rules.title,
     artist: rules.artist,
     aiCleaned: false,
     aiConfidence: null,
-    // A usable non-music verdict still gates the cover lookup even when the
-    // confidence gate kept its title out.
-    isMusic: reply ? reply.isMusic : null,
+    isMusic: null,
   }
 }
 
@@ -79,7 +90,7 @@ const ANTHROPIC_MAX_TOKENS = 300
 const ANTHROPIC_VERSION = '2023-06-01'
 
 /** SPEC 8.4: "System prompt (use exactly)". */
-const SYSTEM_PROMPT = `You clean music metadata for a personal music library. You get a raw video or track title, the uploader name and part of the description. Reply with only a JSON object, no other text:
+export const SYSTEM_PROMPT = `You clean music metadata for a personal music library. You get a raw video or track title, the uploader name and part of the description. Reply with only a JSON object, no other text:
 {"title": string, "artist": string, "is_music": boolean, "confidence": number}
 Rules:
 - title is the song name only. Remove marketing words like Official Video, Official Audio, Lyrics, Visualizer, HD, 4K, MV.
