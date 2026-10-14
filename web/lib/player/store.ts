@@ -397,12 +397,15 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     set({ index, position: 0, duration: track.durationSec ?? 0 });
     const cached = urlCache.get(track.id);
     if (cached) {
+      // A blob: URL (a downloaded song, SPEC 8.9) is used once; the offline
+      // layer revokes older ones, so the next play asks for a fresh one.
+      if (cached.startsWith("blob:")) urlCache.delete(track.id);
       beginPlayback(track, cached, 0);
     } else {
       // Only the cold path awaits the URL; a prefetched `ended` swap is sync.
       fetchPlaybackUrl(track.id).then(
         (url) => {
-          urlCache.set(track.id, url);
+          if (!url.startsWith("blob:")) urlCache.set(track.id, url);
           if (state.index === index && state.queue[index]?.id === track.id && audio) {
             beginPlayback(track, url, 0);
           }

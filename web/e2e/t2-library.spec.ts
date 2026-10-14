@@ -26,14 +26,16 @@ test.beforeEach(async ({ page }) => {
   // Record Media Session handlers so the test can call them like the lock
   // screen would (SPEC 8.8: nexttrack and previoustrack exist and work).
   await page.addInitScript(() => {
-    const session = navigator.mediaSession;
-    if (!session) return;
+    if (typeof MediaSession === 'undefined') return;
     const handlers: Record<string, ((details: unknown) => void) | null> = {};
     (window as unknown as { __mediaHandlers: typeof handlers }).__mediaHandlers = handlers;
-    const original = session.setActionHandler.bind(session);
-    session.setActionHandler = (action, handler) => {
+    // Patch the prototype, not the instance: WebKit may ignore an own
+    // property set on navigator.mediaSession.
+    const proto = MediaSession.prototype;
+    const original = proto.setActionHandler;
+    proto.setActionHandler = function (action, handler) {
       handlers[action] = handler as ((details: unknown) => void) | null;
-      original(action, handler);
+      return original.call(this, action, handler);
     };
   });
   await login(page);

@@ -341,7 +341,15 @@ export async function recordPlay(trackId: string, seconds: number, playedAt?: Da
   if (exists.length === 0) return false
   const clamped = Math.max(0, Math.min(MAX_PLAY_SECONDS, Math.round(seconds)))
   if (playedAt) {
-    await sql`insert into play_events (track_id, seconds_listened, played_at) values (${trackId}, ${clamped}, ${playedAt.toISOString()}::timestamptz)`
+    // The client stamps every play with its own time, so a play sent twice
+    // (an offline queue flushed after a send that did arrive) is stored once.
+    await sql`
+      insert into play_events (track_id, seconds_listened, played_at)
+      select ${trackId}, ${clamped}, ${playedAt.toISOString()}::timestamptz
+      where not exists (
+        select 1 from play_events where track_id = ${trackId} and played_at = ${playedAt.toISOString()}::timestamptz
+      )
+    `
   } else {
     await sql`insert into play_events (track_id, seconds_listened) values (${trackId}, ${clamped})`
   }

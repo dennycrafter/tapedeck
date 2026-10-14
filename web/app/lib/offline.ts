@@ -200,7 +200,7 @@ export async function removeDownload(trackId: string): Promise<void> {
 
 export async function removeAllDownloads(): Promise<void> {
   await clearDownloadedAudio();
-  for (const id of [...objectUrls.keys()]) forgetObjectUrl(id);
+  forgetAllObjectUrls();
   set({ downloaded: new Map() });
 }
 
@@ -214,33 +214,39 @@ export function downloadedBytes(current: OfflineState = state): number {
 // Player source (SPEC 8.8, 8.9)
 // ---------------------------------------------------------------------------
 
-/** Blob URLs in use, oldest first. The current and next song stay; older ones are revoked. */
-const objectUrls = new Map<string, string>();
-const KEEP_OBJECT_URLS = 3;
+/**
+ * Blob URLs handed to the player, oldest first. Every call makes a fresh one
+ * (a retry after an audio error must not get the same link back); the last
+ * few stay alive for the current and next song, older ones are revoked
+ * (SPEC 8.9: revoke the previous object URL on track change).
+ */
+const objectUrls: { trackId: string; url: string }[] = [];
+const KEEP_OBJECT_URLS = 4;
 
 function forgetObjectUrl(trackId: string): void {
-  const url = objectUrls.get(trackId);
-  if (url) URL.revokeObjectURL(url);
-  objectUrls.delete(trackId);
+  for (let i = objectUrls.length - 1; i >= 0; i--) {
+    if (objectUrls[i]?.trackId === trackId) {
+      URL.revokeObjectURL(objectUrls[i]!.url);
+      objectUrls.splice(i, 1);
+    }
+  }
+}
+
+function forgetAllObjectUrls(): void {
+  for (const entry of objectUrls) URL.revokeObjectURL(entry.url);
+  objectUrls.length = 0;
 }
 
 /** Where the player loads a song from: the downloaded copy if there is one, else the server. */
 export async function resolvePlaybackUrl(trackId: string): Promise<string> {
   if (state.downloaded.has(trackId) || !state.loaded) {
-    const cached = objectUrls.get(trackId);
-    if (cached) {
-      // Mark as recently used.
-      objectUrls.delete(trackId);
-      objectUrls.set(trackId, cached);
-      return cached;
-    }
     const record = await getAudio(trackId);
     if (record) {
       const url = URL.createObjectURL(record.blob);
-      objectUrls.set(trackId, url);
-      while (objectUrls.size > KEEP_OBJECT_URLS) {
-        const oldest = objectUrls.keys().next().value as string;
-        forgetObjectUrl(oldest);
+      objectUrls.push({ trackId, url });
+      while (objectUrls.length > KEEP_OBJECT_URLS) {
+        const oldest = objectUrls.shift();
+        if (oldest) URL.revokeObjectURL(oldest.url);
       }
       return url;
     }

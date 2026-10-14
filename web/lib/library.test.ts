@@ -558,6 +558,15 @@ describe('recordPlay', () => {
     expect(await sql`select 1 from play_events`).toHaveLength(0)
   })
 
+  it('stores a play sent twice with the same playedAt once (offline queue resend)', async () => {
+    const id = await insertTrack()
+    const when = new Date('2025-03-04T05:06:07.123Z')
+    await recordPlay(id, 40, when)
+    await recordPlay(id, 40, when)
+    await recordPlay(id, 40, new Date('2025-03-04T05:06:08.000Z'))
+    expect(await sql`select 1 from play_events where track_id = ${id}`).toHaveLength(2)
+  })
+
   it('honours playedAt for offline plays', async () => {
     const id = await insertTrack()
     const when = new Date('2025-03-04T05:06:07.000Z')

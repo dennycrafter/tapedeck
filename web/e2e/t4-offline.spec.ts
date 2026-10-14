@@ -167,7 +167,10 @@ test.describe('T4 offline @T4', () => {
     await page.goto('/');
     await expect(page.getByTestId('offline-pill')).toBeVisible();
     const extraRow = page.locator(`[data-item-id="${extra.id}"]`).first().getByTestId('track-row');
-    await expect(extraRow).toHaveAttribute('data-unavailable-offline', 'true');
+    await expect(extraRow, `Home offline showed: ${(await page.locator('main').innerText()).slice(0, 300)}`).toHaveAttribute(
+      'data-unavailable-offline',
+      'true',
+    );
     await expect(extraRow).not.toHaveRole('button');
     await expect(page.locator(`[data-item-id="${one.id}"]`).first().getByTestId('track-row')).toHaveRole('button');
 
