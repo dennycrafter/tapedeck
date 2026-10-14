@@ -167,7 +167,24 @@ test.describe('T4 offline @T4', () => {
     await page.goto('/');
     await expect(page.getByTestId('offline-pill')).toBeVisible();
     // Wait for Home itself (from the saved library) before looking at rows.
-    await expect(page.getByTestId('home-recently-added')).toBeVisible();
+    try {
+      await expect(page.getByTestId('home-recently-added')).toBeVisible();
+    } catch (error) {
+      const facts = await page.evaluate(async () => {
+        const pages = await caches.open('pages');
+        const keys = (await pages.keys()).map((r) => new URL(r.url).pathname + new URL(r.url).search);
+        const home = await pages.match('/');
+        const homeHtml = home ? (await home.text()).slice(0, 0) : null;
+        return {
+          url: location.pathname + location.search,
+          main: document.querySelector('main')?.textContent?.slice(0, 160) ?? null,
+          cachedPages: keys,
+          homeCached: homeHtml !== null,
+          controller: !!navigator.serviceWorker.controller,
+        };
+      });
+      throw new Error(`offline Home did not show the library: ${JSON.stringify(facts)}\n${String(error)}`);
+    }
     const extraRow = page.locator(`[data-item-id="${extra.id}"]`).first().getByTestId('track-row');
     await expect(extraRow).toHaveAttribute('data-unavailable-offline', 'true');
     await expect(extraRow).not.toHaveRole('button');

@@ -17,7 +17,9 @@ test.use({ baseURL: PROD_URL });
 const made: { trackIds: string[] } = { trackIds: [] };
 
 test.afterEach(async ({ page }) => {
-  await cleanup(page.request, made);
+  // Skipped on the phone projects before logging in: nothing to clean.
+  if (made.trackIds.length > 0) await cleanup(page.request, made);
+  made.trackIds = [];
 });
 
 test('Lighthouse accessibility is 90 or more on Home and Library @T5', async ({ page, browserName, isMobile }) => {
