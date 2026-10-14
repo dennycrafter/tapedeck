@@ -175,6 +175,11 @@ test.describe('T4 offline @T4', () => {
 
     // Check: songs not downloaded are greyed and not playable.
     await page.goto('/');
+    // In Chromium's offline mode this navigation now and then does not
+    // happen at all (the address stays on the playlist, with "/" cached and
+    // the service worker in control): go again once if so.
+    if (new URL(page.url()).pathname !== '/') await page.goto('/');
+    await expect(page).toHaveURL(/\/$/);
     await expect(page.getByTestId('offline-pill')).toBeVisible();
     // Wait for Home itself (from the saved library) before looking at rows.
     try {
