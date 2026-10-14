@@ -107,7 +107,12 @@ test.describe('T2 library and player @T2', () => {
     await page.goto('/');
     for (const song of songs) {
       await openSongMenu(page, song.id, 'menu-add-playlist');
+      // Wait for each save itself: the previous add's toast has the same text.
+      const added = page.waitForResponse(
+        (response) => response.url().includes(`/api/playlists/${playlistId}/tracks`) && response.request().method() === 'POST',
+      );
       await page.getByTestId('playlist-picker-item').filter({ hasText: name }).click();
+      expect((await added).status()).toBe(200);
       await expect(page.getByTestId('toast')).toHaveText(`Added to ${name}`);
     }
 
