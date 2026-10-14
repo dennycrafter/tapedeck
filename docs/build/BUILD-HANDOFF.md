@@ -28,13 +28,14 @@ My personal Spotify replacement. Paste a YouTube or SoundCloud link (or search Y
 - **T4** merged (PR #16). The downloader now also moves each song's MP4 index to the front so offline copies start playing right away.
 - **T6 app side** merged (PR #17): the profile setting and the "Add to Apple Music" song menu item.
 - **T5** (branch `t5-polish`): UI review against SPEC 10 with screenshots (`docs/UI-REVIEW.md`), automated UI checks and Lighthouse.
-- **T7** (branch `t7-readme`): README, `scripts/check-repo.sh` (also in CI), every en and em dash removed.
+- **T7** merged (PR #20): README, `scripts/check-repo.sh` (also in CI), every en and em dash removed. Downloaded songs now play through the service worker at `/offline-audio/<id>`.
+- **T8** (branch `t8-handoff`): `docs/HANDOFF.md`, Denis's one-page guide. After it merges, every ticket T0 to T8 is done; what is left needs Denis (go live, real iPhone checks, `npm run e2e:live`).
 - Leftover: a closed probe branch `debug-webkit-blob` on GitHub can be deleted (the build machine is not allowed to delete branches).
 - To check after going live: Deezer covers now ask the CDN for the 600x600 size; confirm one Deezer cover loads.
 - To check on the real iPhone (T8 list): download a playlist, turn on airplane mode, open the app from the home screen, play; and Save to Files opens the share sheet.
 
 ## Left to build after T2 (in this order)
-1. **T8:** `docs/HANDOFF.md` with my steps.
+1. Nothing left to build. Next: go live with Denis (below).
 
 ## Then go live (I do this with help)
 1. Set up Supabase and Cloudflare R2.

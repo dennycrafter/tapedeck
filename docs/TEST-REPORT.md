@@ -255,3 +255,19 @@ Screenshots: 34 in `docs/screenshots/` (17 screens at desktop and phone width).
 | Repo is public on GitHub with the MIT licence | PASS (`dennycrafter/tapedeck` is public; LICENSE is MIT) |
 
 Vitest 673/673, pytest 133/133, e2e desktop and android 26 passed after the cleanup.
+
+
+## T8: Final run (14 Oct 2026)
+
+The final run is the CI check on the T8 pull request (every project: desktop, android, iphone; T7's run before it was also fully green with no retries):
+
+| Suite | Result |
+|---|---|
+| Repo hygiene (`scripts/check-repo.sh`) | PASS |
+| Type check, lint | PASS |
+| Vitest (web) | 680 of 680 |
+| pytest (downloader) | 133 of 133 |
+| Playwright, all projects, no `@live` | 66 e2e runs listed (each check once per project; checks that only make sense on one project skip on the others), all passing |
+| `@live` (real Supabase, R2, Vercel) | Not run: needs you to go live first (BLOCKERS.md). Run `npm run e2e:live` after step 0 of the handoff |
+
+Known gap: the two T0 iphone checks on `/test-audio` (tone 1 rolls into tone 2, the page's own offline copy) were never automated by the original build. The same behaviour is checked on the real app by T2 (auto advance and Media Session) and T4 (offline reload and playback), and the owner checks `/test-audio` on the real iPhone (handoff step 3).
