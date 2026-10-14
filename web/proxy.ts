@@ -220,7 +220,7 @@ export async function gate(
   // request (except PWA files, static assets and /api/setup/*) to /setup.
   // Development and tests run on stand-ins and never enter this mode.
   const setupIncomplete =
-    env.NODE_ENV === "production" && missingRequiredVars(env).length > 0;
+    env.NODE_ENV === "production" && env.TAPEDECK_TEST !== "1" && missingRequiredVars(env).length > 0;
   if (setupIncomplete && !isSetupModeExempt(pathname)) {
     return NextResponse.redirect(new URL("/setup", request.url));
   }

@@ -26,14 +26,16 @@ test.beforeEach(async ({ page }) => {
   // Record Media Session handlers so the test can call them like the lock
   // screen would (SPEC 8.8: nexttrack and previoustrack exist and work).
   await page.addInitScript(() => {
-    const session = navigator.mediaSession;
-    if (!session) return;
+    if (typeof MediaSession === 'undefined') return;
     const handlers: Record<string, ((details: unknown) => void) | null> = {};
     (window as unknown as { __mediaHandlers: typeof handlers }).__mediaHandlers = handlers;
-    const original = session.setActionHandler.bind(session);
-    session.setActionHandler = (action, handler) => {
+    // Patch the prototype, not the instance: WebKit may ignore an own
+    // property set on navigator.mediaSession.
+    const proto = MediaSession.prototype;
+    const original = proto.setActionHandler;
+    proto.setActionHandler = function (action, handler) {
       handlers[action] = handler as ((details: unknown) => void) | null;
-      original(action, handler);
+      return original.call(this, action, handler);
     };
   });
   await login(page);
@@ -105,7 +107,12 @@ test.describe('T2 library and player @T2', () => {
     await page.goto('/');
     for (const song of songs) {
       await openSongMenu(page, song.id, 'menu-add-playlist');
+      // Wait for each save itself: the previous add's toast has the same text.
+      const added = page.waitForResponse(
+        (response) => response.url().includes(`/api/playlists/${playlistId}/tracks`) && response.request().method() === 'POST',
+      );
       await page.getByTestId('playlist-picker-item').filter({ hasText: name }).click();
+      expect((await added).status()).toBe(200);
       await expect(page.getByTestId('toast')).toHaveText(`Added to ${name}`);
     }
 
@@ -171,7 +178,11 @@ test.describe('T2 library and player @T2', () => {
     await tiles.filter({ hasText: album }).click();
     await expect(page.getByTestId('album-name')).toHaveText(album);
     await expect(page.getByTestId('album-tracks').getByTestId('track-row')).toHaveCount(2);
+    const saved = page.waitForResponse(
+      (response) => response.url().includes('/api/albums/favorite') && response.request().method() === 'PUT',
+    );
     await page.getByTestId('album-favorite').click();
+    expect((await saved).status()).toBe(200);
     await expect(page.getByTestId('album-favorite')).toHaveAttribute('aria-pressed', 'true');
 
     await page.goto('/library?tab=albums');

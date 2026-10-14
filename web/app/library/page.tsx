@@ -10,6 +10,8 @@ import Link from "next/link";
 import { Suspense, useRef, useState, useSyncExternalStore } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useLibrary } from "../components/LibraryProvider";
+import { DownloadListButton } from "../components/DownloadListButton";
+import { useOffline } from "../components/useOffline";
 import { TrackList } from "../components/TrackList";
 import { CoverTile } from "../components/CoverTile";
 import { NewPlaylistDialog } from "../components/NewPlaylistDialog";
@@ -24,6 +26,7 @@ const TABS = [
   { id: "albums", label: "Albums" },
   { id: "artists", label: "Artists" },
   { id: "recent", label: "Recently played" },
+  { id: "downloaded", label: "Downloaded" },
 ] as const;
 type TabId = (typeof TABS)[number]["id"];
 
@@ -100,6 +103,7 @@ function LibraryTabs() {
       {tab === "albums" && <AlbumsTab />}
       {tab === "artists" && <ArtistsTab />}
       {tab === "recent" && <RecentTab />}
+      {tab === "downloaded" && <DownloadedTab />}
     </main>
   );
 }
@@ -155,10 +159,26 @@ function SongsTab() {
 
 function LikedTab() {
   const { liked } = useLibrary();
-  return liked.length === 0 ? (
-    <Empty text="Tap the heart on any song and it shows up here." testId="liked-empty" />
+  if (liked.length === 0) return <Empty text="Tap the heart on any song and it shows up here." testId="liked-empty" />;
+  return (
+    <section className="flex flex-col gap-3">
+      <div>
+        <DownloadListButton tracks={liked} label="Download all" />
+      </div>
+      <TrackList tracks={liked} testId="liked-list" />
+    </section>
+  );
+}
+
+/** Songs saved on this device for offline listening (SPEC 8.9 "Downloaded" filter). */
+function DownloadedTab() {
+  const { library } = useLibrary();
+  const offline = useOffline();
+  const tracks = (library?.tracks ?? []).filter((track) => offline.downloaded.has(track.id));
+  return tracks.length === 0 ? (
+    <Empty text={'Nothing downloaded yet. Use "Download" on a song, playlist or album to play it offline.'} testId="downloaded-empty" />
   ) : (
-    <TrackList tracks={liked} testId="liked-list" />
+    <TrackList tracks={tracks} testId="downloaded-list" />
   );
 }
 

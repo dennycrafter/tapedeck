@@ -8,6 +8,8 @@ import { useCallback } from "react";
 import type { TrackDto } from "../lib/api";
 import { queueFrom } from "../lib/library-view";
 import { useCurrentTrackId, usePlayer } from "./PlayerProvider";
+import { useOffline } from "./useOffline";
+import { canPlayNow } from "../lib/offline";
 import { TrackRow } from "./TrackRow";
 
 interface TrackListProps {
@@ -20,9 +22,10 @@ interface TrackListProps {
 
 export function usePlayList(list: readonly TrackDto[]) {
   const player = usePlayer();
+  const offline = useOffline();
   return useCallback(
     (start: TrackDto | null, shuffle = false) => {
-      const queue = queueFrom(list, start);
+      const queue = queueFrom(list, start, (track) => canPlayNow(track, offline));
       if (!queue) return;
       if (shuffle) {
         // Shuffle play: shuffle on, start from a random ready song. Plain
@@ -32,7 +35,7 @@ export function usePlayList(list: readonly TrackDto[]) {
       }
       player.playTracks(queue.tracks, queue.index);
     },
-    [list, player],
+    [list, player, offline],
   );
 }
 

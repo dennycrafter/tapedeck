@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { DownloaderStatus } from "../components/DownloaderStatus";
 import { fetchDownloaderSetup, type DownloaderSetupResponse } from "../lib/api";
 import { ProfileOverview } from "./ProfileOverview";
+import { DeviceStorage } from "./DeviceStorage";
 
 function errorText(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
@@ -74,6 +75,7 @@ export default function ProfilePage() {
   return (
     <main className="flex w-full max-w-4xl flex-col gap-4 pt-2">
       <ProfileOverview />
+      <DeviceStorage />
       <h2 className="mt-6 text-lg font-bold">Downloader</h2>
 
       {loading && (

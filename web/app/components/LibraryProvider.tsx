@@ -23,6 +23,7 @@ import {
   createPlaylist as apiCreatePlaylist,
   deletePlaylist as apiDeletePlaylist,
   deleteTrack as apiDeleteTrack,
+  ApiError,
   fetchLibrary,
   removeFromPlaylist as apiRemoveFromPlaylist,
   renamePlaylist as apiRenamePlaylist,
@@ -47,6 +48,8 @@ import {
   type ArtistView,
   type PlaylistView,
 } from "../lib/library-view";
+import { loadSnapshot, saveSnapshot } from "../lib/offline-db";
+import { flushPlays, removeDownload, setFromSnapshot } from "../lib/offline";
 import { useOverlays } from "./Overlays";
 import { usePlayer } from "./PlayerProvider";
 
@@ -89,6 +92,11 @@ function errorText(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
 }
 
+/** No answer at all (offline, server down), as opposed to an error reply. */
+function isNetworkError(error: unknown): boolean {
+  return !(error instanceof ApiError);
+}
+
 export function LibraryProvider({ children }: { children: ReactNode }) {
   const { libraryVersion } = useOverlays();
   const player = usePlayer();
@@ -100,7 +108,13 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
   const generation = useRef(0);
 
   const apply = useCallback(
-    (data: LibraryResponse) => {
+    (data: LibraryResponse, fromSnapshot = false) => {
+      if (!fromSnapshot) {
+        // SPEC 8.9: keep the last good library on the phone for offline use.
+        saveSnapshot(data).catch(() => undefined);
+        void flushPlays();
+      }
+      setFromSnapshot(fromSnapshot);
       const normalized = normalizeLibrary(data);
       setLibrary(normalized);
       setError(null);
@@ -116,7 +130,8 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
       const data = await fetchLibrary();
       if (started === generation.current) apply(data);
     } catch (err) {
-      setError(errorText(err));
+      if (isNetworkError(err)) setFromSnapshot(true);
+      else setError(errorText(err));
     }
   }, [apply]);
 
@@ -127,8 +142,13 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
       .then((data) => {
         if (!cancelled && started === generation.current) apply(data);
       })
-      .catch((err: unknown) => {
-        if (!cancelled) setError(errorText(err));
+      .catch(async (err: unknown) => {
+        if (cancelled) return;
+        // Offline: open from the saved snapshot (SPEC 8.9).
+        const snapshot = isNetworkError(err) ? await loadSnapshot() : null;
+        if (cancelled) return;
+        if (snapshot) apply(snapshot, true);
+        else setError(errorText(err));
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
@@ -214,6 +234,8 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
           async () => {
             player.removeTrack(track.id);
             await apiDeleteTrack(track.id);
+            // SPEC 8.6: deleting a song also removes this device's offline copy.
+            await removeDownload(track.id).catch(() => undefined);
           },
         ),
       retryTrack: (track) =>

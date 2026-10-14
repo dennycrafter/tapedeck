@@ -3,14 +3,19 @@
 /**
  * The song "..." menu (SPEC 10): Play next, Add to queue, Add to playlist,
  * Like/Unlike, Go to album, Go to artist, Edit details, Restore original,
- * Retry (failed only), Delete. Download, Save to Files (T4) and Add to Apple
- * Music (T6) join later. On a playlist page it also offers "Remove from
- * this playlist".
+ * Download / Remove download and Save to Files (SPEC 8.9, 8.10), Retry
+ * (failed only), Delete. Add to Apple Music (T6) joins later. On a playlist
+ * page it also offers "Remove from this playlist".
  */
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { restoreTrack, type TrackDto } from "../lib/api";
-import { albumArtistOf, albumHref, artistHref, toPlayerTrack } from "../lib/library-view";
+import {
+  albumArtistOf,
+  albumHref,
+  artistHref,
+  toPlayerTrack,
+} from "../lib/library-view";
 import { useLibrary } from "./LibraryProvider";
 import { useOverlays } from "./Overlays";
 import { usePlayer } from "./PlayerProvider";
@@ -18,6 +23,45 @@ import { TrackEditDialog } from "./TrackEditDialog";
 import { AddToPlaylistDialog } from "./AddToPlaylistDialog";
 import { ConfirmDialog, ICON_BTN, Menu, type MenuItem } from "./ui";
 import { MoreIcon } from "./icons";
+import { useOffline } from "./useOffline";
+import {
+  attachmentUrl,
+  downloadTracks,
+  removeDownload,
+  songBlob,
+} from "../lib/offline";
+import { saveToFiles } from "../lib/save-to-files";
+
+/** Touch phones save through the share sheet; a PC gets a normal download. */
+function isPhone(): boolean {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(pointer: coarse)").matches
+  );
+}
+
+/**
+ * The last song fetched for the share sheet. iPhone only opens the sheet
+ * right after a tap; when fetching took too long, the second tap shares
+ * this copy straight away.
+ */
+let sharedBlob: { id: string; blob: Blob } | null = null;
+
+async function blobForShare(trackId: string): Promise<Blob> {
+  if (sharedBlob?.id === trackId) return sharedBlob.blob;
+  const blob = await songBlob(trackId);
+  sharedBlob = { id: trackId, blob };
+  return blob;
+}
+
+function startDownload(url: string): void {
+  const link = document.createElement("a");
+  link.href = url;
+  link.rel = "noopener";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+}
 
 function errorText(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
@@ -42,6 +86,9 @@ export function SongMenu({ track, playlistId, className = "" }: SongMenuProps) {
   const library = useLibrary();
   const { showToast, notifyLibraryChanged } = useOverlays();
   const ready = track.status === "ready";
+  const offline = useOffline();
+  const downloaded = offline.downloaded.has(track.id);
+  const downloading = offline.progress.has(track.id);
 
   async function run(action: () => Promise<unknown>, done?: string) {
     try {
@@ -71,13 +118,21 @@ export function SongMenu({ track, playlistId, className = "" }: SongMenuProps) {
         showToast("Added to queue");
       },
     },
-    { label: "Add to playlist", testId: "menu-add-playlist", onSelect: () => setDialog("playlist") },
+    {
+      label: "Add to playlist",
+      testId: "menu-add-playlist",
+      onSelect: () => setDialog("playlist"),
+    },
     ...(playlistId
       ? [
           {
             label: "Remove from this playlist",
             testId: "menu-remove-playlist",
-            onSelect: () => void run(() => library.removeFromPlaylist(playlistId, track.id), "Removed from playlist"),
+            onSelect: () =>
+              void run(
+                () => library.removeFromPlaylist(playlistId, track.id),
+                "Removed from playlist",
+              ),
           },
         ]
       : []),
@@ -92,15 +147,78 @@ export function SongMenu({ track, playlistId, className = "" }: SongMenuProps) {
           {
             label: "Go to album",
             testId: "menu-go-album",
-            onSelect: () => router.push(albumHref(track.album as string, albumArtistOf(track))),
+            onSelect: () =>
+              router.push(
+                albumHref(track.album as string, albumArtistOf(track)),
+              ),
           },
         ]
       : []),
     ...(track.artist
-      ? [{ label: "Go to artist", testId: "menu-go-artist", onSelect: () => router.push(artistHref(track.artist)) }]
+      ? [
+          {
+            label: "Go to artist",
+            testId: "menu-go-artist",
+            onSelect: () => router.push(artistHref(track.artist)),
+          },
+        ]
       : []),
     "divider",
-    { label: "Edit details", testId: "menu-edit", onSelect: () => setDialog("edit") },
+    downloaded
+      ? {
+          label: "Remove download",
+          testId: "menu-remove-download",
+          onSelect: () =>
+            void run(() => removeDownload(track.id), "Download removed"),
+        }
+      : {
+          label: downloading ? "Downloading..." : "Download",
+          testId: "menu-download",
+          disabled: !ready || downloading || !offline.online,
+          onSelect: () =>
+            void run(async () => {
+              const failed = await downloadTracks([track]);
+              if (failed > 0)
+                throw new Error(
+                  "Download failed. Try again when you have signal.",
+                );
+            }, "Downloaded"),
+        },
+    {
+      label: "Save to Files",
+      testId: "menu-save-files",
+      disabled: !ready || (!offline.online && !downloaded),
+      onSelect: () =>
+        void run(async () => {
+          try {
+            await saveToFiles(track, {
+              getBlob: blobForShare,
+              getAttachmentUrl: attachmentUrl,
+              openUrl: startDownload,
+              isPhone,
+              canShare:
+                typeof navigator !== "undefined" && navigator.canShare
+                  ? (data) => navigator.canShare(data)
+                  : undefined,
+              share:
+                typeof navigator !== "undefined" && navigator.share
+                  ? (data) => navigator.share(data)
+                  : undefined,
+            });
+          } catch (error) {
+            if (error instanceof Error && error.name === "NotAllowedError") {
+              throw new Error("The file is ready. Tap Save to Files again.");
+            }
+            throw error;
+          }
+        }),
+    },
+    "divider",
+    {
+      label: "Edit details",
+      testId: "menu-edit",
+      onSelect: () => setDialog("edit"),
+    },
     {
       label: "Restore original",
       testId: "menu-restore",
@@ -111,9 +229,21 @@ export function SongMenu({ track, playlistId, className = "" }: SongMenuProps) {
         }, "Original title restored"),
     },
     ...(track.status === "failed"
-      ? [{ label: "Retry", testId: "menu-retry", onSelect: () => void run(() => library.retryTrack(track), "Retry queued") }]
+      ? [
+          {
+            label: "Retry",
+            testId: "menu-retry",
+            onSelect: () =>
+              void run(() => library.retryTrack(track), "Retry queued"),
+          },
+        ]
       : []),
-    { label: "Delete", testId: "menu-delete", danger: true, onSelect: () => setDialog("delete") },
+    {
+      label: "Delete",
+      testId: "menu-delete",
+      danger: true,
+      onSelect: () => setDialog("delete"),
+    },
   ];
 
   return (
@@ -130,9 +260,23 @@ export function SongMenu({ track, playlistId, className = "" }: SongMenuProps) {
       >
         <MoreIcon />
       </button>
-      {open && <Menu anchor={anchor} items={items} onClose={() => setOpen(false)} label={`Options for ${track.title}`} />}
-      {dialog === "playlist" && <AddToPlaylistDialog trackIds={[track.id]} onClose={() => setDialog(null)} />}
-      {dialog === "edit" && <TrackEditDialog track={track} onClose={() => setDialog(null)} />}
+      {open && (
+        <Menu
+          anchor={anchor}
+          items={items}
+          onClose={() => setOpen(false)}
+          label={`Options for ${track.title}`}
+        />
+      )}
+      {dialog === "playlist" && (
+        <AddToPlaylistDialog
+          trackIds={[track.id]}
+          onClose={() => setDialog(null)}
+        />
+      )}
+      {dialog === "edit" && (
+        <TrackEditDialog track={track} onClose={() => setDialog(null)} />
+      )}
       {dialog === "delete" && (
         <ConfirmDialog
           title="Delete song?"

@@ -4,7 +4,8 @@
 // T2: "seeded ready tracks with made-up titles") and read raw database
 // counts to compare against what the UI shows.
 //
-// It exists ONLY when TAPEDECK_TEST=1 and the build is not production:
+// It exists ONLY when TAPEDECK_TEST=1 (the test switch, never set on
+// Vercel; the e2e production server for the T4 offline checks sets it):
 // everywhere else it answers 404, like any unknown address. It is also
 // behind the app password like every other /api route.
 //
@@ -19,7 +20,7 @@ import { sql } from '../../../../lib/db'
 import { APP_TIMEZONE } from '../../../../lib/library'
 
 function enabled(): boolean {
-  return process.env.TAPEDECK_TEST === '1' && process.env.NODE_ENV !== 'production'
+  return process.env.TAPEDECK_TEST === '1'
 }
 
 function text(value: unknown, max = 200): string | null {

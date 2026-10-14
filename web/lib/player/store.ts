@@ -397,12 +397,15 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     set({ index, position: 0, duration: track.durationSec ?? 0 });
     const cached = urlCache.get(track.id);
     if (cached) {
+      // A blob: URL (a downloaded song, SPEC 8.9) is used once; the offline
+      // layer revokes older ones, so the next play asks for a fresh one.
+      if (cached.startsWith("blob:")) urlCache.delete(track.id);
       beginPlayback(track, cached, 0);
     } else {
       // Only the cold path awaits the URL; a prefetched `ended` swap is sync.
       fetchPlaybackUrl(track.id).then(
         (url) => {
-          urlCache.set(track.id, url);
+          if (!url.startsWith("blob:")) urlCache.set(track.id, url);
           if (state.index === index && state.queue[index]?.id === track.id && audio) {
             beginPlayback(track, url, 0);
           }
@@ -772,5 +775,19 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
 
 export type { PlayerStoreApi as PlayerStore };
 
+/**
+ * Hooks the app sets once on the client (web/app/components/PlayerProvider):
+ * where audio comes from (the phone's downloaded copy or the server, SPEC
+ * 8.9) and how plays are kept while offline (SPEC 8.6). Unset, the store
+ * uses the plain network defaults above.
+ */
+export const playerHooks: { fetchPlaybackUrl: PlaybackUrlFetcher | null; recordPlay: PlayRecorder | null } = {
+  fetchPlaybackUrl: null,
+  recordPlay: null,
+};
+
 /** The app-wide singleton the root layout binds the audio element to. */
-export const playerStore: PlayerStoreApi = createPlayerStore();
+export const playerStore: PlayerStoreApi = createPlayerStore({
+  fetchPlaybackUrl: (trackId) => (playerHooks.fetchPlaybackUrl ?? defaultFetchPlaybackUrl)(trackId),
+  recordPlay: (trackId, seconds) => (playerHooks.recordPlay ?? defaultRecordPlay)(trackId, seconds),
+});

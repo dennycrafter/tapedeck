@@ -197,3 +197,23 @@ An audit of the 8 T3 checks found four only partly tested and three small bugs. 
 | Restore original and Edit details | PASS (cover field added) |
 | Search: 10 results, 24 h cache, no-key message | PASS |
 | SoundCloud link, `--selftest`, `/sets/` rejected | PASS |
+
+
+## T4: Offline and Save to Files (14 Oct 2026)
+
+**Unit:** Vitest 667 of 667 (45 files). New: Save to Files builds `<Artist> - <Title>.m4a` as `audio/mp4` and calls `navigator.share` when `canShare` is true (mocked), falls back to the download when it can not share, never shares on a PC, treats closing the sheet as a quiet cancel. Seed route and setup-mode tests updated for the test switch.
+
+**e2e (`web/e2e/t4-offline.spec.ts`)**, offline tests on the production e2e server:
+
+| # | Check | desktop | android | iphone |
+|---|---|---|---|---|
+| 1 | "Download" on a playlist of 3 ready songs stores 3 blobs and marks each song | PASS | PASS | CI |
+| 2 | Offline reload opens from the service worker, library from the snapshot, "Offline" pill shows | PASS | PASS | CI |
+| 2b | All 3 songs play offline and auto advance works | skipped (no AAC) | skipped (no AAC) | CI |
+| 3 | Offline, songs not downloaded are greyed and not playable | PASS | PASS | CI |
+| 4 | A play made offline is kept in IndexedDB and reaches `play_events` once back online | skipped (no AAC) | skipped (no AAC) | CI |
+| 5 | Unit: Save to Files File name, type and share | PASS (Vitest) | | |
+| 6 | Save to Files on desktop: `Content-Disposition: attachment; filename="<Artist> - <Title>.m4a"` and the browser download name | PASS | | |
+| extra | Remove download from the song menu and "Remove all downloads" in the profile | PASS | PASS | CI |
+
+T0 to T3 still pass on desktop and android here.

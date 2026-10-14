@@ -33,6 +33,7 @@ import { usePlayList } from "../components/TrackList";
 import { TrackRow } from "../components/TrackRow";
 import { PlaylistCover } from "../components/PlaylistCover";
 import { ListHeader, NotFound } from "../components/ListHeader";
+import { DownloadListButton } from "../components/DownloadListButton";
 import { BTN_PRIMARY, BTN_SECONDARY, ConfirmDialog, ICON_BTN, INPUT, Menu, Modal } from "../components/ui";
 import { DragIcon, MoreIcon } from "../components/icons";
 import { listSummary } from "../lib/library-view";
@@ -73,6 +74,7 @@ function Playlist() {
         onShuffle={() => play(null, true)}
         actions={
           <>
+            <DownloadListButton tracks={playlist.tracks} />
             <button
               ref={anchor}
               type="button"

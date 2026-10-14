@@ -195,8 +195,10 @@ export function toPlayerTrack(track: TrackDto): PlayerTrack {
 export function queueFrom(
   list: readonly TrackDto[],
   start: TrackDto | null,
+  /** Offline, only downloaded songs can play (SPEC 8.9). */
+  canPlay: (track: TrackDto) => boolean = (track) => track.status === "ready",
 ): { tracks: PlayerTrack[]; index: number } | null {
-  const ready = list.filter((track) => track.status === "ready");
+  const ready = list.filter((track) => track.status === "ready" && canPlay(track));
   if (ready.length === 0) return null;
   const index = start ? ready.findIndex((track) => track.id === start.id) : 0;
   if (index < 0) return null;
