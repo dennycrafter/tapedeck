@@ -53,6 +53,8 @@ import {
 import { loadSnapshot, saveSnapshot } from "../lib/offline-db";
 import { flushPlays, removeDownload, setFromSnapshot } from "../lib/offline";
 import { useOverlays } from "./Overlays";
+import { usePathname } from "next/navigation";
+import { isBarePath } from "../lib/routes";
 import { usePlayer } from "./PlayerProvider";
 
 const POLL_MS = 5000;
@@ -104,6 +106,8 @@ function isNetworkError(error: unknown): boolean {
 export function LibraryProvider({ children }: { children: ReactNode }) {
   const { libraryVersion } = useOverlays();
   const player = usePlayer();
+  // The password screen and setup page have no library (and no session yet).
+  const bare = isBarePath(usePathname());
   const [library, setLibrary] = useState<Library | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -140,6 +144,7 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
   }, [apply]);
 
   useEffect(() => {
+    if (bare) return;
     let cancelled = false;
     const started = generation.current;
     fetchLibrary()
@@ -160,14 +165,15 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
     return () => {
       cancelled = true;
     };
-  }, [libraryVersion, apply]);
+  }, [libraryVersion, apply, bare]);
 
   useEffect(() => {
+    if (bare) return;
     const timer = window.setInterval(() => {
       if (document.visibilityState === "visible") void refetch();
     }, POLL_MS);
     return () => window.clearInterval(timer);
-  }, [refetch]);
+  }, [refetch, bare]);
 
   /** Optimistic local change, then the server call, then a confirming refetch. */
   const mutate = useCallback(

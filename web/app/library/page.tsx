@@ -7,7 +7,7 @@
  * straight to each one.
  */
 import Link from "next/link";
-import { Suspense, useRef, useState, useSyncExternalStore } from "react";
+import { Suspense, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useLibrary } from "../components/LibraryProvider";
 import { DownloadListButton } from "../components/DownloadListButton";
@@ -76,11 +76,16 @@ function LibraryTabs() {
   const params = useSearchParams();
   const raw = params.get("tab");
   const tab: TabId = TABS.some((t) => t.id === raw) ? (raw as TabId) : "songs";
+  const strip = useRef<HTMLElement>(null);
+  // On phones the tab strip scrolls sideways: keep the open tab in view.
+  useEffect(() => {
+    strip.current?.querySelector('[aria-current="page"]')?.scrollIntoView({ block: "nearest", inline: "center" });
+  }, [tab]);
 
   return (
     <main className="flex flex-col gap-5 pt-2">
       <h1 className="text-3xl font-bold tracking-tight">Library</h1>
-      <nav aria-label="Library sections" className="-mx-1 overflow-x-auto px-1 [scrollbar-width:none]">
+      <nav ref={strip} aria-label="Library sections" className="-mx-1 overflow-x-auto px-1 [scrollbar-width:none]">
         <div className="flex min-w-max gap-1 border-b border-line">
           {TABS.map((t) => (
             <Link

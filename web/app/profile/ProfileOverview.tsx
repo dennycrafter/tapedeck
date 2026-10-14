@@ -71,13 +71,16 @@ export function ProfileOverview() {
 
   const { stats } = profile;
   const storageWarn = stats.storageBytes >= STORAGE_WARN_BYTES;
-  const cells = [
+  const cells: { label: string; value: string; testId: string; unit?: string; warn?: boolean }[] = [
     { label: "Songs", value: stats.songs.toLocaleString("en-US"), testId: "stat-songs" },
     { label: "Hours listened", value: formatHours(stats.secondsListened), testId: "stat-hours" },
     { label: "Plays this month", value: stats.playsThisMonth.toLocaleString("en-US"), testId: "stat-plays" },
     {
+      // "3.2 of 10 GB" (SPEC 8.6): the number big, "of 10 GB" small so it
+      // fits a phone's half-width cell on one line.
       label: "Storage used",
-      value: formatStorage(stats.storageBytes, STORAGE_LIMIT_BYTES),
+      value: formatStorage(stats.storageBytes, STORAGE_LIMIT_BYTES).split(" of ")[0],
+      unit: `of ${formatStorage(stats.storageBytes, STORAGE_LIMIT_BYTES).split(" of ")[1]}`,
       testId: "stat-storage",
       warn: storageWarn,
     },
@@ -138,9 +141,10 @@ export function ProfileOverview() {
         {cells.map((cell) => (
           <div key={cell.label} className="flex flex-col gap-1 bg-surface p-4">
             <dt className="text-xs font-semibold uppercase tracking-wider text-muted">{cell.label}</dt>
-            <dd className="flex items-center gap-2 font-display text-3xl font-semibold tabular-nums" data-testid={cell.testId}>
-              {cell.warn && <span className="h-2 w-2 shrink-0 rounded-full bg-warn" aria-label="Storage almost full" />}
+            <dd className="flex flex-wrap items-baseline gap-x-2 font-display text-3xl font-semibold tabular-nums" data-testid={cell.testId}>
+              {cell.warn && <span className="h-2 w-2 shrink-0 self-center rounded-full bg-warn" aria-label="Storage almost full" />}
               {cell.value}
+              {cell.unit && <span className="font-sans text-sm font-normal text-muted">{cell.unit}</span>}
             </dd>
           </div>
         ))}
