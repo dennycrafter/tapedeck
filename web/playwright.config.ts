@@ -48,7 +48,9 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   timeout: 60_000,
   expect: { timeout: 10_000 },
-  reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : [['list']],
+  // On CI the 'github' reporter turns each failure into an annotation on the
+  // check run, readable through the API when the raw logs are not.
+  reporter: process.env.CI ? [['list'], ['github'], ['html', { open: 'never' }]] : [['list']],
   globalTeardown: './e2e/global-teardown.ts',
   use: {
     baseURL: BASE_URL,
