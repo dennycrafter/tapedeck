@@ -24,6 +24,12 @@ export interface TrackDto {
   status: TrackStatus;
   error: string;
   createdAt: string;
+  /** Album grouping key with `album` (SPEC 8.6); null for hand-edited albums. */
+  albumArtist?: string | null;
+  liked?: boolean;
+  likedAt?: string | null;
+  bytes?: number | null;
+  appleMusic?: boolean;
 }
 
 export interface DownloaderSnapshot {
@@ -31,9 +37,39 @@ export interface DownloaderSnapshot {
   waitingCount: number;
 }
 
+/** One playlist in the library snapshot; `trackIds` are in playlist order. */
+export interface PlaylistDto {
+  id: string;
+  name: string;
+  description: string;
+  position: number;
+  createdAt: string | null;
+  updatedAt: string | null;
+  trackIds: string[];
+}
+
+export interface FavoriteAlbumDto {
+  album: string;
+  albumArtist: string;
+  createdAt: string | null;
+}
+
+/** GET /api/library (web/lib/library.ts `LibrarySnapshot`). */
 export interface LibraryResponse {
   tracks: TrackDto[];
   downloader: DownloaderSnapshot;
+  playlists?: PlaylistDto[];
+  favoriteAlbums?: FavoriteAlbumDto[];
+  /** Track ids, most recent first, distinct, at most 20. */
+  recentlyPlayed?: string[];
+  displayName?: string;
+  appleMusicExport?: boolean;
+}
+
+export interface ProfileResponse {
+  displayName: string;
+  stats: { songs: number; secondsListened: number; playsThisMonth: number; storageBytes: number };
+  topArtists: { artist: string; plays: number }[];
 }
 
 export type AddOutcome = "added" | "already" | "error";
@@ -160,4 +196,75 @@ export async function retryTrack(trackId: string): Promise<void> {
 
 export function fetchDownloaderSetup(): Promise<DownloaderSetupResponse> {
   return fetchJson<DownloaderSetupResponse>("/api/profile/downloader");
+}
+
+const enc = encodeURIComponent;
+
+/** PUT /api/tracks/:id/like (SPEC 8.6). */
+export function setTrackLiked(trackId: string, liked: boolean): Promise<TrackDto> {
+  return fetchJson<TrackDto>(`/api/tracks/${enc(trackId)}/like`, {
+    method: "PUT",
+    body: JSON.stringify({ liked }),
+  });
+}
+
+/** DELETE /api/tracks/:id: the stored file, then the row (SPEC 8.6). */
+export async function deleteTrack(trackId: string): Promise<void> {
+  await fetchJson<{ ok: true }>(`/api/tracks/${enc(trackId)}`, { method: "DELETE" });
+}
+
+export function createPlaylist(name: string): Promise<PlaylistDto> {
+  return fetchJson<PlaylistDto>("/api/playlists", { method: "POST", body: JSON.stringify({ name }) });
+}
+
+export async function renamePlaylist(playlistId: string, name: string): Promise<void> {
+  await fetchJson<{ ok: true }>(`/api/playlists/${enc(playlistId)}`, {
+    method: "PATCH",
+    body: JSON.stringify({ name }),
+  });
+}
+
+export async function deletePlaylist(playlistId: string): Promise<void> {
+  await fetchJson<{ ok: true }>(`/api/playlists/${enc(playlistId)}`, { method: "DELETE" });
+}
+
+/** Append songs; songs already in the playlist stay where they are. */
+export function addToPlaylist(playlistId: string, trackIds: string[]): Promise<{ added: number }> {
+  return fetchJson<{ added: number }>(`/api/playlists/${enc(playlistId)}/tracks`, {
+    method: "POST",
+    body: JSON.stringify({ trackIds }),
+  });
+}
+
+/** The playlist's new full order after a drag. 409 when the playlist changed meanwhile. */
+export async function reorderPlaylist(playlistId: string, trackIds: string[]): Promise<void> {
+  await fetchJson<{ ok: true }>(`/api/playlists/${enc(playlistId)}/tracks`, {
+    method: "PUT",
+    body: JSON.stringify({ trackIds }),
+  });
+}
+
+export async function removeFromPlaylist(playlistId: string, trackId: string): Promise<void> {
+  await fetchJson<{ ok: true }>(`/api/playlists/${enc(playlistId)}/tracks/${enc(trackId)}`, {
+    method: "DELETE",
+  });
+}
+
+/** PUT /api/albums/favorite: the heart on an album page (SPEC 8.6). */
+export async function setAlbumFavorite(album: string, albumArtist: string, favorite: boolean): Promise<void> {
+  await fetchJson<{ ok: true }>("/api/albums/favorite", {
+    method: "PUT",
+    body: JSON.stringify({ album, albumArtist, favorite }),
+  });
+}
+
+export function fetchProfile(): Promise<ProfileResponse> {
+  return fetchJson<ProfileResponse>("/api/profile");
+}
+
+export function setDisplayName(displayName: string): Promise<{ displayName: string }> {
+  return fetchJson<{ displayName: string }>("/api/profile", {
+    method: "PATCH",
+    body: JSON.stringify({ displayName }),
+  });
 }

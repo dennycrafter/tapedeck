@@ -14,7 +14,6 @@
  */
 import {
   addToQueue as queueAdd,
-  emptyQueue,
   move as queueMove,
   nextIndex,
   nextRepeat,

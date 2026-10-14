@@ -1,6 +1,6 @@
 # Tapedeck Handoff
 
-Updated 12 Oct 2026, 5 pm. Pick up from here.
+Updated 14 Oct 2026. Pick up from here.
 
 ## What it is
 My personal Spotify replacement. Paste a YouTube or SoundCloud link (or search YouTube). The title, artist and cover get cleaned up, and the song lands in the library as "Waiting". A Python downloader on my Windows PC grabs the audio with yt-dlp and uploads it to Cloudflare R2. Then it plays on my iPhone (home screen app) and in PC Chrome.
@@ -14,26 +14,23 @@ My personal Spotify replacement. Paste a YouTube or SoundCloud link (or search Y
 - **T1:** the core loop works end to end: paste link, queue, PC downloader, playback. Fully verified.
 - **Most of T3:** AI title cleanup, cover art, edit/restore, YouTube search, SoundCloud links.
 - **Downloader half of T6:** copies finished songs into Apple Music's auto-add folder.
+- **PR #12:** fixed the `LayoutProps` type error, fixed a flaky library test, added the GitHub CI check.
+- **PR #13 (T2 checkpoint, first half of T2):** see below. CI fully green before merge.
 
-## Waiting for me to merge
-- **PR #12** (`fix/layout-props-and-ci`): fixes the `LayoutProps` type error, fixes a flaky library test, and adds a CI check on GitHub. CI is fully green (all 3 Playwright projects, including iPhone). Claude was not allowed to merge it by itself. To merge: open github.com/dennycrafter/tapedeck/pull/12, press "Squash and merge", then "Confirm".
+## Commits
+- Always author commits as `dennycrafter <dennycrafter@gmail.com>` (`git config user.name dennycrafter` and `git config user.email dennycrafter@gmail.com` in the repo). Squash merges on GitHub show as Denis Popov.
 
-## In progress: T2 (branch `t2-library-player`, pushed, NOT merged)
-Built and unit tested (459 of 459 unit tests pass, tsc and lint clean):
-- `web/lib/player/queue.ts`: play next, add to queue, shuffle (current song stays first), repeat off/all/one, previous after 3 s restarts, remove, drag reorder. 31 tests.
-- `web/lib/player/store.ts`: player now uses the queue, remembers shuffle/repeat/volume, counts a play after 30 s or when the song ends, can drop a deleted song, refreshes queued songs after edits.
-- `web/lib/library.ts`: data layer for likes, delete song (file then row), playlists (create, rename, delete, add, remove, reorder), favourite albums, plays, profile stats (Chicago month), top 5 artists, display name.
-- API routes: `/api/library` (full snapshot: tracks, playlists, favourite albums, recently played, display name), `/api/tracks/[id]/like`, `DELETE /api/tracks/[id]`, `/api/playlists`, `/api/playlists/[id]`, `/api/playlists/[id]/tracks`, `/api/playlists/[id]/tracks/[trackId]`, `/api/albums/favorite`, `/api/plays`, `/api/profile`.
-- `/api/test/seed`: test-only route (404 unless `TAPEDECK_TEST=1` and not production) to create made-up songs and read raw DB counts for e2e.
-- Installed `@dnd-kit/core`, `@dnd-kit/sortable`, `@dnd-kit/utilities`.
+## T2: built, in PR from `t2-ui` (waiting for Denis to look at screenshots)
+Rule for UI work: Denis decides by seeing it. Send desktop and phone screenshots with made-up data, merge only after he says "ship it".
 
-Still to do for T2:
-1. Unit tests for `web/lib/library.ts` and the new routes (PGlite, like `app/api/library/route.test.ts`).
-2. Update `web/app/lib/api.ts` types and clients for the new routes.
-3. UI: a LibraryProvider (load + poll `/api/library`), Home at `/` (greeting, status line, recently played, favourite albums, playlists, recently added as track rows), `/library` tabs (songs with sort, liked, playlists, albums, artists, recently played), playlist page with dnd-kit reorder, album page (favourite heart, play, shuffle), artist page, `/search` page, song "..." menu, desktop sidebar, phone tab bar (Home, Search, Library, Add), full player bar (prev/next, shuffle, repeat, volume on desktop, queue), Now playing sheet and queue view, keyboard shortcuts, profile stats and editable name.
-4. e2e `web/e2e/t2-library.spec.ts` for the 8 T2 checks. Keep T1 and T3 working: `/` must still show `library-empty`, `track-row`, `downloader-status` and `add-open`. Every T2 test must clean up its songs, playlists and favourites, because all three projects share one in-memory database and T1 (iPhone) expects an empty library.
-5. Make seeded songs ready through the agent API (upload-url, PUT a test tone, complete), not `--selftest`, to avoid the claim race noted in the T3 spec.
-6. Log the seed route and agent-API readiness in `docs/DECISIONS.md`, append results to `docs/TEST-REPORT.md`, PR, merge when CI is green.
+What T2 added on top of PR #13:
+- Screens: Home (`/`: greeting, downloader status, Recently played, Favourite albums, Your playlists, Recently added), `/library` tabs (Songs with remembered sort, Liked songs, Playlists, Albums, Artists, Recently played), `/playlist?id=` (drag to reorder, rename, delete), `/album?name=&artist=` (favourite heart, Play, Shuffle), `/artist?name=`, `/search` (library filter plus YouTube search), profile stats strip and top 5 artists with editable name.
+- Song "..." menu, desktop sidebar, phone tab bar (Home, Search, Library, Add), full player bar (shuffle, previous, play, next, repeat, progress, queue, volume on desktop only), Now playing sheet (swipe down closes), queue panel with drag reorder, keyboard shortcuts (Space, Shift+Left/Right, `/`).
+- `LibraryProvider` loads and polls `/api/library` and gives every screen the albums, artists, playlists and liked songs (pure helpers in `web/app/lib/library-view.ts`).
+- Saira is self-hosted via `@fontsource/saira`.
+- Tests: 609 unit tests; `web/e2e/t2-library.spec.ts` has the T2 checks. Playback checks are iphone only (Chromium in Playwright has no AAC).
+- Fixed: `POST /api/plays` no longer accepts null or empty `seconds`.
+- Not in T2 (later tickets): the "Downloaded" sidebar item and Download / Save to Files menu items (T4), Add to Apple Music (T6), cover field in Edit details (T3 leftover).
 
 ## Left to build after T2 (in this order)
 1. **T3 leftovers:** Edit details still has no cover field (keep / remove / paste URL); check the rest of the T3 checklist.
