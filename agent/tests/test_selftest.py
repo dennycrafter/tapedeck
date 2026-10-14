@@ -55,6 +55,47 @@ class TestSelftest:
 
         assert fake_server.calls("/api/agent/fail", "POST") == []
 
+    def test_soundcloud_track_becomes_ready(
+        self, fake_server, cfg, quiet_logger, tmp_work
+    ):
+        """T3: --selftest makes a SoundCloud song playable, same pipeline."""
+        fake_server.respond["/api/agent/claim"] = (
+            200,
+            [
+                make_track(
+                    id="sc1",
+                    source="soundcloud",
+                    source_url="https://soundcloud.com/theweeknd/blinding-lights",
+                    title="Blinding Lights",
+                    artist="The Weeknd",
+                    duration_sec=None,
+                )
+            ],
+        )
+        fake_server.respond["/api/agent/upload-url"] = (
+            200,
+            {"url": f"{fake_server.url}/put", "key": "tracks/sc1.m4a"},
+        )
+        assert downloader.run_selftest(quiet_logger, cfg, "sc1") == 0
+
+        upload = json.loads(fake_server.calls("/api/agent/upload-url", "POST")[0]["body"])
+        assert upload["trackId"] == "sc1"
+
+        put_call = fake_server.calls("/put", "PUT")[0]
+        assert put_call["headers"]["Content-Type"] == "audio/mp4"
+        tagged_path = tmp_work / "stored-sc.m4a"
+        tagged_path.write_bytes(put_call["body"])
+        audio = MP4(str(tagged_path))
+        assert audio["\xa9nam"] == ["Blinding Lights"]
+        assert audio["\xa9ART"] == ["The Weeknd"]
+
+        complete = json.loads(fake_server.calls("/api/agent/complete", "POST")[0]["body"])
+        assert complete["trackId"] == "sc1"
+        assert complete["key"] == "tracks/sc1.m4a"
+        # SoundCloud oEmbed has no duration (7.4): the downloader reports it.
+        assert complete["durationSec"] == 180
+        assert fake_server.calls("/api/agent/fail", "POST") == []
+
     def test_temp_files_are_cleaned_up(
         self, fake_server, cfg, quiet_logger, tmp_work, claimed_track
     ):

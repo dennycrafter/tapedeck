@@ -77,3 +77,14 @@ export function rowSubtitle(artist: string, album: string | null | undefined): s
 export function pluralWaiting(count: number): string {
   return count === 1 ? "1 song waiting for your PC" : `${count} songs waiting for your PC`;
 }
+
+/** A pasted cover must be an http(s) URL; returns the cleaned URL or null. */
+export function parseCoverInput(value: string): string | null {
+  const trimmed = value.trim();
+  try {
+    const url = new URL(trimmed);
+    return url.protocol === "http:" || url.protocol === "https:" ? trimmed : null;
+  } catch {
+    return null;
+  }
+}

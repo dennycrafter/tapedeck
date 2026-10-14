@@ -48,8 +48,8 @@ const FIVE_MV_URLS = [
 const FIVE_MV_EXPECTED: Array<{ title: string; artist: string }> = [
   { title: 'Blinding Lights', artist: 'The Weeknd' },
   { title: 'Despacito (feat. Daddy Yankee)', artist: 'Luis Fonsi' },
-  { title: 'GANGNAM STYLE(강남스타일)', artist: 'PSY' },
-  { title: 'See You Again (feat. Charlie Puth Furious 7 Soundtrack)', artist: 'Wiz Khalifa' },
+  { title: 'GANGNAM STYLE (강남스타일)', artist: 'PSY' },
+  { title: 'See You Again (feat. Charlie Puth)', artist: 'Wiz Khalifa' },
   { title: 'Uptown Funk (feat. Bruno Mars)', artist: 'Mark Ronson' },
 ];
 
@@ -74,7 +74,14 @@ test.describe('T3 search box @T3', () => {
       "Search uses YouTube's free daily limit (about 100 searches a day).",
     );
 
-    // Under two characters the Search button stays disabled — no request.
+    // Count every request to /api/search from here on (SPEC 8.7: search
+    // runs only on Enter or the Search button, never while typing).
+    let searchRequests = 0;
+    page.on('request', (request) => {
+      if (new URL(request.url()).pathname === '/api/search') searchRequests++;
+    });
+
+    // Under two characters the Search button stays disabled: no request.
     const input = page.getByTestId('search-input');
     const submit = page.getByTestId('search-submit');
     await expect(submit).toBeDisabled();
@@ -82,11 +89,19 @@ test.describe('T3 search box @T3', () => {
     await expect(submit).toBeDisabled();
     await expect(page.getByTestId('search-message')).toHaveCount(0);
 
+    // Typing a full query key by key, without Enter or the button, sends nothing.
+    await input.fill('');
+    await input.pressSequentially('get lucky', { delay: 30 });
+    await expect(submit).toBeEnabled();
+    await page.waitForTimeout(1_000);
+    expect(searchRequests, 'typing alone sent no /api/search request').toBe(0);
+    await expect(page.getByTestId('search-message')).toHaveCount(0);
+
     // Submitting sends the search; without a key the SPEC message appears.
-    await input.fill('get lucky');
     await submit.click();
     await expect(page.getByTestId('search-message')).toHaveText('Add a YouTube key to turn on search');
     await expect(page.getByTestId('search-results')).toHaveCount(0);
+    expect(searchRequests, 'the button sent exactly one search').toBe(1);
   });
 });
 
@@ -212,17 +227,31 @@ test.describe('T3 adds with cleanup and covers @T3', () => {
     await pasteAndSubmit(page, FIVE_MV_URLS);
     await expect(page.getByTestId('toast')).toHaveText('5 added', { timeout: 30_000 });
 
+    const coverUrls: string[] = [];
     for (const expected of FIVE_MV_EXPECTED) {
       // `.first()`: the SoundCloud test added a same-titled "Blinding
-      // Lights" earlier — the '5 added' toast already proves these five
+      // Lights" earlier; the '5 added' toast already proves these five
       // are new, and the duplicated title's rows carry identical values.
       const row = page.getByTestId('track-row').filter({ hasText: expected.title }).first();
       await expect(row, `row for ${expected.title}`).toBeVisible();
       await expect(row.getByTestId('track-title')).toHaveText(expected.title);
       await expect(row.getByTestId('track-subtitle')).toContainText(expected.artist);
-      // The cover matched: the row renders the artwork image, not the
-      // placeholder icon (SPEC 8.5).
-      await expect(row.locator('img')).toHaveCount(1);
+      // A matched cover renders the artwork image, not the placeholder
+      // icon (SPEC 8.5); a live miss is allowed for one of the five.
+      const image = row.locator('img');
+      if ((await image.count()) > 0) {
+        const src = await image.first().getAttribute('src');
+        if (src) coverUrls.push(src);
+      }
+    }
+
+    // SPEC T3: "at least 4 of 5 get a 600x600 cover from live iTunes or Deezer".
+    expect(coverUrls.length, `covers shown: ${coverUrls.join(', ')}`).toBeGreaterThanOrEqual(4);
+    for (const src of coverUrls) {
+      // iTunes covers are the 600x600bb artwork (SPEC 7.6); Deezer's
+      // cover_xl is resized to its 600x600 CDN variant (lib/cover-art.ts).
+      if (src.includes('mzstatic.com')) expect(src, 'iTunes cover is 600x600').toContain('/600x600bb.');
+      if (src.includes('dzcdn.net')) expect(src, 'Deezer cover is 600x600').toContain('/600x600-');
     }
   });
 });

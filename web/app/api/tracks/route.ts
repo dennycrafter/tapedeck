@@ -13,11 +13,12 @@
 //   4. Fetch raw metadata (7.3 videos.list batched when YOUTUBE_API_KEY is
 //      set, oEmbed otherwise; 7.4 oEmbed for SoundCloud).
 //   5. Clean the title (8.4): AI step 2 when ANTHROPIC_API_KEY is set and its
-//      reply says music with confidence >= 0.5; the rule cleaner otherwise —
-//      an add never fails because AI cleanup is unavailable.
+//      reply parses with confidence >= 0.5 (music or not); the rule cleaner
+//      otherwise. An add never fails because AI cleanup is unavailable.
 //   6. Look up cover art (8.5): iTunes then Deezer, first candidate matching
-//      the rule wins; no match → null cover (blank placeholder). Skipped for
-//      non-music replies — the raw thumbnail stays, never a covers result.
+//      the rule wins; no match: null cover (blank placeholder). Skipped for
+//      an accepted non-music reply: cover_url and album stay null (the raw
+//      thumbnail is kept only in raw_thumbnail_url, never as the cover).
 //      Insert with status 'waiting'.
 //
 // Response shape note for the Add window (8.2): the summary toast counts
@@ -241,8 +242,8 @@ export async function POST(request: Request): Promise<Response> {
     }
 
     // Step 5 (8.4): AI cleanup with the rule cleaner as the deterministic
-    // fallback; step 6 (8.5): cover lookup, skipped when the AI verdict was
-    // non-music — a covers result is never attached to non-music.
+    // fallback; step 6 (8.5): cover lookup, skipped only when an accepted AI
+    // reply said non-music, so no covers result is attached to non-music.
     const outcome = await cleanWithFallback(metadata, process.env.ANTHROPIC_API_KEY, candidate.link.source)
     const cover = outcome.isMusic === false ? null : await lookupCoverArt(outcome.title, outcome.artist)
     try {

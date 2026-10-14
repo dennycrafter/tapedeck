@@ -5,12 +5,17 @@
  * Rules, in order:
  *  1. Remove (case-insensitive) bracketed or trailing marketing text —
  *     `Official Video` and friends — plus empty brackets left behind.
+ *     Loose words after a removed marketing bracket are description junk
+ *     and go with it ("[Official Video] Furious 7 Soundtrack"); bracketed
+ *     version info and a feat clause after it are kept.
  *  2. SoundCloud: a title of the form "X by Y" (from oEmbed) splits into
  *     title X, artist Y.
  *  3. A title containing ` - ` (or U+2013/U+2014 with spaces) splits:
  *     left = artist, right = title.
  *  4. Featured artists (`ft.`, `ft`, `feat`, `featuring`) in title or artist
- *     are normalised to `(feat. Name)` at the end of the title.
+ *     are normalised to `(feat. Name)` at the end of the title. The names
+ *     stop where a bracket starts, so "(Live)" after them stays in place.
+ *  A kept bracket gets one space before it: "STYLE(x)" becomes "STYLE (x)".
  *  5. Otherwise the artist is the channel name with suffixes removed
  *     (` - Topic`, `VEVO`, ` Official`, `Official`).
  * An artist that ends up empty becomes "Unknown Artist".
@@ -90,16 +95,112 @@ function isMarketingText(text: string): boolean {
   return normalized.split(' ').every((token) => MARKETING_TOKENS.has(token))
 }
 
+const OPEN_BRACKETS = '([{'
+const CLOSE_BRACKETS = ')]}'
+
+/** Opening brackets minus closing brackets; 0 when every group in the text is closed. */
+function bracketDepth(text: string): number {
+  let depth = 0
+  for (const ch of text) {
+    if (OPEN_BRACKETS.includes(ch)) depth++
+    else if (CLOSE_BRACKETS.includes(ch) && depth > 0) depth--
+  }
+  return depth
+}
+
+interface Piece {
+  text: string
+  bracketed: boolean
+}
+
+/**
+ * Split text into top-level pieces: balanced bracket groups (nesting kept
+ * inside) and the loose runs between them. An unclosed group at the end
+ * counts as loose text.
+ */
+function topLevelPieces(text: string): Piece[] {
+  const pieces: Piece[] = []
+  let depth = 0
+  let start = 0
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i]
+    if (OPEN_BRACKETS.includes(ch)) {
+      if (depth === 0 && i > start) {
+        pieces.push({ text: text.slice(start, i), bracketed: false })
+        start = i
+      }
+      depth++
+    } else if (CLOSE_BRACKETS.includes(ch) && depth > 0) {
+      depth--
+      if (depth === 0) {
+        pieces.push({ text: text.slice(start, i + 1), bracketed: true })
+        start = i + 1
+      }
+    }
+  }
+  if (start < text.length) pieces.push({ text: text.slice(start), bracketed: false })
+  return pieces
+}
+
+/** A feat marker (8.4): `ft.`, `ft`, `feat`, `featuring`, as whole words. */
+const FEAT_MARKER = /\b(?:featuring|feat|ft)\b\.?\s*:?\s*/i
+
+/**
+ * What survives after a removed marketing bracket: later bracket groups
+ * (version info such as "(Live)"; marketing ones go on the next pass) and
+ * a feat clause ("(Official Video) ft. Bruno Mars"). Any other loose text
+ * is description junk ("[Official Video] Furious 7 Soundtrack").
+ */
+function keepAfterMarketing(tail: string): string {
+  const kept: string[] = []
+  for (const piece of topLevelPieces(tail)) {
+    if (piece.bracketed) {
+      kept.push(piece.text)
+      continue
+    }
+    const feat = piece.text.search(FEAT_MARKER)
+    if (feat !== -1) kept.push(piece.text.slice(feat))
+  }
+  return kept.join(' ')
+}
+
+/** True when the text has words outside any bracket group. */
+function hasLooseText(text: string): boolean {
+  return topLevelPieces(text).some((piece) => !piece.bracketed && piece.text.trim().length > 0)
+}
+
+/**
+ * Remove the first marketing bracket group, or return the text unchanged.
+ * A top-level group that follows the song text also drops the loose junk
+ * after it; a nested group, or one that leads the title ("[MV] Artist -
+ * Song"), is only cut out.
+ */
+function removeFirstMarketingGroup(text: string): string {
+  for (const match of text.matchAll(BRACKET_GROUP)) {
+    if (match.index === undefined || !isMarketingText(match[1])) continue
+    const head = text.slice(0, match.index)
+    const tail = text.slice(match.index + match[0].length)
+    if (bracketDepth(head) !== 0 || !hasLooseText(head)) return `${head} ${tail}`
+    return `${head} ${keepAfterMarketing(tail)}`
+  }
+  return text
+}
+
 /** Remove marketing bracket groups, then the empty brackets they leave behind, until stable. */
 function removeBracketedMarketing(text: string): string {
   let current = text
   let previous = ''
   while (current !== previous) {
     previous = current
-    current = current.replace(BRACKET_GROUP, (match, inner: string) => (isMarketingText(inner) ? ' ' : match))
+    current = removeFirstMarketingGroup(current)
     current = current.replace(EMPTY_BRACKETS, ' ')
   }
   return current
+}
+
+/** One space before a bracket glued to the word in front of it: "STYLE(x)" becomes "STYLE (x)". */
+function spaceBeforeBrackets(text: string): string {
+  return text.replace(/([^\s([{])([([{])/gu, '$1 $2')
 }
 
 /**
@@ -158,12 +259,26 @@ interface FeatSplit {
   names: string | null
 }
 
-/** Cut the first feat marker out of the text; the rest of the string is the names. */
+/**
+ * Cut the first feat marker out of the text. The names run to the next
+ * bracket (or the end); text from that bracket on stays in place. A marker
+ * inside a group ("(feat. A)") takes the group's closing bracket with it,
+ * and a group with text before the marker ("(Remix feat. A)") is closed.
+ */
 function extractFeatured(text: string): FeatSplit {
-  const match = text.match(/\b(?:featuring|feat|ft)\b\.?\s*:?\s*/i)
+  const match = text.match(FEAT_MARKER)
   if (!match || match.index === undefined) return { text: text.trim(), names: null }
-  const names = text.slice(match.index + match[0].length).replace(/[\s)\]},]+$/, '').trim()
-  return { text: stripDanglingEnd(text.slice(0, match.index)), names: names || null }
+  const after = text.slice(match.index + match[0].length)
+  const stop = after.search(/[()[\]{}]/)
+  const names = (stop === -1 ? after : after.slice(0, stop)).replace(/[\s,]+$/, '').trim()
+  let rest = stop === -1 ? '' : after.slice(stop)
+  let before = stripDanglingEnd(text.slice(0, match.index))
+  if (rest && CLOSE_BRACKETS.includes(rest[0])) {
+    const closer = rest[0]
+    rest = rest.slice(1)
+    if (bracketDepth(before) > 0) before = `${before}${closer}`
+  }
+  return { text: tidy(`${before} ${rest}`), names: names || null }
 }
 
 /** Featured artists from title and artist move to `(feat. A, B)` at the end of the title (8.4). */
@@ -189,13 +304,27 @@ function cleanChannelArtist(artist: string): string {
   return current.replace(/\s[-–—|]\s*$/, '').trim()
 }
 
+/** The "Restore original" suffixes (8.4 Undo): only ` - Topic` and `VEVO`. */
+const RESTORE_SUFFIX = /\s*-\s*topic\s*$|\s*-\s*vevo\s*$|vevo\s*$/i
+
 /**
- * The restore-original artist (song menu "Restore original"): the raw artist
- * with channel suffixes stripped — the same rule the cleaner applies, kept
- * empty-safe with the shared fallback.
+ * The restore-original artist (song menu "Restore original", 8.4 Undo): the
+ * raw artist with only " - Topic" and "VEVO" stripped. " Official" stays:
+ * that strip belongs to the cleaner's channel fallback, not to restore. A
+ * raw artist that is nothing but a suffix ("VEVO") is kept as is; only an
+ * empty raw artist becomes "Unknown Artist".
  */
 export function restoreOriginalArtist(rawArtist: string): string {
-  return cleanChannelArtist(rawArtist) || UNKNOWN_ARTIST
+  const raw = tidy(rawArtist)
+  let current = raw
+  let previous = ''
+  while (current !== previous) {
+    previous = current
+    current = current.replace(RESTORE_SUFFIX, '').trim()
+  }
+  // "Name - VEVO" leaves a stray dash behind; tidy it.
+  current = current.replace(/\s[-\u2013\u2014|]\s*$/, '').trim()
+  return current || raw || UNKNOWN_ARTIST
 }
 
 /**
@@ -234,7 +363,7 @@ export function cleanTitleRules(
   if (!artistFromSplit) artist = cleanChannelArtist(artist)
 
   return {
-    title: title || raw,
+    title: spaceBeforeBrackets(title) || raw,
     artist: artist || UNKNOWN_ARTIST,
   }
 }
