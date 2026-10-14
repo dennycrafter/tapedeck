@@ -408,3 +408,30 @@ export async function getProfile(): Promise<Profile> {
 export async function setDisplayName(name: string): Promise<void> {
   await sql`update settings set display_name = ${name} where id = 1`
 }
+
+// ---------------------------------------------------------------------------
+// Apple Music export (SPEC 8.11, T6)
+// ---------------------------------------------------------------------------
+
+/** Profile setting "Also add to Apple Music on my PC". */
+export async function setAppleMusicExport(on: boolean): Promise<void> {
+  await sql`update settings set apple_music_export = ${on} where id = 1`
+}
+
+/**
+ * Song menu "Add to Apple Music": flag the song, and if it is already ready
+ * send it back to `waiting` so the downloader processes it again and copies
+ * it into Apple Music's folder (SPEC 8.11: cheap and simple). Waiting and
+ * downloading songs just get the flag; failed ones keep their status.
+ */
+export async function addTrackToAppleMusic(trackId: string): Promise<LibraryTrack | null> {
+  const rows = await sql`
+    update tracks set
+      apple_music = true,
+      status = case when status = 'ready' then 'waiting' else status end,
+      attempts = case when status = 'ready' then 0 else attempts end
+    where id = ${trackId}
+    returning *
+  `
+  return rows[0] ? trackFromRow(rows[0]) : null
+}

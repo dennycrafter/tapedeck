@@ -86,7 +86,9 @@ const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
   skipWaiting: true,
   clientsClaim: true,
-  navigationPreload: true,
+  // No navigation preload: offline it can hand a page the wrong response,
+  // and pages are small; the network-first rule above is enough.
+  navigationPreload: false,
   runtimeCaching,
   fallbacks: {
     entries: [

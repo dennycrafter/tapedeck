@@ -25,14 +25,15 @@ My personal Spotify replacement. Paste a YouTube or SoundCloud link (or search Y
 - **T3 leftovers** (branch `t3-leftovers`): cover field in Edit details (Keep / Remove / Paste URL), the missing T3 tests, and fixes to the AI confidence gate, Restore original and the title cleaner. See DECISIONS.md for the details.
 - **T3 leftovers** merged (PR #15).
 - **T4** (branch `t4-offline`): offline on the phone (service worker, library snapshot, downloads with progress, Downloaded tab, offline plays queue) and Save to Files. The offline checks run on a second e2e server that is a real production build (`web/e2e/prod-server.mjs`).
+- **T4** merged (PR #16). The downloader now also moves each song's MP4 index to the front so offline copies start playing right away.
+- **T6 app side** (branch `t6-apple-music`): the profile setting and the "Add to Apple Music" song menu item.
 - To check after going live: Deezer covers now ask the CDN for the 600x600 size; confirm one Deezer cover loads.
 - To check on the real iPhone (T8 list): download a playlist, turn on airplane mode, open the app from the home screen, play; and Save to Files opens the share sheet.
 
 ## Left to build after T2 (in this order)
-1. **T6 app side:** the Apple Music setting and the "Add to Apple Music" song menu item.
-2. **T5:** UI polish against the SPEC section 10 design rules, with screenshots.
-3. **T7:** README, plus the repo hygiene check script. Note: older docs (DECISIONS, TEST-REPORT, BLOCKERS) written by Obvious contain em dashes, and the T7 check fails on them. Clean them up then.
-4. **T8:** `docs/HANDOFF.md` with my steps.
+1. **T5:** UI polish against the SPEC section 10 design rules, with screenshots.
+2. **T7:** README, plus the repo hygiene check script. Note: older docs (DECISIONS, TEST-REPORT, BLOCKERS) written by Obvious contain em dashes, and the T7 check fails on them. Clean them up then.
+3. **T8:** `docs/HANDOFF.md` with my steps.
 
 ## Then go live (I do this with help)
 1. Set up Supabase and Cloudflare R2.

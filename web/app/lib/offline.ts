@@ -222,6 +222,7 @@ export function downloadedBytes(current: OfflineState = state): number {
  */
 const objectUrls: { trackId: string; url: string }[] = [];
 const KEEP_OBJECT_URLS = 4;
+const PLAYBACK_BLOB_TYPE = "audio/x-m4a";
 
 function forgetObjectUrl(trackId: string): void {
   for (let i = objectUrls.length - 1; i >= 0; i--) {
@@ -242,7 +243,10 @@ export async function resolvePlaybackUrl(trackId: string): Promise<string> {
   if (state.downloaded.has(trackId) || !state.loaded) {
     const record = await getAudio(trackId);
     if (record) {
-      const url = URL.createObjectURL(record.blob);
+      // Labelled audio/x-m4a, Apple's own type for .m4a: WebKit refused
+      // audio/mp4 blobs on some machines (see DECISIONS.md, T4) but played
+      // x-m4a every time. Wrapping the Blob does not copy the bytes.
+      const url = URL.createObjectURL(new Blob([record.blob], { type: PLAYBACK_BLOB_TYPE }));
       objectUrls.push({ trackId, url });
       while (objectUrls.length > KEEP_OBJECT_URLS) {
         const oldest = objectUrls.shift();

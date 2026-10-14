@@ -268,3 +268,16 @@ export function setDisplayName(displayName: string): Promise<{ displayName: stri
     body: JSON.stringify({ displayName }),
   });
 }
+
+/** PUT /api/settings/apple-music: "Also add to Apple Music on my PC" (SPEC 8.11). */
+export function setAppleMusicExport(on: boolean): Promise<{ appleMusicExport: boolean }> {
+  return fetchJson<{ appleMusicExport: boolean }>("/api/settings/apple-music", {
+    method: "PUT",
+    body: JSON.stringify({ on }),
+  });
+}
+
+/** POST /api/tracks/:id/apple-music: the song menu's "Add to Apple Music" (SPEC 8.11). */
+export function addToAppleMusic(trackId: string): Promise<TrackDto> {
+  return fetchJson<TrackDto>(`/api/tracks/${enc(trackId)}/apple-music`, { method: "POST" });
+}

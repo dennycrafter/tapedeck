@@ -4,7 +4,7 @@
  * The song "..." menu (SPEC 10): Play next, Add to queue, Add to playlist,
  * Like/Unlike, Go to album, Go to artist, Edit details, Restore original,
  * Download / Remove download and Save to Files (SPEC 8.9, 8.10), Retry
- * (failed only), Delete. Add to Apple Music (T6) joins later. On a playlist
+ * (failed only), Add to Apple Music (SPEC 8.11), Delete. On a playlist
  * page it also offers "Remove from this playlist".
  */
 import { useRef, useState } from "react";
@@ -213,6 +213,21 @@ export function SongMenu({ track, playlistId, className = "" }: SongMenuProps) {
           }
         }),
     },
+    // SPEC 8.11: for single songs when the "Also add to Apple Music" setting
+    // is off (with it on, the PC adds every new song by itself).
+    ...(!track.appleMusic && track.status !== "failed"
+      ? [
+          {
+            label: "Add to Apple Music",
+            testId: "menu-apple-music",
+            onSelect: () =>
+              void run(
+                () => library.addToAppleMusic(track),
+                "Your PC will add it to Apple Music the next time it runs",
+              ),
+          },
+        ]
+      : []),
     "divider",
     {
       label: "Edit details",
