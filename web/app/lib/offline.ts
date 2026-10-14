@@ -18,6 +18,7 @@ import {
   putAudio,
   queuePlay,
 } from "./offline-db";
+import { offlineAudioUrl } from "./offline-range";
 
 export interface OfflineState {
   /** False once the browser says offline or the library came from the snapshot. */
@@ -42,6 +43,8 @@ let state: OfflineState = {
 };
 const listeners = new Set<Listener>();
 let started = false;
+/** Resolves once this device's download list is read (startOffline). */
+let downloadsListed: Promise<void> = Promise.resolve();
 let persistAsked = false;
 let downloadChain: Promise<unknown> = Promise.resolve();
 
@@ -87,7 +90,7 @@ export function startOffline(): void {
     void flushPlays();
   });
   window.addEventListener("offline", () => set({ online: false }));
-  void listAudio().then((entries) => {
+  downloadsListed = listAudio().then((entries) => {
     set({ downloaded: new Map(entries.map((entry) => [entry.id, entry.bytes])), loaded: true });
   });
   void flushPlays();
@@ -222,6 +225,10 @@ export function downloadedBytes(current: OfflineState = state): number {
  */
 const objectUrls: { trackId: string; url: string }[] = [];
 const KEEP_OBJECT_URLS = 4;
+
+function serviceWorkerInControl(): boolean {
+  return typeof navigator !== "undefined" && !!navigator.serviceWorker?.controller;
+}
 const PLAYBACK_BLOB_TYPE = "audio/x-m4a";
 
 function forgetObjectUrl(trackId: string): void {
@@ -240,6 +247,11 @@ function forgetAllObjectUrls(): void {
 
 /** Where the player loads a song from: the downloaded copy if there is one, else the server. */
 export async function resolvePlaybackUrl(trackId: string): Promise<string> {
+  if (!state.loaded) await downloadsListed;
+  // With the service worker in control, a downloaded song plays from a
+  // normal address it answers with byte ranges (more reliable than blob:
+  // URLs in WebKit, see DECISIONS.md). Without it, a blob: URL.
+  if (state.downloaded.has(trackId) && serviceWorkerInControl()) return offlineAudioUrl(trackId);
   if (state.downloaded.has(trackId) || !state.loaded) {
     const record = await getAudio(trackId);
     if (record) {

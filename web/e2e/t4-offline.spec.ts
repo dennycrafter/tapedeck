@@ -163,6 +163,16 @@ test.describe('T4 offline @T4', () => {
     await expect(page.getByTestId('playlist-name')).toHaveText(`Flight ${tag}`);
     await expect(page.getByTestId('playlist-tracks').getByTestId('track-downloaded')).toHaveCount(3);
 
+    // The service worker serves a downloaded song at a normal address with
+    // byte ranges, offline (what the player streams from).
+    const ranged = await page.evaluate(async (id) => {
+      const response = await fetch(`/offline-audio/${id}`, { headers: { Range: 'bytes=0-1023' } });
+      return { status: response.status, bytes: (await response.arrayBuffer()).byteLength, range: response.headers.get('content-range') };
+    }, one.id);
+    expect(ranged.status).toBe(206);
+    expect(ranged.bytes).toBe(1024);
+    expect(ranged.range).toMatch(/^bytes 0-1023\/\d+$/);
+
     // Check: songs not downloaded are greyed and not playable.
     await page.goto('/');
     await expect(page.getByTestId('offline-pill')).toBeVisible();
@@ -200,6 +210,7 @@ test.describe('T4 offline @T4', () => {
     await page.getByTestId('list-play').click();
     await expectPlaying(page);
     expect(await mediaTitle(page)).toBe(one.title);
+    expect(await page.evaluate(() => document.querySelector('audio')?.currentSrc ?? '')).toContain('/offline-audio/');
     for (const next of [two, three]) {
       await page.evaluate((end) => {
         const audio = document.querySelector('audio') as HTMLAudioElement;
