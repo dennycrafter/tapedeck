@@ -30,6 +30,8 @@ import {
   reorderPlaylist as apiReorderPlaylist,
   retryTrack as apiRetryTrack,
   setAlbumFavorite as apiSetAlbumFavorite,
+  setAppleMusicExport as apiSetAppleMusicExport,
+  addToAppleMusic as apiAddToAppleMusic,
   setTrackLiked,
   type LibraryResponse,
   type PlaylistDto,
@@ -78,6 +80,8 @@ export interface LibraryApi {
   removeFromPlaylist(playlistId: string, trackId: string): Promise<void>;
   reorderPlaylist(playlistId: string, trackIds: string[]): Promise<void>;
   setAlbumFavorite(album: AlbumView, favorite: boolean): Promise<void>;
+  setAppleMusicExport(on: boolean): Promise<void>;
+  addToAppleMusic(track: TrackDto): Promise<void>;
 }
 
 const LibraryContext = createContext<LibraryApi | null>(null);
@@ -328,6 +332,27 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
           },
           () => apiSetAlbumFavorite(album.album, album.albumArtist, favorite),
         ),
+      setAppleMusicExport: (on) =>
+        mutate(
+          (current) => ({ ...current, appleMusicExport: on }),
+          () => apiSetAppleMusicExport(on),
+        ).then(() => undefined),
+      addToAppleMusic: (track) =>
+        mutate(
+          (current) => ({
+            ...current,
+            tracks: current.tracks.map((candidate) =>
+              candidate.id === track.id
+                ? {
+                    ...candidate,
+                    appleMusic: true,
+                    status: candidate.status === "ready" ? "waiting" : candidate.status,
+                  }
+                : candidate,
+            ),
+          }),
+          () => apiAddToAppleMusic(track.id),
+        ).then(() => undefined),
     }),
     [library, loading, error, derived, refetch, mutate, player],
   );

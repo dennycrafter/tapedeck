@@ -217,3 +217,17 @@ An audit of the 8 T3 checks found four only partly tested and three small bugs. 
 | extra | Remove download from the song menu and "Remove all downloads" in the profile | PASS | PASS | CI |
 
 T0 to T3 still pass on desktop and android here.
+
+
+## T6: Apple Music export, app side (14 Oct 2026)
+
+The downloader side was already built and tested (pytest `agent/tests/test_apple_music.py`: the Apple Music layout and the iTunes layout are found, a processed song is copied as `<Artist> - <Title>.m4a` and `apple-music-done` is called, with no folder the song stays ready with the SPEC 8.11 error). This ticket adds the app side.
+
+| Check | Result |
+|---|---|
+| pytest: Apple Music folder, copy and `apple-music-done` | PASS |
+| pytest: iTunes layout found | PASS |
+| pytest: no folder keeps the song ready with the 8.11 error | PASS |
+| e2e: the profile toggle and "Add to Apple Music" update the database | PASS desktop, android; iphone in CI |
+
+Unit: 5 new route tests (ready song goes back to waiting with attempts 0, waiting and downloading songs only get the flag, 404 and 400, the setting on and off, bad body).
