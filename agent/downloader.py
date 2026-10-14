@@ -568,6 +568,8 @@ def convert_check(
                     "aac",
                     "-b:a",
                     "160k",
+                    "-movflags",
+                    "+faststart",
                     str(target),
                 ],
                 capture_output=True,
@@ -589,10 +591,95 @@ def convert_check(
             raise PipelineError("ffmpeg conversion failed: " + " | ".join(tail))
         path = target
 
+    else:
+        path = ensure_faststart(logger, path)
+
     duration = read_duration(path, logger)
     if is_preview(duration, track["duration_sec"]):
         raise PipelineError(preview_error_message())
     return path, duration
+
+
+def top_level_atoms(path: Path) -> list[str]:
+    """The top-level MP4 box names in file order (ftyp, moov, mdat, ...)."""
+    names: list[str] = []
+    size_total = path.stat().st_size
+    with path.open("rb") as handle:
+        offset = 0
+        while offset + 8 <= size_total:
+            handle.seek(offset)
+            header = handle.read(16)
+            if len(header) < 8:
+                break
+            size = int.from_bytes(header[0:4], "big")
+            names.append(header[4:8].decode("latin-1"))
+            if size == 1 and len(header) >= 16:
+                size = int.from_bytes(header[8:16], "big")
+            elif size == 0:
+                break  # box runs to the end of the file
+            if size < 8:
+                break
+            offset += size
+    return names
+
+
+def needs_faststart(path: Path) -> bool:
+    """True when the index (moov) comes after the audio (mdat).
+
+    A phone playing a downloaded copy (SPEC 8.9) has to read the index
+    before the first sound; with the index at the end it must read to the
+    end of the file first, which some players do slowly or not at all.
+    """
+    try:
+        atoms = top_level_atoms(path)
+    except OSError:
+        return False
+    if "moov" not in atoms or "mdat" not in atoms:
+        return False
+    return atoms.index("moov") > atoms.index("mdat")
+
+
+def ensure_faststart(logger: logging.Logger, path: Path) -> Path:
+    """Move the MP4 index to the front without re-encoding (best effort).
+
+    `ffmpeg -c copy -movflags +faststart` only reorders boxes, so the audio
+    is bit for bit the same. Without ffmpeg, or if it fails, the original
+    file is kept: it still plays, just starts slower offline.
+    """
+    if not needs_faststart(path):
+        return path
+    target = path.with_name(path.stem + ".faststart.m4a")
+    try:
+        result = subprocess.run(
+            [
+                "ffmpeg",
+                "-y",
+                "-hide_banner",
+                "-loglevel",
+                "error",
+                "-i",
+                str(path),
+                "-c",
+                "copy",
+                "-movflags",
+                "+faststart",
+                str(target),
+            ],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=DOWNLOAD_TIMEOUT_SEC,
+            check=False,
+        )
+    except (FileNotFoundError, subprocess.TimeoutExpired) as exc:
+        logger.warning("faststart: skipped (%s); keeping the original file.", exc)
+        return path
+    if result.returncode != 0 or not target.exists():
+        logger.warning("faststart: ffmpeg failed; keeping the original file.")
+        return path
+    logger.info("faststart: moved the index to the front of %s.", path.name)
+    return target
 
 
 def download_cover(logger: logging.Logger, cover_url: str | None) -> tuple[bytes, str] | None:
