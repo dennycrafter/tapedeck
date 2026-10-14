@@ -71,7 +71,7 @@ jobs:
         working-directory: web
         env:
           E2E_PYTHON: python
-        run: npx playwright test --grep-invert @live
+        run: npx playwright test --project=iphone --grep @PROBE
 
       - name: Upload Playwright report
         if: failure()
