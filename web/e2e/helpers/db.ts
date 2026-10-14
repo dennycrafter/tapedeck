@@ -4,7 +4,7 @@ import { appEnv } from './env';
 
 /*
  * SPEC 9.0: seeding and cleanup go through the app's own db.ts and
- * storage.ts — the same modules the webServer process runs. The app reads its
+ * storage.ts, the same modules the webServer process runs. The app reads its
  * env lazily (the sql handle forwards to getDb() on first use, getStorage()
  * reads env per call), so applying the test contract here, before any test
  * touches sql or storage, is what puts this worker process in the same
@@ -97,7 +97,7 @@ export async function setAgentLastSeen(secondsAgo: number | null): Promise<void>
 // SPEC 4.1 storage contract: head(key) surfaces whether the stored file
 // exists ("the stored file exists", SPEC 9.0 selftest checks). The driver's
 // discriminated result { exists: true; bytes } | { exists: false } is the
-// source of truth; driver errors propagate — never swallowed.
+// source of truth; driver errors propagate and are never swallowed.
 export async function trackFileExists(storageKey: string): Promise<boolean> {
   const head = await getStorage().head(storageKey);
   return head.exists;

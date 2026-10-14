@@ -1,5 +1,5 @@
 /**
- * Database adapter (SPEC 4.1) — one `sql` tagged template used everywhere.
+ * Database adapter (SPEC 4.1): one `sql` tagged template used everywhere.
  *
  * Real:     `DATABASE_URL` set → `postgres` npm driver with `prepare: false`
  *           (required by the Supabase transaction pooler).
@@ -9,16 +9,16 @@
  *           `DATABASE_URL` throws `DbUnconfiguredError` and the Setup page
  *           (SPEC 8.12) takes over.
  *
- * On first start — development and PGlite — `supabase/schema.sql` is applied when
+ * On first start (development and PGlite), `supabase/schema.sql` is applied when
  * the `settings` table is missing. In production the schema runs from "Finish
  * setup" (8.12) instead; call `ensureSchema(db)` from there.
  *
  * The same small surface works on both drivers:
  *   await sql`select * from tracks where id = ${id}`
- *   sql.unsafe(text, params)      — parameterized query
- *   sql.exec(script)              — multi-statement script (schema bootstrap)
- *   sql.begin(async tx => ...)    — transaction; use `tx`, not `sql`, inside
- *   sql.identifier(name), sql.raw(text) — fragments for dynamic SQL
+ *   sql.unsafe(text, params)      parameterized query
+ *   sql.exec(script)              multi-statement script (schema bootstrap)
+ *   sql.begin(async tx => ...)    transaction; use `tx`, not `sql`, inside
+ *   sql.identifier(name), sql.raw(text): fragments for dynamic SQL
  *
  * Tagged results are also usable as nested fragments: `sql`select
  * ${sql.identifier('title')} from ${sql.raw('tracks')}``.
@@ -32,10 +32,10 @@ import postgres from 'postgres'
 export type Row = Record<string, unknown>
 
 export type DbMode =
-  | 'postgres' // DATABASE_URL is set — Supabase Postgres via the transaction pooler
-  | 'pglite-file' // dev stand-in — PGlite persisted in web/.data/pglite
-  | 'pglite-memory' // test stand-in (TAPEDECK_TEST=1) — in-memory PGlite, fresh per run
-  | 'unconfigured' // production build with no DATABASE_URL — Setup page territory (8.12)
+  | 'postgres' // DATABASE_URL is set: Supabase Postgres via the transaction pooler
+  | 'pglite-file' // dev stand-in: PGlite persisted in web/.data/pglite
+  | 'pglite-memory' // test stand-in (TAPEDECK_TEST=1): in-memory PGlite, fresh per run
+  | 'unconfigured' // production build with no DATABASE_URL: Setup page territory (8.12)
 
 export class DbUnconfiguredError extends Error {
   constructor() {
@@ -227,7 +227,7 @@ function pgliteDriver(client: PgliteCore, lifecycle: { begin: Driver['begin']; e
 
 function pgliteRootDriver(pg: PGlite): Driver {
   return pgliteDriver(pg, {
-    // PGlite's Transaction handle exposes only query/exec — no nesting.
+    // PGlite's Transaction handle exposes only query/exec, with no nesting.
     begin: <T>(fn: (tx: DbExecutor) => Promise<T>): Promise<T> =>
       pg.transaction(async (tx) => fn(createExecutor(pgliteDriver(tx, {
         begin: unsupportedBegin,
@@ -314,7 +314,7 @@ async function init(): Promise<DbExecutor> {
   return executor
 }
 
-/** Close the current client and forget it — the next use builds a fresh one. Tests use this. */
+/** Close the current client and forget it; the next use builds a fresh one. Tests use this. */
 export async function resetDb(): Promise<void> {
   const end = driverEnd
   cachedExecutor = null

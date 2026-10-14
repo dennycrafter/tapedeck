@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /*
- * Design tokens (SPEC 10, dark only) — verbatim custom properties so plain
+ * Design tokens (SPEC 10, dark only): verbatim custom properties so plain
  * CSS and CSS modules can consume var(--bg) etc. The Tailwind theme block
  * maps the same tokens onto utilities (bg-bg, text-muted, border-line, ...).
  * Shared with test-audio.module.css, which re-declares the values it needs

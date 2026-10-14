@@ -4,7 +4,7 @@ import { runSelftest } from './helpers/agent';
 
 /*
  * T1 tracer flow @T1, iphone project (SPEC 9 T1 checks): the whole journey
- * one test so the shared stand-in server sees a deterministic sequence —
+ * one test so the shared stand-in server sees a deterministic sequence:
  * paste the fixture link, the row appears "Waiting for your PC" with the
  * fixture title and channel; pasting it again shows "Already in your
  * library"; --selftest makes it ready and the header "Downloader online";
@@ -38,7 +38,7 @@ test.describe('T1 add and play @T1', () => {
     // A fresh stand-in run starts empty; the empty state offers the Add button.
     await expect(page.getByTestId('library-empty')).toBeVisible();
 
-    // Check: pasting the fixture link adds the track — row appears with the
+    // Check: pasting the fixture link adds the track; the row appears with the
     // fixture title and channel (SPEC 8.2, 8.3 statuses).
     await pasteAndSubmit(page, FIXTURE_URL);
     await expect(page.getByTestId('toast')).toHaveText('1 added');
@@ -70,7 +70,7 @@ test.describe('T1 add and play @T1', () => {
     await expect(row).toHaveRole('button');
     await expect(page.getByTestId('downloader-status')).toHaveText('Downloader online');
 
-    // Check: pressing play — currentTime rises and the Media Session title
+    // Check: pressing play makes currentTime rise and the Media Session title
     // matches the track title (SPEC 8.8, 9 T1).
     await row.click();
     await expect

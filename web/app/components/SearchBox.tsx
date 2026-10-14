@@ -2,8 +2,8 @@
 
 /**
  * Search box (SPEC 8.7): a YouTube search inside the Add window. It runs
- * only when the owner presses Enter or the Search button — never while
- * typing — to save the daily quota, and shows the SPEC's note about the
+ * only when the owner presses Enter or the Search button (never while
+ * typing) to save the daily quota, and shows the SPEC's note about the
  * free daily limit under the box. Results carry thumbnail, raw title,
  * channel and duration; "Add" runs the same pipeline as a pasted link,
  * "In library" replaces the button for owned songs, and "Open on YouTube"

@@ -17,7 +17,7 @@ export async function GET(request: Request): Promise<Response> {
     const rows = await sql`select apple_music_export from settings where id = 1`
     if (rows.length === 0) {
       // The schema seeds this row on create; a missing row means a broken
-      // database state, not an empty setting — fail loudly instead of
+      // database state, not an empty setting, so fail loudly instead of
       // silently disabling the owner's export preference.
       console.error('[agent/settings] settings row is missing')
       return jsonError(500, 'Settings unavailable')

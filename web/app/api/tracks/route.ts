@@ -1,4 +1,4 @@
-// POST /api/tracks (SPEC 8.2) — the add pipeline. One request carries up to
+// POST /api/tracks (SPEC 8.2): the add pipeline. One request carries up to
 // 25 pasted lines; each line independently becomes a result:
 //
 //   { results: [{ index, line, status: 'added' | 'already' | 'error',
@@ -23,7 +23,7 @@
 //
 // Response shape note for the Add window (8.2): the summary toast counts
 // statuses; the window stays open only when every line failed. Session
-// protection lives in middleware (8.1) — this handler never sees an
+// protection lives in middleware (8.1), so this handler never sees an
 // unauthenticated request.
 
 import {
@@ -118,7 +118,7 @@ async function parseLine(line: string): Promise<{ link?: ParsedSongLink; error?:
     }
     parsed = parseSongLink(resolved)
     if (parsed.kind === 'soundcloud-shortlink') {
-      // The redirect landed on a short link again — not a track page.
+      // The redirect landed on a short link again, not a track page.
       return { error: 'That link did not lead to a SoundCloud track.' }
     }
   }
@@ -203,7 +203,7 @@ export async function POST(request: Request): Promise<Response> {
   }
   const existing = await existingKeys(candidates)
 
-  // Step 4 (8.2): metadata — one batched YouTube call, oEmbed per SoundCloud link.
+  // Step 4 (8.2): metadata, with one batched YouTube call, oEmbed per SoundCloud link.
   const youtubeIds = [...new Set(candidates.filter((c) => c.link.source === 'youtube').map((c) => c.link.sourceId))]
   const youtubeMetadata = await fetchYoutubeMetadata(youtubeIds, process.env.YOUTUBE_API_KEY)
   const soundcloudMetadata = new Map<string, RawTrackMetadata | MetadataError>()

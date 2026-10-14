@@ -3,7 +3,7 @@
  * bearer auth on every /api/agent/* route, response shapes, body validation,
  * and the session-gated /api/tracks/[id]/retry handler. The queue mechanics
  * themselves (claim CTE, stale reset, fail ladder) are pinned in
- * lib/agent-queue.test.ts — here one test walks the ladder through the real
+ * lib/agent-queue.test.ts; here one test walks the ladder through the real
  * route handlers to prove the wiring end to end.
  *
  * Same environment as the queue tests: TAPEDECK_TEST=1 boots an in-memory
@@ -187,7 +187,7 @@ describe('POST /api/agent/upload-url', () => {
     const body = (await res.json()) as { url: string; key: string }
     expect(body.key).toBe(trackKey(id))
     // Local stand-in driver: signed /api/local-storage PUT with exp + sig
-    // (per-segment encoding joined with plain slashes — storage.ts signedUrl).
+    // (per-segment encoding joined with plain slashes, see storage.ts signedUrl).
     expect(body.url).toContain('/api/local-storage/tracks/')
     expect(body.url).not.toContain('%2F')
     expect(body.url).toContain('exp=')

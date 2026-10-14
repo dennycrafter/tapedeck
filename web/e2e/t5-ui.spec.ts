@@ -36,7 +36,7 @@ interface PageFacts {
 async function facts(page: Page): Promise<PageFacts> {
   return page.evaluate((accent) => {
     const text = document.body.innerText;
-    const dashes = [...text.matchAll(/.{0,20}[–—].{0,20}/g)].map((m) => m[0]);
+    const dashes = [...text.matchAll(/.{0,20}[\u2013\u2014].{0,20}/g)].map((m) => m[0]);
     const accents: string[] = [];
     for (const el of Array.from(document.querySelectorAll<HTMLElement>('body *'))) {
       const style = getComputedStyle(el);

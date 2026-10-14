@@ -21,7 +21,7 @@ afterAll(() => {
   delete process.env.TAPEDECK_TEST
 })
 
-const KEY = 'sk-ant-test-key'
+const KEY = 'test-anthropic-key'
 
 /** Build an Anthropic-shaped response body whose content[0].text is `reply`. */
 function anthropicBody(reply: string) {

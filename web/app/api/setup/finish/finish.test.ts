@@ -7,7 +7,7 @@ import { splitStatements } from "./split-sql";
 
 // VERIFIED DONE for T0c-w4 (SPEC 8.12, T0 step 4): run the real Finish-setup
 // orchestration against a real in-memory PGlite with the real
-// supabase/schema.sql — schema applied, the real password enforced (the dev
+// supabase/schema.sql: schema applied, the real password enforced (the dev
 // default no longer works), and a second call rejected once setup completed.
 
 const REAL_PASSWORD = "correct-horse-battery-staple";
@@ -165,7 +165,7 @@ describe("runFinish against PGlite", () => {
     ];
 
     // Deezer is down, but it is optional: required services pass, the schema
-    // and CORS run, and the outcome stays ok — the page shows the warning
+    // and CORS run, and the outcome stays ok. The page shows the warning
     // with a Continue-to-login link instead of blocking go-live.
     const first = await runFinish({
       password: REAL_PASSWORD,

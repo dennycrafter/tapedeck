@@ -2,7 +2,7 @@
 
 Playwright runs the whole app by itself, with the 4.1 stand-ins: the config
 starts `next dev` on port 3100 over https (a throwaway self-signed cert is
-generated per run — SPEC 8.1 marks the session cookie Secure, and WebKit
+generated per run, since SPEC 8.1 marks the session cookie Secure, and WebKit
 rejects Secure cookies on plain http) with `TAPEDECK_TEST=1` (in-memory
 PGlite, local storage in a temp folder) and the MSW fixtures under
 `fixtures/` answer every external call. Tests log in with the dev password
@@ -20,30 +20,30 @@ npm run e2e:live     # @live only; runs after you go live (5.1 variables set)
 
 ## Tags (in test titles)
 
-- `@T0` ... `@T8` — the ticket a test belongs to. A ticket runs its own tag
+- `@T0` ... `@T8`: the ticket a test belongs to. A ticket runs its own tag
   plus every earlier tag (`e2e:tN` scripts above).
-- `@net` — makes real no-key network calls (YouTube oEmbed, SoundCloud
+- `@net`: makes real no-key network calls (YouTube oEmbed, SoundCloud
   oEmbed, iTunes, Deezer). Skipped, not failed, when the machine has no
-  internet — note it in `docs/TEST-REPORT.md`.
-- `@live` — real accounts. Skipped unless the 5.1 variables exist; run only
+  internet; note it in `docs/TEST-REPORT.md`.
+- `@live`: real accounts. Skipped unless the 5.1 variables exist; run only
   via `npm run e2e:live`.
 
 ## Helpers (`helpers/`)
 
-- `login.ts` — logs a page in with the dev password; throws if the
+- `login.ts`: logs a page in with the dev password; throws if the
   `tapedeck_session` cookie (SPEC 8.1) is not set.
-- `db.ts` — seeds and cleans up through the app's own `web/lib/db.ts` and
+- `db.ts`: seeds and cleans up through the app's own `web/lib/db.ts` and
   `web/lib/storage.ts` (SPEC 9.0): `seedTrack`, `getTrackById`,
   `clearLibraryData`, `setAgentLastSeen`, `trackFileExists`. It imports the
   real modules, so the suite typechecks against the actual adapters.
-- `agent.ts` — `runSelftest(trackId)` spawns `python agent/downloader.py
+- `agent.ts`: `runSelftest(trackId)` spawns `python agent/downloader.py
   --selftest --track <id>` with `APP_URL` = the test server and `AGENT_TOKEN` =
   the test server's token (SPEC 9.0); `agentApi(path)` calls the agent
   endpoints with the same bearer token.
-- `net.ts` — `skipWithoutNet()` / `skipWithoutLive()` guards and
+- `net.ts`: `skipWithoutNet()` / `skipWithoutLive()` guards and
   `forbidNonLocalRequests()`, a tripwire that aborts and fails any browser
   request leaving localhost.
-- `env.ts` — the single source of the test-mode environment (`TAPEDECK_TEST=1`,
+- `env.ts`: the single source of the test-mode environment (`TAPEDECK_TEST=1`,
   throwaway 64-hex test secrets, per-run temp data dir) shared by the config,
   the db helper and the agent helper.
 

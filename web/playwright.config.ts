@@ -5,7 +5,7 @@ import { defineConfig, devices } from '@playwright/test';
 import { appEnv, BASE_URL, E2E_PORT, E2E_PROD_PORT, ensureE2ECertificate, PROD_URL } from './e2e/helpers/env';
 
 /*
- * SPEC 9.0 — Playwright starts the app itself with the 4.1 stand-ins:
+ * SPEC 9.0: Playwright starts the app itself with the 4.1 stand-ins:
  * TAPEDECK_TEST=1 (in-memory PGlite, local storage in a temp folder), and
  * every test logs in with the dev password. No secrets are needed except the
  * `@live` tests (npm run e2e:live).
@@ -69,7 +69,7 @@ export default defineConfig({
       use: { browserName: 'chromium', viewport: { width: 1440, height: 900 }, launchOptions: CHROMIUM_TLS },
     },
     // SPEC 9.0: iphone (WebKit, devices['iPhone 13']). WebKit is a stand-in
-    // for the real phone — lock-screen checks stay in the handoff (SPEC 12).
+    // for the real phone; lock-screen checks stay in the handoff (SPEC 12).
     {
       name: 'iphone',
       use: { ...devices['iPhone 13'] },

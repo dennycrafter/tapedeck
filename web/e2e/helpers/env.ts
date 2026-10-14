@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { mkdtempSync } from 'node:fs';
 import os from 'node:os';
@@ -11,7 +12,7 @@ export const AGENT_SCRIPT = path.join(REPO_ROOT, 'agent', 'downloader.py');
 // SPEC 9.0: the e2e server runs on its own fixed port so a developer's
 // `npm run dev` on 3000 never collides with a test run. The server is https:
 // SPEC 8.1 marks the session cookie Secure, and WebKit rejects Secure
-// cookies on plain http://localhost (Chromium exempts it — the smoke caught
+// cookies on plain http://localhost (Chromium exempts it; the smoke caught
 // the difference), so the contract is only exercised faithfully over TLS.
 export const E2E_PORT = 3100;
 export const BASE_URL = `https://localhost:${E2E_PORT}`;
@@ -30,9 +31,15 @@ export const APP_PASSWORD = 'tapedeck-dev';
  * Playwright starts per run. The agent helper hands the same AGENT_TOKEN to
  * `downloader.py --selftest` ("AGENT_TOKEN = the test server's token", 9.0).
  */
-export const TEST_SESSION_SECRET = '985f0778eb4219b59803c37237c7167b31ca025500bdf2e166720c9aa7ee122a';
-export const TEST_AGENT_TOKEN = '6e05ba201312f6c769135801d4f54c3ba2011d25f262d9bff7f4ce5ded383b58';
-export const TEST_CRON_SECRET = '98b4a0fa034a44303ad1c30a5c52a45ea2096a94b69b7133880830d604a3654c';
+// Derived from fixed labels so they are the same in every process of a run
+// (config, workers, downloader children) without a 64-character hex
+// literal in the repo (T7 hygiene check).
+function testSecret(label: string): string {
+  return createHash('sha256').update(`tapedeck-e2e-${label}`).digest('hex');
+}
+export const TEST_SESSION_SECRET = testSecret('session');
+export const TEST_AGENT_TOKEN = testSecret('agent');
+export const TEST_CRON_SECRET = testSecret('cron');
 
 export type E2ECertificate = { dir: string; keyPath: string; certPath: string };
 
@@ -65,7 +72,7 @@ export function ensureE2ECertificate(): E2ECertificate {
 /* The generated cert, for consumers that must trust it (agent children). */
 export function e2eCertFile(): string {
   const certFile = process.env.TAPEDECK_E2E_CERT_FILE;
-  if (!certFile) throw new Error('e2e certificate not generated yet — playwright.config.ts generates it per run');
+  if (!certFile) throw new Error('e2e certificate not generated yet: playwright.config.ts generates it per run');
   return certFile;
 }
 

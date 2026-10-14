@@ -148,7 +148,7 @@ describe('GET (playback)', () => {
 
   it('serves an attachment disposition for ?download=1 (Save to Files, SPEC 8.10)', async () => {
     await put(AUDIO)
-    const url = await driver().downloadUrl(KEY, { attachmentName: 'Daft Punk – Get Lucky.m4a' })
+    const url = await driver().downloadUrl(KEY, { attachmentName: 'Daft Punk \u2013 Get Lucky.m4a' })
     const response = await get({ urlPath: url })
     expect(response.headers.get('content-disposition')).toBe('attachment; filename="Daft Punk _ Get Lucky.m4a"')
   })

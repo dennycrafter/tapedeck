@@ -2,11 +2,11 @@
  * The exact contents of supabase/schema.sql, embedded as a string.
  *
  * The file lives outside the web/ build root, so it is not bundled to the
- * Vercel lambda that runs Finish setup (SPEC 8.12) — the SQL travels with
+ * Vercel lambda that runs Finish setup (SPEC 8.12), so the SQL travels with
  * the route instead. A drift test (schema-sql.test.ts) fails if this copy
  * and the source file diverge; edit supabase/schema.sql and regenerate.
  *
- * Generated from supabase/schema.sql — do not edit by hand.
+ * Generated from supabase/schema.sql. Do not edit by hand.
  */
 export const SCHEMA_SQL = `-- gen_random_uuid() is built into Postgres 13+ and PGlite, no extension needed.
 

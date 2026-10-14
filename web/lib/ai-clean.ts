@@ -1,5 +1,5 @@
 /**
- * AI title cleanup (SPEC 8.4 step 2, 7.5) — the optional Anthropic pass on
+ * AI title cleanup (SPEC 8.4 step 2, 7.5): the optional Anthropic pass on
  * top of the rule cleaner (8.4 step 1, lib/clean-title.ts).
  *
  * Contract rules this module implements exactly:
@@ -8,7 +8,7 @@
  *    is the JSON of raw_title, raw_artist and the description excerpt.
  *  - The reply is a JSON object (SPEC 7.5: strip code fences before
  *    parsing); `parseAiReply` also unwraps a reply that arrives as a quoted
- *    JSON string, and accepts nothing else — the model never invents text
+ *    JSON string, and accepts nothing else. The model never invents text
  *    into the library because every unusable reply yields null.
  *  - The confidence gate (8.4): a parsed reply with `confidence >= 0.5`
  *    (AI_CONFIDENCE_GATE) supplies the title and artist whatever its
@@ -28,7 +28,7 @@ import { httpJson } from './http'
 export interface AiCleanupResult {
   title: string
   artist: string
-  /** False for podcasts, interviews, tutorials — skips the cover lookup (8.4/8.5). */
+  /** False for podcasts, interviews, tutorials; skips the cover lookup (8.4/8.5). */
   isMusic: boolean
   /** 0 to 1, how sure the model is that title and artist are correct. */
   confidence: number
@@ -169,7 +169,7 @@ export function parseAiReply(text: string): AiCleanupResult | null {
 
 /**
  * The 8.4 step-2 result, or null when AI cleanup is unavailable or its reply
- * is unusable. Resolves null — never throws — so the add pipeline can always
+ * is unusable. Resolves null (never throws), so the add pipeline can always
  * continue with the rule cleaner's result.
  */
 export async function aiCleanTitle(

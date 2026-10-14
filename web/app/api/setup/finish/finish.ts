@@ -159,7 +159,7 @@ export async function runFinish(input: FinishInput): Promise<FinishOutcome> {
 
   // Setup already completed: refuse a second run instead of redoing work
   // (the /setup page redirects to /login in this state, so a caller here is
-  // off the happy path). Only refuse when everything truly passes — a failed
+  // off the happy path). Only refuse when everything truly passes: a failed
   // service check must stay retryable, since the owner fixes the failing
   // variable and presses the button again.
   if (settingsExists && requiredOk && noErrors) {

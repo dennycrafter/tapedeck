@@ -13,10 +13,10 @@ Recorded live on **2026-10-10** (no API keys needed for the sources below):
 | `youtube-oembed.json` | `GET https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=jNQXAC9IVRw&format=json` | `curl` |
 | `youtube-oembed.json` → `unknown` | same endpoint, video id `00000000000` → HTTP 404, plain-text body `Not Found` | `curl` |
 | `youtube-videos-list.json` | values from the watch page `https://www.youtube.com/watch?v=jNQXAC9IVRw` (`ytInitialPlayerResponse.videoDetails`: title, author, channelId, shortDescription, lengthSeconds; publishDate from microformat). YouTube Data API needs a key, so the envelope is composed by the handler. | `curl` + extract `ytInitialPlayerResponse` |
-| `youtube-search.json` | composed from the same verified video values (search.list needs a key); envelope/etag synthetic | — |
+| `youtube-search.json` | composed from the same verified video values (search.list needs a key); envelope/etag synthetic | n/a |
 | `itunes-search.json` | `GET https://itunes.apple.com/search?term=daft punk get lucky&entity=song&limit=5&country=US` (verbatim body) and `term=zzqx no such song xyz` (recorded empty result) | `curl` |
 | `deezer-search.json` | `GET https://api.deezer.com/search?q=daft punk get lucky&limit=5` (verbatim body) | `curl` |
-| `anthropic-messages.json` | Anthropic needs a key, so the body is synthetic but shaped exactly per SPEC 7.5 (`content[0].text` is the JSON string the app parses). `id`/`usage` are invented; the cleanup result itself is hand-written to match the recorded "Me at the zoo" metadata. | — |
+| `anthropic-messages.json` | Anthropic needs a key, so the body is synthetic but shaped exactly per SPEC 7.5 (`content[0].text` is the JSON string the app parses). `id`/`usage` are invented; the cleanup result itself is hand-written to match the recorded "Me at the zoo" metadata. | n/a |
 
 Notes from the recording session:
 
@@ -25,7 +25,7 @@ Notes from the recording session:
   equivalent plain-terms query `daft punk get lucky`. `deezerQueryKey` in
   `../mocks/handlers.ts` collapses both forms to the same lookup key, so the
   app's documented call still resolves to real recorded data.
-- **YouTube oEmbed `author_name`** is `jawed` (lowercase) — that is what the
+- **YouTube oEmbed `author_name`** is `jawed` (lowercase), because that is what the
   live endpoint returned; it is recorded verbatim, not normalised.
 - **The watch page description** served on the record date is recorded
   verbatim into `youtube-videos-list.json` and `youtube-search.json`.
@@ -54,5 +54,5 @@ Notes from the recording session:
 
 Raw captures live outside the repo. To refresh a fixture, repeat the matching
 `curl` above, paste the body into the file, and note the new date here. Keep
-bodies verbatim — do not "clean them up" — and keep lookup keys consistent
+bodies verbatim (do not "clean them up") and keep lookup keys consistent
 with the handlers' normalisation.

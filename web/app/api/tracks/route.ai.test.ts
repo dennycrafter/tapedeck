@@ -19,7 +19,7 @@ import { POST } from './route'
 
 startTestMocks({ onUnhandledRequest: 'error' })
 
-const KEY = 'sk-ant-fixture-key'
+const KEY = 'fixture-anthropic-key'
 const ZOO_URL = 'https://www.youtube.com/watch?v=jNQXAC9IVRw'
 const ZOO_THUMBNAIL = (oembedFixture as { videos: Record<string, { thumbnail_url: string }> }).videos.jNQXAC9IVRw
   .thumbnail_url

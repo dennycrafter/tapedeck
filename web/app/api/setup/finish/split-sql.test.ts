@@ -6,7 +6,7 @@ import { splitStatements } from "./split-sql";
 import { SCHEMA_SQL } from "./schema-sql";
 
 // The embedded copy Finish setup ships to Vercel must be byte-identical to
-// supabase/schema.sql — the file stays the single source of truth (SPEC 6).
+// supabase/schema.sql; the file stays the single source of truth (SPEC 6).
 describe("schema-sql.ts", () => {
   it("matches supabase/schema.sql exactly", () => {
     const fileSql = readFileSync(

@@ -1,5 +1,5 @@
 /**
- * Cover art and album lookup (SPEC 8.5, 7.6) — iTunes Search API first, then
+ * Cover art and album lookup (SPEC 8.5, 7.6): iTunes Search API first, then
  * Deezer; no keys for either. A candidate wins when it passes the 8.5 match
  * rule: normalised artist of one side contains the other's AND title token
  * overlap (Jaccard) is >= 0.8. No match → null on everything (the UI shows
@@ -10,7 +10,7 @@
  * lib/http.ts so MSW intercepts them in tests (9.0).
  *
  * First-match caveat, documented from the recorded fixtures (2026-10-10):
- * provider ordering wins ties — iTunes ranked "Blinding Lights (Remix)"
+ * provider ordering wins ties. iTunes ranked "Blinding Lights (Remix)"
  * first and bracket normalisation makes that title exact, so the remix
  * single's cover is chosen. That is the SPEC rule as written ("First
  * candidate that matches wins"); adding a preference order would be a
@@ -61,7 +61,7 @@ export function normalizeForMatch(text: string): string {
   let current = text.toLowerCase()
   current = current.replace(/&/g, ' and ')
   current = current.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-  // Bracket groups can nest marketing inside version info — remove until stable.
+  // Bracket groups can nest marketing inside version info, so remove until stable.
   let previous = ''
   while (current !== previous) {
     previous = current
@@ -106,7 +106,7 @@ export function candidateMatches(candidate: CoverCandidate, title: string, artis
 
 // ---------------------------------------------------------------------------
 // Album naming (SPEC 8.5: strip ` - Single` / ` - EP`, keep grouping by the
-// stripped name — storing the stripped name does both)
+// stripped name; storing the stripped name does both)
 // ---------------------------------------------------------------------------
 
 const ALBUM_SUFFIX = /\s+-\s+(single|ep)$/i
@@ -135,7 +135,7 @@ export function pickCoverMatch(
 }
 
 // ---------------------------------------------------------------------------
-// Provider fetches (SPEC 7.6) — iTunes first, then Deezer
+// Provider fetches (SPEC 7.6): iTunes first, then Deezer
 // ---------------------------------------------------------------------------
 
 interface ItunesResult {
@@ -236,8 +236,8 @@ async function fetchItunesCandidates(title: string, artist: string): Promise<Cov
 
 /**
  * The 8.5 lookup for one track: iTunes first, then Deezer; first matching
- * candidate wins. Resolves null when nothing matches or both providers fail
- * — never throws, so adding never fails because of cover art.
+ * candidate wins. Resolves null when nothing matches or both providers fail.
+ * Never throws, so adding never fails because of cover art.
  */
 export async function lookupCoverArt(title: string, artist: string): Promise<CoverArtMatch | null> {
   const itunes = await fetchItunesCandidates(title, artist)

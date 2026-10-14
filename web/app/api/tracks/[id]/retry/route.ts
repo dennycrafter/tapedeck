@@ -1,7 +1,7 @@
 // POST /api/tracks/[id]/retry (SPEC 8.3): the library's "Retry" action on a
-// failed track. Requeues it: status='waiting', attempts=0, error cleared —
-// the next downloader poll claims it fresh. Session-gated like every other
-// /api/tracks route (the proxy's cookie check is the guard; no bearer here —
+// failed track. Requeues it: status='waiting', attempts=0, error cleared,
+// so the next downloader poll claims it fresh. Session-gated like every other
+// /api/tracks route (the proxy's cookie check is the guard; no bearer here;
 // this endpoint belongs to the owner's browser, not the downloader).
 // The first argument is part of the Next handler signature; the proxy's
 // session gate has already run by the time the route executes.

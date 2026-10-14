@@ -35,14 +35,14 @@ const internetProbe: Promise<boolean> = (async () => {
 
 export function skipWithoutNet(): void {
   test.beforeEach(async ({}, testInfo) => {
-    testInfo.skip(!(await internetProbe), '@net: no internet on this machine — skipped, noted in TEST-REPORT.md (SPEC 9.0)');
+    testInfo.skip(!(await internetProbe), '@net: no internet on this machine, skipped and noted in TEST-REPORT.md (SPEC 9.0)');
   });
 }
 
 export function skipWithoutLive(): void {
   test.beforeEach(async (_fixtures, testInfo) => {
     const missing = LIVE_ENV_VARS.filter((name) => !process.env[name]);
-    testInfo.skip(missing.length > 0, `@live: missing 5.1 variables (${missing.join(', ')}) — runs after you go live, via npm run e2e:live`);
+    testInfo.skip(missing.length > 0, `@live: missing 5.1 variables (${missing.join(', ')}); runs after you go live, via npm run e2e:live`);
   });
 }
 
@@ -53,9 +53,9 @@ const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '0.0.0.0']);
  * request the page attempts outside the test server is aborted and the test
  * fails in afterEach with the recorded URLs. Image requests are exempt:
  * since SPEC 8.5 the library renders cover artwork from the iTunes/Deezer
- * CDNs, so remote images are a product contract, not an accident — scripts,
+ * CDNs, so remote images are a product contract, not an accident. Scripts,
  * fonts, analytics, and API calls still fail the test. Note: requests made
- * by a service worker bypass Playwright routing (known limitation) — the
+ * by a service worker bypass Playwright routing (known limitation), so the
  * guard therefore proves the page itself stays local; server-side calls are
  * invisible to it by design.
  */

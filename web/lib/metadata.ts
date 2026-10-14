@@ -1,9 +1,9 @@
 /**
- * Raw metadata fetchers (SPEC 7.3, 7.4) — the input to title cleanup (8.4).
+ * Raw metadata fetchers (SPEC 7.3, 7.4): the input to title cleanup (8.4).
  *
  * YouTube: with `YOUTUBE_API_KEY`, batched Data API `videos.list` calls
  * (1 quota unit per call, up to 50 ids each); without a key, YouTube oEmbed
- * per video — no key, but no description and no duration either (7.3).
+ * per video: no key, but no description and no duration either (7.3).
  * SoundCloud: SoundCloud oEmbed, no key, no duration (7.4).
  *
  * Every outbound call goes through lib/http.ts (4.1) so timeouts and errors
@@ -48,7 +48,7 @@ export function parseIsoDuration(value: string): number | null {
   const match = ISO_DURATION_PATTERN.exec(value.trim())
   if (!match) return null
   const [days, hours, minutes, seconds] = match.slice(1).map((part) => (part ? Number(part) : 0))
-  // All groups absent ("P", "PT") carries no information — treat as unknown.
+  // All groups absent ("P", "PT") carries no information; treat as unknown.
   if (match.slice(1).every((part) => part === undefined)) return null
   const total = days * 86_400 + hours * 3_600 + minutes * 60 + seconds
   return Number.isFinite(total) ? Math.round(total) : null
@@ -123,7 +123,7 @@ async function fetchVideosListPage(
 /**
  * Metadata for YouTube video ids (8.2 step 3). With an API key one batched
  * `videos.list` serves the whole batch; without one, oEmbed per id. Every id
- * resolves to metadata or a `MetadataError` — the map has an entry per input.
+ * resolves to metadata or a `MetadataError`, so the map has an entry per input.
  */
 export async function fetchYoutubeMetadata(
   ids: readonly string[],
@@ -165,7 +165,7 @@ interface OEmbedResponse {
 
 /**
  * oEmbed fallback when no YOUTUBE_API_KEY is set (7.3): title, author_name
- * and thumbnail only — no description (the cleaner gets ''), no duration
+ * and thumbnail only: no description (the cleaner gets ''), no duration
  * (null until the downloader reports it).
  */
 export async function fetchYoutubeOembedMetadata(id: string): Promise<RawTrackMetadata> {
@@ -199,13 +199,13 @@ export async function fetchYoutubeOembedMetadata(id: string): Promise<RawTrackMe
  */
 export async function resolveSoundcloudShortLink(shortUrl: string): Promise<string> {
   // redirect: 'follow' is fetch's default; response.url is the final URL.
-  // The response body (an HTML page) is intentionally left unread — only
+  // The response body (an HTML page) is intentionally left unread; only
   // where the redirect chain ended matters here.
   const response = await httpResponse(shortUrl)
   return response.url
 }
 
-/** SoundCloud oEmbed (7.4). The title is usually "Track by Artist" — the rule cleaner (8.4) splits it. */
+/** SoundCloud oEmbed (7.4). The title is usually "Track by Artist"; the rule cleaner (8.4) splits it. */
 export async function fetchSoundcloudMetadata(sourceUrl: string): Promise<RawTrackMetadata> {
   const url = `https://soundcloud.com/oembed?format=json&url=${encodeURIComponent(sourceUrl)}`
   try {

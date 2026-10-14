@@ -6,7 +6,7 @@
 // Auth (SPEC 7.8): Vercel sends `Authorization: Bearer ${CRON_SECRET}`;
 // anything else is rejected with 401. The proxy's session gate exempts this
 // path (SPEC 2 lists /api/cron/keepalive), so this check is the only guard.
-// CRON_SECRET is read from the environment in every mode — a Vercel env var
+// CRON_SECRET is read from the environment in every mode: a Vercel env var
 // in production, appEnv() in the e2e harness. The shared dev-secrets file is
 // not consulted: its writer (login/session.ts) persists only SESSION_SECRET
 // and would clobber other keys. With no secret configured the route fails
@@ -21,7 +21,7 @@
 // removes the `dynamic` segment config), so the response is never cached.
 
 import { sql } from '../../../../lib/db'
-// Same constant-time compare the login route uses for APP_PASSWORD — a
+// Same constant-time compare the login route uses for APP_PASSWORD; a
 // bearer secret deserves the same treatment (SPEC's constant-time convention).
 import { constantTimeEqual } from '../../login/session'
 
@@ -43,7 +43,7 @@ export async function GET(request: Request): Promise<Response> {
     await sql`select id from settings limit 1`
     return Response.json({ ok: true })
   } catch (error) {
-    // Surface the fault — the cron's whole job is proving the database works.
+    // Surface the fault: the cron's whole job is proving the database works.
     console.error('[cron/keepalive] settings select failed:', error)
     return Response.json({ error: 'Keepalive failed' }, { status: 500 })
   }

@@ -1,14 +1,14 @@
 /**
- * Song-link parsing (SPEC 8.2 step 1, 7.4) — the one place that decides
+ * Song-link parsing (SPEC 8.2 step 1, 7.4): the one place that decides
  * whether a pasted line is a YouTube or SoundCloud song, and what its
  * canonical identity is.
  *
  * Pure string logic: no network. `on.soundcloud.com` short links cannot be
- * resolved purely — the parser reports them as `soundcloud-shortlink` and the
+ * resolved purely: the parser reports them as `soundcloud-shortlink` and the
  * caller resolves the redirect server-side (7.4) before parsing again.
  *
  * Accepted YouTube forms (8.2): `youtube.com/watch?v=ID`, `youtu.be/ID`,
- * `music.youtube.com/watch?v=ID`, `youtube.com/shorts/ID` — `list=` and `t=`
+ * `music.youtube.com/watch?v=ID`, `youtube.com/shorts/ID`. `list=` and `t=`
  * params are ignored, and every form canonicalizes to the same `source_url`.
  * Accepted SoundCloud form (7.4): `soundcloud.com/<user>/<track>`, query
  * strings stripped; `/sets/` links are rejected with the SPEC's exact message.
@@ -26,7 +26,7 @@ export interface ParsedSongLink {
 
 export type SongLinkParse =
   | { kind: 'link'; link: ParsedSongLink }
-  /** Not a song link — SPEC 8.2's per-line message below. */
+  /** Not a song link: SPEC 8.2's per-line message below. */
   | { kind: 'error'; message: string }
   /** An on.soundcloud.com short link; resolve it, then parse the target. */
   | { kind: 'soundcloud-shortlink'; shortUrl: string }
@@ -70,7 +70,7 @@ function safeDecode(value: string): string | null {
   try {
     return decodeURIComponent(value)
   } catch {
-    return null // malformed %-sequence — not a real track path
+    return null // malformed %-sequence, not a real track path
   }
 }
 
@@ -123,7 +123,7 @@ export function parseSongLink(raw: string): SongLinkParse {
     const segments = url.pathname.split('/').filter(Boolean).map(safeDecode)
     if (segments.some((segment) => segment === null)) return notASongLink()
     const [user, track, ...rest] = segments as string[]
-    // /sets/… in any position — with or without a user segment — is a
+    // /sets/… in any position (with or without a user segment) is a
     // playlist, not a song (7.4).
     if (user === 'sets' || track === 'sets' || rest[0] === 'sets') {
       return { kind: 'error', message: SOUNDCLOUD_SETS_MESSAGE }

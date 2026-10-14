@@ -1,7 +1,7 @@
 /**
  * Unit tests for cover matching and lookup (SPEC 8.5, 7.6). The match-rule
  * tests use the LIVE-recorded iTunes candidate sets from the MSW fixtures
- * (e2e/fixtures/itunes-search.json, recorded 2026-10-10 — see the fixtures
+ * (e2e/fixtures/itunes-search.json, recorded 2026-10-10; see the fixtures
  * README) against the AI-cleaned titles of the same five MVs; near-miss
  * cases are hand-built.
  */
@@ -53,7 +53,7 @@ function recorded(term: string): CoverCandidate[] {
 
 describe('normalizeForMatch (SPEC 8.5 + brief)', () => {
   it('lowercases and drops punctuation, brackets and extra spaces', () => {
-    // Bracket removal deletes the Korean group text too — that is what keeps
+    // Bracket removal deletes the Korean group text too; that is what keeps
     // the Jaccard score high against candidates like plain "Gangnam Style".
     expect(normalizeForMatch('Gangnam Style (강남스타일) M/V')).toBe('gangnam style m v')
     expect(normalizeForMatch('  Get   Lucky!!  ')).toBe('get lucky')
@@ -96,7 +96,7 @@ describe('jaccardOverlap (SPEC 8.5 threshold 0.8)', () => {
       'Harder Better Faster Stronger',
       'Daft Punk',
     )).toBe(true)
-    // 2 shared tokens over a 6-token union = 1/3 — well below the gate.
+    // 2 shared tokens over a 6-token union = 1/3, well below the gate.
     expect(jaccardOverlap('harder better faster', 'harder better stronger win live')).toBeCloseTo(1 / 3)
   })
 })
@@ -138,7 +138,7 @@ describe('candidateMatches / artistMatches (SPEC 8.5 rule)', () => {
   })
 
   it('does not let a contained artist prefix fake a match ("Nile" vs "Nile Rodgers")', () => {
-    // Artist containment holds, but the titles differ — no match.
+    // Artist containment holds, but the titles differ, so no match.
     expect(candidateMatches(
       { title: 'Nile', artist: 'Nile Rodgers', album: '', artworkUrl: '' },
       'Le Freak',
@@ -177,7 +177,7 @@ describe('deezerBigArtwork (SPEC 7.6 600x600 cover)', () => {
 describe('pickCoverMatch (SPEC 8.5 first match wins)', () => {
   it('returns the first candidate that passes the rule, with stripped album', () => {
     // "(Remix)" is bracket text, so normalization makes this candidate an
-    // exact title match — the SPEC first-match rule takes it.
+    // exact title match, and the SPEC first-match rule takes it.
     const match = pickCoverMatch(
       [
         { title: 'Gangnam Style (Remix)', artist: 'PSY', album: 'Remix - Single', artworkUrl: 'https://a/1.jpg' },

@@ -2,6 +2,7 @@
 /// <reference lib="webworker" />
 import type { PrecacheEntry, RuntimeCaching, SerwistGlobalConfig } from "serwist";
 import { CacheableResponsePlugin, ExpirationPlugin, NetworkFirst, NetworkOnly, Serwist, StaleWhileRevalidate } from "serwist";
+import { audioResponse, trackIdFromOfflinePath } from "./lib/offline-range";
 
 // The injection point below is replaced at build time with the precache manifest
 // (prerendered route HTML, .next/static chunks, and everything in public/, per
@@ -26,7 +27,48 @@ declare const self: ServiceWorkerGlobalScope;
  *    in the background;
  *  - cover art from iTunes or Deezer is kept so covers show offline.
  */
+/** One downloaded song's bytes from the phone's offline store, or null. */
+function storedAudio(trackId: string): Promise<{ bytes: ArrayBuffer; type: string } | null> {
+  return new Promise((resolve) => {
+    // No version: read whatever the app created; never upgrade from here.
+    const open = indexedDB.open("tapedeck-offline");
+    open.onerror = () => resolve(null);
+    open.onsuccess = () => {
+      const db = open.result;
+      if (!db.objectStoreNames.contains("audio")) {
+        db.close();
+        resolve(null);
+        return;
+      }
+      const get = db.transaction("audio", "readonly").objectStore("audio").get(trackId);
+      get.onerror = () => {
+        db.close();
+        resolve(null);
+      };
+      get.onsuccess = async () => {
+        db.close();
+        const record = get.result as { buffer?: ArrayBuffer; blob?: Blob; type?: string } | undefined;
+        if (record?.buffer) resolve({ bytes: record.buffer, type: record.type || "audio/mp4" });
+        else if (record?.blob) resolve({ bytes: await record.blob.arrayBuffer(), type: record.blob.type || "audio/mp4" });
+        else resolve(null);
+      };
+    };
+  });
+}
+
 const runtimeCaching: RuntimeCaching[] = [
+  {
+    // Downloaded songs (SPEC 8.9) at a normal address, with byte ranges, so
+    // the player streams them like any file. A blob: URL is the fallback
+    // when no service worker is in control (app/lib/offline.ts).
+    matcher: ({ url, sameOrigin }) => sameOrigin && trackIdFromOfflinePath(url.pathname) !== null,
+    handler: async ({ url, request }) => {
+      const trackId = trackIdFromOfflinePath(url.pathname) as string;
+      const audio = await storedAudio(trackId);
+      if (!audio) return new Response("Not downloaded on this device", { status: 404 });
+      return audioResponse(audio.bytes, request.headers.get("range"), audio.type);
+    },
+  },
   {
     matcher: ({ url, sameOrigin }) => sameOrigin && url.pathname.startsWith("/api/"),
     handler: new NetworkOnly(),

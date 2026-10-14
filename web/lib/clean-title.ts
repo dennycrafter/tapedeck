@@ -1,10 +1,10 @@
 /**
- * Rule cleaner (SPEC 8.4 step 1) — always run on freshly fetched metadata,
+ * Rule cleaner (SPEC 8.4 step 1): always run on freshly fetched metadata,
  * and the fallback when the AI step (T3) is unavailable. Pure string logic.
  *
  * Rules, in order:
- *  1. Remove (case-insensitive) bracketed or trailing marketing text —
- *     `Official Video` and friends — plus empty brackets left behind.
+ *  1. Remove (case-insensitive) bracketed or trailing marketing text
+ *     (`Official Video` and friends), plus empty brackets left behind.
  *     Loose words after a removed marketing bracket are description junk
  *     and go with it ("[Official Video] Furious 7 Soundtrack"); bracketed
  *     version info and a feat clause after it are kept.
@@ -46,7 +46,7 @@ const MARKETING_PHRASES = new Set([
 ])
 
 /**
- * Single marketing words (8.4) — plus combinations: a bracket or trailing
+ * Single marketing words (8.4), plus combinations: a bracket or trailing
  * run whose every token is one of these counts as marketing text ("(HD 4K)",
  * "Song | Official Visualizer").
  */
@@ -64,11 +64,11 @@ const MARKETING_TOKENS = new Set([
   'explicit',
 ])
 
-/** Whitespace-padded dash separators: ` - `, ` – ` (U+2013), ` — ` (U+2014). */
-const DASH_SEPARATOR = /\s[-–—]\s/
+/** Whitespace-padded dash separators: ` - `, and U+2013 / U+2014 with a space on each side. */
+const DASH_SEPARATOR = /\s[-\u2013\u2014]\s/
 
 /** Lazy left side → the FIRST dash splits artist from title (8.4). Inputs are tidied before splitting, so no dotAll flag is needed. */
-const DASH_SPLIT_PATTERN = /^(.+?)\s[-–—]\s(.+)$/
+const DASH_SPLIT_PATTERN = /^(.+?)\s[-\u2013\u2014]\s(.+)$/
 
 const BY_SPLIT_PATTERN = /^(.+?)\s+by\s+(.+)$/i
 
@@ -215,7 +215,7 @@ function stripTrailingMarketing(text: string): string {
   while (current !== previous) {
     previous = current
     // Greedy prefix → the LAST separator; strip only pure-marketing tails.
-    const separated = current.match(/^(.*\S)\s[-–—|·•~]+\s*(\S.*)$/u)
+    const separated = current.match(/^(.*\S)\s[-\u2013\u2014|·•~]+\s*(\S.*)$/u)
     if (separated && isMarketingText(separated[2])) {
       current = separated[1]
       continue
@@ -235,7 +235,7 @@ function stripTrailingMarketing(text: string): string {
 
 /**
  * "X by Y" from SoundCloud oEmbed (8.4). Guarded to titles without a dash
- * separator — "A - B by C" keeps the dash split's more explicit reading.
+ * separator: "A - B by C" keeps the dash split's more explicit reading.
  */
 function splitByArtist(title: string): { title: string; artist: string } | null {
   const match = title.match(BY_SPLIT_PATTERN)
@@ -251,7 +251,7 @@ function splitOnDash(title: string): { title: string; artist: string } | null {
 
 /** Strip the dangling separator/bracket left when a feat marker is cut out. */
 function stripDanglingEnd(text: string): string {
-  return text.replace(/[\s([{\-–—·,|]+$/, '').trim()
+  return text.replace(/[\s([{\-\u2013\u2014·,|]+$/, '').trim()
 }
 
 interface FeatSplit {
@@ -300,8 +300,8 @@ function cleanChannelArtist(artist: string): string {
     previous = current
     current = current.replace(CHANNEL_SUFFIX, '').trim()
   }
-  // "Name - VEVO" leaves a stray dash behind — tidy it.
-  return current.replace(/\s[-–—|]\s*$/, '').trim()
+  // "Name - VEVO" leaves a stray dash behind; tidy it.
+  return current.replace(/\s[-\u2013\u2014|]\s*$/, '').trim()
 }
 
 /** The "Restore original" suffixes (8.4 Undo): only ` - Topic` and `VEVO`. */

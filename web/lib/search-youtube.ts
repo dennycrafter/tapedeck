@@ -1,5 +1,5 @@
 /**
- * YouTube search (SPEC 7.3 line 287, 8.7) — the one surface with a real
+ * YouTube search (SPEC 7.3 line 287, 8.7): the one surface with a real
  * quota, so it is guarded three ways: it only runs when the owner presses
  * Enter or the Search button (the Add window's job), the raw YouTube result
  * is cached in `search_cache` for 24 hours, and a quota error surfaces the
@@ -18,7 +18,7 @@ import { sql, type Row } from './db'
 
 export interface SearchResult {
   videoId: string
-  /** Raw YouTube title — cleanup happens when the result is added (8.2). */
+  /** Raw YouTube title; cleanup happens when the result is added (8.2). */
   title: string
   channel: string
   thumbnailUrl: string | null
@@ -140,7 +140,7 @@ async function markInLibrary(hits: CachedHit[]): Promise<SearchResult[]> {
  * → search.list, one videos.list for durations, store the cache, merge.
  * Without an API key: `{ results: [], message: SEARCH_OFF_MESSAGE }`.
  * Quota exhaustion throws `SearchQuotaError`; the route maps it to the SPEC
- * message. Never throws for anything else except programming errors —
+ * message. Never throws for anything else except programming errors;
  * network failures bubble as HttpError for the route's 502.
  */
 export async function searchYoutube(

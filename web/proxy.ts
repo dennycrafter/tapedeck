@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 /**
  * Password gate for every page and API route (SPEC 2, 8.1, 8.12).
  *
- * Next.js 16 renamed the `middleware` file convention to `proxy` — this file is
+ * Next.js 16 renamed the `middleware` file convention to `proxy`; this file is
  * the "middleware.ts" the SPEC refers to, using the current convention.
  *
  * Session cookie contract (issued by POST /api/login):
@@ -69,7 +69,7 @@ const STATIC_EXTENSIONS = new Set([
 ]);
 
 /**
- * PWA files (manifest, service worker, icons) and static assets — never gated
+ * PWA files (manifest, service worker, icons) and static assets, never gated
  * (SPEC 2). Matching on extension is fail-closed: anything without a known
  * static extension falls through to the session check.
  */
@@ -107,8 +107,8 @@ export function isSessionExempt(pathname: string): boolean {
 
 /**
  * Paths reachable while production setup is incomplete (SPEC 8.12): PWA files,
- * static assets and /api/setup/*. Everything else — including /login and the
- * API routes that are session-exempt once configured — is sent to /setup.
+ * static assets and /api/setup/*. Everything else (including /login and the
+ * API routes that are session-exempt once configured) is sent to /setup.
  */
 export function isSetupModeExempt(pathname: string): boolean {
   return (

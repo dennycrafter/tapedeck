@@ -3,13 +3,13 @@ import type { SetupDb } from "../api/setup/finish/finish";
 
 /**
  * The bridge between the Setup flow and the sibling-owned database adapter
- * (`web/lib/db.ts` — SPEC 4.1). Importing is safe: the adapter connects
+ * (`web/lib/db.ts`, SPEC 4.1). Importing is safe: the adapter connects
  * lazily on first use, so the Setup page always renders and a missing or
  * wrong configuration surfaces as a failed check, never a crash.
  */
 
 /**
- * True when the `settings` table exists — the marker of a finished setup
+ * True when the `settings` table exists, the marker of a finished setup
  * (SPEC 7.2: "it skips when `settings` exists"). No table yet, so this runs
  * before the schema and must not assume it. Throws when the database is
  * unreachable or unconfigured; callers catch and treat as "not finished".

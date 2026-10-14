@@ -190,7 +190,7 @@ describe('metadata path selection (7.3)', () => {
       const body = await json(response)
       const results = body.results as Array<{ status: string; track?: { durationSec: number | null } }>
       expect(results[0].status).toBe('added')
-      // PT19S — only videos.list carries durations.
+      // PT19S: only videos.list carries durations.
       expect(results[0].track?.durationSec).toBe(19)
     } finally {
       if (previous === undefined) delete process.env.YOUTUBE_API_KEY

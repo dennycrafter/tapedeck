@@ -25,8 +25,8 @@ const SECRET = 'test-session-secret'
 
 describe('asciiSafeFilename', () => {
   it('replaces non-ASCII with underscores (SPEC 7.2)', () => {
-    expect(asciiSafeFilename('Daft Punk – Get Lucky.m4a')).toBe('Daft Punk _ Get Lucky.m4a')
-    expect(asciiSafeFilename('Björk – Homogenic.m4a')).toBe('Bj_rk _ Homogenic.m4a')
+    expect(asciiSafeFilename('Daft Punk \u2013 Get Lucky.m4a')).toBe('Daft Punk _ Get Lucky.m4a')
+    expect(asciiSafeFilename('Björk \u2013 Homogenic.m4a')).toBe('Bj_rk _ Homogenic.m4a')
   })
 
   it('drops quotes so the quoted-string header stays well-formed', () => {
@@ -153,7 +153,7 @@ describe('local driver', () => {
 
     // SPEC 8.10: Save to Files opens the URL with ?download=1 and an ASCII name.
     const download = new URL(
-      await storage.downloadUrl('tracks/x.m4a', { attachmentName: 'Daft Punk – Get Lucky.m4a' }),
+      await storage.downloadUrl('tracks/x.m4a', { attachmentName: 'Daft Punk \u2013 Get Lucky.m4a' }),
       'http://localhost:3000',
     )
     expect(download.searchParams.get('download')).toBe('1')
@@ -224,7 +224,7 @@ describe('r2 driver', () => {
     // Bucket-scoped host with the key in the path (the SDK's virtual-host style).
     expect(url.startsWith('https://tapedeck-audio.abc123def456.r2.cloudflarestorage.com/tracks/x.m4a')).toBe(true)
     // ContentType rides as the PUT request header (R2 stores it), not as a
-    // signed query parameter — signed headers are host-only.
+    // signed query parameter; signed headers are host-only.
     expect(url).toContain('X-Amz-SignedHeaders=host')
   })
 
@@ -237,7 +237,7 @@ describe('r2 driver', () => {
 
   it('downloadUrl adds an ASCII-safe attachment disposition for Save to Files (SPEC 7.2, 8.10)', async () => {
     const storage = createR2Storage(R2_CONFIG)
-    const url = await storage.downloadUrl('tracks/x.m4a', { attachmentName: 'Daft Punk – Get Lucky.m4a' })
+    const url = await storage.downloadUrl('tracks/x.m4a', { attachmentName: 'Daft Punk \u2013 Get Lucky.m4a' })
     // The SDK serializes ResponseContentDisposition as the lower-kebab query param.
     expect(decodeURIComponent(url)).toContain(
       'response-content-disposition=attachment; filename="Daft Punk _ Get Lucky.m4a"',

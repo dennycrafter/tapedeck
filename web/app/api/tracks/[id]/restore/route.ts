@@ -1,10 +1,10 @@
-// POST /api/tracks/[id]/restore — the song menu's "Restore original". Puts
+// POST /api/tracks/[id]/restore: the song menu's "Restore original". Puts
 // the track back on its stored raw metadata: title = raw_title, artist =
 // raw_artist with " - Topic"/"VEVO" stripped, album and cover cleared, AI
 // flags reset. The raw columns are never edited afterwards, so restore is
-// repeatable. The strip rule runs in TypeScript (lib/clean-title owns it) —
+// repeatable. The strip rule runs in TypeScript (lib/clean-title owns it):
 // read the raw row first, then update. Session-gated like every /api/tracks
-// route (the proxy's cookie check is the guard; no bearer here — this
+// route (the proxy's cookie check is the guard; no bearer here, as this
 // endpoint belongs to the owner's browser, not the downloader).
 
 import { isUuid, jsonError } from '../../../agent/requests'

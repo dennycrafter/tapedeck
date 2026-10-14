@@ -1,5 +1,5 @@
 // GET /api/tracks/[id]/url (SPEC 8.8): the player's presigned playback URL
-// for a ready track — the browser-side counterpart to the downloader's
+// for a ready track, the browser-side counterpart to the downloader's
 // upload-url route. `{ url, expiresAt }` with a six-hour presign
 // (storage.ts DOWNLOAD_URL_TTL_SECONDS, local stand-in and R2 alike).
 // Session-gated like every /api/tracks route (the proxy's cookie check is
@@ -7,8 +7,8 @@
 // downloader).
 //
 // Ownership note (T1d coordination): the playback-URL read side was on
-// nobody's T1 brief — T1b shipped the downloader-side upload-url, T1c the
-// add pipeline — so the UI tracer ships this thin route. Flagged to the
+// nobody's T1 brief (T1b shipped the downloader-side upload-url, T1c the
+// add pipeline), so the UI tracer ships this thin route. Flagged to the
 // coordinator in the task report.
 import { isUuid, jsonError } from '../../../agent/requests'
 import { trackKey } from '../../../../../lib/agent-queue'

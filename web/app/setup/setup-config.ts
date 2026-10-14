@@ -2,7 +2,7 @@
  * Data for the Setup page (SPEC 8.12): which variables are required and
  * optional, what the optional ones turn on, the short go-live steps from
  * SPEC 5.3, and the three freshly generated secrets. The page shows
- * variable NAMES and their status only — never values (T0 checks).
+ * variable NAMES and their status only, never values (T0 checks).
  */
 export const REQUIRED_VARS = [
   "DATABASE_URL",
@@ -40,10 +40,10 @@ export const GENERATED_SECRETS: GeneratedSecret[] = [
 
 /** The go-live steps from SPEC 5.3, short form. */
 export const GO_LIVE_STEPS = [
-  "Create the Supabase database (Transaction pooler URI) — DATABASE_URL.",
-  "Create the Cloudflare R2 bucket and API token — the three R2 variables and R2_BUCKET = tapedeck-audio.",
-  "Optional: YouTube Data API key — search.",
-  "Optional: Anthropic API key — AI title cleanup.",
+  "Create the Supabase database (Transaction pooler URI): DATABASE_URL.",
+  "Create the Cloudflare R2 bucket and API token: the three R2 variables and R2_BUCKET = tapedeck-audio.",
+  "Optional: YouTube Data API key for search.",
+  "Optional: Anthropic API key for AI title cleanup.",
   "Add every variable in Vercel, including the three generated secrets below, then redeploy.",
   "Come back here, type your password, and press Finish setup.",
 ];

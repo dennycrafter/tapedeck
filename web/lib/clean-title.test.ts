@@ -89,7 +89,7 @@ describe('marketing text removal (8.4)', () => {
   })
 
   it('prefers the dash split over the channel fallback', () => {
-    // SPEC order: the " - " split fires even when a channel name was passed —
+    // SPEC order: the " - " split fires even when a channel name was passed;
     // the raw artist is only the no-split fallback.
     expect(cleanYouTube('Song - Live Version', 'Artist')).toEqual({
       title: 'Live Version',
@@ -111,8 +111,8 @@ describe('artist/title split (8.4)', () => {
   })
 
   it('splits on Unicode en and em dashes with spaces', () => {
-    expect(cleanYouTube('Daft Punk – Get Lucky')).toEqual({ title: 'Get Lucky', artist: 'Daft Punk' })
-    expect(cleanYouTube('Daft Punk — Get Lucky')).toEqual({ title: 'Get Lucky', artist: 'Daft Punk' })
+    expect(cleanYouTube('Daft Punk \u2013 Get Lucky')).toEqual({ title: 'Get Lucky', artist: 'Daft Punk' })
+    expect(cleanYouTube('Daft Punk \u2014 Get Lucky')).toEqual({ title: 'Get Lucky', artist: 'Daft Punk' })
   })
 
   it('falls back to the channel name with suffixes removed', () => {
