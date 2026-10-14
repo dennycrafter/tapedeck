@@ -2,8 +2,9 @@
  * The phone's offline store (SPEC 8.9): IndexedDB database `tapedeck-offline`
  * with three stores:
  *  - `library`: the last GET /api/library snapshot (key "snapshot"),
- *  - `audio`: downloaded songs keyed by track id, `{ blob, bytes, savedAt }`
- *    (the /test-audio page keeps its own test tone here too, key "test1"),
+ *  - `audio`: downloaded songs keyed by track id, `{ buffer, type, bytes,
+ *    savedAt }` (the /test-audio page keeps its own test tone here too, key
+ *    "test1", as `{ blob, bytes, savedAt }`),
  *  - `plays`: plays made offline, sent to POST /api/plays once back online.
  * Browser only. Every function is safe to call when IndexedDB is missing or
  * blocked: reads come back empty and writes reject with a plain error.
@@ -17,6 +18,20 @@ export const LIBRARY_STORE = "library";
 export const AUDIO_STORE = "audio";
 export const PLAYS_STORE = "plays";
 const SNAPSHOT_KEY = "snapshot";
+
+/**
+ * One downloaded song. The bytes are stored as an ArrayBuffer, not a Blob:
+ * WebKit refuses Blobs in IndexedDB in private sessions (and Playwright's
+ * iPhone stand-in is one), while ArrayBuffers work in every browser.
+ * Records written as `{ blob }` (the /test-audio page) are still read.
+ */
+interface StoredAudio {
+  buffer?: ArrayBuffer;
+  type?: string;
+  blob?: Blob;
+  bytes: number;
+  savedAt: number;
+}
 
 export interface AudioRecord {
   blob: Blob;
@@ -102,15 +117,18 @@ export async function loadSnapshot(): Promise<LibraryResponse | null> {
 // ---------------------------------------------------------------------------
 
 export async function putAudio(trackId: string, blob: Blob): Promise<AudioRecord> {
-  const record: AudioRecord = { blob, bytes: blob.size, savedAt: Date.now() };
-  await done((await store(AUDIO_STORE, "readwrite")).put(record, trackId));
-  return record;
+  const buffer = await blob.arrayBuffer();
+  const stored: StoredAudio = { buffer, type: blob.type || "audio/mp4", bytes: blob.size, savedAt: Date.now() };
+  await done((await store(AUDIO_STORE, "readwrite")).put(stored, trackId));
+  return { blob, bytes: stored.bytes, savedAt: stored.savedAt };
 }
 
 export async function getAudio(trackId: string): Promise<AudioRecord | null> {
   try {
-    const value = await done((await store(AUDIO_STORE, "readonly")).get(trackId));
-    return (value as AudioRecord | undefined) ?? null;
+    const value = (await done((await store(AUDIO_STORE, "readonly")).get(trackId))) as StoredAudio | undefined;
+    if (!value) return null;
+    const blob = value.blob ?? (value.buffer ? new Blob([value.buffer], { type: value.type || "audio/mp4" }) : null);
+    return blob ? { blob, bytes: value.bytes, savedAt: value.savedAt } : null;
   } catch {
     return null;
   }
@@ -124,11 +142,22 @@ export async function deleteAudio(trackId: string): Promise<void> {
 export async function listAudio(): Promise<{ id: string; bytes: number }[]> {
   try {
     const audio = await store(AUDIO_STORE, "readonly");
-    const keys = (await done(audio.getAllKeys())) as IDBValidKey[];
-    const values = (await done((await store(AUDIO_STORE, "readonly")).getAll())) as AudioRecord[];
-    return keys
-      .map((key, i) => ({ id: String(key), bytes: values[i]?.bytes ?? 0 }))
-      .filter((entry) => UUID.test(entry.id));
+    // A cursor reads one song at a time instead of every file at once.
+    return await new Promise((resolve, reject) => {
+      const found: { id: string; bytes: number }[] = [];
+      const cursor = audio.openCursor();
+      cursor.onsuccess = () => {
+        const current = cursor.result;
+        if (!current) {
+          resolve(found);
+          return;
+        }
+        const id = String(current.key);
+        if (UUID.test(id)) found.push({ id, bytes: (current.value as StoredAudio).bytes ?? 0 });
+        current.continue();
+      };
+      cursor.onerror = () => reject(cursor.error ?? new Error("Could not read offline songs"));
+    });
   } catch {
     return [];
   }

@@ -133,7 +133,9 @@ test.describe('T4 offline @T4', () => {
 
     // Check: "Download" on the playlist stores 3 blobs and marks each song.
     await page.getByTestId('list-download').click();
-    await expect(page.getByTestId('list-downloaded')).toBeVisible({ timeout: 60_000 });
+    // A failed download says so in a toast: fail fast with its text.
+    await expect(page.getByTestId('list-downloaded').or(page.getByText('could not download'))).toBeVisible({ timeout: 60_000 });
+    await expect(page.getByTestId('list-downloaded')).toBeVisible();
     expect((await storedSongs(page)).sort()).toEqual([one.id, two.id, three.id].sort());
     await expect(page.getByTestId('playlist-tracks').getByTestId('track-downloaded')).toHaveCount(3);
 
