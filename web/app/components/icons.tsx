@@ -199,3 +199,21 @@ export function ChevronLeftIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function DownloadIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...base(props)}>
+      <path d="M12 4v11M7 10.5l5 5 5-5M5 19.5h14" />
+    </svg>
+  );
+}
+
+/** The small mark on downloaded songs (SPEC 8.9). */
+export function DownloadedIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...base(props)}>
+      <circle cx="12" cy="12" r="8.5" fill="currentColor" stroke="none" />
+      <path d="M12 7.5v8M8.8 12.6 12 15.8l3.2-3.2" stroke="var(--bg)" strokeWidth={2} />
+    </svg>
+  );
+}

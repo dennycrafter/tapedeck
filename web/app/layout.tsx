@@ -29,11 +29,16 @@ export const viewport: Viewport = {
 // Explicit prop type instead of Next's generated global `LayoutProps<"/">`:
 // that global only exists after `next typegen`/`next build` writes
 // .next/types, so a fresh clone (and plain `tsc --noEmit`) could not see it.
+// The service worker is off in `next dev` (it would cache pages while you
+// edit them); production builds, including the e2e production server for the
+// offline checks (T4), always run it.
+const serviceWorkerOff = process.env.NODE_ENV === "development";
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="h-full antialiased">
       <body className="flex min-h-full flex-col bg-bg font-sans text-fg">
-        <SerwistProvider swUrl="/sw.js" disable={process.env.NODE_ENV === "development"}>
+        <SerwistProvider swUrl="/sw.js" disable={serviceWorkerOff}>
           <PlayerProvider>
             <OverlaysProvider>
               <LibraryProvider>

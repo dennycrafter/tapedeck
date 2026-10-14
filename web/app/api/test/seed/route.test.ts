@@ -1,6 +1,6 @@
 /**
- * Test-only seeding route (SPEC 9.0): 404 unless TAPEDECK_TEST=1 outside
- * production; POST inserts waiting tracks, GET reports raw counts. Real
+ * Test-only seeding route (SPEC 9.0): 404 unless TAPEDECK_TEST=1 (also
+ * honored by the e2e production server); POST inserts waiting tracks, GET reports raw counts. Real
  * in-memory PGlite, one database for this file, wiped before every test.
  */
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -71,12 +71,21 @@ describe('availability', () => {
     expect((await get()).status).toBe(404)
   })
 
-  it('answers 404 in a production build even with TAPEDECK_TEST=1', async () => {
+  it('answers 404 in a production build without TAPEDECK_TEST', async () => {
     vi.stubEnv('NODE_ENV', 'production')
+    vi.stubEnv('TAPEDECK_TEST', '')
     expect((await post({ tracks: [{ title: 'x' }] })).status).toBe(404)
     expect((await get()).status).toBe(404)
     vi.stubEnv('NODE_ENV', 'test')
+    vi.stubEnv('TAPEDECK_TEST', '1')
     expect(await sql`select 1 from tracks`).toHaveLength(0)
+  })
+
+  it('works in the e2e production server (production build with TAPEDECK_TEST=1)', async () => {
+    vi.stubEnv('NODE_ENV', 'production')
+    vi.stubEnv('TAPEDECK_TEST', '1')
+    expect((await get()).status).toBe(200)
+    vi.stubEnv('NODE_ENV', 'test')
   })
 })
 

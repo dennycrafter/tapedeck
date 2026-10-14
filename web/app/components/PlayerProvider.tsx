@@ -6,7 +6,14 @@
  * never re-created across navigations: the ref just re-binds on remounts.
  */
 import { createContext, useContext, useSyncExternalStore, type ReactNode } from "react";
-import { playerStore, type PlayerState, type PlayerStoreApi } from "@/lib/player/store";
+import { playerHooks, playerStore, type PlayerState, type PlayerStoreApi } from "@/lib/player/store";
+import { recordPlay, resolvePlaybackUrl, startOffline } from "../lib/offline";
+
+// Downloaded songs play from the phone's copy; plays made offline wait in
+// IndexedDB (SPEC 8.6, 8.8, 8.9).
+playerHooks.fetchPlaybackUrl = resolvePlaybackUrl;
+playerHooks.recordPlay = recordPlay;
+if (typeof window !== "undefined") startOffline();
 
 const PlayerContext = createContext<PlayerStoreApi | null>(null);
 

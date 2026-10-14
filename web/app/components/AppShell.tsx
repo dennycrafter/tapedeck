@@ -11,6 +11,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState, type ReactNode } from "react";
 import { useLibrary } from "./LibraryProvider";
+import { useOffline } from "./useOffline";
 import { useOverlays } from "./Overlays";
 import { PhoneTabBar } from "./PhoneTabBar";
 import { PlayerBar } from "./PlayerBar";
@@ -53,9 +54,20 @@ export function AppShell({ children }: { children: ReactNode }) {
 function TopBar() {
   const { openAdd } = useOverlays();
   const { library } = useLibrary();
+  const offline = useOffline();
   const initial = (library?.displayName.trim()[0] ?? "D").toUpperCase();
   return (
     <div className="flex h-14 items-center justify-end gap-2 pt-[env(safe-area-inset-top)]">
+      {!offline.online && (
+        // SPEC 8.9: a muted "Offline" pill while the library comes from the phone.
+        <span
+          className="mr-auto inline-flex items-center gap-1.5 rounded-full border border-line px-2.5 py-0.5 text-xs text-muted"
+          data-testid="offline-pill"
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-muted" aria-hidden="true" />
+          Offline
+        </span>
+      )}
       <button
         type="button"
         onClick={openAdd}
@@ -116,6 +128,7 @@ function Sidebar() {
     { href: "/library?tab=albums", label: "Albums", active: tab === "albums" || pathname === "/album", testId: "nav-albums" },
     { href: "/library?tab=artists", label: "Artists", active: tab === "artists" || pathname === "/artist", testId: "nav-artists" },
     { href: "/library?tab=recent", label: "Recently played", active: tab === "recent", testId: "nav-recent" },
+    { href: "/library?tab=downloaded", label: "Downloaded", active: tab === "downloaded", testId: "nav-downloaded" },
   ];
 
   return (

@@ -11,6 +11,7 @@ import { TrackList, usePlayList } from "../components/TrackList";
 import { Cover } from "../components/Cover";
 import { CoverTile } from "../components/CoverTile";
 import { ListHeader, NotFound } from "../components/ListHeader";
+import { DownloadListButton } from "../components/DownloadListButton";
 import { SectionHeader } from "../components/ui";
 import { albumHref, listSummary } from "../lib/library-view";
 
@@ -42,6 +43,7 @@ function Artist() {
         canPlay={artist.tracks.some((track) => track.status === "ready")}
         onPlay={() => play(null)}
         onShuffle={() => play(null, true)}
+        actions={<DownloadListButton tracks={artist.tracks} />}
       />
       <section>
         <SectionHeader title="Songs" />

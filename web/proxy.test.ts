@@ -259,6 +259,16 @@ describe("gate: pages redirect, APIs return 401", () => {
 });
 
 describe("production setup mode (SPEC 8.12)", () => {
+  it("the e2e production server (TAPEDECK_TEST=1) runs on stand-ins and never enters setup mode", async () => {
+    const response = await gate(request("/"), {
+      NODE_ENV: "production",
+      TAPEDECK_TEST: "1",
+      SESSION_SECRET: SECRET,
+    });
+    // Not configured for real services, yet no setup redirect: just the login gate.
+    expect(response.headers.get("location") ?? "").not.toContain("/setup");
+  });
+
   it("sends / to /setup when required variables are missing", async () => {
     const response = await gate(request("/"), {
       NODE_ENV: "production",

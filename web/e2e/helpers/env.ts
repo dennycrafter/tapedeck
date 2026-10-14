@@ -15,6 +15,9 @@ export const AGENT_SCRIPT = path.join(REPO_ROOT, 'agent', 'downloader.py');
 // the difference), so the contract is only exercised faithfully over TLS.
 export const E2E_PORT = 3100;
 export const BASE_URL = `https://localhost:${E2E_PORT}`;
+/** The e2e production server (e2e/prod-server.mjs) for the offline checks (T4). */
+export const E2E_PROD_PORT = 3102;
+export const PROD_URL = `https://localhost:${E2E_PROD_PORT}`;
 
 // SPEC 4.1: APP_PASSWORD defaults to `tapedeck-dev` in development.
 // Tests pass it explicitly (appEnv below) so every run is deterministic.

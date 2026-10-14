@@ -334,7 +334,10 @@ function isNodeNotFound(err: unknown): boolean {
 // ---------------------------------------------------------------------------
 
 function isProduction(): boolean {
-  return process.env.NODE_ENV === 'production'
+  // TAPEDECK_TEST=1 is the one test switch (SPEC 9.0), honored by db.ts and
+  // the session code too: the e2e production server (T4 offline checks)
+  // runs a real production build on the local stand-in.
+  return process.env.NODE_ENV === 'production' && process.env.TAPEDECK_TEST !== '1'
 }
 
 function r2ConfigFromEnv(): R2Config | null {

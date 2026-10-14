@@ -772,5 +772,19 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
 
 export type { PlayerStoreApi as PlayerStore };
 
+/**
+ * Hooks the app sets once on the client (web/app/components/PlayerProvider):
+ * where audio comes from (the phone's downloaded copy or the server, SPEC
+ * 8.9) and how plays are kept while offline (SPEC 8.6). Unset, the store
+ * uses the plain network defaults above.
+ */
+export const playerHooks: { fetchPlaybackUrl: PlaybackUrlFetcher | null; recordPlay: PlayRecorder | null } = {
+  fetchPlaybackUrl: null,
+  recordPlay: null,
+};
+
 /** The app-wide singleton the root layout binds the audio element to. */
-export const playerStore: PlayerStoreApi = createPlayerStore();
+export const playerStore: PlayerStoreApi = createPlayerStore({
+  fetchPlaybackUrl: (trackId) => (playerHooks.fetchPlaybackUrl ?? defaultFetchPlaybackUrl)(trackId),
+  recordPlay: (trackId, seconds) => (playerHooks.recordPlay ?? defaultRecordPlay)(trackId, seconds),
+});

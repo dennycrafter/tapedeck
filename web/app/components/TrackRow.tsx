@@ -11,7 +11,9 @@
 import type { ReactNode } from "react";
 import { Cover } from "./Cover";
 import { SongMenu } from "./SongMenu";
-import { HeartIcon, VolumeIcon } from "./icons";
+import { DownloadedIcon, HeartIcon, VolumeIcon } from "./icons";
+import { useOffline } from "./useOffline";
+import { canPlayNow } from "../lib/offline";
 import { useLibrary } from "./LibraryProvider";
 import { useOverlays } from "./Overlays";
 import { formatDuration } from "@/lib/player/format";
@@ -33,7 +35,11 @@ export function TrackRow({ track, onPlay, current, playlistId, leading }: TrackR
   const library = useLibrary();
   const { showToast } = useOverlays();
   const statusMeta = STATUS_META[track.status];
-  const playable = track.status === "ready";
+  const offline = useOffline();
+  // Offline, only songs downloaded to this device can play (SPEC 8.9).
+  const playable = canPlayNow(track, offline);
+  const downloaded = offline.downloaded.has(track.id);
+  const progress = offline.progress.get(track.id);
 
   const content = (
     <>
@@ -58,7 +64,15 @@ export function TrackRow({ track, onPlay, current, playlistId, leading }: TrackR
       </div>
       <div className="flex shrink-0 items-center gap-2 text-sm text-muted">
         {track.liked && <HeartIcon filled width={14} height={14} aria-label="Liked" data-testid="track-liked" />}
-        {playable ? (
+        {progress !== undefined && (
+          <span className="tabular-nums text-xs" data-testid="track-download-progress" aria-label="Downloading">
+            {Math.round(progress * 100)}%
+          </span>
+        )}
+        {downloaded && (
+          <DownloadedIcon width={14} height={14} className="text-silver" aria-label="Downloaded" data-testid="track-downloaded" />
+        )}
+        {track.status === "ready" ? (
           <span className="tabular-nums" data-testid="track-duration">
             {formatDuration(track.durationSec)}
           </span>
@@ -110,8 +124,9 @@ export function TrackRow({ track, onPlay, current, playlistId, leading }: TrackR
         </button>
       ) : (
         <div
-          className="flex min-w-0 flex-1 items-center gap-3 py-2.5 pl-3 pr-2"
+          className={`flex min-w-0 flex-1 items-center gap-3 py-2.5 pl-3 pr-2 ${track.status === "ready" ? "opacity-50" : ""}`}
           data-testid="track-row"
+          data-unavailable-offline={track.status === "ready" ? "true" : undefined}
           data-track-id={track.id}
         >
           {content}
