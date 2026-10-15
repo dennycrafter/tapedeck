@@ -176,3 +176,31 @@ def tmp_work(monkeypatch, tmp_path):
     root = tmp_path / "tapedeck"
     monkeypatch.setattr(downloader, "track_tmp_dir", lambda track_id: root / track_id)
     return root
+
+
+class _NoNetworkResponse:
+    """SponsorBlock stand-in reply: 404, the same as "no segments"."""
+
+    status_code = 404
+    text = "Not Found"
+
+    def json(self):
+        raise ValueError("not JSON")
+
+
+@pytest.fixture(autouse=True)
+def no_sponsorblock_network(monkeypatch):
+    """No network in tests (V2-PLAN T10): SponsorBlock answers 404 unless a test overrides it.
+
+    Every request is recorded in the returned list.
+    """
+    import trim
+
+    seen = []
+
+    def fake_get(url, params, timeout):
+        seen.append({"url": url, "params": dict(params), "timeout": timeout})
+        return _NoNetworkResponse()
+
+    monkeypatch.setattr(trim, "http_get", fake_get)
+    return seen

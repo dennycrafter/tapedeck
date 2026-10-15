@@ -179,7 +179,15 @@ export function searchYouTube(q: string): Promise<SearchResponse> {
  */
 export function editTrack(
   trackId: string,
-  input: { title?: string; artist?: string; album?: string | null; coverUrl?: string | null },
+  input: {
+    title?: string;
+    artist?: string;
+    album?: string | null;
+    coverUrl?: string | null;
+    /** T10 trim points in seconds; null goes back to the PC's suggestion. */
+    trimStartSec?: number | null;
+    trimEndSec?: number | null;
+  },
 ): Promise<TrackDto> {
   return fetchJson<TrackDto>(`/api/tracks/${encodeURIComponent(trackId)}`, {
     method: "PATCH",

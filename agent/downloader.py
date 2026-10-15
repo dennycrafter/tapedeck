@@ -10,7 +10,8 @@ servers, so yt-dlp only ever runs here, on the owner's home internet
 Loop (SPEC 8.3): every 20 seconds POST /api/agent/claim, then process the
 claimed rows one at a time: yt-dlp download -> ffmpeg convert (only when
 the download is not already .m4a) -> ffprobe duration and the 60% preview
-check -> mutagen MP4 tags -> presigned PUT -> complete -> the optional
+check -> trim suggestion (V2-PLAN T10, trim.py) -> mutagen MP4 tags ->
+presigned PUT -> complete -> the optional
 Apple Music auto-add copy (SPEC 8.11). Any failure before the upload
 calls /api/agent/fail, which requeues the track on the server while
 attempts < 3; a failure of the Apple Music copy afterwards fails only
@@ -42,6 +43,7 @@ import subprocess
 import sys
 import tempfile
 import time
+import trim
 from dataclasses import dataclass
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
@@ -850,12 +852,14 @@ def upload_track(
     track: ClaimedTrack,
     path: Path,
     duration_sec: float | None = None,
+    auto_trim: dict[str, float] | None = None,
 ) -> None:
     """Upload the finished .m4a and mark it ready (SPEC 8.3 step 2, 7.2).
 
     POST /api/agent/upload-url for a presigned PUT (15 min), PUT the file
     with Content-Type: audio/mp4 (the body is the exact byte count the
-    complete call reports), then POST /api/agent/complete.
+    complete call reports), then POST /api/agent/complete. `auto_trim`
+    carries the trim suggestion (autoTrimStartSec / autoTrimEndSec, T10).
     """
     import requests
 
@@ -893,6 +897,7 @@ def upload_track(
             "key": key,
             "bytes": len(data),
             "durationSec": round(duration_sec) if duration_sec is not None else None,
+            **(auto_trim or {}),
         }
         complete_response = session.post(
             f"{cfg.app_url}/api/agent/complete", json=complete_body, timeout=HTTP_TIMEOUT
@@ -1043,8 +1048,9 @@ def process_one_track(
     try:
         path = download_track(logger, cfg, track)
         path, duration = convert_check(logger, track, path)
+        auto_trim = trim.suggest_trim(logger, track, path, duration)  # V2-PLAN T10
         path = tag_track(logger, track, path)
-        upload_track(logger, cfg, track, path, duration)
+        upload_track(logger, cfg, track, path, duration, auto_trim)
         maybe_export_to_apple_music(logger, cfg, track, path, setting_on=export_enabled)
     except Exception as exc:  # SPEC 8.3 step 2: report every failure to the app.
         logger.error("track %s failed: %s", track["id"], exc)
@@ -1109,8 +1115,11 @@ def run_selftest(logger: logging.Logger, cfg: DownloaderConfig, track_id: str) -
         stand_in = work_dir / find_test_audio().name
         shutil.copyfile(find_test_audio(), stand_in)
         path, duration = convert_check(logger, track, stand_in)
+        # T10: silence check only; the selftest never calls SponsorBlock (no
+        # network from tests). The committed tone has no silence to trim.
+        auto_trim = trim.suggest_trim(logger, track, path, duration, use_sponsorblock=False)
         path = tag_track(logger, track, path)
-        upload_track(logger, cfg, track, path, duration)
+        upload_track(logger, cfg, track, path, duration, auto_trim)
         # SPEC 9.0 runs the real pipeline; the optional Apple Music copy
         # (8.11) belongs to it since T6a and fails only itself.
         maybe_export_to_apple_music(

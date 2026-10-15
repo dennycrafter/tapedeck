@@ -9,7 +9,9 @@
  * soon as the current track starts.
  *
  * Which song plays next (queue, play next, shuffle, repeat, previous) is pure
- * logic in ./queue.ts. Plays are counted here (SPEC 8.6): once per track
+ * logic in ./queue.ts. Trim (V2-PLAN T10) is math in ./trim.ts: `position`,
+ * `duration` and seeks are in trimmed time (0 at the trim start), and
+ * reaching the trim end counts exactly like `ended`. Plays are counted here (SPEC 8.6): once per track
  * start, when 30 seconds have been listened or the track ends.
  */
 import {
@@ -26,6 +28,15 @@ import {
   type QueueState,
   type RepeatMode,
 } from "./queue";
+import {
+  pastTrimEnd,
+  playRange,
+  rangeLength,
+  sameTrim,
+  toMediaTime,
+  toTrimmedTime,
+  type PlayRange,
+} from "./trim";
 
 export type TrackStatus = "waiting" | "downloading" | "ready" | "failed";
 export type { RepeatMode } from "./queue";
@@ -54,8 +65,9 @@ export interface PlayerState {
   /** Position in the queue; -1 when nothing is loaded. */
   readonly index: number;
   readonly playing: boolean;
-  /** Seconds into the current track. */
+  /** Seconds into the current track, from its trim start (T10). */
   readonly position: number;
+  /** Trimmed length of the current track (trim end minus trim start). */
   readonly duration: number;
   /** Last playback failure, surfaced in the player bar; null when healthy. */
   readonly error: string | null;
@@ -240,9 +252,12 @@ function sameTrack(a: PlayerTrack, b: PlayerTrack): boolean {
     a.album === b.album &&
     a.coverUrl === b.coverUrl &&
     a.status === b.status &&
-    a.durationSec === b.durationSec
+    a.durationSec === b.durationSec &&
+    sameTrim(a, b)
   );
 }
+
+const WHOLE_SONG: PlayRange = { start: 0, end: null };
 
 export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
   const fetchPlaybackUrl = deps.fetchPlaybackUrl ?? defaultFetchPlaybackUrl;
@@ -279,6 +294,8 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
   let lastSaveAt = 0;
   let restored = false;
   let unbindMediaSession: (() => void) | null = null;
+  /** The track whose file is on the element; trim applies only to it (T10). */
+  let loadedTrackId: string | null = null;
 
   // Play counting for the current track start (SPEC 8.6).
   let listened = 0;
@@ -306,12 +323,31 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     return state.queue[state.index] ?? null;
   }
 
+  /** The current track's trim range once its file is on the element (T10). */
+  function loadedRange(): PlayRange | null {
+    const track = currentTrack();
+    if (!audio || !track || track.id !== loadedTrackId) return null;
+    return playRange(track, audio.duration);
+  }
+
+  /** Where playback is now, in trimmed seconds. */
+  function positionNow(): number {
+    const range = loadedRange();
+    if (!audio || !audio.src || !range) return state.position;
+    return toTrimmedTime(audio.currentTime, range, rangeLength(range, audio.duration));
+  }
+
+  /** Trimmed length of a track before its file loads (from the stored duration). */
+  function plannedLength(track: PlayerTrack): number {
+    return rangeLength(playRange(track), track.durationSec);
+  }
+
   function persist(): void {
     lastSaveAt = now();
     persistence.save({
       queue: state.queue,
       index: state.index,
-      position: audio && audio.src ? audio.currentTime : state.position,
+      position: positionNow(),
       savedAt: now(),
       shuffle: state.shuffle,
       repeat: state.repeat,
@@ -337,13 +373,15 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
   function syncPositionState(): void {
     if (!audio) return;
     if (typeof navigator === "undefined" || !("mediaSession" in navigator)) return;
-    const duration = audio.duration;
+    // The lock screen shows the trimmed song (T10).
+    const range = loadedRange() ?? WHOLE_SONG;
+    const duration = rangeLength(range, audio.duration);
     if (!Number.isFinite(duration) || duration <= 0) return;
     try {
       navigator.mediaSession.setPositionState({
         duration,
         playbackRate: audio.playbackRate,
-        position: Math.min(audio.currentTime, duration),
+        position: toTrimmedTime(audio.currentTime, range, duration),
       });
     } catch {
       // Some engines reject position updates that race the duration; nothing to recover.
@@ -366,9 +404,13 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     navigator.mediaSession.metadata = new MediaMetadata(metadataInit);
   }
 
+  /** Load `url` and play from `position` trimmed seconds (0 = the trim start). */
   function beginPlayback(track: PlayerTrack, url: string, position: number): void {
     if (!audio) return;
-    pendingSeek = position > 0 ? position : null;
+    // T10: seek to the trim start before playing (blob and presigned alike).
+    const target = playRange(track).start + Math.max(0, position);
+    pendingSeek = target > 0 ? target : null;
+    loadedTrackId = track.id;
     audio.src = url;
     setMetadata(track);
     set({ position, error: null });
@@ -402,7 +444,7 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     if (!track || !audio) return;
     maybeRecordPlay(false);
     resetListening(track.id);
-    set({ index, position: 0, duration: track.durationSec ?? 0 });
+    set({ index, position: 0, duration: plannedLength(track) });
     const cached = urlCache.get(track.id);
     if (cached) {
       // A blob: URL (a downloaded song, SPEC 8.9) is used once; the offline
@@ -432,6 +474,12 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     const track = currentTrack();
     if (!track) return;
     if (audio.src) {
+      // Stopped at the trim end: play again from the trim start, like an ended file.
+      const range = loadedRange();
+      if (range && pastTrimEnd(audio.currentTime, range)) {
+        audio.currentTime = range.start;
+        lastTime = range.start;
+      }
       audio.play().then(
         () => set({ playing: true }),
         (error: unknown) => set({ playing: false, error: errorText(error) }),
@@ -441,7 +489,7 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     // Restored session: the src was never loaded; load at the saved position.
     const position = state.position;
     resetListening(track.id);
-    lastTime = position;
+    lastTime = playRange(track).start + position;
     fetchPlaybackUrl(track.id).then(
       (url) => {
         urlCache.set(track.id, url);
@@ -459,6 +507,13 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
   function handleTimeUpdate(): void {
     if (!audio) return;
     const time = audio.currentTime;
+    const range = loadedRange();
+    if (range && !audio.paused && pastTrimEnd(time, range)) {
+      // T10: the trim end counts exactly like `ended` (same synchronous
+      // next-track path, SPEC 8.8 and 12).
+      handleEnded();
+      return;
+    }
     if (!audio.paused) {
       const step = time - lastTime;
       if (step > 0 && step <= MAX_LISTEN_STEP_S) {
@@ -467,7 +522,7 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
       }
     }
     lastTime = time;
-    set({ position: time });
+    set({ position: range ? toTrimmedTime(time, range, rangeLength(range, audio.duration)) : time });
     const t = now();
     if (typeof navigator !== "undefined" && "mediaSession" in navigator) {
       if (isPositionUpdateDue(lastPositionStateAt, t)) {
@@ -484,14 +539,19 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     maybeRecordPlay(true);
     const nextIdx = nextIndex(queueState(), true);
     if (nextIdx === null) {
+      // A trim end stops a still-playing element; a real end already has.
+      if (audio && !audio.paused) audio.pause();
       set({ playing: false });
       persist();
       return;
     }
     if (nextIdx === state.index && audio) {
-      // Repeat one: same source, replay synchronously (no awaits, SPEC 12).
+      // Repeat one: same source, replay synchronously (no awaits, SPEC 12),
+      // from the trim start (T10).
       resetListening(state.queue[nextIdx]?.id ?? null);
-      audio.currentTime = 0;
+      const start = (loadedRange() ?? WHOLE_SONG).start;
+      audio.currentTime = start;
+      lastTime = start;
       audio.play().then(
         () => set({ playing: true }),
         (error: unknown) => set({ playing: false, error: errorText(error) }),
@@ -510,7 +570,7 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     if (!refetchedIds.has(track.id)) {
       refetchedIds.add(track.id);
       urlCache.delete(track.id);
-      const position = audio.currentTime;
+      const position = positionNow();
       fetchPlaybackUrl(track.id).then(
         (url) => {
           urlCache.set(track.id, url);
@@ -553,12 +613,14 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
 
   function onLoadedMetadata(): void {
     if (!audio) return;
-    set({ duration: Number.isFinite(audio.duration) ? audio.duration : 0 });
+    const range = loadedRange() ?? WHOLE_SONG;
+    const length = rangeLength(range, audio.duration);
+    set({ duration: length });
     if (pendingSeek != null) {
       audio.currentTime = clampSeek(pendingSeek, audio.duration);
       lastTime = audio.currentTime;
       pendingSeek = null;
-      set({ position: audio.currentTime });
+      set({ position: toTrimmedTime(audio.currentTime, range, length) });
     }
   }
 
@@ -582,6 +644,7 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
       queue: saved.queue,
       index: saved.index,
       position: typeof saved.position === "number" ? saved.position : 0,
+      duration: plannedLength(track),
       volume,
       shuffle,
       repeat,
@@ -601,11 +664,11 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     });
     session.setActionHandler("seekbackward", (details) => {
       if (!audio) return;
-      store.seek(Math.max(0, audio.currentTime - (details.seekOffset ?? SEEK_BACKWARD_S)));
+      store.seek(Math.max(0, positionNow() - (details.seekOffset ?? SEEK_BACKWARD_S)));
     });
     session.setActionHandler("seekforward", (details) => {
       if (!audio) return;
-      store.seek(audio.currentTime + (details.seekOffset ?? SEEK_FORWARD_S));
+      store.seek(positionNow() + (details.seekOffset ?? SEEK_FORWARD_S));
     });
     unbindMediaSession = () => {
       for (const action of MEDIA_SESSION_ACTIONS) {
@@ -670,10 +733,13 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
         persist();
         return;
       }
-      const target = clampSeek(seconds, audio.duration);
+      // Seconds are trimmed time; seeks outside the trim are clamped into it (T10).
+      const range = loadedRange() ?? WHOLE_SONG;
+      const length = rangeLength(range, audio.duration);
+      const target = toMediaTime(seconds, range, length);
       audio.currentTime = target;
       lastTime = target;
-      set({ position: target });
+      set({ position: toTrimmedTime(target, range, length) });
       persist();
     },
     next() {
@@ -688,7 +754,7 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     },
     previous() {
       if (!audio) return;
-      const action = previousAction(queueState(), audio.currentTime);
+      const action = previousAction(queueState(), positionNow());
       if (action.kind === "restart") {
         store.seek(0);
         return;
@@ -756,6 +822,7 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
           // Resetting the element is best effort.
         }
         resetListening(null);
+        loadedTrackId = null;
         set({ playing: false, position: 0, duration: 0 });
       }
       applyQueue(next);
@@ -774,6 +841,16 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
       set({ queue });
       const after = currentTrack();
       if (before && after && !sameTrack(before, after)) setMetadata(after);
+      if (before && after && !sameTrim(before, after)) {
+        // The trim of the playing song changed (Edit details, T10): re-read the clock.
+        const range = loadedRange();
+        if (range && audio) {
+          const length = rangeLength(range, audio.duration);
+          set({ duration: length, position: toTrimmedTime(audio.currentTime, range, length) });
+        } else {
+          set({ duration: plannedLength(after) });
+        }
+      }
       persist();
     },
   };

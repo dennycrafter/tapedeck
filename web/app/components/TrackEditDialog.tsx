@@ -5,13 +5,16 @@
  * (keep, remove or paste an image link) of a song, or Restore original to
  * undo a bad fix. The database keeps the raw values, so restoring always
  * returns to them. Saving refreshes the library. Opened from the song's
- * "..." menu.
+ * "..." menu. Ready songs also get the trim editor (V2-PLAN T10), saved
+ * with the same Save.
  */
 import { useState } from "react";
 import { editTrack, restoreTrack, type TrackDto } from "../lib/api";
 import { useOverlays } from "./Overlays";
 import { Cover } from "./Cover";
 import { parseCoverInput } from "../lib/ui";
+import { TrimEditor, type TrimTrack } from "./TrimEditor";
+import { initialTrimDraft, trimDraftProblem, trimPatch } from "../lib/trim-edit";
 
 /** Cover choice (SPEC 8.4): keep the current one, remove it, or paste an image URL. */
 type CoverMode = "keep" | "remove" | "url";
@@ -30,8 +33,13 @@ function errorText(error: unknown): string {
 
 interface TrackEditDialogProps {
   /** Only the editable fields, plus the current cover for the preview. */
-  track: Pick<TrackDto, "id" | "title" | "artist" | "album"> & { coverUrl?: string | null };
+  track: Pick<TrackDto, "id" | "title" | "artist" | "album"> & Partial<TrackDto>;
   onClose(): void;
+}
+
+/** Trim needs a ready song with a known length (T10). */
+function trimTrackOf(track: TrackEditDialogProps["track"]): TrimTrack | null {
+  return track.status === "ready" && track.durationSec ? { ...track, durationSec: track.durationSec } : null;
 }
 
 export function TrackEditDialog({ track, onClose }: TrackEditDialogProps) {
@@ -43,9 +51,16 @@ export function TrackEditDialog({ track, onClose }: TrackEditDialogProps) {
   const [coverInput, setCoverInput] = useState("");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const trimTrack = trimTrackOf(track);
+  const [trim, setTrim] = useState(() => initialTrimDraft({ ...track, durationSec: track.durationSec ?? null }));
 
   async function save() {
     if (saving) return;
+    const trimError = trimTrack ? trimDraftProblem(trimTrack, trim) : null;
+    if (trimError) {
+      setError(trimError);
+      return;
+    }
     let coverUrl: string | null | undefined;
     if (coverMode === "remove") coverUrl = null;
     if (coverMode === "url") {
@@ -58,7 +73,13 @@ export function TrackEditDialog({ track, onClose }: TrackEditDialogProps) {
     setSaving(true);
     setError(null);
     try {
-      await editTrack(track.id, { title, artist, album, ...(coverMode === "keep" ? {} : { coverUrl }) });
+      await editTrack(track.id, {
+        title,
+        artist,
+        album,
+        ...(coverMode === "keep" ? {} : { coverUrl }),
+        ...(trimTrack ? trimPatch(trimTrack, trim) : {}),
+      });
       notifyLibraryChanged();
       onClose();
     } catch (err) {
@@ -96,7 +117,7 @@ export function TrackEditDialog({ track, onClose }: TrackEditDialogProps) {
         aria-modal="true"
         aria-labelledby="edit-dialog-title"
         data-testid="edit-dialog"
-        className="w-full max-w-md rounded-box border border-line bg-surface-2 p-4 shadow-[0_6px_16px_rgba(0,0,0,0.3)]"
+        className="max-h-[calc(100dvh-6.5rem)] w-full max-w-md overflow-y-auto rounded-box border border-line bg-surface-2 p-4 shadow-[0_6px_16px_rgba(0,0,0,0.3)] sm:max-h-[calc(100dvh-2rem)]"
       >
         <div className="flex items-center justify-between">
           <h2 id="edit-dialog-title" className="text-base font-semibold">
@@ -191,6 +212,7 @@ export function TrackEditDialog({ track, onClose }: TrackEditDialogProps) {
               />
             )}
           </fieldset>
+          {trimTrack && <TrimEditor track={trimTrack} draft={trim} onChange={setTrim} />}
           {error && (
             <p role="alert" className="text-sm text-bad" data-testid="edit-error">
               {error}

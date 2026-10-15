@@ -4,11 +4,14 @@
 // (raw_title / raw_artist), so "Restore original" is the sibling route at
 // tracks/[id]/restore. Session-gated like every /api/tracks route (the
 // proxy's cookie check is the guard; no bearer here, as this endpoint belongs
-// to the owner's browser, not the downloader).
+// to the owner's browser, not the downloader). V2-PLAN T10 adds the trim
+// points `trimStartSec` / `trimEndSec` (rules in ./trim.ts).
 
 import { isUuid, jsonError } from '../../agent/requests'
 import { sql, type Row } from '../../../../lib/db'
 import { deleteTrack } from '../../../../lib/library'
+import { TRACK_V2_COLUMNS, v2FieldsFromRow } from '../../../../lib/track-v2'
+import { checkTrimChange, readTrimChange, TRIM_ROW_COLUMNS, type TrimRow } from './trim'
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -87,15 +90,26 @@ export async function PATCH(request: Request, ctx: RouteContext): Promise<Respon
   const album = body.album === undefined ? undefined : asText(body.album)
   const cover = parseCover(body.coverUrl)
   if (cover.error) return jsonError(400, cover.error)
+  const trim = readTrimChange(body as Record<string, unknown>)
+  if (trim.error) return jsonError(400, trim.error)
 
   // The executor has no fragment-join helper, so the SET clause is built as
   // text with positional params: column names are hardcoded here, values
   // always travel as bound parameters.
   const sets: string[] = []
-  const params: string[] = []
-  const setColumn = (column: string, value: string | null) => {
-    params.push(value as string)
+  const params: (string | number | null)[] = []
+  const setColumn = (column: string, value: string | number | null) => {
+    params.push(value)
     sets.push(`${column} = $${params.length}`)
+  }
+  if (trim.change) {
+    // The rule applies to the trim that results, so read the stored values first.
+    const current = (await sql.unsafe(`select ${TRIM_ROW_COLUMNS} from tracks where id = $1`, [id])) as TrimRow[]
+    if (!current[0]) return jsonError(404, 'Track not found')
+    const problem = checkTrimChange(trim.change, current[0])
+    if (problem) return jsonError(400, problem)
+    if (trim.change.start !== undefined) setColumn('trim_start_sec', trim.change.start)
+    if (trim.change.end !== undefined) setColumn('trim_end_sec', trim.change.end)
   }
   if (title !== undefined) setColumn('title', title)
   if (artist !== undefined) setColumn('artist', artist)
@@ -111,7 +125,7 @@ export async function PATCH(request: Request, ctx: RouteContext): Promise<Respon
   try {
     const updated = (await sql.unsafe(
       `update tracks set ${sets.join(', ')} where id = $${params.length}
-      returning id, source, source_id, source_url, title, artist, album, album_artist, cover_url, duration_sec, status`,
+      returning id, source, source_id, source_url, title, artist, album, album_artist, cover_url, duration_sec, status, ${TRACK_V2_COLUMNS}`,
       params,
     )) as TrackRow[]
     if (!updated[0]) {
@@ -130,6 +144,7 @@ export async function PATCH(request: Request, ctx: RouteContext): Promise<Respon
       coverUrl: row.cover_url,
       durationSec: row.duration_sec,
       status: row.status,
+      ...v2FieldsFromRow(row),
     })
   } catch (error) {
     console.error('[tracks/patch] failed:', error)
