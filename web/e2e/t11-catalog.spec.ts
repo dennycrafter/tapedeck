@@ -1,4 +1,4 @@
-import { test, expect, type Page } from '@playwright/test';
+import { test, expect, type Locator, type Page } from '@playwright/test';
 import { login } from './helpers/login';
 import { librarySnapshot, seedReadyTracks } from './helpers/library';
 
@@ -48,8 +48,18 @@ async function noSidewaysScroll(page: Page, where: string): Promise<void> {
   expect(scrollWidth, `${where}: no sideways scroll`).toBeLessThanOrEqual(innerWidth);
 }
 
-function catalogRow(page: Page, id: string) {
-  return page.locator(`[data-testid="catalog-track"][data-catalog-id="${id}"]`);
+/** React owns the box: a fill before hydration is wiped (WebKit hydrates slower, see helpers/login.ts). */
+async function waitForSearchBox(page: Page): Promise<void> {
+  await page.waitForFunction(() => {
+    const node = document.querySelector('[data-testid="library-search"]');
+    return node != null && Object.keys(node).some((key) => key.startsWith('__reactProps$'));
+  });
+}
+
+// Next keeps the pages you came from in the DOM, hidden, for Back; scope every
+// lookup to the page on screen.
+function catalogRow(scope: Locator, id: string) {
+  return scope.locator(`[data-testid="catalog-track"][data-catalog-id="${id}"]`);
 }
 
 test.describe('T11 catalog search @T11', () => {
@@ -64,64 +74,68 @@ test.describe('T11 catalog search @T11', () => {
     });
 
     await page.goto('/search');
-    const box = page.getByTestId('library-search');
+    const search = page.getByTestId('search-page');
+    const box = search.getByTestId('library-search');
     await expect(box).toBeVisible();
-    await expect(page.getByTestId('search-hint')).toBeVisible();
+    await expect(search.getByTestId('search-hint')).toBeVisible();
+    await waitForSearchBox(page);
     await box.pressSequentially('daft punk', { delay: 40 });
 
     // Top tab: the library match first, then catalog artists, songs, albums.
-    const topSongs = page.getByTestId('catalog-top-songs');
+    const topSongs = search.getByTestId('catalog-top-songs');
     await expect(topSongs.getByTestId('catalog-track')).toHaveCount(5, { timeout: FIRST_LOAD });
     expect(searches, 'typing searched once after the pause, not per key').toBeLessThanOrEqual(2);
-    await expect(page.getByTestId('search-library')).toContainText('Instant Crush');
-    await expect(page.getByTestId('catalog-top-artists').locator(`a[href="/catalog/artist?id=${encodeURIComponent(ARTIST_ID)}"]`)).toBeVisible();
-    await expect(page.getByTestId('catalog-top-albums').getByTestId('catalog-album-tile').first()).toBeVisible();
-    await expect(catalogRow(page, INSTANT_CRUSH).getByTestId('catalog-in-library')).toHaveText('In library');
-    await expect(catalogRow(page, INSTANT_CRUSH).getByTestId('catalog-add')).toHaveCount(0);
+    await expect(search.getByTestId('search-library')).toContainText('Instant Crush');
+    await expect(search.getByTestId('catalog-top-artists').locator(`a[href="/catalog/artist?id=${encodeURIComponent(ARTIST_ID)}"]`)).toBeVisible();
+    await expect(search.getByTestId('catalog-top-albums').getByTestId('catalog-album-tile').first()).toBeVisible();
+    await expect(catalogRow(search, INSTANT_CRUSH).getByTestId('catalog-in-library')).toHaveText('In library');
+    await expect(catalogRow(search, INSTANT_CRUSH).getByTestId('catalog-add')).toHaveCount(0);
     await noSidewaysScroll(page, 'search top');
 
     // Songs tab: the full list.
-    await page.getByTestId('search-tab-songs').click();
-    await expect(page.getByTestId('catalog-songs').getByTestId('catalog-track')).toHaveCount(25);
+    await search.getByTestId('search-tab-songs').click();
+    await expect(search.getByTestId('catalog-songs').getByTestId('catalog-track')).toHaveCount(25);
     await expect(page).toHaveURL(/\/search\?q=daft\+punk&tab=songs/);
 
     // Artists tab, open the artist.
-    await page.getByTestId('search-tab-artists').click();
-    await page.getByTestId('catalog-artists').locator(`a[href="/catalog/artist?id=${encodeURIComponent(ARTIST_ID)}"]`).click();
+    await search.getByTestId('search-tab-artists').click();
+    await search.getByTestId('catalog-artists').locator(`a[href="/catalog/artist?id=${encodeURIComponent(ARTIST_ID)}"]`).click();
     await expect(page).toHaveURL(new RegExp(`/catalog/artist\\?id=${encodeURIComponent(ARTIST_ID)}`));
-    await expect(page.getByTestId('catalog-title')).toHaveText('Daft Punk', { timeout: FIRST_LOAD });
-    await expect(page.getByTestId('catalog-artist-top').getByTestId('catalog-track')).toHaveCount(10);
-    await expect(page.getByTestId('catalog-artist-singles')).toBeVisible();
+    const artistPage = page.getByTestId('catalog-artist-page');
+    await expect(artistPage.getByTestId('catalog-title')).toHaveText('Daft Punk', { timeout: FIRST_LOAD });
+    await expect(artistPage.getByTestId('catalog-artist-top').getByTestId('catalog-track')).toHaveCount(10);
+    await expect(artistPage.getByTestId('catalog-artist-singles')).toBeVisible();
     await noSidewaysScroll(page, 'catalog artist');
 
     // Open the album.
-    await page.getByTestId('catalog-artist-albums').locator('a[title="Random Access Memories"]').click();
+    await artistPage.getByTestId('catalog-artist-albums').locator('a[title="Random Access Memories"]').click();
     await expect(page).toHaveURL(new RegExp(`/catalog/album\\?id=${encodeURIComponent(ALBUM_ID)}`));
-    await expect(page.getByTestId('catalog-title')).toHaveText('Random Access Memories', { timeout: FIRST_LOAD });
-    await expect(page.getByTestId('catalog-album-artist')).toHaveText('Daft Punk');
-    const tracks = page.getByTestId('catalog-album-tracks').getByTestId('catalog-track');
+    const albumPage = page.getByTestId('catalog-album-page');
+    await expect(albumPage.getByTestId('catalog-title')).toHaveText('Random Access Memories', { timeout: FIRST_LOAD });
+    await expect(albumPage.getByTestId('catalog-album-artist')).toHaveText('Daft Punk');
+    const tracks = albumPage.getByTestId('catalog-album-tracks').getByTestId('catalog-track');
     await expect(tracks).toHaveCount(13);
-    await expect(catalogRow(page, INSTANT_CRUSH).getByTestId('catalog-in-library')).toBeVisible();
+    await expect(catalogRow(albumPage, INSTANT_CRUSH).getByTestId('catalog-in-library')).toBeVisible();
     await noSidewaysScroll(page, 'catalog album');
 
     // Add one song.
-    await catalogRow(page, FIRST_SONG).getByTestId('catalog-add').click();
+    await catalogRow(albumPage, FIRST_SONG).getByTestId('catalog-add').click();
     await expect(page.getByTestId('toast')).toHaveText('1 added');
-    await expect(catalogRow(page, FIRST_SONG).getByTestId('catalog-in-library')).toBeVisible();
-    await expect(page.getByTestId('catalog-album-owned')).toHaveText('2 songs already in your library');
+    await expect(catalogRow(albumPage, FIRST_SONG).getByTestId('catalog-in-library')).toBeVisible();
+    await expect(albumPage.getByTestId('catalog-album-owned')).toHaveText('2 songs already in your library');
 
     // Add album: the 11 songs still missing.
-    const addAlbum = page.getByTestId('catalog-add-album');
+    const addAlbum = albumPage.getByTestId('catalog-add-album');
     await expect(addAlbum).toHaveText('Add album');
     await addAlbum.click();
     await expect(page.getByTestId('toast')).toHaveText('11 added');
     await expect(addAlbum).toHaveText('All in library');
     await expect(addAlbum).toBeDisabled();
-    await expect(page.getByTestId('catalog-album-tracks').getByTestId('catalog-add')).toHaveCount(0);
+    await expect(albumPage.getByTestId('catalog-album-tracks').getByTestId('catalog-add')).toHaveCount(0);
 
     // The flags come from the server after a reload too.
     await page.reload();
-    await expect(page.getByTestId('catalog-album-tracks').getByTestId('catalog-in-library')).toHaveCount(13);
+    await expect(albumPage.getByTestId('catalog-album-tracks').getByTestId('catalog-in-library')).toHaveCount(13);
 
     // The songs wait in the library with the catalog label, with the catalog's clean values.
     const snapshot = await librarySnapshot(page.request);
@@ -134,7 +148,7 @@ test.describe('T11 catalog search @T11', () => {
 
     // Back in search, the added songs show In library.
     await page.goto('/search?q=daft+punk&tab=songs');
-    await expect(catalogRow(page, 'deezer:67238735').getByTestId('catalog-in-library')).toBeVisible(); // Get Lucky
+    await expect(catalogRow(page.getByTestId('search-page'), 'deezer:67238735').getByTestId('catalog-in-library')).toBeVisible(); // Get Lucky
   });
 
   test('the YouTube tab still searches only on Enter or the button, with the quota note', async ({ page }) => {
@@ -147,6 +161,7 @@ test.describe('T11 catalog search @T11', () => {
       youtubeQuery = url.searchParams.get('q');
     });
     await page.goto('/search');
+    await waitForSearchBox(page);
     await page.getByTestId('library-search').fill('get lucky');
     await page.getByTestId('search-tab-youtube').click();
 

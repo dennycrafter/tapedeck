@@ -52,14 +52,31 @@ function Search() {
     if (focusOnArrival.current || window.matchMedia("(pointer: fine)").matches) input.current?.focus();
   }, []);
 
-  // Keep the address in step (replace, not push: typing must not fill the history).
-  useEffect(() => {
-    const timer = window.setTimeout(() => window.history.replaceState(null, "", searchPageUrl(query, tab)), 300);
-    return () => window.clearTimeout(timer);
-  }, [query, tab]);
+  // Keep the address in step, so Back from a catalog page restores the
+  // results. Replace, not push: typing must not fill the history. A tab
+  // change writes it at once; typing writes it after a pause. The delayed
+  // write is skipped once the owner has left the page: replacing the address
+  // while a link's navigation is still loading would cancel that navigation.
+  const addressTimer = useRef<number | undefined>(undefined);
+  useEffect(() => () => window.clearTimeout(addressTimer.current), []);
+  function writeAddress(nextQuery: string, nextTab: SearchTab) {
+    window.clearTimeout(addressTimer.current);
+    const next = searchPageUrl(nextQuery, nextTab);
+    if (window.location.pathname !== "/search") return;
+    if (`${window.location.pathname}${window.location.search}` !== next) window.history.replaceState(null, "", next);
+  }
+  function changeQuery(value: string) {
+    setQuery(value);
+    window.clearTimeout(addressTimer.current);
+    addressTimer.current = window.setTimeout(() => writeAddress(value, tab), 300);
+  }
+  function selectTab(next: SearchTab) {
+    setTab(next);
+    writeAddress(query, next);
+  }
 
   return (
-    <main className="flex flex-col gap-6 pt-2">
+    <main className="flex flex-col gap-6 pt-2" data-testid="search-page">
       <div className="flex flex-col gap-3">
         <h1 className="text-3xl font-bold tracking-tight">Search</h1>
         <label className="relative block max-w-2xl">
@@ -70,7 +87,7 @@ function Search() {
             id={SEARCH_INPUT_ID}
             type="search"
             value={query}
-            onChange={(event) => setQuery(event.target.value)}
+            onChange={(event) => changeQuery(event.target.value)}
             placeholder="Songs, artists or albums"
             autoComplete="off"
             data-testid="library-search"
@@ -92,7 +109,7 @@ function Search() {
             id={`search-tab-${item.id}`}
             aria-selected={tab === item.id}
             aria-controls="search-panel"
-            onClick={() => setTab(item.id)}
+            onClick={() => selectTab(item.id)}
             data-testid={`search-tab-${item.id}`}
             className={`-mb-px shrink-0 border-b-2 px-3 py-2 text-sm font-semibold ${FOCUS} ${
               tab === item.id ? "border-fg text-fg" : "border-transparent text-muted hover:text-fg"
@@ -114,7 +131,7 @@ function Search() {
             </div>
           </section>
         ) : (
-          <CatalogPanel tab={tab} query={query} catalog={catalog} adder={adder} onTab={setTab} />
+          <CatalogPanel tab={tab} query={query} catalog={catalog} adder={adder} onTab={selectTab} />
         )}
       </div>
     </main>
