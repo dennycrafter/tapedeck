@@ -52,6 +52,9 @@ from typing import Any, TypedDict
 # SPEC 8.3 step 2: poll every 20 seconds.
 DEFAULT_POLL_INTERVAL_SEC = 20
 
+# SPEC 8.3 step 1: settings live in agent/.env (tests point this elsewhere).
+ENV_FILE = Path(__file__).resolve().parent / ".env"
+
 # SPEC 8.3 step 1: log to agent/logs/downloader.log, rotate at 1 MB, keep 3.
 LOG_DIR = Path(__file__).resolve().parent / "logs"
 LOG_FILE = LOG_DIR / "downloader.log"
@@ -371,10 +374,9 @@ def load_env(logger: logging.Logger) -> None:
             "python-dotenv is not installed. Run install.bat again, or: "
             "py -3.12 -m pip install -r requirements.txt"
         ) from exc
-    env_file = Path(__file__).resolve().parent / ".env"
-    loaded = load_dotenv(env_file, override=False)
+    loaded = load_dotenv(ENV_FILE, override=False)
     if loaded:
-        logger.info("Loaded settings from %s.", env_file)
+        logger.info("Loaded settings from %s.", ENV_FILE)
     else:
         logger.info("No agent/.env file found; using process environment variables.")
 
@@ -964,8 +966,8 @@ def run_loop(logger: logging.Logger, cfg: DownloaderConfig) -> None:
     and calls apple-music-done; a missing auto-add folder fails only
     that step and the song stays ready.
     """
-    # Startup (SPEC 8.3 step 1): read agent/.env, refresh yt-dlp.
-    load_env(logger)
+    # Startup (SPEC 8.3 step 1): main() already read agent/.env to build
+    # cfg; refresh yt-dlp.
     upgrade_yt_dlp(logger)
 
     logger.info("Downloader started; polling %s every %s s.", cfg.app_url, cfg.poll_interval_sec)
@@ -1127,6 +1129,8 @@ def main(argv: list[str] | None = None) -> int:
             return run_selftest(logger, load_config(args.poll_interval), args.track)
         if args.probe:
             return run_probe(logger, args.probe)
+        # agent/.env must be read before load_config looks for APP_URL.
+        load_env(logger)
         run_loop(logger, load_config(args.poll_interval))
         return 0
     except RuntimeError as exc:
