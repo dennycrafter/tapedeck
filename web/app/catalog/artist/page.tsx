@@ -64,7 +64,7 @@ function CatalogArtist() {
       {topTracks.length > 0 && (
         <section>
           <SectionHeader title="Popular songs" />
-          <CatalogTrackList tracks={topTracks} adder={adder} testId="catalog-artist-top" />
+          <CatalogTrackList tracks={topTracks} adder={adder} pageArtist={artist.name} testId="catalog-artist-top" />
         </section>
       )}
       {groups.map((group) => (

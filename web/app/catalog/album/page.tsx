@@ -92,7 +92,7 @@ function CatalogAlbum() {
           </>
         }
       />
-      <CatalogTrackList tracks={tracks} adder={adder} numbered testId="catalog-album-tracks" />
+      <CatalogTrackList tracks={tracks} adder={adder} numbered pageArtist={album.artist} testId="catalog-album-tracks" />
       <p className="text-xs text-muted">
         Added songs wait until your PC finds the best free copy of each one.
       </p>

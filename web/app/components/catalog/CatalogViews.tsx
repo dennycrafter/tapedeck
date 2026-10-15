@@ -31,9 +31,11 @@ interface TrackListProps {
   testId?: string;
   /** Album page: track numbers instead of covers, no album name in the subtitle. */
   numbered?: boolean;
+  /** The artist the page is about: rows leave the name out when it is the same (no repeats). */
+  pageArtist?: string;
 }
 
-export function CatalogTrackList({ tracks, adder, testId = "catalog-tracks", numbered = false }: TrackListProps) {
+export function CatalogTrackList({ tracks, adder, testId = "catalog-tracks", numbered = false, pageArtist }: TrackListProps) {
   const discs = numbered ? new Set(tracks.map((track) => track.discNumber ?? 1)) : new Set([1]);
   const showDiscs = discs.size > 1;
   return (
@@ -48,7 +50,12 @@ export function CatalogTrackList({ tracks, adder, testId = "catalog-tracks", num
                 Disc {disc}
               </li>
             )}
-            <CatalogTrackRow track={track} adder={adder} number={numbered ? (track.trackNumber ?? index + 1) : null} />
+            <CatalogTrackRow
+              track={track}
+              adder={adder}
+              number={numbered ? (track.trackNumber ?? index + 1) : null}
+              showArtist={!pageArtist || track.artist.trim().toLowerCase() !== pageArtist.trim().toLowerCase()}
+            />
           </Fragment>
         );
       })}
@@ -56,9 +63,36 @@ export function CatalogTrackList({ tracks, adder, testId = "catalog-tracks", num
   );
 }
 
-function CatalogTrackRow({ track, adder, number }: { track: CatalogTrackResult; adder: CatalogAddApi; number: number | null }) {
+interface RowProps {
+  track: CatalogTrackResult;
+  adder: CatalogAddApi;
+  number: number | null;
+  showArtist: boolean;
+}
+
+function CatalogTrackRow({ track, adder, number, showArtist }: RowProps) {
   const owned = adder.owned(track);
   const busy = adder.adding.has(track.id);
+  const artist = showArtist && track.artist ? (
+    track.artistId ? (
+      <Link href={catalogArtistHref(track.artistId)} className={QUIET_LINK}>
+        {track.artist}
+      </Link>
+    ) : (
+      track.artist
+    )
+  ) : null;
+  const album =
+    // A single's album usually has the song's own name: do not show it twice.
+    number === null && track.album && track.album.trim().toLowerCase() !== track.title.trim().toLowerCase() ? (
+      track.albumId ? (
+        <Link href={catalogAlbumHref(track.albumId)} className={QUIET_LINK}>
+          {track.album}
+        </Link>
+      ) : (
+        track.album
+      )
+    ) : null;
   return (
     <li className="flex items-center gap-3 py-2.5 pl-3 pr-2" data-testid="catalog-track" data-catalog-id={track.id}>
       {number !== null ? (
@@ -70,27 +104,13 @@ function CatalogTrackRow({ track, adder, number }: { track: CatalogTrackResult; 
         <p className="truncate text-sm font-semibold" data-testid="catalog-track-title">
           {track.title}
         </p>
-        <p className="truncate text-sm text-muted" data-testid="catalog-track-subtitle">
-          {track.artistId ? (
-            <Link href={catalogArtistHref(track.artistId)} className={QUIET_LINK}>
-              {track.artist}
-            </Link>
-          ) : (
-            track.artist
-          )}
-          {number === null && track.album && (
-            <>
-              {" · "}
-              {track.albumId ? (
-                <Link href={catalogAlbumHref(track.albumId)} className={QUIET_LINK}>
-                  {track.album}
-                </Link>
-              ) : (
-                track.album
-              )}
-            </>
-          )}
-        </p>
+        {(artist || album) && (
+          <p className="truncate text-sm text-muted" data-testid="catalog-track-subtitle">
+            {artist}
+            {artist && album ? " · " : null}
+            {album}
+          </p>
+        )}
       </div>
       <span className="shrink-0 text-sm tabular-nums text-muted">{formatDuration(track.durationSec)}</span>
       <div className="flex w-20 shrink-0 justify-end">
