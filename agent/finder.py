@@ -172,7 +172,7 @@ _FEAT_MARKER = re.compile(r"\b(?:featuring|feat|ft)\b\s*\.?:?\s*", re.IGNORECASE
 _PUNCTUATION = re.compile(r"[^\w\s]|_", re.UNICODE)
 _SPACES = re.compile(r"\s+")
 # " - ", or an en or em dash with a space on each side (SPEC 8.4).
-_ARTIST_TITLE_SEPARATOR = re.compile(r"\s[-–—]\s")
+_ARTIST_TITLE_SEPARATOR = re.compile(r"\s[-\u2013\u2014]\s")
 # Uploader suffixes that are not part of the artist name (SPEC 8.4).
 _UPLOADER_SUFFIX = re.compile(r"(?:\s+-\s+topic|vevo|\s*official)\s*$", re.IGNORECASE)
 # A catalog title suffix like " - 2011 Remaster" names the same recording.

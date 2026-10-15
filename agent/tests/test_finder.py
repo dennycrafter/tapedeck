@@ -475,7 +475,7 @@ class TestIsrc:
 class TestSplitAndOfficial:
     def test_split_on_hyphen_and_dashes(self):
         assert finder.split_artist_title("Queen - Bohemian Rhapsody", "x") == ("Queen", "Bohemian Rhapsody")
-        assert finder.split_artist_title("Queen – Bohemian Rhapsody", "x") == ("Queen", "Bohemian Rhapsody")
+        assert finder.split_artist_title("Queen \u2013 Bohemian Rhapsody", "x") == ("Queen", "Bohemian Rhapsody")
         assert finder.split_artist_title("Creep", "Radiohead - Topic") == ("Radiohead", "Creep")
 
     def test_official_channels(self):
