@@ -1,0 +1,655 @@
+{
+ "recorded": "2026-10-15 on the owner's PC (ytmusicapi 1.12.3, yt-dlp 2026.08.19); thumbnails and unused fields dropped",
+ "catalog": {
+  "catalog_id": "deezer:908604612",
+  "title": "Blinding Lights",
+  "artist": "The Weeknd",
+  "album": "After Hours",
+  "duration_sec": 200,
+  "isrc": "USUG11904206"
+ },
+ "ytmusic": [
+  {
+   "resultType": "song",
+   "title": "Blinding Lights",
+   "album": {
+    "name": "Blinding Lights"
+   },
+   "videoId": "J7p4bzqLvCw",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:22",
+   "duration_seconds": 202,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "The Weeknd"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "City Of Blinding Lights",
+   "album": {
+    "name": "How To Dismantle An Atomic Bomb"
+   },
+   "videoId": "Fg4MfA3BCyI",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:46",
+   "duration_seconds": 346,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "U2"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Blinding Lights",
+   "album": {
+    "name": "Blinding Lights"
+   },
+   "videoId": "H64a2ggVIWc",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:21",
+   "duration_seconds": 201,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "The Weeknd"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Blinded By The Light",
+   "album": {
+    "name": "The Roaring Silence"
+   },
+   "videoId": "33ptulhhQPg",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "7:09",
+   "duration_seconds": 429,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Manfred Mann's Earth Band"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Blinding Lights (Reggae Flip)",
+   "album": {
+    "name": "Blinding Lights (Reggae Flip)"
+   },
+   "videoId": "8OmuDKcLK6g",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:48",
+   "duration_seconds": 168,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "FlipVersion"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Blinding Lights (Metal Version)",
+   "album": {
+    "name": "Blinding Lights (Metal Version)"
+   },
+   "videoId": "tDSf2zL8Res",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:01",
+   "duration_seconds": 241,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Leo"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Blinding Lights",
+   "album": {
+    "name": "Blinding Lights"
+   },
+   "videoId": "OSL6FgvfU-g",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:40",
+   "duration_seconds": 220,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Smash Mouth"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Save Your Tears",
+   "album": {
+    "name": "After Hours"
+   },
+   "videoId": "tEeK40cjmkw",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:36",
+   "duration_seconds": 216,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "The Weeknd"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "BLINDING LIGHTS (Hardstyle)",
+   "album": {
+    "name": "BLINDING LIGHTS"
+   },
+   "videoId": "xn1E5eB_780",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:35",
+   "duration_seconds": 215,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Enmity"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Blinding Lights Joris Voorn Remix",
+   "album": {
+    "name": "Blinding Lights (Joris Voorn Remix)"
+   },
+   "videoId": "8xbDnnrnU6E",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "7:49",
+   "duration_seconds": 469,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Alex Kennon, Joris Voorn"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Blinding Lights Oiia",
+   "album": {
+    "name": "Blinding Lights Oiia"
+   },
+   "videoId": "k67G94NFbOs",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:31",
+   "duration_seconds": 151,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "OIIA Cat"
+    },
+    {
+     "name": "Uiia Cat"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "The Weeknd Blinding Lights (Lullaby)",
+   "album": {
+    "name": "Pop Super Hits \u2013 Lullaby Versions, Vol. 1"
+   },
+   "videoId": "u4IAci4KBWs",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:38",
+   "duration_seconds": 278,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Lullaby Songs for Babies"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Blinding Lights (Arabic Version)",
+   "album": {
+    "name": "Blinding Lights (Arabic Version)"
+   },
+   "videoId": "thQPyHDyTvQ",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:43",
+   "duration_seconds": 223,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Alisher Karimov"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Blinding Lights",
+   "album": {
+    "name": "After Hours"
+   },
+   "videoId": "ostgsgERQVg",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "1:53",
+   "duration_seconds": 113,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "The Retro Weeknd"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Blinding lights (The Weeknd rock cover)",
+   "album": {
+    "name": "Blinding lights (The Weeknd rock cover)"
+   },
+   "videoId": "5bmcCsnvuRc",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:08",
+   "duration_seconds": 188,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Ultraperro"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Blinding Lights (Made Popular By The Weeknd) [Vocal Version]",
+   "album": {
+    "name": "Party Tyme 130 (Vocal Versions)"
+   },
+   "videoId": "oPXr_8e_BGg",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:23",
+   "duration_seconds": 203,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Party Tyme Karaoke"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Blinding Lights (By The Weeknd) (Melody Karaoke Version)",
+   "album": {
+    "name": "ZZang KARAOKE 2024 The Weeknd Vol. 1"
+   },
+   "videoId": "ZPccO8V3k4M",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:22",
+   "duration_seconds": 202,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "ZZang KARAOKE"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Blinding Lights (The Weeknd)",
+   "album": {
+    "name": "Blinding Lights (The Weeknd)"
+   },
+   "videoId": "A6xjfv1hHUs",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:52",
+   "duration_seconds": 172,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "All Artists"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Blinding Lights (Cover)",
+   "album": {
+    "name": "TIK & TOK - NO.1 BEST DJ MIX -"
+   },
+   "videoId": "8oIMYMQI7r0",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "1:23",
+   "duration_seconds": 83,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "DJ B-SUPREME"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Blinding Lights (Piano Version - Slowed + Reverb)",
+   "album": {
+    "name": "Blinding Lights"
+   },
+   "videoId": "sVeAwJodd64",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:02",
+   "duration_seconds": 182,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Pianaura"
+    }
+   ]
+  }
+ ],
+ "soundcloud": {
+  "_type": "playlist",
+  "id": "The Weeknd Blinding Lights",
+  "title": "The Weeknd Blinding Lights",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "718846078",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A718846078",
+    "webpage_url": "https://soundcloud.com/theweeknd/blinding-lights",
+    "title": "Blinding Lights",
+    "duration": 201.619,
+    "uploader": "The Weeknd",
+    "uploader_url": "https://soundcloud.com/theweeknd"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1316258221",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1316258221",
+    "webpage_url": "https://soundcloud.com/user-167787390/the-weeknd-blinding-lights",
+    "title": "The Weeknd - Blinding Lights full",
+    "description": "",
+    "duration": 762.82,
+    "uploader": "Minh Prime",
+    "uploader_url": "https://soundcloud.com/user-167787390"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "781154188",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A781154188",
+    "webpage_url": "https://soundcloud.com/chainside/the-weeknd-blinded-by-the-light-lee-wright-remake",
+    "title": "The Weeknd - Blinding lights (Lee Wright Remake)",
+    "description": "",
+    "duration": 159.863,
+    "uploader": "Lee Wright",
+    "uploader_url": "https://soundcloud.com/chainside"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "2094050781",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A2094050781",
+    "webpage_url": "https://soundcloud.com/musicsparkz/bl-sparkz",
+    "title": "Blinding Lights - The Weeknd (SPARKZ Remix)",
+    "description": "This is my remix to one of my favorite songs Blinding Lights by The Weeknd. I hope you enjoy! Please like, comment, and follow!",
+    "duration": 204.958,
+    "uploader": "SPARKZ",
+    "uploader_url": "https://soundcloud.com/musicsparkz"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "2403985545",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A2403985545",
+    "webpage_url": "https://soundcloud.com/industrialsounds/the-weeknd-blinding-lights-fideles-edit",
+    "title": "The Weeknd - Blinding Lights (Fideles Edit)",
+    "description": "https://gate.influenceplanner.com/KNhxcKy1\nFollow: https://soundcloud.com/fideles",
+    "duration": 301.055,
+    "uploader": "Melodic House & Techno Anthem",
+    "uploader_url": "https://soundcloud.com/industrialsounds"
+   }
+  ]
+ },
+ "youtube": {
+  "_type": "playlist",
+  "id": "The Weeknd - Blinding Lights",
+  "title": "The Weeknd - Blinding Lights",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "4NRXx6U8ABQ",
+    "url": "https://www.youtube.com/watch?v=4NRXx6U8ABQ",
+    "title": "The Weeknd - Blinding Lights (Official Video)",
+    "description": "Official music video for The Weeknd \"Blinding Lights\" - available everywhere now: http://theweeknd.co/blindinglightsYD\u00a0...",
+    "duration": 263,
+    "channel": "The Weeknd",
+    "uploader": "The Weeknd",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "fHI8X4OXluQ",
+    "url": "https://www.youtube.com/watch?v=fHI8X4OXluQ",
+    "title": "The Weeknd - Blinding Lights (Official Audio)",
+    "description": "Music video by The Weeknd performing Blinding Lights (Audio).\u00a9 2019 The Weeknd XO, Inc., manufactured and marketed by\u00a0...",
+    "duration": 204,
+    "channel": "The Weeknd",
+    "uploader": "The Weeknd",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "XwxLwG2_Sxk",
+    "url": "https://www.youtube.com/watch?v=XwxLwG2_Sxk",
+    "title": "The Weeknd - Blinding Lights (Lyrics)",
+    "description": "Follow 7clouds on Spotify : http://bit.ly/7CLOUDS The Weeknd - Blinding Lights (Lyrics) \u23ec Download / Stream:\u00a0...",
+    "duration": 200,
+    "channel": "7clouds",
+    "uploader": "7clouds",
+    "uploader_url": "https://www.youtube.com/@7clouds"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "ewfdRy5jfF8",
+    "url": "https://www.youtube.com/watch?v=ewfdRy5jfF8",
+    "title": "The Weeknd - Blinding Lights (Live On The 2020 MTV VMAs)",
+    "description": "Blinding Lights\u201d Live on The 2020 MTV VMAs (August 30, 2020) \u25bbListen to 'After Hours': http://theweeknd.co/AH-dlxVD\u00a0...",
+    "duration": 199,
+    "channel": "The Weeknd",
+    "uploader": "The Weeknd",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "VxikmfreAec",
+    "url": "https://www.youtube.com/watch?v=VxikmfreAec",
+    "title": "The Weeknd - Blinding Lights (live at SoFi Stadium, After Hours Til Dawn Tour)",
+    "description": "Video from HBO. Audio arranged by myself. There is a playlist contains all other videos from his show\u00a0...",
+    "duration": 255,
+    "channel": "ATMDaidai",
+    "uploader": "ATMDaidai",
+    "uploader_url": "https://www.youtube.com/@ATMDaidai"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "fyrOw4d8wvU",
+    "url": "https://www.youtube.com/watch?v=fyrOw4d8wvU",
+    "title": "The Weeknd - Blinding Lights (LYRICS)",
+    "description": "The Weeknd - Blinding Lights (LYRICS) Subscribe and turn on notifications to stay updated with new uploads. Please\u00a0...",
+    "duration": 201,
+    "channel": "Happy Music",
+    "uploader": "Happy Music",
+    "uploader_url": "https://www.youtube.com/@Happy-Music-ppp"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "Wc5kUOQrNNg",
+    "url": "https://www.youtube.com/watch?v=Wc5kUOQrNNg",
+    "title": "The Weeknd, blinding lights. US NAVY",
+    "description": null,
+    "duration": 278,
+    "channel": "Raniery Dias",
+    "uploader": "Raniery Dias",
+    "uploader_url": "https://www.youtube.com/@ranierydias1823"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "VJYpyC1SNPc",
+    "url": "https://www.youtube.com/watch?v=VJYpyC1SNPc",
+    "title": "The Weeknd - Blinding Lights (Live On Jimmy Kimmel Live! / 2020)",
+    "description": "The Weeknd performs \u201cBlinding Lights\u201d on Jimmy Kimmel Live! \u2013available everywhere now: http://theweeknd.co/blindinglightsYD\u00a0...",
+    "duration": 215,
+    "channel": "The Weeknd",
+    "uploader": "The Weeknd",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "BwX8OS4cegU",
+    "url": "https://www.youtube.com/watch?v=BwX8OS4cegU",
+    "title": "The Weeknd - Blinding Lights (Lyrics)",
+    "description": "Follow the official 7clouds playlist on Spotify : http://spoti.fi/2SJsUcZ \u200b   The Weeknd - Blinding Lights (Lyrics) \u23ec Download\u00a0...",
+    "duration": 201,
+    "channel": "7clouds Indie",
+    "uploader": "7clouds Indie",
+    "uploader_url": "https://www.youtube.com/@7cloudsIndieOfficial"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "o6ytLPKscrU",
+    "url": "https://www.youtube.com/watch?v=o6ytLPKscrU",
+    "title": "The Weeknd - Blinding Lights (Official Lyric Video)",
+    "description": "The official lyric video for The Weeknd \"Blinding Lights\" - available everywhere now: http://theweeknd.co/blindinglightsYD\u00a0...",
+    "duration": 204,
+    "channel": "The Weeknd",
+    "uploader": "The Weeknd",
+    "uploader_url": null
+   }
+  ]
+ },
+ "details": {
+  "https://www.youtube.com/watch?v=H64a2ggVIWc": {
+   "id": "H64a2ggVIWc",
+   "title": "Blinding Lights",
+   "uploader": "The Weeknd",
+   "channel": "The Weeknd",
+   "duration": 200,
+   "webpage_url": "https://www.youtube.com/watch?v=H64a2ggVIWc",
+   "description": "Provided to YouTube by Universal Music Group\n\nBlinding Lights \u00b7 The Weeknd\n\nBlinding Lights\n\n\u2117 2019 The Weeknd XO, Inc., manufactured and marketed by Republic Records, a division of UMG Recordings, Inc.\n\nReleased on: 2020-09-11\n\nComposer Lyricist, Bassvocalist, Producer, Programmer: Max Martin\nComposer Lyricist, Bassvocalist, Producer, Programmer: Oscar Holter\nProgrammer, Producer, Bassvocalist: The Weeknd\nMixing Engineer: Serban Ghenea\nMixing Engineer: John Hanes\nMastering Engineer: Dave Kutch\nMastering Engineer: Kevin Peterson\nRecording Second Engineer: Cory Bice\nRecording Second Engineer: Jeremy Lertola\nRecording Second Engineer: Sean Klein\nEngineer: Shin Kamiyama\nEngineer: Sam Holland\nEngineer: Michael Ilbert\nBackground Vocalist: Abel Tesfaye\nComposer Lyricist: Abel \"The Weeknd\" Tesfaye\nComposer Lyricist: Ahmad Balshe\nComposer Lyricist: Jason \"DaHeala\" Quenneville\n\nAuto-generated by YouTube.",
+   "abr": 133.318,
+   "formats": [
+    {
+     "format_id": "139",
+     "ext": "m4a",
+     "acodec": "mp4a.40.5",
+     "vcodec": "none",
+     "abr": 48.861,
+     "tbr": 48.861
+    },
+    {
+     "format_id": "249",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 51.118,
+     "tbr": 51.118
+    },
+    {
+     "format_id": "250",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 67.607,
+     "tbr": 67.607
+    },
+    {
+     "format_id": "140",
+     "ext": "m4a",
+     "acodec": "mp4a.40.2",
+     "vcodec": "none",
+     "abr": 129.55,
+     "tbr": 129.55
+    },
+    {
+     "format_id": "251",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 133.318,
+     "tbr": 133.318
+    }
+   ]
+  },
+  "https://www.youtube.com/watch?v=J7p4bzqLvCw": {
+   "id": "J7p4bzqLvCw",
+   "title": "Blinding Lights",
+   "uploader": "The Weeknd",
+   "channel": "The Weeknd",
+   "duration": 202,
+   "webpage_url": "https://www.youtube.com/watch?v=J7p4bzqLvCw",
+   "description": "Provided to YouTube by Universal Music Group\n\nBlinding Lights \u00b7 The Weeknd\n\nBlinding Lights\n\n\u2117 2019 The Weeknd XO, Inc., manufactured and marketed by Republic Records, a division of UMG Recordings, Inc.\n\nReleased on: 2019-11-29\n\nProgrammer, Producer, Bassvocalist, Composer Lyricist: Max Martin\nProgrammer, Producer, Bassvocalist, Composer Lyricist: Oscar Holter\nProgrammer, Producer, Bassvocalist: The Weeknd\nMixing Engineer: Serban Ghenea\nMixing Engineer: John Hanes\nMastering Engineer: Dave Kutch\nMastering Engineer: Kevin Peterson\nRecording Second Engineer: Cory Bice\nRecording Second Engineer: Jeremy Lertola\nRecording Second Engineer: Sean Klein\nEngineer: Shin Kamiyama\nEngineer: Sam Holland\nEngineer: Michael Ilbert\nBackground Vocalist: Abel Tesfaye\nComposer Lyricist: Abel \"The Weeknd\" Tesfaye\nComposer Lyricist: Ahmad Balshe\nComposer Lyricist: Jason \"DaHeala\" Quenneville\n\nAuto-generated by YouTube.",
+   "abr": 132.978,
+   "formats": [
+    {
+     "format_id": "139",
+     "ext": "m4a",
+     "acodec": "mp4a.40.5",
+     "vcodec": "none",
+     "abr": 48.863,
+     "tbr": 48.863
+    },
+    {
+     "format_id": "249",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 50.898,
+     "tbr": 50.898
+    },
+    {
+     "format_id": "250",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 67.372,
+     "tbr": 67.372
+    },
+    {
+     "format_id": "140",
+     "ext": "m4a",
+     "acodec": "mp4a.40.2",
+     "vcodec": "none",
+     "abr": 129.548,
+     "tbr": 129.548
+    },
+    {
+     "format_id": "251",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 132.978,
+     "tbr": 132.978
+    }
+   ]
+  }
+ }
+}

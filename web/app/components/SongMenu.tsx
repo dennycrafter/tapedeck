@@ -21,6 +21,7 @@ import { useOverlays } from "./Overlays";
 import { usePlayer } from "./PlayerProvider";
 import { TrackEditDialog } from "./TrackEditDialog";
 import { AddToPlaylistDialog } from "./AddToPlaylistDialog";
+import { PickVersionDialog } from "./PickVersionDialog";
 import { ConfirmDialog, ICON_BTN, Menu, type MenuItem } from "./ui";
 import { MoreIcon } from "./icons";
 import { useOffline } from "./useOffline";
@@ -75,7 +76,7 @@ interface SongMenuProps {
   className?: string;
 }
 
-type Dialog = "playlist" | "edit" | "delete" | null;
+type Dialog = "playlist" | "edit" | "delete" | "pick" | null;
 
 export function SongMenu({ track, playlistId, className = "" }: SongMenuProps) {
   const anchor = useRef<HTMLButtonElement>(null);
@@ -243,6 +244,9 @@ export function SongMenu({ track, playlistId, className = "" }: SongMenuProps) {
           notifyLibraryChanged();
         }, "Original title restored"),
     },
+    ...(track.source === "catalog"
+      ? [{ label: "Pick another version", testId: "menu-pick-version", onSelect: () => setDialog("pick") }]
+      : []),
     ...(track.status === "failed"
       ? [
           {
@@ -292,6 +296,7 @@ export function SongMenu({ track, playlistId, className = "" }: SongMenuProps) {
       {dialog === "edit" && (
         <TrackEditDialog track={track} onClose={() => setDialog(null)} />
       )}
+      {dialog === "pick" && <PickVersionDialog track={track} onClose={() => setDialog(null)} />}
       {dialog === "delete" && (
         <ConfirmDialog
           title="Delete song?"

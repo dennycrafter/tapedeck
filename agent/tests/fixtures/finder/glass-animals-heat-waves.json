@@ -1,0 +1,563 @@
+{
+ "recorded": "2026-10-15 on the owner's PC (ytmusicapi 1.12.3, yt-dlp 2026.08.19); thumbnails and unused fields dropped",
+ "catalog": {
+  "catalog_id": "deezer:1040154662",
+  "title": "Heat Waves",
+  "artist": "Glass Animals",
+  "album": "Dreamland",
+  "duration_sec": 239,
+  "isrc": "GBUM72000433"
+ },
+ "ytmusic": [
+  {
+   "resultType": "song",
+   "title": "Heat Waves",
+   "album": {
+    "name": "Dreamland"
+   },
+   "videoId": "XDjB9E3YtUE",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:59",
+   "duration_seconds": 239,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Glass Animals"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Tokyo Drifting",
+   "album": {
+    "name": "Dreamland"
+   },
+   "videoId": "ZgfYwoci2dw",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:37",
+   "duration_seconds": 217,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Glass Animals"
+    },
+    {
+     "name": "Denzel Curry"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Heat Waves",
+   "album": {
+    "name": "Heat Waves"
+   },
+   "videoId": "SgTkdCDftQ4",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:16",
+   "duration_seconds": 196,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "City Sessions"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Heat Waves",
+   "album": {
+    "name": "Dreamland (+ Bonus Levels)"
+   },
+   "videoId": "pzeefqfSMjY",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:56",
+   "duration_seconds": 176,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Glass Animals"
+    },
+    {
+     "name": "iann dior"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Waterfalls Coming Out Your Mouth",
+   "album": {
+    "name": "Dreamland"
+   },
+   "videoId": "xUqjPOYOOBY",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:42",
+   "duration_seconds": 162,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Glass Animals"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Heat Waves (Made Popular By Glass Animals) [Vocal Version]",
+   "album": {
+    "name": "Party Tyme 133 (Vocal Versions)"
+   },
+   "videoId": "wpCNOnMPQh0",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:59",
+   "duration_seconds": 239,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Party Tyme Karaoke"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "I Don't Wanna Talk (I Just Wanna Dance)",
+   "album": {
+    "name": "Dreamland (+ Bonus Levels)"
+   },
+   "videoId": "niDp9_XItHE",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:16",
+   "duration_seconds": 196,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Glass Animals"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "The Groove Line (12\" Disco Version)",
+   "album": {
+    "name": "Central Heating (Expanded Edition)"
+   },
+   "videoId": "gNS3Fz4XEeA",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "7:29",
+   "duration_seconds": 449,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Heatwave"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Your Love (D\u00e9j\u00e0 Vu)",
+   "album": {
+    "name": "Dreamland"
+   },
+   "videoId": "wCoaPtaeSPw",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:55",
+   "duration_seconds": 235,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Glass Animals"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Heat Waves (Slowed)",
+   "album": {
+    "name": "Heat Waves (Slowed)"
+   },
+   "videoId": "PgF2Icv6IW0",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:12",
+   "duration_seconds": 252,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Kowshik Saha"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Heat Waves",
+   "album": {
+    "name": "Heat Waves"
+   },
+   "videoId": "Rcj0wTfKWjw",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:59",
+   "duration_seconds": 239,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Veny Dwicahyani"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Heat Waves (Piano Instrumental)",
+   "album": {
+    "name": "Pop Covers Piano Instrumentals"
+   },
+   "videoId": "XM5ozXuNY-Q",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:14",
+   "duration_seconds": 134,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Box of Music"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Heat Waves (Sped Up Arabic Oud)",
+   "album": {
+    "name": "Heat Waves"
+   },
+   "videoId": "2Utb_ky4lkM",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "1:43",
+   "duration_seconds": 103,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Oud Awwad"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Heat Waves",
+   "album": {
+    "name": "Heat Waves"
+   },
+   "videoId": "4W9JBOGd74A",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:41",
+   "duration_seconds": 161,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "C\u00d8LLIN"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "HEAT WAVES (TECHNO SLOWED + REVERB)",
+   "album": {
+    "name": "HEAT WAVES"
+   },
+   "videoId": "ngf8RFgXcdQ",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:31",
+   "duration_seconds": 151,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "TEKNODYN"
+    },
+    {
+     "name": "SLOWA"
+    },
+    {
+     "name": "Glowave Town"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Heat Waves",
+   "album": {
+    "name": "Heat Waves"
+   },
+   "videoId": "JDMuqYkNgPg",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:41",
+   "duration_seconds": 161,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Mark F. Angelo"
+    },
+    {
+     "name": "Shiah Maisel"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "HEAT WAVES (D&B SPED UP)",
+   "album": {
+    "name": "HEAT WAVES"
+   },
+   "videoId": "ILneExyesTw",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:55",
+   "duration_seconds": 175,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "DnBot"
+    },
+    {
+     "name": "NOTED"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Heat Waves (Marimba)",
+   "album": {
+    "name": "Heat Waves (Marimba)"
+   },
+   "videoId": "MfAbSZ1POt0",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:49",
+   "duration_seconds": 169,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Marimba Bae"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Heat Waves (Slowed + Reverb)",
+   "album": {
+    "name": "Heat Waves"
+   },
+   "videoId": "OFHJYeucGLI",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:23",
+   "duration_seconds": 263,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Khlaws"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Heat Waves (Instrumental)",
+   "album": {
+    "name": "Heat Waves"
+   },
+   "videoId": "7knAk840Qjk",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:31",
+   "duration_seconds": 151,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Softkarma"
+    }
+   ]
+  }
+ ],
+ "soundcloud": {
+  "_type": "playlist",
+  "id": "Glass Animals Heat Waves",
+  "title": "Glass Animals Heat Waves",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "828639601",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A828639601",
+    "webpage_url": "https://soundcloud.com/glassanimals/heat-waves",
+    "title": "Heat Waves",
+    "duration": 238.828,
+    "uploader": "Glass Animals",
+    "uploader_url": "https://soundcloud.com/glassanimals"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1496978935",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1496978935",
+    "webpage_url": "https://soundcloud.com/yakoshahung/glass-animals-heat-waves-tiktok",
+    "title": "Glass - Animals - Heat - Waves - Tiktok",
+    "description": "",
+    "duration": 297.807,
+    "uploader": "\u2605\u2102\ud835\udd46\ud835\udd43\ud835\udd3c\u2605",
+    "uploader_url": "https://soundcloud.com/yakoshahung"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1010607535",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1010607535",
+    "webpage_url": "https://soundcloud.com/glassanimals/heat-waves-1",
+    "title": "Heat Waves",
+    "duration": 175.325,
+    "uploader": "Glass Animals",
+    "uploader_url": "https://soundcloud.com/glassanimals"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1203255466",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1203255466",
+    "webpage_url": "https://soundcloud.com/glassanimals/heat-waves-slowed",
+    "title": "Heat Waves (Slowed)",
+    "duration": 262.271,
+    "uploader": "Glass Animals",
+    "uploader_url": "https://soundcloud.com/glassanimals"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1053948340",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1053948340",
+    "webpage_url": "https://soundcloud.com/user-488908439/heat-waves-glass-animals",
+    "title": "heat waves - glass animals (slowed)",
+    "description": "please do not repost.\n\ni do not own the music, i just simply slowed it down and changed its tone. i do not own the art cover either.\n\nartist: Glass Animals\nslowed down by: oleariia (me)\nart cover by: @/liacdraws on instagram\ncharacter(s): lia (@/liacdraws 's oc)",
+    "duration": 298.548,
+    "uploader": "oleariia",
+    "uploader_url": "https://soundcloud.com/user-488908439"
+   }
+  ]
+ },
+ "youtube": {
+  "_type": "playlist",
+  "id": "Glass Animals - Heat Waves",
+  "title": "Glass Animals - Heat Waves",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "mRD0-GxqHVo",
+    "url": "https://www.youtube.com/watch?v=mRD0-GxqHVo",
+    "title": "Glass Animals - Heat Waves (Official Video)",
+    "description": "I LOVE YOU SO F***ING MUCH. Our fourth studio album. Out now. Order :: https://glassanimals.lnk.to/loveYT Official store\u00a0...",
+    "duration": 236,
+    "channel": "Glass Animals",
+    "uploader": "Glass Animals",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "rfTgO9rpqck",
+    "url": "https://www.youtube.com/watch?v=rfTgO9rpqck",
+    "title": "Glass Animals - Heat Waves",
+    "description": "Glass Animals - Heat Waves \u00bb Descargar: \u00bb Apoyo Glass Animals: https://www.instagram.com/glassanimals\u00a0...",
+    "duration": 240,
+    "channel": "LatinHype",
+    "uploader": "LatinHype",
+    "uploader_url": "https://www.youtube.com/@LatinHype."
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "KT7F15T9VBI",
+    "url": "https://www.youtube.com/watch?v=KT7F15T9VBI",
+    "title": "Glass Animals - Heat Waves (Lyrics)",
+    "description": "Get the latest news from Glass Animals:https://glassanimals.lnk.to/bio Instagram: https://www.instagram.com/glassanimals Twitter:\u00a0...",
+    "duration": 239,
+    "channel": "Glass Animals",
+    "uploader": "Glass Animals",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "pzeefqfSMjY",
+    "url": "https://www.youtube.com/watch?v=pzeefqfSMjY",
+    "title": "Heat Waves",
+    "description": "Provided to YouTube by Universal Music Group Heat Waves \u00b7 Glass Animals \u00b7 iann dior Dreamland \u2117 2021 Wolf Tone Records,\u00a0...",
+    "duration": 176,
+    "channel": "Glass Animals",
+    "uploader": "Glass Animals",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "361dk2iuRAQ",
+    "url": "https://www.youtube.com/watch?v=361dk2iuRAQ",
+    "title": "Glass Animals - Glass Animals \u2013 Heat Waves (Live on The 2021 Billboard Music Awards)",
+    "description": "I LOVE YOU SO F***ING MUCH. Our fourth studio album. Out now. Order :: https://glassanimals.lnk.to/loveYT Official store\u00a0...",
+    "duration": 188,
+    "channel": "Glass Animals",
+    "uploader": "Glass Animals",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "EFVNzgKRHak",
+    "url": "https://www.youtube.com/watch?v=EFVNzgKRHak",
+    "title": "Glass Animals - Heat Waves (Stripped Back)",
+    "description": "'dreamland IRL' is out. it's about revisiting all the things we couldn't do when we first released the album, now we can actually be\u00a0...",
+    "duration": 171,
+    "channel": "Glass Animals",
+    "uploader": "Glass Animals",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "e0dndn_pGf8",
+    "url": "https://www.youtube.com/watch?v=e0dndn_pGf8",
+    "title": "Glass Animals \u2013 Heat Waves (The BRITs Are Coming 2022)",
+    "description": "'dreamland IRL' is out. it's about revisiting all the things we couldn't do when we first released the album, now we can actually be\u00a0...",
+    "duration": 183,
+    "channel": "Glass Animals",
+    "uploader": "Glass Animals",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "K_gh1VwO9z4",
+    "url": "https://www.youtube.com/watch?v=K_gh1VwO9z4",
+    "title": "Glass Animals - Heat Waves (Sub. Espa\u00f1ol + Lyrics) sometimes, all i think about is you",
+    "description": "espero que te haya gustado \u00a1gracias por ver! canal secundario: https://www.youtube.com/@iamsweeet \u00a1ac\u00e1 mis redes por si\u00a0...",
+    "duration": 240,
+    "channel": "sweetblue.",
+    "uploader": "sweetblue.",
+    "uploader_url": "https://www.youtube.com/@sweetblue"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "kn_t37vCSBw",
+    "url": "https://www.youtube.com/watch?v=kn_t37vCSBw",
+    "title": "Glass Animals - Heat Waves (Live On The Late Show With Stephen Colbert #PlayAtHome)",
+    "description": "I LOVE YOU SO F***ING MUCH. Our fourth studio album. Out now. Order :: https://glassanimals.lnk.to/loveYT Official store\u00a0...",
+    "duration": 182,
+    "channel": "Glass Animals",
+    "uploader": "Glass Animals",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "tBKZhSsktKk",
+    "url": "https://www.youtube.com/watch?v=tBKZhSsktKk",
+    "title": "Glass Animals - Heat Waves in the Live Lounge",
+    "description": "Glass Animals perform Heat Waves in the BBC Radio 1 Live Lounge http://vevo.ly/KtBcHj.",
+    "duration": 227,
+    "channel": "BBCRadio1VEVO",
+    "uploader": "BBCRadio1VEVO",
+    "uploader_url": "https://www.youtube.com/@BBCRadio1VEVO"
+   }
+  ]
+ },
+ "details": {}
+}

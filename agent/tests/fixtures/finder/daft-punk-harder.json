@@ -1,0 +1,549 @@
+{
+ "recorded": "2026-10-15 on the owner's PC (ytmusicapi 1.12.3, yt-dlp 2026.08.19); thumbnails and unused fields dropped",
+ "catalog": {
+  "catalog_id": "deezer:3135556",
+  "title": "Harder, Better, Faster, Stronger",
+  "artist": "Daft Punk",
+  "album": "Discovery",
+  "duration_sec": 226,
+  "isrc": "GBDUW0000059"
+ },
+ "ytmusic": [
+  {
+   "resultType": "song",
+   "title": "Harder, Better, Faster, Stronger",
+   "album": {
+    "name": "Discovery"
+   },
+   "videoId": "JhulBGMA7G4",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:47",
+   "duration_seconds": 227,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Daft Punk"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Harder, Better, Faster, Stronger (Club Mix)",
+   "album": {
+    "name": "Harder, Better, Faster, Stronger (Club Mixes)"
+   },
+   "videoId": "Ccef0uage1M",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:26",
+   "duration_seconds": 206,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Alley Beats"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Face to Face / Short Circuit",
+   "album": {
+    "name": "Alive 2007"
+   },
+   "videoId": "CIUzGxMkVDQ",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:56",
+   "duration_seconds": 296,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Daft Punk"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Harder, Better, Faster, Stronger (Slowed)",
+   "album": {
+    "name": "Harder, Better, Faster, Stronger (Hardertekk/Hardstyle/Hardtekk Versions)"
+   },
+   "videoId": "Ml58cdfF-pI",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "1:26",
+   "duration_seconds": 86,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Dark Triad Hardstyle"
+    },
+    {
+     "name": "Dark Triad Hardtekk"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Give Life Back to Music",
+   "album": {
+    "name": "Random Access Memories"
+   },
+   "videoId": "zKSsP2084nU",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:36",
+   "duration_seconds": 276,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Daft Punk"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Faster Stronger Harder Better",
+   "album": {
+    "name": "Faster Stronger Harder Better"
+   },
+   "videoId": "OwnpzeQ6EGM",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:34",
+   "duration_seconds": 154,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "DEAD FACTION"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Harder, Better, Faster, Stronger",
+   "album": {
+    "name": "I Need Googly Eyes, Baby"
+   },
+   "videoId": "BFXPoALzo1A",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "1:21",
+   "duration_seconds": 81,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Device Orchestra"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Harder Better Faster Stronger",
+   "album": {
+    "name": "Funk N' Beats, Vol. 7 (Curated by Marc Hype)"
+   },
+   "videoId": "T0Io3YtxMmU",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:55",
+   "duration_seconds": 295,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "The Traffic"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Harder, Better, Faster, Stronger (Alive Radio Edit 2007)",
+   "album": {
+    "name": "Harder Better Faster Stronger (Alive Radio Edit 2007)"
+   },
+   "videoId": "LxgnIhjQFuE",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:25",
+   "duration_seconds": 205,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Daft Punk"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "End of Line (From \"TRON: Legacy\"/Score)",
+   "album": {
+    "name": "TRON: Legacy"
+   },
+   "videoId": "NOMa56y_Was",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:37",
+   "duration_seconds": 157,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Daft Punk"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Cola Bottle Baby",
+   "album": {
+    "name": "Edwin Birdsong (Expanded Edition)"
+   },
+   "videoId": "fiD39jo5Yo4",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:08",
+   "duration_seconds": 308,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Edwin Birdsong"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Harder Better Faster Stronger",
+   "album": {
+    "name": "Harder Better Faster Stronger"
+   },
+   "videoId": "y9LwuisM9fk",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:10",
+   "duration_seconds": 250,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Sky Walker"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Harder, Better, Faster, Stronger",
+   "album": {
+    "name": "Harder, Better, Faster, Stronger"
+   },
+   "videoId": "Jur_OhJoe44",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:05",
+   "duration_seconds": 185,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "DE'WAYNE"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Aerodynamic (Daft Punk Remix)",
+   "album": {
+    "name": "Daft Club"
+   },
+   "videoId": "2NKWW42G1b8",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:11",
+   "duration_seconds": 371,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Daft Punk"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Harder Better Faster Stronger",
+   "album": {
+    "name": "Psylove, Vol. 2"
+   },
+   "videoId": "nzlpHHD4ato",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "8:38",
+   "duration_seconds": 518,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "BPM"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Harder, Better, Faster, Stronger / Get Lucky (Arr. for Harp)",
+   "album": {
+    "name": "Harder, Better, Faster, Stronger / Get Lucky (Arr. for Harp)"
+   },
+   "videoId": "itnEggn6_f8",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:14",
+   "duration_seconds": 374,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Alexander Boldachev"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Around the World, Harder, Better, Faster, Stronger (Rock-Metal Version)",
+   "album": {
+    "name": "Around the World, Harder, Better, Faster, Stronger (Rock-Metal Version)"
+   },
+   "videoId": "McBcu768vyg",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:05",
+   "duration_seconds": 185,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Chazz leron"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Harder Better Faster Stronger",
+   "album": {
+    "name": "Coffee And Cafe"
+   },
+   "videoId": "2qA7zqfFjXA",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:34",
+   "duration_seconds": 154,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Lionel Khalifa"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Harder, Better, Faster, Stronger",
+   "album": {
+    "name": "Beaucoup de VSQ"
+   },
+   "videoId": "1ykAv_3gxsY",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:08",
+   "duration_seconds": 188,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Vitamin String Quartet"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Harder, Better, Faster, Stronger",
+   "album": {
+    "name": "Brassft Punk"
+   },
+   "videoId": "kvE8Hj3w1SI",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:59",
+   "duration_seconds": 239,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "The Madd Wikkid"
+    }
+   ]
+  }
+ ],
+ "soundcloud": {
+  "_type": "playlist",
+  "id": "Daft Punk Harder, Better, Faster, Stronger",
+  "title": "Daft Punk Harder, Better, Faster, Stronger",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "254111788",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A254111788",
+    "webpage_url": "https://soundcloud.com/daftpunkofficialmusic/harder-better-faster",
+    "title": "Harder, Better, Faster, Stronger",
+    "duration": 226.436,
+    "uploader": "Daft Punk",
+    "uploader_url": "https://soundcloud.com/daftpunkofficialmusic"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "254112126",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A254112126",
+    "webpage_url": "https://soundcloud.com/daftpunkofficialmusic/around-the-world-harder-better",
+    "title": "Around the World / Harder, Better, Faster, Stronger",
+    "duration": 342.673,
+    "uploader": "Daft Punk",
+    "uploader_url": "https://soundcloud.com/daftpunkofficialmusic"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "221697294",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A221697294",
+    "webpage_url": "https://soundcloud.com/shiloh-ring/daft-punk-harder-better-faster-stronger-original",
+    "title": "Daft Punk - Harder, Better, Faster, Stronger (ORIGINAL)",
+    "description": "I couldn't ever find the original on here, so this is it. This is by Daft Punk, not me.",
+    "duration": 271.589,
+    "uploader": "elricslvt",
+    "uploader_url": "https://soundcloud.com/shiloh-ring"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "476532021",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A476532021",
+    "webpage_url": "https://soundcloud.com/faroutofficial/daft-punk-harder-better-faster-stronger-far-out-remix",
+    "title": "Daft Punk - Harder, Better, Faster, Stronger (Far Out Remix)",
+    "description": "",
+    "duration": 228.077,
+    "uploader": "Far Out",
+    "uploader_url": "https://soundcloud.com/faroutofficial"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "2282601143",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A2282601143",
+    "webpage_url": "https://soundcloud.com/gorillat/daft-punk-harder-better-faster",
+    "title": "Daft Punk - Harder, Better, Faster, Stronger (GorillaT Flip)",
+    "description": "",
+    "duration": 115.85,
+    "uploader": "GorillaT",
+    "uploader_url": "https://soundcloud.com/gorillat"
+   }
+  ]
+ },
+ "youtube": {
+  "_type": "playlist",
+  "id": "Daft Punk - Harder, Better, Faster, Stronger",
+  "title": "Daft Punk - Harder, Better, Faster, Stronger",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "yydNF8tuVmU",
+    "url": "https://www.youtube.com/watch?v=yydNF8tuVmU",
+    "title": "Daft Punk - Harder, Better, Faster, Stronger (Official Audio)",
+    "description": "Listen, order & watch now: https://bio.to/daftpunk \u201cHarder, Better, Faster, Stronger\u201d is taken from \u201cDiscovery\u201d available on all\u00a0...",
+    "duration": 225,
+    "channel": "Daft Punk",
+    "uploader": "Daft Punk",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "gAjR4_CbPpQ",
+    "url": "https://www.youtube.com/watch?v=gAjR4_CbPpQ",
+    "title": "Daft Punk - Harder, Better, Faster, Stronger (Official Video)",
+    "description": "Listen, order & watch now: https://bio.to/daftpunk Official Music Video for \u201cHarder, Better, Faster, Stronger\u201d, taken from \u201cDiscovery\u201d\u00a0...",
+    "duration": 223,
+    "channel": "Daft Punk",
+    "uploader": "Daft Punk",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "T2c7iKRSImg",
+    "url": "https://www.youtube.com/watch?v=T2c7iKRSImg",
+    "title": "Daft Punk - Harder Better Faster Stronger (Lyrics)",
+    "description": "Daft Punk - Harder Better Faster Stronger Work it make it do it make us Cassiopeia on Spotify : https://cassiopeia.lnk.to/o-yCQ\u00a0...",
+    "duration": 229,
+    "channel": "Cassiopeia",
+    "uploader": "Cassiopeia",
+    "uploader_url": "https://www.youtube.com/@heycassiopeia"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "K2cYWfq--Nw",
+    "url": "https://www.youtube.com/watch?v=K2cYWfq--Nw",
+    "title": "Daft Hands - Harder, Better, Faster, Stronger",
+    "description": "YouTube demonetized us for not being original enough. Support us if you can/want. https://www.patreon.com/freckle --- WANT A\u00a0...",
+    "duration": 225,
+    "channel": "Fr. Eckle Studios",
+    "uploader": "Fr. Eckle Studios",
+    "uploader_url": "https://www.youtube.com/@frecklestudios"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "IQhOXv7Qf7A",
+    "url": "https://www.youtube.com/watch?v=IQhOXv7Qf7A",
+    "title": "Daft Punk - Harder, Better, Faster, Stronger [Daft Bodies Mania Version] - REMASTERED",
+    "description": null,
+    "duration": 221,
+    "channel": "Raymond9",
+    "uploader": "Raymond9",
+    "uploader_url": "https://www.youtube.com/@RayMusicman9"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "x84m3YyO2oU",
+    "url": "https://www.youtube.com/watch?v=x84m3YyO2oU",
+    "title": "Daft Punk - Around the World / Harder Better Faster Stronger (Official Live Video 2007)",
+    "description": "Listen, order & watch now: https://bio.to/daftpunk Official Music Video for \u201cHarder, Better, Faster, Stronger\u201d, taken from \u201cDiscovery\u201d\u00a0...",
+    "duration": 207,
+    "channel": "Daft Punk",
+    "uploader": "Daft Punk",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "Eq2IQCDZ03Q",
+    "url": "https://www.youtube.com/watch?v=Eq2IQCDZ03Q",
+    "title": "DAFT PUNK - HARDER, BETTER, FASTER, STRONGER   BURGER, NUGGETS, NUGGETS, BURGER",
+    "description": "DAFT PUNK - HARDER, BETTER, FASTER, STRONGER BURGER, NUGGETS, NUGGETS, BURGER.",
+    "duration": 90,
+    "channel": "pujolricky",
+    "uploader": "pujolricky",
+    "uploader_url": "https://www.youtube.com/@pujolricky"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "0O92I_sPo5E",
+    "url": "https://www.youtube.com/watch?v=0O92I_sPo5E",
+    "title": "Daft Punk- Harder Better Faster Stronger (Extended Mix)",
+    "description": "A mix of Daft Punk's Harder Better Faster Stronger that I made. It's not harder at all. All I did was loop a part of the song for 16\u00a0...",
+    "duration": 433,
+    "channel": "P-G Armbrister",
+    "uploader": "P-G Armbrister",
+    "uploader_url": "https://www.youtube.com/@Supermegaepic"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "RZKMAiFLRlg",
+    "url": "https://www.youtube.com/watch?v=RZKMAiFLRlg",
+    "title": "Daft Punk - Harder, Better, Faster, Stronger  // Lyrics | BEST Y2K HITS",
+    "description": "Daft Punk - Harder, Better, Faster, Stronger // Lyrics | BEST Y2K HITS \u2b50 subscribe and turn on notifications babe\u00a0...",
+    "duration": 227,
+    "channel": "Millennial Pause",
+    "uploader": "Millennial Pause",
+    "uploader_url": "https://www.youtube.com/@Millennial-Pause"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "0fllyJTBsRU",
+    "url": "https://www.youtube.com/watch?v=0fllyJTBsRU",
+    "title": "Daft Punk - Around the World / Harder, Better, Faster, Stronger (Live 2007 - Official Audio)",
+    "description": "Listen, order & watch now: https://bio.to/daftpunk \u201cAround the World / Harder, Better, Faster, Stronger\u201d is taken from \u201cAlive 2007\u201d\u00a0...",
+    "duration": 343,
+    "channel": "Daft Punk",
+    "uploader": "Daft Punk",
+    "uploader_url": null
+   }
+  ]
+ },
+ "details": {}
+}

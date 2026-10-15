@@ -1,0 +1,765 @@
+{
+ "recorded": "2026-10-15 on the owner's PC (ytmusicapi 1.12.3, yt-dlp 2026.08.19); thumbnails and unused fields dropped",
+ "catalog": {
+  "catalog_id": "deezer:123883254",
+  "title": "This Is What You Came For",
+  "artist": "Calvin Harris",
+  "album": "This Is What You Came For",
+  "duration_sec": 222,
+  "isrc": "GBARL1600460"
+ },
+ "ytmusic": [
+  {
+   "resultType": "song",
+   "title": "This Is What You Came For",
+   "album": {
+    "name": "This Is What You Came For"
+   },
+   "videoId": "inCm3ByI17o",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:43",
+   "duration_seconds": 223,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Calvin Harris"
+    },
+    {
+     "name": "Rihanna"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "This Is What You Came For",
+   "album": {
+    "name": "96 Months"
+   },
+   "videoId": "zCh4jIWOKrI",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:42",
+   "duration_seconds": 222,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Calvin Harris"
+    },
+    {
+     "name": "Rihanna"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Flashback",
+   "album": {
+    "name": "Ready For The Weekend"
+   },
+   "videoId": "rpFyAbh7nhc",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:48",
+   "duration_seconds": 228,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Calvin Harris"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "This Is What You Came For",
+   "album": {
+    "name": "KIDZ BOP 33"
+   },
+   "videoId": "NnHL70hQuow",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:40",
+   "duration_seconds": 160,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "KIDZ BOP Kids"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "This Is What You Came For (Extended Handz up Remix)",
+   "album": {
+    "name": "This Is What You Came For"
+   },
+   "videoId": "Rfuu3op5K6E",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:54",
+   "duration_seconds": 414,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Power Music Workout"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "We Found Love",
+   "album": {
+    "name": "Talk That Talk"
+   },
+   "videoId": "UUpuyzPJeWA",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:36",
+   "duration_seconds": 216,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Rihanna"
+    },
+    {
+     "name": "Calvin Harris"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "This Is What You Came For [Remix to Calvin Harris Feat Rihanna] (feat. Nat & Rihanna)",
+   "album": {
+    "name": "Smash Super Hit"
+   },
+   "videoId": "kstYoO7BF-8",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:45",
+   "duration_seconds": 225,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Maxence Luchi"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "This Is What You Came For (Originally Performed by Calvin Harris & Rihanna) (Instrumental Version)",
+   "album": {
+    "name": "This Is What You Came For (Originally Performed by Calvin Harris & Rihanna) [Instrumental Version]"
+   },
+   "videoId": "X1o9cKCm6-E",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:40",
+   "duration_seconds": 220,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Karaoke Pro"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "This Is What You Came For (Karaoke Version) [Originally Performed by Calvin Harris feat. Rihanna] (feat. Rihanna)",
+   "album": {
+    "name": "This Is What You Came For (Karaoke Version) [Originally Performed by Calvin Harris feat. Rihanna]"
+   },
+   "videoId": "RQsjvolMYA8",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:44",
+   "duration_seconds": 224,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "HQ INSTRUMENTALS"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "This Is What You Came For (Cover)",
+   "album": {
+    "name": "Best Groove! - Essential Club Mix (DJ Mix)"
+   },
+   "videoId": "OHaXBJ2DsDI",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "1:02",
+   "duration_seconds": 62,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "DJ MIX PROJECT"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "This Is What You Came For",
+   "album": {
+    "name": "This Is What You Came For"
+   },
+   "videoId": "-xl9aSP2S6k",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:56",
+   "duration_seconds": 176,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Afrodisiac"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "This is What You Came For",
+   "album": {
+    "name": "MSQ Performs Calvin Harris"
+   },
+   "videoId": "U9S9YfqechM",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:28",
+   "duration_seconds": 208,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Midnite String Quartet"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "This Is What You Came For (made popular by Calvin Harris ft. Rihanna) [backing version] (feat. Rihanna)",
+   "album": {
+    "name": "Pop Party Pack 7 - Party Tyme (Backing Versions)"
+   },
+   "videoId": "P7rEo61EnHU",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:49",
+   "duration_seconds": 229,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Party Tyme"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "This Is What You Came For",
+   "album": {
+    "name": "Streaming Radio Playlist Compilation 2016.2"
+   },
+   "videoId": "imDHZI4L16I",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:50",
+   "duration_seconds": 230,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Venisha"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "This Is What You Came For (PARTY HITS EDIT)",
+   "album": {
+    "name": "The coolest and most uplifting Western music medley for work background music"
+   },
+   "videoId": "TnbC2PwhTnQ",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:43",
+   "duration_seconds": 223,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Party Town"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "This Is What You Came For",
+   "album": {
+    "name": "Girls Just Want to Have Fun"
+   },
+   "videoId": "gYHz4WsS3Y4",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:51",
+   "duration_seconds": 231,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Munich All Stars"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "This Is What You Came For",
+   "album": {
+    "name": "This Is What You Came For"
+   },
+   "videoId": "zZYaXRJGPNE",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:28",
+   "duration_seconds": 208,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "BLAXX"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "This Is What You Came For",
+   "album": {
+    "name": "This Is What You Came For"
+   },
+   "videoId": "Sr2D-W62Aec",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:02",
+   "duration_seconds": 182,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Olympix"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "This Is What You Came For (Piano Cover)",
+   "album": {
+    "name": "This Is What You Came For (Piano Cover)"
+   },
+   "videoId": "MpA3igtYLYA",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:31",
+   "duration_seconds": 211,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Ralpi Composer"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "This Is What You Came For (Cover)",
+   "album": {
+    "name": "I don't really want to teach it, but if I could dance in a club, it would be cool!!"
+   },
+   "videoId": "2U_wFO8x3Go",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:42",
+   "duration_seconds": 222,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "MUSIC LAB JPN"
+    }
+   ]
+  }
+ ],
+ "soundcloud": {
+  "_type": "playlist",
+  "id": "Calvin Harris This Is What You Came For",
+  "title": "Calvin Harris This Is What You Came For",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "264702142",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A264702142",
+    "webpage_url": "https://soundcloud.com/calvinharris/this-is-what-you-came-for-1",
+    "title": "This Is What You Came For (feat. Rihanna)",
+    "duration": 30.0,
+    "uploader": "Calvin Harris",
+    "uploader_url": "https://soundcloud.com/calvinharris"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "269585702",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A269585702",
+    "webpage_url": "https://soundcloud.com/r3hab/calvin-harris-this-is-what-you-came-for-r3hab-henry-fong-remix",
+    "title": "Calvin Harris & Rihanna - This Is What You Came For(R3hab & Henry Fong Remix)",
+    "description": "Calvin Harris - This Is What You Came For feat. Rihanna (Remixes) \nhttps://t.co/OAc4Wy1SYp\n\nFollow R3HAB:\nhttps://www.r3hab.com\nhttps://www.instagram.com/djr3hab\nhttps://www.twitter.com/djr3hab\nhttps://www.facebook.com/r3hab\nhttps://www.soundcloud.com/r3hab\nhttps://www.youtube.com/r3hab\n\nFollow Henry Fong:\nhttp://www.facebook.com/djhenryfong\nhttp://www.twitter.com/henryfong\nhttp://www.soundcloud.com/henryfong\nhttp://www.instagram.com/djhenryfong\nhttp://www.youtube.com/henryfong",
+    "duration": 196.921,
+    "uploader": "R3HAB",
+    "uploader_url": "https://soundcloud.com/r3hab"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "270743717",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A270743717",
+    "webpage_url": "https://soundcloud.com/jose-claudio-silveira/calvin-harris-ft-rihanna-this-is-what-you-came-for-music-video",
+    "title": "Calvin Harris Ft Rihanna \u05c3 This Is What You Came For (Music Video)",
+    "description": "",
+    "duration": 238.023,
+    "uploader": "Jose Claudio Silveira",
+    "uploader_url": "https://soundcloud.com/jose-claudio-silveira"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1555130284",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1555130284",
+    "webpage_url": "https://soundcloud.com/1-hour-songs-993688207/this-is-what-you-came-for",
+    "title": "This Is What You Came For - Calvin Harris ft. Rihanna [1 Hour Version]",
+    "description": "Lyrics:\n[Chorus]\nBaby, this is what you came for\nLightning strikes every time she moves\nAnd everybody's watchin' her\nBut she's lookin' at\nYou, ooh-ooh, you, ooh-ooh\nYou, ooh-ooh, you, ooh-ooh\nYou, ooh-ooh, you, ooh, ooh, ooh\nBaby, this is what you came for\nLightning strikes every time she moves\nAnd everybody's watchin' her\nBut she's lookin' at\nYou, ooh-ooh, you, ooh-ooh\nYou, ooh-ooh, you, ooh-ooh\nYou, ooh-ooh, you, ooh, ooh, ooh\nYou, ooh-ooh, you, ooh-ooh\nYou, ooh-ooh, you, ooh-ooh\nYou, ooh-ooh,",
+    "duration": 3721.183,
+    "uploader": "1 Hour Songs",
+    "uploader_url": "https://soundcloud.com/1-hour-songs-993688207"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1551994918",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1551994918",
+    "webpage_url": "https://soundcloud.com/codydunstallofficial/this-is-what-you-came-for-cody-dunstall-daevo-remix-demo-1",
+    "title": "CALVIN HARRIS & RIHANNA - THIS IS WHAT YOU CAME FOR (CODY DUNSTALL & DAEVO REMIX)",
+    "description": "BABBBYYY, THIS IS WHAT YA CAME FORRRR\n\nFollow my other socials!\nSnapchat: snapchat.com/add/codyydunstall\nInstagram: instagram.com/codydunstall\n\nFollow Daevo:\nInstagram: bit.ly/3AmdIov\nSpotify: spoti.fi/41xmFr6\nYouTube: bit.ly/3Anx6S8\nSoundCloud: bit.ly/3H5dt4Q",
+    "duration": 160.661,
+    "uploader": "Cody Dunstall",
+    "uploader_url": "https://soundcloud.com/codydunstallofficial"
+   }
+  ]
+ },
+ "youtube": {
+  "_type": "playlist",
+  "id": "Calvin Harris - This Is What You Came For",
+  "title": "Calvin Harris - This Is What You Came For",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "kOkQ4T5WO9E",
+    "url": "https://www.youtube.com/watch?v=kOkQ4T5WO9E",
+    "title": "Calvin Harris, Rihanna - This Is What You Came For (Official Video)",
+    "description": "Calvin Harris & Disciples - This Is What You Came For (ft. Rihanna) (Official Video) From the new album '96 Months' available\u00a0...",
+    "duration": 240,
+    "channel": "Calvin Harris",
+    "uploader": "Calvin Harris",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "ipLRRzJ9sWg",
+    "url": "https://www.youtube.com/watch?v=ipLRRzJ9sWg",
+    "title": "Calvin Harris, Rihanna - This Is What You Came For (Lyrics)",
+    "description": "Calvin Harris - This Is What You Came For ft. Rihanna (Lyrics) Calvin Harris - This Is What You Came For ft. Rihanna Get it here:\u00a0...",
+    "duration": 230,
+    "channel": "Dan Music",
+    "uploader": "Dan Music",
+    "uploader_url": "https://www.youtube.com/@DanMusic"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "fz1n_S9qffU",
+    "url": "https://www.youtube.com/watch?v=fz1n_S9qffU",
+    "title": "Calvin Harris - This Is What You Came For ft. Rihanna",
+    "description": "Subscribe and turn on notifications Spotify Playlist: https://spoti.fi/3d2Zlsm Instagram:\u00a0...",
+    "duration": 223,
+    "channel": "Top Squad",
+    "uploader": "Top Squad",
+    "uploader_url": "https://www.youtube.com/@TopSquad"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "K14MkwIsR9U",
+    "url": "https://www.youtube.com/watch?v=K14MkwIsR9U",
+    "title": "Calvin Harris feat. Rihanna - This Is What You Came For (Audio)",
+    "description": "This Is What You Came For \u00e8 un brano musicale pubblicato dal disc jockey britannico Calvin Harris con la collaborazione della\u00a0...",
+    "duration": 219,
+    "channel": "Felice Garraffo",
+    "uploader": "Felice Garraffo",
+    "uploader_url": "https://www.youtube.com/@felicegarraffo3054"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "bOp0mRChXYk",
+    "url": "https://www.youtube.com/watch?v=bOp0mRChXYk",
+    "title": "Calvin Harris - This Is What You Came For (Lyrics) ft. Rihanna",
+    "description": "Follow the official 7clouds playlist on Spotify : http://spoti.fi/2SJsUcZ \u200b   Calvin Harris - This Is What You Came For (Lyrics) ft.",
+    "duration": 222,
+    "channel": "7clouds",
+    "uploader": "7clouds",
+    "uploader_url": "https://www.youtube.com/@7clouds"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "Ybo4QvKVHoE",
+    "url": "https://www.youtube.com/watch?v=Ybo4QvKVHoE",
+    "title": "Calvin Harris, Rihanna - This Is What You Came For (Audio Clip)",
+    "description": "Calvin Harris & Disciples - This Is What You Came For (ft. Rihanna) (Audio Clip) Sign up for first access to Calvin Harris news:\u00a0...",
+    "duration": 91,
+    "channel": "Calvin Harris",
+    "uploader": "Calvin Harris",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "bM1JEvod5vs",
+    "url": "https://www.youtube.com/watch?v=bM1JEvod5vs",
+    "title": "This Is What You Came For (Extended Mix)",
+    "description": "Provided to YouTube by Columbia This Is What You Came For (Extended Mix) \u00b7 Calvin Harris \u00b7 Rihanna This Is What You Came\u00a0...",
+    "duration": 287,
+    "channel": "Calvin Harris",
+    "uploader": "Calvin Harris",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "8_hKETt9bgY",
+    "url": "https://www.youtube.com/watch?v=8_hKETt9bgY",
+    "title": "Calvin Harris: \"This Is What You Came For\" and Getting Vocals from Rihanna | Apple Music",
+    "description": "Calvin Harris joins Zane Lowe to discuss the story behind getting vocals from Rihanna for \"This Is What You Came For.\" Listen to\u00a0...",
+    "duration": 116,
+    "channel": "Apple Music",
+    "uploader": "Apple Music",
+    "uploader_url": "https://www.youtube.com/@AppleMusic"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "7yT4WnILeio",
+    "url": "https://www.youtube.com/watch?v=7yT4WnILeio",
+    "title": "Calvin Harris - 'This is What You Came For' (Live At Capital\u2019s Jingle Bell Ball 2016)",
+    "description": "Calvin Harris - 'This is What You Came For' (Live At Capital's Jingle Bell Ball 2016) Subscribe: http://bit.ly/SubscribeToCapitalFM\u00a0...",
+    "duration": 208,
+    "channel": "Capital",
+    "uploader": "Capital",
+    "uploader_url": "https://www.youtube.com/@CapitalOfficial"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "aBCqaEH1LHw",
+    "url": "https://www.youtube.com/watch?v=aBCqaEH1LHw",
+    "title": "Calvin Harris - This Is What You Came For ft. Rihanna // Lyrics + Espa\u00f1ol // Video Oficial",
+    "description": "Ay\u00fadanos con una donaci\u00f3n, si deseas: paypal.me/brunodolar\ufeff Credits: @Jremasters Canal de Respaldo: @BrunoTraductor2\u00a0...",
+    "duration": 223,
+    "channel": "BrunoTraductor Official",
+    "uploader": "BrunoTraductor Official",
+    "uploader_url": "https://www.youtube.com/@BrunoTraductorOfficial"
+   }
+  ]
+ },
+ "details": {
+  "https://www.youtube.com/watch?v=K14MkwIsR9U": {
+   "id": "K14MkwIsR9U",
+   "title": "Calvin Harris feat. Rihanna - This Is What You Came For (Audio)",
+   "uploader": "Felice Garraffo",
+   "channel": "Felice Garraffo",
+   "duration": 218,
+   "webpage_url": "https://www.youtube.com/watch?v=K14MkwIsR9U",
+   "description": "This Is What You Came For \u00e8 un brano musicale pubblicato dal disc jockey britannico Calvin Harris con la collaborazione della cantante barbadiana Rihanna. Il brano \u00e8 stato pubblicato come singolo il 29 aprile 2016 per il download digitale. Il singolo segna il terzo sforzo musicale tra i due artisti, essi infatti avevano precedentemente collaborato in We Found Love (2011) e Where Have You Been (2012), estratti dall'album Talk That Talk di Rihanna.\n\nEtichetta discografica: Westbury Road, Sony Music\nProduttore: Calvin Harris\n\n\nThis Is What You Came For is a song published by the British disc jockey Calvin Harris collaboration with the Barbadian singer Rihanna. The song was released as a single April 29, 2016 for digital download. The single marks the third musical effort between the two artists, for they had previously collaborated on We Found Love (2011) and Where Have You Been (2012), from the album Talk That Talk by Rihanna.\n\nRecord label: Westbury Road, Sony Music\nProducer: Calvin Harris",
+   "abr": 130.182,
+   "formats": [
+    {
+     "format_id": "139",
+     "ext": "m4a",
+     "acodec": "mp4a.40.5",
+     "vcodec": "none",
+     "abr": 48.82,
+     "tbr": 48.82
+    },
+    {
+     "format_id": "249",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 49.653,
+     "tbr": 49.653
+    },
+    {
+     "format_id": "250",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 65.71,
+     "tbr": 65.71
+    },
+    {
+     "format_id": "140",
+     "ext": "m4a",
+     "acodec": "mp4a.40.2",
+     "vcodec": "none",
+     "abr": 129.499,
+     "tbr": 129.499
+    },
+    {
+     "format_id": "251",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 130.182,
+     "tbr": 130.182
+    }
+   ]
+  },
+  "https://www.youtube.com/watch?v=fz1n_S9qffU": {
+   "id": "fz1n_S9qffU",
+   "title": "Calvin Harris - This Is What You Came For ft. Rihanna",
+   "uploader": "Top Squad",
+   "channel": "Top Squad",
+   "duration": 222,
+   "webpage_url": "https://www.youtube.com/watch?v=fz1n_S9qffU",
+   "description": "\ud83d\udd14 Subscribe and turn on notifications\n\ud83d\udfe2Spotify Playlist: https://spoti.fi/3d2Zlsm \n\ud83d\udd35Instagram: https://www.instagram.com/topsquadchill/\n\nCalvin Harris - This Is What You Came For ft. Rihanna\nReleased 29/04/2016\n\nArtist Socials:\n: https://www.instagram.com/calvinharris/\n: https://twitter.com/CalvinHarris\n: https://calvinharris.com/\n: https://www.youtube.com/channel/UCIjYyZxkFucP_W-tmXg_9Ow\n: https://open.spotify.com/artist/7CajNmpbOovFoOoasH2HaY\n: https://music.apple.com/ca/artist/calvin-harris/201955086\n\n#calvinharris \n#dance \n#rihanna",
+   "abr": 129.805,
+   "formats": [
+    {
+     "format_id": "139",
+     "ext": "m4a",
+     "acodec": "mp4a.40.5",
+     "vcodec": "none",
+     "abr": 48.812,
+     "tbr": 48.812
+    },
+    {
+     "format_id": "249",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 49.506,
+     "tbr": 49.506
+    },
+    {
+     "format_id": "250",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 65.412,
+     "tbr": 65.412
+    },
+    {
+     "format_id": "140",
+     "ext": "m4a",
+     "acodec": "mp4a.40.2",
+     "vcodec": "none",
+     "abr": 129.501,
+     "tbr": 129.501
+    },
+    {
+     "format_id": "251",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 129.805,
+     "tbr": 129.805
+    }
+   ]
+  },
+  "https://www.youtube.com/watch?v=inCm3ByI17o": {
+   "id": "inCm3ByI17o",
+   "title": "This Is What You Came For",
+   "uploader": "Calvin Harris",
+   "channel": "Calvin Harris",
+   "duration": 222,
+   "webpage_url": "https://www.youtube.com/watch?v=inCm3ByI17o",
+   "description": "Provided to YouTube by Columbia\n\nThis Is What You Came For \u00b7 Calvin Harris \u00b7 Rihanna\n\nThis Is What You Came For\n\n\u2117 2016 Sony Music Entertainment UK Limited / Westbury Road Entertainment LLC\n\nReleased on: 2016-04-29\n\nAssociated Performer: Calvin Harris feat. Rihanna\nLyricist, Associated Performer, Composer, Producer, Mixing Engineer: Calvin Harris\nVocal, Associated Performer: Rihanna\nComposer, Lyricist: Taylor Swift\nRecording Engineer: Marcos Tovar\nProducer: Kuk Harrell\nMastering Engineer: Mike Marsh\n\nAuto-generated by YouTube.",
+   "abr": 130.307,
+   "formats": [
+    {
+     "format_id": "139",
+     "ext": "m4a",
+     "acodec": "mp4a.40.5",
+     "vcodec": "none",
+     "abr": 48.844,
+     "tbr": 48.844
+    },
+    {
+     "format_id": "249",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 49.691,
+     "tbr": 49.691
+    },
+    {
+     "format_id": "250",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 65.675,
+     "tbr": 65.675
+    },
+    {
+     "format_id": "140",
+     "ext": "m4a",
+     "acodec": "mp4a.40.2",
+     "vcodec": "none",
+     "abr": 129.55,
+     "tbr": 129.55
+    },
+    {
+     "format_id": "251",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 130.307,
+     "tbr": 130.307
+    }
+   ]
+  },
+  "https://www.youtube.com/watch?v=zCh4jIWOKrI": {
+   "id": "zCh4jIWOKrI",
+   "title": "This Is What You Came For",
+   "uploader": "Calvin Harris",
+   "channel": "Calvin Harris",
+   "duration": 222,
+   "webpage_url": "https://www.youtube.com/watch?v=zCh4jIWOKrI",
+   "description": "Provided to YouTube by Columbia\n\nThis Is What You Came For \u00b7 Calvin Harris \u00b7 Rihanna\n\n96 Months\n\n\u2117 2016 Sony Music Entertainment UK Limited / Westbury Road Entertainment LLC\n\nReleased on: 2024-08-08\n\nAssociated Performer: Calvin Harris feat. Rihanna\nMixing Engineer, Composer, Associated Performer, Lyricist, Producer: Calvin Harris\nAssociated Performer, Vocal: Rihanna\nComposer, Lyricist: Taylor Swift\nRecording Engineer: Marcos Tovar\nProducer: Kuk Harrell\nMastering Engineer: Mike Marsh\n\nAuto-generated by YouTube.",
+   "abr": 130.184,
+   "formats": [
+    {
+     "format_id": "139",
+     "ext": "m4a",
+     "acodec": "mp4a.40.5",
+     "vcodec": "none",
+     "abr": 48.851,
+     "tbr": 48.851
+    },
+    {
+     "format_id": "249",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 49.598,
+     "tbr": 49.598
+    },
+    {
+     "format_id": "250",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 65.558,
+     "tbr": 65.558
+    },
+    {
+     "format_id": "140",
+     "ext": "m4a",
+     "acodec": "mp4a.40.2",
+     "vcodec": "none",
+     "abr": 129.551,
+     "tbr": 129.551
+    },
+    {
+     "format_id": "251",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 130.184,
+     "tbr": 130.184
+    }
+   ]
+  }
+ }
+}

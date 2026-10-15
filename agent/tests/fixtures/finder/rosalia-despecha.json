@@ -1,0 +1,564 @@
+{
+ "recorded": "2026-10-15 on the owner's PC (ytmusicapi 1.12.3, yt-dlp 2026.08.19); thumbnails and unused fields dropped",
+ "catalog": {
+  "catalog_id": "deezer:1841999507",
+  "title": "DESPECH\u00c1",
+  "artist": "ROSAL\u00cdA",
+  "album": "DESPECH\u00c1",
+  "duration_sec": 157,
+  "isrc": "USSM12207207"
+ },
+ "ytmusic": [
+  {
+   "resultType": "song",
+   "title": "DESPECH\u00c1",
+   "album": {
+    "name": "MOTOMAMI +"
+   },
+   "videoId": "dN3y8kVNplA",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:37",
+   "duration_seconds": 157,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "ROSAL\u00cdA"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "DESPECH\u00c1",
+   "album": {
+    "name": "DESPECH\u00c1"
+   },
+   "videoId": "FqOR9jXH1BE",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "1:53",
+   "duration_seconds": 113,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Umur Anil Gokdag"
+    },
+    {
+     "name": "Vesim Ipek"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Despech\u00e1",
+   "album": {
+    "name": "Despech\u00e1"
+   },
+   "videoId": "XAcTUA7D7V8",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:11",
+   "duration_seconds": 191,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "RAYA"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Despech\u00e1",
+   "album": {
+    "name": "La Juerga Flamenca"
+   },
+   "videoId": "kRopqnKeVvk",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:48",
+   "duration_seconds": 168,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "La Juerga Flamenca"
+    },
+    {
+     "name": "Luis de Perikin"
+    },
+    {
+     "name": "Samara Carrasco"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Despech\u00e1 (8D)",
+   "album": {
+    "name": "Despech\u00e1 (8D)"
+   },
+   "videoId": "m8Jp_-51H4Y",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:39",
+   "duration_seconds": 159,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "The Harmony Group"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "LA FAMA (feat. The Weeknd)",
+   "album": {
+    "name": "MOTOMAMI"
+   },
+   "videoId": "doeUOiyv-N0",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:09",
+   "duration_seconds": 189,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "ROSAL\u00cdA"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "La Bachata-Despech\u00e1",
+   "album": {
+    "name": "La Bachata-Despech\u00e1"
+   },
+   "videoId": "ollRgF2vdgU",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:07",
+   "duration_seconds": 187,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Inocentes"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Yo x Ti, Tu x Mi",
+   "album": {
+    "name": "Yo x Ti, Tu x Mi"
+   },
+   "videoId": "uuhrzCQQC8M",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:22",
+   "duration_seconds": 202,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "ROSAL\u00cdA"
+    },
+    {
+     "name": "Ozuna"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Despech\u00e1 (Instrumental)",
+   "album": {
+    "name": "Smooth Jazz Pop Hits 2022 (Instrumental)"
+   },
+   "videoId": "_TdYMgbIYA4",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:50",
+   "duration_seconds": 170,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Smooth Jazz All Stars"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Despech\u00e1",
+   "album": {
+    "name": "Despech\u00e1"
+   },
+   "videoId": "r8niFS1vPIg",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:49",
+   "duration_seconds": 169,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "AWY"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Relaci\u00f3n (Remix) (feat. Rosal\u00eda & Farruko)",
+   "album": {
+    "name": "Relaci\u00f3n (Remix)"
+   },
+   "videoId": "wCmy-1aJ1G0",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:08",
+   "duration_seconds": 248,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Sech"
+    },
+    {
+     "name": "Daddy Yankee"
+    },
+    {
+     "name": "J Balvin"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "DESPECHADA",
+   "album": {
+    "name": "DESPECHADA"
+   },
+   "videoId": "6rNMHlR_ToY",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:36",
+   "duration_seconds": 156,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Oregon"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "DESPECHADA",
+   "album": {
+    "name": "DESPECHADA"
+   },
+   "videoId": "Fs4uq9eoAqk",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:14",
+   "duration_seconds": 254,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "P-do-N-Ti"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "LA COMBI VERSACE (feat. Tokischa)",
+   "album": {
+    "name": "MOTOMAMI"
+   },
+   "videoId": "q3s6AA2JHwM",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:42",
+   "duration_seconds": 162,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "ROSAL\u00cdA"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Despecha",
+   "album": {
+    "name": "Babies Go Rosal\u00eda"
+   },
+   "videoId": "948x_XB4drM",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:23",
+   "duration_seconds": 143,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Sweet Little Band"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "BULER\u00cdAS",
+   "album": {
+    "name": "MOTOMAMI"
+   },
+   "videoId": "Nc8R7Whaz8U",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:36",
+   "duration_seconds": 156,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "ROSAL\u00cdA"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Despech\u00e1 (Instrumental)",
+   "album": {
+    "name": "Top 20 Hits September 2022 (Instrumental)"
+   },
+   "videoId": "Ifui3KbIgnU",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:51",
+   "duration_seconds": 171,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Piano Dreamers"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Despechada",
+   "album": {
+    "name": "Despechada"
+   },
+   "videoId": "FcL2HCvxZ0Q",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:03",
+   "duration_seconds": 123,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Salome MC"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Despech\u00e1",
+   "album": {
+    "name": "Timemachine beats vol.2"
+   },
+   "videoId": "4Ot0guLYxMM",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "1:07",
+   "duration_seconds": 67,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "lofi covers"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Despechada",
+   "album": {
+    "name": "Despechada"
+   },
+   "videoId": "lmDG-ovDNKQ",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:08",
+   "duration_seconds": 128,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Naoy Vcl"
+    }
+   ]
+  }
+ ],
+ "soundcloud": {
+  "_type": "playlist",
+  "id": "ROSAL\u00cdA DESPECH\u00c1",
+  "title": "ROSAL\u00cdA DESPECH\u00c1",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1313132803",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1313132803",
+    "webpage_url": "https://soundcloud.com/rosaliaofficial/despecha",
+    "title": "DESPECH\u00c1",
+    "duration": 157.04,
+    "uploader": "Rosalia",
+    "uploader_url": "https://soundcloud.com/rosaliaofficial"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1401362968",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1401362968",
+    "webpage_url": "https://soundcloud.com/rosaliaofficial/despecha-rmx",
+    "title": "ROSAL\u00cdA & Cardi B - DESPECH\u00c1 RMX",
+    "duration": 170.851,
+    "uploader": "Rosalia",
+    "uploader_url": "https://soundcloud.com/rosaliaofficial"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1501691095",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1501691095",
+    "webpage_url": "https://soundcloud.com/rosaliavt/rosalia-omega-despecha",
+    "title": "ROSALIA, OMEGA - DESPECH\u00c1",
+    "description": "Versi\u00f3n original de Rosalia con Omega",
+    "duration": 220.31,
+    "uploader": "ROSALIA",
+    "uploader_url": "https://soundcloud.com/rosaliavt"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1326554791",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1326554791",
+    "webpage_url": "https://soundcloud.com/lazarocasanova/rosalia-despecha-lazaro-casanoa-redrum",
+    "title": "Rosal\u00eda - Despech\u00e1 (Lazaro Casanova Redrum)",
+    "description": "Summer season of Redrums",
+    "duration": 302.883,
+    "uploader": "Lazaro Casanova",
+    "uploader_url": "https://soundcloud.com/lazarocasanova"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1314357874",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1314357874",
+    "webpage_url": "https://soundcloud.com/itsmpvmusic/despecha-rmx",
+    "title": "ROSAL\u00cdA - DESPECHA\u0301 (MPV Remix)",
+    "description": "FREE DOWNLOAD: https://hypeddit.com/despecha-rmx",
+    "duration": 232.874,
+    "uploader": "MPV",
+    "uploader_url": "https://soundcloud.com/itsmpvmusic"
+   }
+  ]
+ },
+ "youtube": {
+  "_type": "playlist",
+  "id": "ROSAL\u00cdA - DESPECH\u00c1",
+  "title": "ROSAL\u00cdA - DESPECH\u00c1",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "5g2hT4GmAGU",
+    "url": "https://www.youtube.com/watch?v=5g2hT4GmAGU",
+    "title": "ROSAL\u00cdA - DESPECH\u00c1 (Official Video)",
+    "description": "Official video for \u201cDESPECH\u00c1\u201d by ROSAL\u00cdA. Listen & Download \u201cDESPECH\u00c1\u201d out now: https://rosalia.lnk.to/DESPECHA Shop the\u00a0...",
+    "duration": 159,
+    "channel": "ROSAL\u00cdA",
+    "uploader": "ROSAL\u00cdA",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "Mq7gC2gLPLI",
+    "url": "https://www.youtube.com/watch?v=Mq7gC2gLPLI",
+    "title": "ROSAL\u00cdA - DESPECHA (Letra/Lyrics)",
+    "description": "ROSAL\u00cdA - DESPECHA Stream/Download : https://rosalia.lnk.to/DESPECHA \u2022 ROSAL\u00cdA \u2022 \u2022 https://www.instagram.com/rosalia.vt/\u00a0...",
+    "duration": 159,
+    "channel": "Vibe Music",
+    "uploader": "Vibe Music",
+    "uploader_url": "https://www.youtube.com/@vibemusic."
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "Y2ESxHKuSOk",
+    "url": "https://www.youtube.com/watch?v=Y2ESxHKuSOk",
+    "title": "ROSAL\u00cdA - DESPECH\u00c1 (Official Audio)",
+    "description": "Official audio for \u201cDESPECH\u00c1\u201d by ROSAL\u00cdA Listen & Download \u201cDESPECH\u00c1\u201d out now: https://rosalia.lnk.to/DESPECHA Shop the\u00a0...",
+    "duration": 159,
+    "channel": "ROSAL\u00cdA",
+    "uploader": "ROSAL\u00cdA",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "8J6yunQGZBU",
+    "url": "https://www.youtube.com/watch?v=8J6yunQGZBU",
+    "title": "ROSAL\u00cdA - DESPECH\u00c1 (Live at the NRJ Music Awards 2022)",
+    "description": "DESPECH\u00c1\u201d by ROSAL\u00cdA Live at the NRJ Music Awards 2022 Listen & Download \u201cDESPECH\u00c1\u201d out now:\u00a0...",
+    "duration": 107,
+    "channel": "ROSAL\u00cdA",
+    "uploader": "ROSAL\u00cdA",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "7WAf_rlzSsg",
+    "url": "https://www.youtube.com/watch?v=7WAf_rlzSsg",
+    "title": "ROSAL\u00cdA - Despecha (Letra/Lyrics)",
+    "description": "ROSAL\u00cdA - Despecha (Letra/Lyrics) #Rosalia #Despecha #Letra #Lyrics #RosaliaLetra #Letras #DespechaLetra #Top50\u00a0...",
+    "duration": 157,
+    "channel": "Reggaeton Mundial",
+    "uploader": "Reggaeton Mundial",
+    "uploader_url": "https://www.youtube.com/@ReggaetonMundialOfficial"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "PWN9TYRaB2o",
+    "url": "https://www.youtube.com/watch?v=PWN9TYRaB2o",
+    "title": "ROSAL\u00cdA - DESPECH\u00c1",
+    "description": "ROSAL\u00cdA - DESPECH\u00c1 \u00bb Descargar: https://rosalia.lnk.to/DESPECHA \u00bb Apoyo ROSAL\u00cdA: Facebook\u00a0...",
+    "duration": 158,
+    "channel": "LatinHype",
+    "uploader": "LatinHype",
+    "uploader_url": "https://www.youtube.com/@LatinHype."
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "ElhROPFJ-_4",
+    "url": "https://www.youtube.com/watch?v=ElhROPFJ-_4",
+    "title": "Rosalia - Despecha ( Letra/Lyrics )",
+    "description": "... letra despecha,rosalia concierto,rosalia live,rosalia directo,rosalia world tour,rosalia mambo,rosalia almeria,rosal\u00eda despech\u00e1\u00a0...",
+    "duration": 159,
+    "channel": "Invisible Lyrics",
+    "uploader": "Invisible Lyrics",
+    "uploader_url": "https://www.youtube.com/@invisiblelyrics2692"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "1eSg0FiuxUg",
+    "url": "https://www.youtube.com/watch?v=1eSg0FiuxUg",
+    "title": "ROSAL\u00cdA - DESPECH\u00c1 (Letra/Lyrics)",
+    "description": "Follow the official 7clouds playlist on Spotify : https://lnkfi.re/7cloudsSpotify\u200b ROSAL\u00cdA - DESPECH\u00c1 (Letra/Lyrics)\u00a0...",
+    "duration": 158,
+    "channel": "7clouds",
+    "uploader": "7clouds",
+    "uploader_url": "https://www.youtube.com/@7clouds"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "0yP_3It5zIw",
+    "url": "https://www.youtube.com/watch?v=0yP_3It5zIw",
+    "title": "Despecha - Rosalia Lollapalooza chile 2023",
+    "description": null,
+    "duration": 160,
+    "channel": "M\u00fasica En Replay ",
+    "uploader": "M\u00fasica En Replay ",
+    "uploader_url": "https://www.youtube.com/@MusicaEnReplay"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "g_zHbZH2H8E",
+    "url": "https://www.youtube.com/watch?v=g_zHbZH2H8E",
+    "title": "Rosalia - Despecha (Letra)",
+    "description": "Despech\u00e1 - Rosalia // Video \u21e8 Escucha nuestra Playlist\u00a0...",
+    "duration": 157,
+    "channel": "LETRAS4K",
+    "uploader": "LETRAS4K",
+    "uploader_url": "https://www.youtube.com/@Letras4K"
+   }
+  ]
+ },
+ "details": {}
+}

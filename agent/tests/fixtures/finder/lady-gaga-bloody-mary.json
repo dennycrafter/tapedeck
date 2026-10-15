@@ -1,0 +1,670 @@
+{
+ "recorded": "2026-10-15 on the owner's PC (ytmusicapi 1.12.3, yt-dlp 2026.08.19); thumbnails and unused fields dropped",
+ "catalog": {
+  "catalog_id": "deezer:2057086617",
+  "title": "Bloody Mary",
+  "artist": "Trinix Remix",
+  "album": "Bloody Mary",
+  "duration_sec": 173,
+  "isrc": "FRDKW2208454"
+ },
+ "ytmusic": [
+  {
+   "resultType": "song",
+   "title": "Bloody Mary",
+   "album": {
+    "name": "Bloody Mary"
+   },
+   "videoId": "llGFrHB1neU",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:54",
+   "duration_seconds": 174,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Trinix Remix"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bloody Mary (Extended Mix)",
+   "album": {
+    "name": "Bloody Mary"
+   },
+   "videoId": "o0kGbU-lWzc",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:49",
+   "duration_seconds": 169,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "MELON"
+    },
+    {
+     "name": "Steve Void"
+    },
+    {
+     "name": "Dance Fruits Music"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bloody Mary",
+   "album": {
+    "name": "Bloody Mary"
+   },
+   "videoId": "O9ba4_e_67I",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:24",
+   "duration_seconds": 204,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Alex Parker"
+    },
+    {
+     "name": "DAWN"
+    },
+    {
+     "name": "HERA"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bloody Mary (Creepin' Remix Edit)",
+   "album": {
+    "name": "Bloody Mary (Remix EP)"
+   },
+   "videoId": "NeSu0avgEIk",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:28",
+   "duration_seconds": 208,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Steeze & Morris"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "BLOODY MARY (TECHNO)",
+   "album": {
+    "name": "BLOODY MARY (TECHNO)"
+   },
+   "videoId": "_na3EVkhgeA",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:07",
+   "duration_seconds": 127,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "BASSTON"
+    },
+    {
+     "name": "Techno Tazzy"
+    },
+    {
+     "name": "Tazzy"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bloody Mary (Techno)",
+   "album": {
+    "name": "Bloody Mary (Techno)"
+   },
+   "videoId": "HEk87-a607U",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:44",
+   "duration_seconds": 164,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Way 2 Techno"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "bloody mary (sped up)",
+   "album": {
+    "name": "bloody mary (sped up)"
+   },
+   "videoId": "NCDfHX3AfUY",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:15",
+   "duration_seconds": 195,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "90degrees"
+    },
+    {
+     "name": "eyeroze"
+    },
+    {
+     "name": "Melodyz Town"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bloody Mary",
+   "album": {
+    "name": "Bloody Mary"
+   },
+   "videoId": "r8gSsKIi9HI",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:26",
+   "duration_seconds": 146,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Marvin Matyka"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bloody Mary",
+   "album": {
+    "name": "Bloody Mary"
+   },
+   "videoId": "vNEiAfYwsEA",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:33",
+   "duration_seconds": 153,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "ANDONIS"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bloody Mary",
+   "album": {
+    "name": "Bloody Mary"
+   },
+   "videoId": "yFaUBYvMcT0",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:11",
+   "duration_seconds": 191,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Bastiancortesxv"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bloody Mary (Instrumental)",
+   "album": {
+    "name": "Bloody Mary (Instrumental)"
+   },
+   "videoId": "IB7CXwU3tdM",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:17",
+   "duration_seconds": 197,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Soner Karaca"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bloody Mary (Instrumental Workout Mix 132 bpm)",
+   "album": {
+    "name": "Bloody Mary (Workout Mix)"
+   },
+   "videoId": "6DSH9eMzDrk",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:26",
+   "duration_seconds": 206,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "SuperFitness"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bloody Mary",
+   "album": {
+    "name": "Victim To Villain"
+   },
+   "videoId": "kl3ggUS5Qdg",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:08",
+   "duration_seconds": 188,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "New Years Day"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bloody Mary (In The Style Of 'Lady Gaga')",
+   "album": {
+    "name": "Reload Karaoke - Pop Hits 7"
+   },
+   "videoId": "fK9biyw0jYk",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:06",
+   "duration_seconds": 246,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Reload Karaoke"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Headlights x Bloody Mary",
+   "album": {
+    "name": "Headlights x Bloody Mary"
+   },
+   "videoId": "kOTx0n8RJOo",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:37",
+   "duration_seconds": 157,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Chill4You"
+    },
+    {
+     "name": "Rock Insane"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bloody Mary",
+   "album": {
+    "name": "Bloody Mary"
+   },
+   "videoId": "MOzWP95958c",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:27",
+   "duration_seconds": 147,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "LexMorris"
+    },
+    {
+     "name": "Danna Max"
+    },
+    {
+     "name": "Dogmeow"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bloody Mary (feat. Pat B)",
+   "album": {
+    "name": "Blunt Blowin'"
+   },
+   "videoId": "_KGGnu-tjcI",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:09",
+   "duration_seconds": 249,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Lowriderz"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bloody Mary (Wednesday Dance REMIX)",
+   "album": {
+    "name": "POWER GYM HITS - A Collection of Cool Western Tracks to Get You in the Zone"
+   },
+   "videoId": "aNJP-5ta2nU",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:38",
+   "duration_seconds": 218,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "HIKA"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "BLOODY MARY - PHONK SLOWED + REVERB",
+   "album": {
+    "name": "BLOODY MARY - PHONK SLOWED + REVERB"
+   },
+   "videoId": "n6W897cITnA",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:30",
+   "duration_seconds": 150,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "deadboy"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bloody Mary (Instrumental Version) (feat. Akash Das)",
+   "album": {
+    "name": "Bloody Mary [Instrumental Version]"
+   },
+   "videoId": "bHHveCRW2Qs",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:20",
+   "duration_seconds": 140,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Rudro D."
+    }
+   ]
+  }
+ ],
+ "soundcloud": {
+  "_type": "playlist",
+  "id": "Trinix Remix Bloody Mary",
+  "title": "Trinix Remix Bloody Mary",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1397594122",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1397594122",
+    "webpage_url": "https://soundcloud.com/ses-sebastian/lady-gaga-bloody-mary-wednesday-trinix-remix",
+    "title": "Lady Gaga - Bloody Mary (Wednesday TRINIX REMIX )",
+    "description": "",
+    "duration": 173.917,
+    "uploader": "C\u039eLiX",
+    "uploader_url": "https://soundcloud.com/ses-sebastian"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1400553229",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1400553229",
+    "webpage_url": "https://soundcloud.com/madtunezofficial/lady-gaga-bloody-mary-trinix-remix",
+    "title": "Lady Gaga - Bloody Mary [TRINIX REMIX]",
+    "description": "Bloody mary by Lady Gaga remixed by TRINIX",
+    "duration": 173.995,
+    "uploader": "MadTuneZ",
+    "uploader_url": "https://soundcloud.com/madtunezofficial"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1409097256",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1409097256",
+    "webpage_url": "https://soundcloud.com/rogalik228/bloody-mary-wednesday-trinix-1",
+    "title": "Bloody Mary (Wednesday TRINIX REMIX )",
+    "description": "",
+    "duration": 173.827,
+    "uploader": "Rogalik",
+    "uploader_url": "https://soundcloud.com/rogalik228"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1405615072",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1405615072",
+    "webpage_url": "https://soundcloud.com/sky-high-drawers/lady-gaga-bloody-mary-trinix-remix",
+    "title": "Lady Gaga - Bloody Mary (Trinix Remix)",
+    "description": "Have a nice chill !",
+    "duration": 173.507,
+    "uploader": "Sky-High Drawers",
+    "uploader_url": "https://soundcloud.com/sky-high-drawers"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1481553178",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1481553178",
+    "webpage_url": "https://soundcloud.com/breadbreaks/lady-gaga-bloody-mary-wednesday-trinix-breadbreaks-remix",
+    "title": "Lady Gaga - Bloody Mary Wednesday (Trinix & Breadbreaks Remix) Free Download",
+    "description": "supportify.ch/dl/?track=132370\nsupportify.ch/dl/?track=132370\nsupportify.ch/dl/?track=132370",
+    "duration": 191.399,
+    "uploader": "BreadBreaks",
+    "uploader_url": "https://soundcloud.com/breadbreaks"
+   }
+  ]
+ },
+ "youtube": {
+  "_type": "playlist",
+  "id": "Trinix Remix - Bloody Mary",
+  "title": "Trinix Remix - Bloody Mary",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "df1f4wJpoEQ",
+    "url": "https://www.youtube.com/watch?v=df1f4wJpoEQ",
+    "title": "Lady Gaga - Bloody Mary (Wednesday TRINIX REMIX )",
+    "description": "ladygaga #tiktok #spedup You can let us know if you liked this video, there is a button! Thanks for watching, we read the\u00a0...",
+    "duration": 174,
+    "channel": "TRINIX",
+    "uploader": "TRINIX",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "l1yrRXkyM2I",
+    "url": "https://www.youtube.com/watch?v=l1yrRXkyM2I",
+    "title": "Lady Gaga - Bloody Mary (Wednesday TRINIX REMIX)",
+    "description": "Lady Gaga - Bloody Mary (Wednesday TRINIX REMIX) STREAM NOW: https://trapnation.komi.io TRINIX\u00a0...",
+    "duration": 174,
+    "channel": "House Nation",
+    "uploader": "House Nation",
+    "uploader_url": "https://www.youtube.com/@AllHouseNation"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "1hKrIjz7ndg",
+    "url": "https://www.youtube.com/watch?v=1hKrIjz7ndg",
+    "title": "Lady Gaga - Bloody Mary (TRINIX REMIX) Wednesday Addams Dance Scene",
+    "description": "Subscribe and hit the bell \"  \" to get notifications for new uploads! \u25b8Listen on Spotify : http://bit.ly/3J5KO1E \u25b8Spotify Playlist\u00a0...",
+    "duration": 171,
+    "channel": "itsAirLow",
+    "uploader": "itsAirLow",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "p7b4_VipoWQ",
+    "url": "https://www.youtube.com/watch?v=p7b4_VipoWQ",
+    "title": "Trinix Remix   Bloody Mary",
+    "description": null,
+    "duration": 174,
+    "channel": "music for music lovers",
+    "uploader": "music for music lovers",
+    "uploader_url": "https://www.youtube.com/@musicForMusicLovers"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "vxGyuUmM-CY",
+    "url": "https://www.youtube.com/watch?v=vxGyuUmM-CY",
+    "title": "Trinix Remix - Bloody Mary",
+    "description": "Trinix Remix - Bloody Mary carmusic,music2022,music2023,topmusic,topremix,tiktokmusic,bestmusic,bestremix.",
+    "duration": 171,
+    "channel": "ggwpmusic",
+    "uploader": "ggwpmusic",
+    "uploader_url": "https://www.youtube.com/@ggwpmusic"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "AqODGsb8Oo0",
+    "url": "https://www.youtube.com/watch?v=AqODGsb8Oo0",
+    "title": "Lady Gaga - Bloody Mary (Wednesday TRINIX REMIX)",
+    "description": "Lady Gaga - Bloody Mary (Wednesday TRINIX REMIX)",
+    "duration": 174,
+    "channel": "Cozy Nation",
+    "uploader": "Cozy Nation",
+    "uploader_url": "https://www.youtube.com/@Cozy_Nation"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "Ho3QXeJpdkU",
+    "url": "https://www.youtube.com/watch?v=Ho3QXeJpdkU",
+    "title": "LADY GAGA, WEDNESDAY - TRINIX REMIX - BLOODY MARY - NO COPYRIGHT MUSIC",
+    "description": "Liens Azryod Officiel : Blog Officiel : https://azryodmusic.blogspot.com AZRYOD - MUSIC\u00a0...",
+    "duration": 265,
+    "channel": "AZRYOD - MUSIC",
+    "uploader": "AZRYOD - MUSIC",
+    "uploader_url": "https://www.youtube.com/@AZRYOD_MUSIC"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "Q4-cAc3ccmc",
+    "url": "https://www.youtube.com/watch?v=Q4-cAc3ccmc",
+    "title": "Lady Gaga - Bloody Mary (Wednesday TRINIX REMIX) [DEEP BASS BOOSTED] | TRAP TOUR",
+    "description": "Lady Gaga - Bloody Mary (Wednesday TRINIX REMIX) TRAP TOUR traptourofficial@gmail.com   https://instagram.com/TOXIC\u00a0...",
+    "duration": 174,
+    "channel": "TRAP TOUR",
+    "uploader": "TRAP TOUR",
+    "uploader_url": "https://www.youtube.com/@traptour"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "inQtBwwh2mc",
+    "url": "https://www.youtube.com/watch?v=inQtBwwh2mc",
+    "title": "Lady Gaga - Bloody Mary (Wednesday TRINIX REMIX) [No Copyright Music]",
+    "description": "Artist: Lady Gaga Song: Bloody Mary Gender: House Playlist: Drum/Bass... / Popular... Remix: Wednesday TRINIX Original Video:\u00a0...",
+    "duration": 264,
+    "channel": "21century",
+    "uploader": "21century",
+    "uploader_url": "https://www.youtube.com/@r21century"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "TPa0YWa27fw",
+    "url": "https://www.youtube.com/watch?v=TPa0YWa27fw",
+    "title": "Lady Gaga - Bloody Mary (Trinix Remix) | Wednesday Addams",
+    "description": "Spotify Playlist: https://music.mrrevillz.com/Playlist Follow MrRevillz:\u00a0...",
+    "duration": 174,
+    "channel": "MrRevillz",
+    "uploader": "MrRevillz",
+    "uploader_url": "https://www.youtube.com/@MrRevillz"
+   }
+  ]
+ },
+ "details": {
+  "https://www.youtube.com/watch?v=df1f4wJpoEQ": {
+   "id": "df1f4wJpoEQ",
+   "title": "Lady Gaga - Bloody Mary (Wednesday TRINIX REMIX )",
+   "uploader": "TRINIX",
+   "channel": "TRINIX",
+   "duration": 174,
+   "webpage_url": "https://www.youtube.com/watch?v=df1f4wJpoEQ",
+   "description": "#ladygaga #tiktok #spedup \nYou can let us know if you liked this video, there is a button!\nThanks for watching, we read the comments, so don't hesitate!\n\nTo follow us :\nhttps://www.instagram.com/trinixmusic\nhttps://www.facebook.com/trinixmusic\nhttps://twitter.com/TrinixMusic\n\nFollow us : https://bit.ly/TRINIX_YT",
+   "abr": 133.149,
+   "formats": [
+    {
+     "format_id": "139",
+     "ext": "m4a",
+     "acodec": "mp4a.40.5",
+     "vcodec": "none",
+     "abr": 48.824,
+     "tbr": 48.824
+    },
+    {
+     "format_id": "249",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 51.138,
+     "tbr": 51.138
+    },
+    {
+     "format_id": "250",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 67.314,
+     "tbr": 67.314
+    },
+    {
+     "format_id": "140",
+     "ext": "m4a",
+     "acodec": "mp4a.40.2",
+     "vcodec": "none",
+     "abr": 129.517,
+     "tbr": 129.517
+    },
+    {
+     "format_id": "251",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 133.149,
+     "tbr": 133.149
+    }
+   ]
+  },
+  "https://www.youtube.com/watch?v=p7b4_VipoWQ": {
+   "id": "p7b4_VipoWQ",
+   "title": "Trinix Remix   Bloody Mary",
+   "uploader": "music for music lovers",
+   "channel": "music for music lovers",
+   "duration": 174,
+   "webpage_url": "https://www.youtube.com/watch?v=p7b4_VipoWQ",
+   "description": "",
+   "abr": 133.052,
+   "formats": [
+    {
+     "format_id": "139",
+     "ext": "m4a",
+     "acodec": "mp4a.40.5",
+     "vcodec": "none",
+     "abr": 48.816,
+     "tbr": 48.816
+    },
+    {
+     "format_id": "140",
+     "ext": "m4a",
+     "acodec": "mp4a.40.2",
+     "vcodec": "none",
+     "abr": 129.504,
+     "tbr": 129.504
+    },
+    {
+     "format_id": "251",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 133.052,
+     "tbr": 133.052
+    }
+   ]
+  }
+ }
+}

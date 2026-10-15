@@ -1,0 +1,545 @@
+{
+ "recorded": "2026-10-15 on the owner's PC (ytmusicapi 1.12.3, yt-dlp 2026.08.19); thumbnails and unused fields dropped",
+ "catalog": {
+  "catalog_id": "deezer:138547415",
+  "title": "Creep",
+  "artist": "Radiohead",
+  "album": "Pablo Honey",
+  "duration_sec": 238,
+  "isrc": "GBAYE9200070"
+ },
+ "ytmusic": [
+  {
+   "resultType": "song",
+   "title": "Creep",
+   "album": {
+    "name": "Creep"
+   },
+   "videoId": "9RfVp-GhKfs",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:59",
+   "duration_seconds": 239,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Radiohead"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "The Bends",
+   "album": {
+    "name": "The Bends"
+   },
+   "videoId": "K8z8hLvjb_U",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:07",
+   "duration_seconds": 247,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Radiohead"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Creep",
+   "album": {
+    "name": "The Epic Orchestra, Vol. 1"
+   },
+   "videoId": "yFl9OxuMc1Y",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:58",
+   "duration_seconds": 298,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Louie Ashley"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Go Slowly",
+   "album": {
+    "name": "In Rainbows (Disk 2)"
+   },
+   "videoId": "wqh9GKAtZzo",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:49",
+   "duration_seconds": 229,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Radiohead"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Thinking About You",
+   "album": {
+    "name": "Pablo Honey"
+   },
+   "videoId": "2jsPEOiMNaA",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:42",
+   "duration_seconds": 162,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Radiohead"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Yes I Am",
+   "album": {
+    "name": "Creep EP"
+   },
+   "videoId": "LqGRFuHzknM",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:26",
+   "duration_seconds": 266,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Radiohead"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Creep",
+   "album": {
+    "name": "Creep"
+   },
+   "videoId": "ZiBTj5dJFuw",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:55",
+   "duration_seconds": 235,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Rain Paris"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Just",
+   "album": {
+    "name": "The Bends"
+   },
+   "videoId": "Qnk4jiWamm4",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:55",
+   "duration_seconds": 235,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Radiohead"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Videotape",
+   "album": {
+    "name": "In Rainbows"
+   },
+   "videoId": "WF83_PR2EsA",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:40",
+   "duration_seconds": 280,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Radiohead"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Subterranean Homesick Alien",
+   "album": {
+    "name": "OK Computer"
+   },
+   "videoId": "_fTWmUlTEqE",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:28",
+   "duration_seconds": 268,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Radiohead"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Creep",
+   "album": {
+    "name": "Creep"
+   },
+   "videoId": "dVPSOyDX7vc",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:28",
+   "duration_seconds": 208,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Frank Watkinson"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bullet Proof ... I Wish I Was",
+   "album": {
+    "name": "The Bends"
+   },
+   "videoId": "KkCgUI_g2oo",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:29",
+   "duration_seconds": 209,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Radiohead"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Anyone Can Play Guitar",
+   "album": {
+    "name": "Anyone Can Play Guitar"
+   },
+   "videoId": "JIxBHvo2oU8",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:38",
+   "duration_seconds": 218,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Radiohead"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Blow Out (Remix)",
+   "album": {
+    "name": "Creep EP"
+   },
+   "videoId": "0BqgI577l1c",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:19",
+   "duration_seconds": 259,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Radiohead"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Creep",
+   "album": {
+    "name": "Epic Orchestra, Vol. 3"
+   },
+   "videoId": "eHLKlWiTO3g",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:01",
+   "duration_seconds": 301,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Louie Ashley"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "You And Whose Army?",
+   "album": {
+    "name": "Amnesiac"
+   },
+   "videoId": "QQnc-hM80UQ",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:11",
+   "duration_seconds": 191,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Radiohead"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Jigsaw Falling Into Place",
+   "album": {
+    "name": "In Rainbows"
+   },
+   "videoId": "CvjRlYpXS5U",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:09",
+   "duration_seconds": 249,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Radiohead"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Street Spirit (Fade Out)",
+   "album": {
+    "name": "The Bends"
+   },
+   "videoId": "2y6kop0VTXY",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:14",
+   "duration_seconds": 254,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Radiohead"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Creep (Metal Cover)",
+   "album": {
+    "name": "Metal Covers, Vol. 11"
+   },
+   "videoId": "Tm0S7MDssH8",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:05",
+   "duration_seconds": 245,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Leo"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Creep",
+   "album": {
+    "name": "Cover Me in Darkness"
+   },
+   "videoId": "GMQefJ8sFhc",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:16",
+   "duration_seconds": 256,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "OCEANS"
+    }
+   ]
+  }
+ ],
+ "soundcloud": {
+  "_type": "playlist",
+  "id": "Radiohead Creep",
+  "title": "Radiohead Creep",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "265069081",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A265069081",
+    "webpage_url": "https://soundcloud.com/radiohead/creep",
+    "title": "Creep",
+    "duration": 30.0,
+    "uploader": "Radiohead",
+    "uploader_url": "https://soundcloud.com/radiohead"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "449971611",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A449971611",
+    "webpage_url": "https://soundcloud.com/user-33590647/radiohead-creep-slowed",
+    "title": "Radiohead - Creep (slowed)",
+    "description": "Track taken from the album \"Pablo Honey\" by Radiohead (1993)",
+    "duration": 245.046,
+    "uploader": "A",
+    "uploader_url": "https://soundcloud.com/user-33590647"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "2365942640",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A2365942640",
+    "webpage_url": "https://soundcloud.com/radiohead/creep-2",
+    "title": "Creep",
+    "duration": 30.0,
+    "uploader": "Radiohead",
+    "uploader_url": "https://soundcloud.com/radiohead"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "344985600",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A344985600",
+    "webpage_url": "https://soundcloud.com/ika-masita/radiohead-creep-acoustic",
+    "title": "Radiohead - Creep (Acoustic)",
+    "description": "",
+    "duration": 259.076,
+    "uploader": "Ika Masita",
+    "uploader_url": "https://soundcloud.com/ika-masita"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1480715665",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1480715665",
+    "webpage_url": "https://soundcloud.com/radiohead/radiohead-creep-acoustic",
+    "title": "Creep (Acoustic)",
+    "duration": 30.0,
+    "uploader": "Radiohead",
+    "uploader_url": "https://soundcloud.com/radiohead"
+   }
+  ]
+ },
+ "youtube": {
+  "_type": "playlist",
+  "id": "Radiohead - Creep",
+  "title": "Radiohead - Creep",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "XFkzRNyygfk",
+    "url": "https://www.youtube.com/watch?v=XFkzRNyygfk",
+    "title": "Radiohead - Creep",
+    "description": "'Creep' is taken from 'Pablo Honey' out on XL Recordings. Buy & stream it here: https://radiohead.ffm.to/pablohoney Directed by\u00a0...",
+    "duration": 237,
+    "channel": "Radiohead",
+    "uploader": "Radiohead",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "SLbSsv_2u4A",
+    "url": "https://www.youtube.com/watch?v=SLbSsv_2u4A",
+    "title": "Radiohead - Creep (Lyrics)",
+    "description": "Radiohead - Creep Stream/Download : (Lyrics): [Verse 1] When you were here before Couldn't look you in the eye You're just like\u00a0...",
+    "duration": 241,
+    "channel": "LyricsZone",
+    "uploader": "LyricsZone",
+    "uploader_url": "https://www.youtube.com/@lyricszone6280"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "fAuT8_dboWo",
+    "url": "https://www.youtube.com/watch?v=fAuT8_dboWo",
+    "title": "Radiohead - Creep (Remastered) (Audio)",
+    "description": "Remastered With Artificial Intelligence Hoped you like it, do not forget to subscribe And Like this video :)",
+    "duration": 240,
+    "channel": "Luis Fernando Flores",
+    "uploader": "Luis Fernando Flores",
+    "uploader_url": "https://www.youtube.com/@ferchoflores.888"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "J_sH-GrUeUw",
+    "url": "https://www.youtube.com/watch?v=J_sH-GrUeUw",
+    "title": "Radiohead Perform \"Creep\" Live on September 14, 1993 | Late Night with Conan O\u2019Brien",
+    "description": "Original Air Date: 9/14/93) Radiohead promote \"Creep\" from their album \"Pablo Honey\". FOLLOW CONAN ON SOCIAL Conan\u00a0...",
+    "duration": 265,
+    "channel": "Conan O'Brien",
+    "uploader": "Conan O'Brien",
+    "uploader_url": "https://www.youtube.com/@conanobrien"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "US0CUegPr3g",
+    "url": "https://www.youtube.com/watch?v=US0CUegPr3g",
+    "title": "Radiohead - Creep (Best live performance)",
+    "description": "Tuve que unir el audio de buena calidad con un video de youtube. Ya que el original lo quitaron de youtube.",
+    "duration": 274,
+    "channel": "LuigyAguilar02",
+    "uploader": "LuigyAguilar02",
+    "uploader_url": "https://www.youtube.com/@luigyaguilar0218"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "CZnj4pbYdmw",
+    "url": "https://www.youtube.com/watch?v=CZnj4pbYdmw",
+    "title": "Radiohead - Creep [HD]",
+    "description": "Part of Radiohead's first album \"Pablo Honey\" Released: 1993 Length: 3:59 I own nothing in this video.",
+    "duration": 240,
+    "channel": "ExoArchive",
+    "uploader": "ExoArchive",
+    "uploader_url": "https://www.youtube.com/@ExoArchive1"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "Irtc7pQPozY",
+    "url": "https://www.youtube.com/watch?v=Irtc7pQPozY",
+    "title": "Creep (RadioHead)",
+    "description": "\"Creep\" (Radiohead), Johnny Depp & Charlotte Gainsbourg. Im\u00e1genes/Images: \"Happily Ever After\" (Film/Pel\u00edcula). Hice algunos\u00a0...",
+    "duration": 238,
+    "channel": "Christian B",
+    "uploader": "Christian B",
+    "uploader_url": "https://www.youtube.com/@xhristianbowie"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "4BX5xpB2DBM",
+    "url": "https://www.youtube.com/watch?v=4BX5xpB2DBM",
+    "title": "Creep (Acoustic)",
+    "description": "Provided to YouTube by Beggars Group Digital Ltd. Creep (Acoustic) \u00b7 Radiohead Creep EP \u2117 1993 XL Recordings Ltd Released\u00a0...",
+    "duration": 259,
+    "channel": "Radiohead",
+    "uploader": "Radiohead",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "VzLlwlb1PRI",
+    "url": "https://www.youtube.com/watch?v=VzLlwlb1PRI",
+    "title": "Radiohead - Creep, Live (Rare) '94",
+    "description": "Radiohead - Creep, Live (Rock Am Ring). 1994. Rare, high quality vhs grab.",
+    "duration": 194,
+    "channel": "MrSifta",
+    "uploader": "MrSifta",
+    "uploader_url": "https://www.youtube.com/@MrSifta-90s-alternative"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "rtXOzMVCSw4",
+    "url": "https://www.youtube.com/watch?v=rtXOzMVCSw4",
+    "title": "Radiohead - Creep (Lollapalooza Berlin 11.09.2016)",
+    "description": "Encor\u00e9 de la tremenda presentaci\u00f3n de la super banda Radiohead en el ultimo Festival de Lollapalooza Berlin 2016.",
+    "duration": 363,
+    "channel": "V\u00edctor Hern\u00e1ndez",
+    "uploader": "V\u00edctor Hern\u00e1ndez",
+    "uploader_url": "https://www.youtube.com/@vhernandezo"
+   }
+  ]
+ },
+ "details": {}
+}

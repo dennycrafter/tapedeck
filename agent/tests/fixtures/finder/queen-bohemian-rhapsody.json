@@ -1,0 +1,739 @@
+{
+ "recorded": "2026-10-15 on the owner's PC (ytmusicapi 1.12.3, yt-dlp 2026.08.19); thumbnails and unused fields dropped",
+ "catalog": {
+  "catalog_id": "deezer:4091937401",
+  "title": "Bohemian Rhapsody",
+  "artist": "Queen",
+  "album": "A Night At The Opera",
+  "duration_sec": 354,
+  "isrc": "GBUM71029604"
+ },
+ "ytmusic": [
+  {
+   "resultType": "song",
+   "title": "Bohemian Rhapsody",
+   "album": {
+    "name": "A Night At The Opera"
+   },
+   "videoId": "BSTsnWoslP4",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:55",
+   "duration_seconds": 355,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Queen"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bohemian Rhapsody",
+   "album": {
+    "name": "Brooklyn Sessions VI"
+   },
+   "videoId": "Eyi-1APybjE",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:24",
+   "duration_seconds": 384,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Brooklyn Duo"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bohemian Rhapsody x Walk It Talk It",
+   "album": {
+    "name": "Bohemian Rhapsody x Walk It Talk It"
+   },
+   "videoId": "_Xsu44ppnFQ",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "1:54",
+   "duration_seconds": 114,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "nimphia"
+    },
+    {
+     "name": "klyron"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bohemian Rhapsody (Live)",
+   "album": {
+    "name": "Bohemian Rhapsody (Live)"
+   },
+   "videoId": "001WSZT0NG4",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:36",
+   "duration_seconds": 336,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "God Save the Queen"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bohemian Rhapsody",
+   "album": {
+    "name": "The Queen Album"
+   },
+   "videoId": "Ss9lUcYBatk",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:00",
+   "duration_seconds": 360,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Elaine Paige"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bohemian Rhapsody (Queen)",
+   "album": {
+    "name": "Bohemian Rhapsody (Queen)"
+   },
+   "videoId": "Vmbr7dvosaE",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:55",
+   "duration_seconds": 355,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Josephine Alexandra"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bohemian Rhapsody",
+   "album": {
+    "name": "The Music of Queen"
+   },
+   "videoId": "pmJkNZ7ZRmU",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:19",
+   "duration_seconds": 379,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Royal Philharmonic Orchestra, The Royal Choral Society"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bohemian Rhapsody (feat. Jonathan Young, Annapantsu & CG5)",
+   "album": {
+    "name": "Bohemian Rhapsody"
+   },
+   "videoId": "e6paFKMLwlg",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:36",
+   "duration_seconds": 336,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Caleb Hyles"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bohemian Rhapsody",
+   "album": {
+    "name": "The Royal Philharmonic Orchestra Plays\u2026 Queen"
+   },
+   "videoId": "-G02yb01zsA",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:21",
+   "duration_seconds": 381,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Royal Philharmonic Orchestra"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bohemian Rhapsody by Queen",
+   "album": {
+    "name": "Slow Rock Anthems"
+   },
+   "videoId": "6m6dYQM3Yk8",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:44",
+   "duration_seconds": 344,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Various Artists"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bohemian Rhapsody (Queen)",
+   "album": {
+    "name": "Bohemian Rhapsody (Cover)"
+   },
+   "videoId": "t0eeXXp66VI",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:35",
+   "duration_seconds": 215,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Karolina Protsenko"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bohemian Rhapsody",
+   "album": {
+    "name": "The Best of Queen"
+   },
+   "videoId": "DPAQ7T-LUfI",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:06",
+   "duration_seconds": 366,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "London Symphony Orchestra"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bohemian Rhapsody",
+   "album": {
+    "name": "Bohemian Rhapsody (Hardstyle)"
+   },
+   "videoId": "MG0lA2oRu7Y",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:14",
+   "duration_seconds": 194,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Durky Bass"
+    },
+    {
+     "name": "High Resistance"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bohemian Rhapsody (Queen)",
+   "album": {
+    "name": "Bohemian Rhapsody (Queen)"
+   },
+   "videoId": "JfwqI9_Wgp0",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:09",
+   "duration_seconds": 309,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Karolina Protsenko"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bohemian Rhapsody (Extended Workout Remix)",
+   "album": {
+    "name": "Bohemian Rhapsody"
+   },
+   "videoId": "ox7-Fm7KVHU",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:17",
+   "duration_seconds": 317,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Power Music Workout"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bohemian Rhapsody",
+   "album": {
+    "name": "Akinoboa"
+   },
+   "videoId": "CG2H4vR3NQQ",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:07",
+   "duration_seconds": 367,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Akinoboa"
+    },
+    {
+     "name": "Mady Rootz"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bohemian Rhapsody",
+   "album": {
+    "name": "Karaoke's Greatest Hits"
+   },
+   "videoId": "XQaFBnZS1KY",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:44",
+   "duration_seconds": 344,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "SPKT"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Ay-Oh (Live Aid)",
+   "album": {
+    "name": "Bohemian Rhapsody (The Original Soundtrack)"
+   },
+   "videoId": "jGTkfNLRwTg",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "0:42",
+   "duration_seconds": 42,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Queen"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bohemian Rhapsody (Karaoke Demonstration With Lead Vocal - In The Style Of Queen)",
+   "album": {
+    "name": "The Karaoke Channel - Gone Too Soon"
+   },
+   "videoId": "I1k6FnyKNXY",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:59",
+   "duration_seconds": 359,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "The Karaoke Channel"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Bohemian Rhapsody",
+   "album": {
+    "name": "Greatest Hits - We Will Rock You Edition"
+   },
+   "videoId": "0TF3hFevWE8",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:55",
+   "duration_seconds": 355,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Queen"
+    }
+   ]
+  }
+ ],
+ "soundcloud": {
+  "_type": "playlist",
+  "id": "Queen Bohemian Rhapsody",
+  "title": "Queen Bohemian Rhapsody",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "253166273",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A253166273",
+    "webpage_url": "https://soundcloud.com/queen-69312/bohemian-rhapsody-remastered-1",
+    "title": "Bohemian Rhapsody",
+    "duration": 30.0,
+    "uploader": "Queen",
+    "uploader_url": "https://soundcloud.com/queen-69312"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "115417954",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A115417954",
+    "webpage_url": "https://soundcloud.com/rizky-rilos/queen-bohemian-rhapsody",
+    "title": "Queen - Bohemian Rhapsody",
+    "description": "",
+    "duration": 352.856,
+    "uploader": "rizky.rilos",
+    "uploader_url": "https://soundcloud.com/rizky-rilos"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "2371717559",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A2371717559",
+    "webpage_url": "https://soundcloud.com/queen-69312/bohemian-rhapsody-9",
+    "title": "Bohemian Rhapsody",
+    "duration": 30.0,
+    "uploader": "Queen",
+    "uploader_url": "https://soundcloud.com/queen-69312"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "2371717625",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A2371717625",
+    "webpage_url": "https://soundcloud.com/queen-69312/bohemian-rhapsody-875423663",
+    "title": "Bohemian Rhapsody",
+    "duration": 30.0,
+    "uploader": "Queen",
+    "uploader_url": "https://soundcloud.com/queen-69312"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "160332992",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A160332992",
+    "webpage_url": "https://soundcloud.com/matheus-bazoli/bohemian-rhapsody-remastered-m-bazoli-studio-works",
+    "title": "Queen - Bohemian Rhapsody - ReMastered (M. Bazoli Studio Works)",
+    "description": "",
+    "duration": 366.178,
+    "uploader": "Matheus Bazoli",
+    "uploader_url": "https://soundcloud.com/matheus-bazoli"
+   }
+  ]
+ },
+ "youtube": {
+  "_type": "playlist",
+  "id": "Queen - Bohemian Rhapsody",
+  "title": "Queen - Bohemian Rhapsody",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "fJ9rUzIMcZQ",
+    "url": "https://www.youtube.com/watch?v=fJ9rUzIMcZQ",
+    "title": "Queen \u2013 Bohemian Rhapsody (Official Video Remastered)",
+    "description": "REMASTERED IN HD TO CELEBRATE ONE BILLION VIEWS! Taken from A Night At The Opera, 1975. Click here to buy the DVD\u00a0...",
+    "duration": 360,
+    "channel": "Queen Official",
+    "uploader": "Queen Official",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "5zLnaNY58j8",
+    "url": "https://www.youtube.com/watch?v=5zLnaNY58j8",
+    "title": "Queen - Bohemian Rhapsody (Lyrics)",
+    "description": "Follow the official 7clouds playlist on Spotify : http://spoti.fi/2SJsUcZ \u200b   Queen - Bohemian Rhapsody (Lyrics) \u23ec Download\u00a0...",
+    "duration": 355,
+    "channel": "7clouds Rock",
+    "uploader": "7clouds Rock",
+    "uploader_url": "https://www.youtube.com/@7cloudsRock"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "NyvkmlQVEaA",
+    "url": "https://www.youtube.com/watch?v=NyvkmlQVEaA",
+    "title": "Queen - Bohemian Rhapsody - Greatest Hits I - II - III Platinum Collection",
+    "description": "Check out my NEW channel for Deep Sleep & Ambient Sounds: https://www.youtube.com/@TheSonicRelics.",
+    "duration": 359,
+    "channel": "Tom Bauer",
+    "uploader": "Tom Bauer",
+    "uploader_url": "https://www.youtube.com/@tombauer48"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "vbvyNnw8Qjg",
+    "url": "https://www.youtube.com/watch?v=vbvyNnw8Qjg",
+    "title": "Queen - Bohemian Rhapsody (Live Aid 1985)",
+    "description": "Queen performing at Live Aid in front of 72000 people in Wembley Stadium, London on the 13th July, 1985. The event was\u00a0...",
+    "duration": 165,
+    "channel": "Live Aid and Queen Official",
+    "uploader": "Live Aid and Queen Official",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "5fJnbpt_0e4",
+    "url": "https://www.youtube.com/watch?v=5fJnbpt_0e4",
+    "title": "Queen - Bohemian Rhapsody (Official Video) [4K Remaster]",
+    "description": "REMASTERED IN 4K TO CELEBRATE TWO BILLION VIEWS! Taken from A Night At The Opera, 1975. Click here to buy the DVD\u00a0...",
+    "duration": 360,
+    "channel": "I'so Late",
+    "uploader": "I'so Late",
+    "uploader_url": "https://www.youtube.com/@itsolate"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "PadKCVBIN94",
+    "url": "https://www.youtube.com/watch?v=PadKCVBIN94",
+    "title": "Queen - Bohemian Rhapsody 1981 Live Video Full HD",
+    "description": "Queen - Bohemian Rhapsody (Album A Night at The Opera 1975) \"Queen Rock Montreal\" Live Concert 1981, Canada Freddie\u00a0...",
+    "duration": 316,
+    "channel": "NEA ZIXNH",
+    "uploader": "NEA ZIXNH",
+    "uploader_url": "https://www.youtube.com/@MUSIK-NEAZIXNH"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "irp8CNj9qBI",
+    "url": "https://www.youtube.com/watch?v=irp8CNj9qBI",
+    "title": "Queen - Bohemian Rhapsody",
+    "description": "The greatest song ever written.",
+    "duration": 351,
+    "channel": "frozentoast",
+    "uploader": "frozentoast",
+    "uploader_url": "https://www.youtube.com/@frozentoast"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "9sy81y0Unno",
+    "url": "https://www.youtube.com/watch?v=9sy81y0Unno",
+    "title": "Queen - Bohemian Rhapsody (Lyrics)",
+    "description": "Queen - Bohemian Rhapsody (Lyrics) Follow the official Golden Network playlist on Spotify:\u00a0...",
+    "duration": 355,
+    "channel": "Golden Network",
+    "uploader": "Golden Network",
+    "uploader_url": "https://www.youtube.com/@GoldenNetwork"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "F79Q-_oOjq0",
+    "url": "https://www.youtube.com/watch?v=F79Q-_oOjq0",
+    "title": "Bohemian Rhapsody - Queen Live In Wembley Stadium 12th July 1986 (4K - 60 FPS)",
+    "description": "Thank you so much for watching! If you enjoyed this video, drop a like and subscribe if you're new De-interlaced With QTGMC,\u00a0...",
+    "duration": 359,
+    "channel": "Alex",
+    "uploader": "Alex",
+    "uploader_url": "https://www.youtube.com/@alexvfx3"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "xG16sdjLtc0",
+    "url": "https://www.youtube.com/watch?v=xG16sdjLtc0",
+    "title": "Bohemian Rhapsody (Remastered 2011)",
+    "description": null,
+    "duration": 355,
+    "channel": "This Is Queen",
+    "uploader": "This Is Queen",
+    "uploader_url": "https://www.youtube.com/@thisisqueen3568"
+   }
+  ]
+ },
+ "details": {
+  "https://soundcloud.com/rizky-rilos/queen-bohemian-rhapsody": {
+   "id": "115417954",
+   "title": "Queen - Bohemian Rhapsody",
+   "uploader": "rizky.rilos",
+   "channel": null,
+   "duration": 352.856,
+   "webpage_url": "https://soundcloud.com/rizky-rilos/queen-bohemian-rhapsody",
+   "description": "",
+   "abr": 160,
+   "formats": [
+    {
+     "format_id": "hls_aac_96k",
+     "ext": "m4a",
+     "acodec": "mp4a.40.2",
+     "vcodec": "none",
+     "abr": 96,
+     "tbr": 96
+    },
+    {
+     "format_id": "hls_aac_160k",
+     "ext": "m4a",
+     "acodec": "mp4a.40.2",
+     "vcodec": "none",
+     "abr": 160,
+     "tbr": 160
+    }
+   ]
+  },
+  "https://www.youtube.com/watch?v=0TF3hFevWE8": {
+   "id": "0TF3hFevWE8",
+   "title": "Bohemian Rhapsody",
+   "uploader": "Queen Official",
+   "channel": "Queen Official",
+   "duration": 355,
+   "webpage_url": "https://www.youtube.com/watch?v=0TF3hFevWE8",
+   "description": "Provided to YouTube by Columbia\n\nBohemian Rhapsody \u00b7 Queen\n\nGreatest Hits - We Will Rock You Edition\n\n\u2117 2007 Queen Productions Ltd\n\nReleased on: 2010-06-15\n\nAssociated Performer: Queen\nLyricist, Composer: Freddie Mercury\n\nAuto-generated by YouTube.",
+   "abr": 135.612,
+   "formats": [
+    {
+     "format_id": "139",
+     "ext": "m4a",
+     "acodec": "mp4a.40.5",
+     "vcodec": "none",
+     "abr": 48.832,
+     "tbr": 48.832
+    },
+    {
+     "format_id": "249",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 52.985,
+     "tbr": 52.985
+    },
+    {
+     "format_id": "250",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 69.547,
+     "tbr": 69.547
+    },
+    {
+     "format_id": "140",
+     "ext": "m4a",
+     "acodec": "mp4a.40.2",
+     "vcodec": "none",
+     "abr": 129.531,
+     "tbr": 129.531
+    },
+    {
+     "format_id": "251",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 135.612,
+     "tbr": 135.612
+    }
+   ]
+  },
+  "https://www.youtube.com/watch?v=BSTsnWoslP4": {
+   "id": "BSTsnWoslP4",
+   "title": "Bohemian Rhapsody",
+   "uploader": "Queen Official",
+   "channel": "Queen Official",
+   "duration": 354,
+   "webpage_url": "https://www.youtube.com/watch?v=BSTsnWoslP4",
+   "description": "Provided to YouTube by Columbia\n\nBohemian Rhapsody \u00b7 Queen\n\nA Night At The Opera\n\n\u2117 2011 Queen Productions Ltd\n\nReleased on: 1975-11-21\n\nBass Guitar: John Deacon\nProducer, Associated Performer: Queen\nElectric Guitar, Background Vocal: Brian May\nLyricist, Composer, Piano, Vocal: Freddie Mercury\nDrums, Background Vocal, Percussion: Roger Taylor\nMixing Engineer, Engineer: Kris Fredriksson\nEngineer: Justin Shirley-Smith\nMastering Engineer: Bob Ludwig\nEngineer: Gary Lyons\nEngineer: Mike Stone\nProducer: Roy Thomas Baker\n\nAuto-generated by YouTube.",
+   "abr": 134.424,
+   "formats": [
+    {
+     "format_id": "139",
+     "ext": "m4a",
+     "acodec": "mp4a.40.5",
+     "vcodec": "none",
+     "abr": 48.84,
+     "tbr": 48.84
+    },
+    {
+     "format_id": "249",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 51.988,
+     "tbr": 51.988
+    },
+    {
+     "format_id": "250",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 68.79,
+     "tbr": 68.79
+    },
+    {
+     "format_id": "140",
+     "ext": "m4a",
+     "acodec": "mp4a.40.2",
+     "vcodec": "none",
+     "abr": 129.532,
+     "tbr": 129.532
+    },
+    {
+     "format_id": "251",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 134.424,
+     "tbr": 134.424
+    }
+   ]
+  },
+  "https://www.youtube.com/watch?v=fJ9rUzIMcZQ": {
+   "id": "fJ9rUzIMcZQ",
+   "title": "Queen \u2013 Bohemian Rhapsody (Official Video Remastered)",
+   "uploader": "Queen Official",
+   "channel": "Queen Official",
+   "duration": 359,
+   "webpage_url": "https://www.youtube.com/watch?v=fJ9rUzIMcZQ",
+   "description": "REMASTERED IN HD TO CELEBRATE ONE BILLION VIEWS!\nTaken from A Night At The Opera, 1975.\n\nClick here to buy the DVD with this video at the Official Queen Store:\nhttp://www.queenonlinestore.com\n\nThe official 'Bohemian Rhapsody' music video. Taken from Queen - 'Greatest Video Hits 1'. Lyrics below:\n\nIs this the real life?\nIs this just fantasy?\nCaught in a landslide\nNo escape from reality\nOpen your eyes\nLook up to the skies and see\nI'm just a poor boy, I need no sympathy\nBecause I'm easy come, easy go\nA little high, little low\nAnyway the wind blows, doesn't really matter to me, to me\n\nMama, just killed a man\nPut a gun against his head\nPulled my trigger, now he's dead\nMama, life had just begun\nBut now I've gone and thrown it all away\nMama, ooo\nDidn't mean to make you cry\nIf I'm not back again this time tomorrow\nCarry on, carry on, as if nothing really matters\n\nToo late, my time has come\nSends shivers down my spine\nBody's aching all the time\nGoodbye everybody - I've got to go\nGotta leave you all behind and face the truth\nMama, ooo - (anyway the wind blows)\nI don't want to die\nI sometimes wish I'd never been born at all\n\nI see a little silhouetto of a man\nScaramouch, scaramouch will you do the fandango\nThunderbolt and lightning - very very frightening me\nGallileo, Gallileo,\nGallileo, Gallileo,\nGallileo Figaro - magnifico\n\nBut I'm just a poor boy and nobody loves me\nHe's just a poor boy from a poor family\nSpare him his life from this monstrosity\nEasy come easy go - will you let me go",
+   "abr": 132.569,
+   "formats": [
+    {
+     "format_id": "139",
+     "ext": "m4a",
+     "acodec": "mp4a.40.5",
+     "vcodec": "none",
+     "abr": 48.799,
+     "tbr": 48.799
+    },
+    {
+     "format_id": "249",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 51.329,
+     "tbr": 51.329
+    },
+    {
+     "format_id": "250",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 67.894,
+     "tbr": 67.894
+    },
+    {
+     "format_id": "140",
+     "ext": "m4a",
+     "acodec": "mp4a.40.2",
+     "vcodec": "none",
+     "abr": 129.488,
+     "tbr": 129.488
+    },
+    {
+     "format_id": "251",
+     "ext": "webm",
+     "acodec": "opus",
+     "vcodec": "none",
+     "abr": 132.569,
+     "tbr": 132.569
+    }
+   ]
+  }
+ }
+}

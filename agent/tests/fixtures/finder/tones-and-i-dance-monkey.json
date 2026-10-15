@@ -1,0 +1,559 @@
+{
+ "recorded": "2026-10-15 on the owner's PC (ytmusicapi 1.12.3, yt-dlp 2026.08.19); thumbnails and unused fields dropped",
+ "catalog": {
+  "catalog_id": "deezer:739870792",
+  "title": "Dance Monkey",
+  "artist": "Tones And I",
+  "album": "The Kids Are Coming",
+  "duration_sec": 209,
+  "isrc": "QZES71982312"
+ },
+ "ytmusic": [
+  {
+   "resultType": "song",
+   "title": "Dance Monkey",
+   "album": {
+    "name": "Dance Monkey"
+   },
+   "videoId": "Hx4nWW9z0ig",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:30",
+   "duration_seconds": 210,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Tones And I"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Dance Monkey (Extended Workout Remix)",
+   "album": {
+    "name": "Dance Monkey"
+   },
+   "videoId": "b-PqEom04rE",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:38",
+   "duration_seconds": 398,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Power Music Workout"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Dance Monkey (Techno Version)",
+   "album": {
+    "name": "Dance Monkey"
+   },
+   "videoId": "Bjb8mXfGfV4",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:04",
+   "duration_seconds": 124,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Hypierre"
+    },
+    {
+     "name": "Roberta De Testa"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Dance Monkey Tones And I ask",
+   "album": {
+    "name": "Musica Para Dormir awake"
+   },
+   "videoId": "8pyppv_q3Q0",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:58",
+   "duration_seconds": 178,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "ethereal echoes"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Dance Monkey",
+   "album": {
+    "name": "Pop Hits 2020 - the Best Songs ( Blinding Lights, Stupid Love, Circles, Physical, Dance Monkey, Say So, Adore"
+   },
+   "videoId": "r7S5mOan18k",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:36",
+   "duration_seconds": 216,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Tones Five"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Dance Monkey",
+   "album": {
+    "name": "Dance Monkey"
+   },
+   "videoId": "KcD1_4-vy8I",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:29",
+   "duration_seconds": 209,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Kizzy"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Dance monkey (Tones and I) [Original Karaoke Version]",
+   "album": {
+    "name": "Joyful Karaoke Original Instrumentals Vol.19"
+   },
+   "videoId": "HvRPU-sRZkk",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:27",
+   "duration_seconds": 207,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Joyful Karaoke"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Dance monkey (Tones and I) [Original Karaoke Version] [-1 Key]",
+   "album": {
+    "name": "Joyful Karaoke Original Instrumentals Vol.19"
+   },
+   "videoId": "CdoQQ1hHBP0",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:27",
+   "duration_seconds": 207,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Joyful Karaoke"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Dance monkey (Tones and I) [Original Karaoke Version] [Male Key]",
+   "album": {
+    "name": "Joyful Karaoke Original Instrumentals Vol.19"
+   },
+   "videoId": "r0Nw3J4a16E",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:27",
+   "duration_seconds": 207,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Joyful Karaoke"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Dance Monkey (Instrumental)",
+   "album": {
+    "name": "Dance Monkey (Instrumental)"
+   },
+   "videoId": "H43js0ricsw",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:26",
+   "duration_seconds": 206,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "B Lou"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Dance Monkey (8-Bit Computer Game Cover Version of Tones And I)",
+   "album": {
+    "name": "Bitpop Hits, Vol. 3"
+   },
+   "videoId": "3KK4VdWCOsM",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:27",
+   "duration_seconds": 207,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Chiptune Punks"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Dance Monkey (Piano rendition of Tones And I)",
+   "album": {
+    "name": "2020's Pop Lullabies for Babies"
+   },
+   "videoId": "VWaDEmq4bHo",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:05",
+   "duration_seconds": 125,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "The Lullabeats"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Dance Monkey",
+   "album": {
+    "name": "Dance Monkey"
+   },
+   "videoId": "fbz33Jgmxhg",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:51",
+   "duration_seconds": 171,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Refeci"
+    },
+    {
+     "name": "Michel Fannoun"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Dance Monkey (DANCE COVER REMIX)",
+   "album": {
+    "name": "PARTY COOL Cool Western music that will lift your spirits"
+   },
+   "videoId": "aW7vBEt6J_A",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:14",
+   "duration_seconds": 194,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "TORI"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Dance Monkey (Dance Cover Remix) [Mixed]",
+   "album": {
+    "name": "Full Throttle EDM (DJ MIX)"
+   },
+   "videoId": "GfRsAvOh0P4",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "0:31",
+   "duration_seconds": 31,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "TORI"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Dance Monkey (Techno)",
+   "album": {
+    "name": "Dance Monkey"
+   },
+   "videoId": "yC6tsBXzDbU",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:14",
+   "duration_seconds": 134,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Fran Garro"
+    },
+    {
+     "name": "Techno Bangers"
+    },
+    {
+     "name": "Fran Garro Remix"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Dance Monkey",
+   "album": {
+    "name": "Dance Monkey"
+   },
+   "videoId": "At9EsFJspKw",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:58",
+   "duration_seconds": 178,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Hendry Dravero"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Dance Monkey (Cover)",
+   "album": {
+    "name": "Dance Monkey (Cover)"
+   },
+   "videoId": "gGWnp4acQQE",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:59",
+   "duration_seconds": 239,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Project M Acoustic"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Dance Monkey (Techno)",
+   "album": {
+    "name": "Dance Monkey"
+   },
+   "videoId": "SUspwrjjkas",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:21",
+   "duration_seconds": 201,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "TEKNODYN"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Dance Monkey (Cover)",
+   "album": {
+    "name": "Dance Monkey (Cover)"
+   },
+   "videoId": "siOjINjKxt0",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:40",
+   "duration_seconds": 160,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Ukula-hula"
+    }
+   ]
+  }
+ ],
+ "soundcloud": {
+  "_type": "playlist",
+  "id": "Tones And I Dance Monkey",
+  "title": "Tones And I Dance Monkey",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "632659404",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A632659404",
+    "webpage_url": "https://soundcloud.com/tonesandi-music/dance-monkey",
+    "title": "Dance Monkey",
+    "duration": 209.8,
+    "uploader": "Tones and I",
+    "uploader_url": "https://soundcloud.com/tonesandi-music"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "762525091",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A762525091",
+    "webpage_url": "https://soundcloud.com/ekobanjar/dance-monkey-tones-and-i-cover",
+    "title": "DANCE MONKEY - TONES AND I | COVER",
+    "description": "Lirik :\n\nThey say oh my god I see the way you shine\nTake your hand, my dear, and place them both in mine\nYou know you stopped me dead when I was passing by\nAnd now I beg to see you dance just one more time\nOoh I see you, see you, see you every time\nAnd oh my I, I like your style\nYou, you make me, make me, make me wanna cry\nAnd now I beg to see you dance just one more time\nSo I say\nDance for me, dance for me, dance for me, oh, oh, oh\nI've never seen anybody do the things you do before\nThey say mo",
+    "duration": 228.693,
+    "uploader": "E P X",
+    "uploader_url": "https://soundcloud.com/ekobanjar"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "662895761",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A662895761",
+    "webpage_url": "https://soundcloud.com/hardphol/tones-and-i-dance-monkey-vadim-adamov-hardphol-remix-radio-edit",
+    "title": "Tones And I - Dance Monkey (Vadim Adamov & Hardphol Remix) (Radio Edit)",
+    "description": "TonesAndI DanceMonkey VadimAdamov Hardphol Future Pop Club EDM House Top",
+    "duration": 214.926,
+    "uploader": "Hardphol",
+    "uploader_url": "https://soundcloud.com/hardphol"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "647628186",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A647628186",
+    "webpage_url": "https://soundcloud.com/jjsavagejj/tones-and-i-dance-monkey-jj-savage-fr3d-2nd-edit",
+    "title": "Tones and I - Dance Monkey [JJ Savage & Fr3d 2'nd Edit]",
+    "description": "Check out my new REMIX:\n\nhttps://soundcloud.com/jjsavagejj/timbaland-give-it-to-me-ft-nelly-furtado-justin-timberlake-jjsb-remix\n\n\ud83d\udd25\ud83d\udd25\ud83d\udd25 ---> https://open.spotify.com/artist/2vAbQxOCs9O1uyLdxsFyQ3?si=I0b7xHWvTF2_aHYF9oABpQ\n\nBeats - https://soundcloud.com/giantnuts/sets/my-beats\nEDM - https://soundcloud.com/giantnuts/sets/my-edm",
+    "duration": 257.189,
+    "uploader": "JJSB",
+    "uploader_url": "https://soundcloud.com/jjsavagejj"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "702218053",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A702218053",
+    "webpage_url": "https://soundcloud.com/gangstercitylabel/tones-and-i-dance-monkey-r-chy-remix",
+    "title": "Tones And I - Dance Monkey (R-CHY Remix)",
+    "description": "Spotify Playlist \u27a4 https://sptfy.com/96lH\n\n\u2655 GANGSTER CITY \u2655\nYoutube: https://www.youtube.com/gangstercity\nInstagram: https://www.instagram.com/gangstercitylabel/\nTelegram: https://t.me/gangstercitylabel\nVk: https://vk.com/gangstercitylabel\nTikTok: https://www.tiktok.com/@gangstercitylabel\nFacebook: https://www.facebook.com/gangstercitylabel/",
+    "duration": 237.719,
+    "uploader": "GANGSTER CITY",
+    "uploader_url": "https://soundcloud.com/gangstercitylabel"
+   }
+  ]
+ },
+ "youtube": {
+  "_type": "playlist",
+  "id": "Tones And I - Dance Monkey",
+  "title": "Tones And I - Dance Monkey",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "q0hyYWKXF0Q",
+    "url": "https://www.youtube.com/watch?v=q0hyYWKXF0Q",
+    "title": "TONES AND I - DANCE MONKEY (OFFICIAL VIDEO)",
+    "description": "New album 'Beautifully Ordinary' out August 2: http://tonesandi.lnk.to/beautifullyordinary Tones And I - Dance Monkey\u00a0...",
+    "duration": 237,
+    "channel": "Tones And I",
+    "uploader": "Tones And I",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "1__CAdTJ5JU",
+    "url": "https://www.youtube.com/watch?v=1__CAdTJ5JU",
+    "title": "Tones and I - Dance Monkey (Lyrics)",
+    "description": "Tones and I - Dance Monkey (Lyrics) Tones and I - Dance Monkey dance monkey lyrics Tones and I - Dance Monkey (Lyrics)\u00a0...",
+    "duration": 209,
+    "channel": "Royal Music",
+    "uploader": "Royal Music",
+    "uploader_url": "https://www.youtube.com/@royalmusicyt"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "4iQxG8ZjYO8",
+    "url": "https://www.youtube.com/watch?v=4iQxG8ZjYO8",
+    "title": "Tones and I: Dance Monkey (US TV Debut)",
+    "description": "Music guest Tones and I makes her US TV debut performing her global smash hit \"Dance Monkey\" for the Tonight Show audience\u00a0...",
+    "duration": 248,
+    "channel": "The Tonight Show Starring Jimmy Fallon",
+    "uploader": "The Tonight Show Starring Jimmy Fallon",
+    "uploader_url": "https://www.youtube.com/@fallontonight"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "crgFPl2eaPE",
+    "url": "https://www.youtube.com/watch?v=crgFPl2eaPE",
+    "title": "TONES AND I - 'Dance Monkey' LIVE (Splendour In The Grass 2019)",
+    "description": "Subscribe http://bit.ly/triplejsubscribe Tones and I busts out 'Dance Monkey' with the biggest crowd singalong we've ever seen for\u00a0...",
+    "duration": 278,
+    "channel": "triple j",
+    "uploader": "triple j",
+    "uploader_url": "https://www.youtube.com/@triplej"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "S0OGSaGfCmE",
+    "url": "https://www.youtube.com/watch?v=S0OGSaGfCmE",
+    "title": "Tones and I - Dance Monkey | Sydney New Year's Eve 2022 | ABC iview",
+    "description": "Tones and I performs Dance Monkey live at the Sydney Opera House for the ABC New Year's Eve Concert. #NYEABC Stream\u00a0...",
+    "duration": 223,
+    "channel": "ABC Entertainment",
+    "uploader": "ABC Entertainment",
+    "uploader_url": "https://www.youtube.com/@abcentertainment"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "cwub1m1pg0c",
+    "url": "https://www.youtube.com/watch?v=cwub1m1pg0c",
+    "title": "Tones and I - Dance Monkey - Choreography by Liana Blackburn",
+    "description": "Tones and I - Dance Monkey - Choreography by Liana Blackburn Filmed by Jaimar Viray at #TMillyTV Take class at our studio in\u00a0...",
+    "duration": 197,
+    "channel": "T.Milly TV",
+    "uploader": "T.Milly TV",
+    "uploader_url": "https://www.youtube.com/@TMillyTV"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "bRTgTsHb4l0",
+    "url": "https://www.youtube.com/watch?v=bRTgTsHb4l0",
+    "title": "Tones and I - DANCE MONKEY before fame",
+    "description": "Video from January 19/ 2019 - 4 month before she release the song. FOLLOW ME ON TIKTOK: https://vm.tiktok.com/n7SQmj/\u00a0...",
+    "duration": 96,
+    "channel": "Vem Con\u00f3is",
+    "uploader": "Vem Con\u00f3is",
+    "uploader_url": "https://www.youtube.com/@Ianzogby"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "hhg80GcBs7o",
+    "url": "https://www.youtube.com/watch?v=hhg80GcBs7o",
+    "title": "TONES AND I - DANCE MONKEY (STRIPPED BACK)",
+    "description": "Official video for 'Dance Monkey (Stripped Back)' Listen here: https://TonesAndI.lnk.to/DMStrippedBack Follow:\u00a0...",
+    "duration": 192,
+    "channel": "Tones And I",
+    "uploader": "Tones And I",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "d3_RzcZiuEo",
+    "url": "https://www.youtube.com/watch?v=d3_RzcZiuEo",
+    "title": "Tones and I - Dance Monkey (Lyrics)",
+    "description": "Tones and I - Dance Monkey \u00bb Descargar: https://tonesandi.lnk.to/DanceMonkeyYT \u00bb Apoyo Tones and I: https://tonesandi.com\u00a0...",
+    "duration": 210,
+    "channel": "LatinHype",
+    "uploader": "LatinHype",
+    "uploader_url": "https://www.youtube.com/@LatinHype."
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "0Yy9YzdmTJA",
+    "url": "https://www.youtube.com/watch?v=0Yy9YzdmTJA",
+    "title": "TONES AND I - DANCE MONKEY (LYRIC VIDEO)",
+    "description": "'Dance Monkey' - off the debut EP 'The Kids Are Coming' https://tonesandi.lnk.to/TheKidsAreComing Lyric video production by\u00a0...",
+    "duration": 210,
+    "channel": "Tones And I",
+    "uploader": "Tones And I",
+    "uploader_url": null
+   }
+  ]
+ },
+ "details": {}
+}
