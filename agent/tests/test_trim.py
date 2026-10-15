@@ -23,7 +23,8 @@ from .conftest import TEST_AUDIO, make_track
 
 FIXTURES = Path(__file__).resolve().parent / "fixtures" / "trim"
 
-# Recorded 15 Oct 2026: Lady Gaga "Bad Romance" (qrO4YZeyl0I, 308.381 s),
+# Recorded 15 Oct 2026 (segment UUIDs replaced: the repo check bans long hex
+# strings, and nothing reads them): Lady Gaga "Bad Romance" (qrO4YZeyl0I, 308.381 s),
 # an intro at the start and credits at the end.
 SB_START_AND_END = json.loads((FIXTURES / "sponsorblock-start-and-end.json").read_text())
 # Michael Jackson "Thriller" (sOnqjkJTMaA, 821.901 s): a long intro plus
