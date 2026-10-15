@@ -208,6 +208,70 @@ def build_yt_dlp_command(source_url: str, output_template: str) -> list[str]:
     ]
 
 
+# --- SoundCloud DRM fallback (label uploads SoundCloud encrypts) ---
+
+DRM_ERROR_MESSAGE = (
+    "This SoundCloud track is protected (DRM), so it can't be downloaded, and "
+    "no matching YouTube version was found. Paste a YouTube link for the same song instead."
+)
+# A YouTube match must be within this share (or this many seconds, whichever
+# is larger) of the SoundCloud length, so a live cut or a 1 hour loop is skipped.
+FALLBACK_DURATION_TOLERANCE = 0.2
+FALLBACK_DURATION_MIN_SLACK_SEC = 20
+FALLBACK_SEARCH_RESULTS = 5
+# yt-dlp exits with 101 when --max-downloads stops it; that is a success here.
+YT_DLP_MAX_DOWNLOADS_EXIT = 101
+
+
+def is_drm_error(output: str) -> bool:
+    """True when yt-dlp refused the URL because the media is DRM protected."""
+    return "drm protected" in (output or "").lower()
+
+
+def youtube_search_query(track: ClaimedTrack) -> str | None:
+    """'<artist> <title>' for the YouTube search; None when both are empty."""
+    query = " ".join(part.strip() for part in (track["artist"], track["title"]) if part.strip())
+    return query or None
+
+
+def duration_match_filter(duration_sec: int | None) -> str | None:
+    """yt-dlp --match-filter that keeps videos near the expected length."""
+    if not duration_sec or duration_sec <= 0:
+        return None
+    slack = max(duration_sec * FALLBACK_DURATION_TOLERANCE, FALLBACK_DURATION_MIN_SLACK_SEC)
+    low = max(int(duration_sec - slack), 1)
+    high = int(duration_sec + slack)
+    return f"duration >= {low} & duration <= {high}"
+
+
+def build_youtube_fallback_command(track: ClaimedTrack, output_template: str) -> list[str] | None:
+    """Search YouTube for the same song and download the first good match.
+
+    Looks at the top results, skips any whose length is far from the
+    SoundCloud length, and stops after one download. None when the track
+    has no artist or title to search for.
+    """
+    query = youtube_search_query(track)
+    if query is None:
+        return None
+    command = [
+        sys.executable,
+        "-m",
+        "yt_dlp",
+        "-f",
+        "bestaudio[ext=m4a]/bestaudio",
+        "--js-runtimes",
+        "deno",
+        "--max-downloads",
+        "1",
+    ]
+    match_filter = duration_match_filter(track["duration_sec"])
+    if match_filter:
+        command += ["--match-filter", match_filter]
+    command += ["-o", output_template, f"ytsearch{FALLBACK_SEARCH_RESULTS}:{query}"]
+    return command
+
+
 def build_probe_command(url: str) -> list[str]:
     """The SPEC 9.0 --probe command: metadata only, Deno JS runtime."""
     return [
@@ -502,18 +566,10 @@ def poll_for_claims(logger: logging.Logger, cfg: DownloaderConfig) -> list[Claim
     return tracks
 
 
-def download_track(logger: logging.Logger, cfg: DownloaderConfig, track: ClaimedTrack) -> Path:
-    """Download one track with yt-dlp to the temp folder (SPEC 8.3 step 2, 7.7).
-
-    Target: %TEMP%\\tapedeck\\<id>. Never run yt-dlp in the cloud (SPEC 3).
-    """
-    work_dir = track_tmp_dir(track["id"])
-    work_dir.mkdir(parents=True, exist_ok=True)
-    output_template = str(work_dir / f"{track['id']}.%(ext)s")
-    command = build_yt_dlp_command(track["source_url"], output_template)
-    logger.info("download: running yt-dlp for %s", track["source_url"])
+def run_yt_dlp(command: list[str]) -> subprocess.CompletedProcess:
+    """Run one yt-dlp command with the download timeout and plain errors."""
     try:
-        result = subprocess.run(
+        return subprocess.run(
             command,
             capture_output=True,
             text=True,
@@ -531,9 +587,46 @@ def download_track(logger: logging.Logger, cfg: DownloaderConfig, track: Claimed
         raise PipelineError(
             f"yt-dlp timed out after {DOWNLOAD_TIMEOUT_SEC // 60} minutes."
         ) from exc
+
+
+def _output_tail(result: subprocess.CompletedProcess) -> str:
+    return " | ".join(((result.stderr or "") + (result.stdout or "")).strip().splitlines()[-5:])
+
+
+def download_youtube_fallback(
+    logger: logging.Logger, track: ClaimedTrack, work_dir: Path, output_template: str
+) -> Path:
+    """The SoundCloud link is DRM protected: get the same song from YouTube."""
+    command = build_youtube_fallback_command(track, output_template)
+    if command is None:
+        raise PipelineError(DRM_ERROR_MESSAGE)
+    logger.info("download: SoundCloud track is DRM protected, searching YouTube for %r.", command[-1])
+    result = run_yt_dlp(command)
+    downloaded = find_downloaded_file(work_dir, track["id"])
+    if downloaded is None or result.returncode not in (0, YT_DLP_MAX_DOWNLOADS_EXIT):
+        logger.warning("download: YouTube fallback found nothing usable: %s", _output_tail(result))
+        raise PipelineError(DRM_ERROR_MESSAGE)
+    logger.info("download: saved %s from YouTube instead.", downloaded.name)
+    return downloaded
+
+
+def download_track(logger: logging.Logger, cfg: DownloaderConfig, track: ClaimedTrack) -> Path:
+    """Download one track with yt-dlp to the temp folder (SPEC 8.3 step 2, 7.7).
+
+    Target: %TEMP%\\tapedeck\\<id>. Never run yt-dlp in the cloud (SPEC 3).
+    A SoundCloud link that is DRM protected falls back to the same song
+    on YouTube (searched by artist and title, matched by length).
+    """
+    work_dir = track_tmp_dir(track["id"])
+    work_dir.mkdir(parents=True, exist_ok=True)
+    output_template = str(work_dir / f"{track['id']}.%(ext)s")
+    command = build_yt_dlp_command(track["source_url"], output_template)
+    logger.info("download: running yt-dlp for %s", track["source_url"])
+    result = run_yt_dlp(command)
     if result.returncode != 0:
-        tail = ((result.stderr or "") + (result.stdout or "")).strip().splitlines()[-5:]
-        raise PipelineError("yt-dlp failed: " + " | ".join(tail))
+        if is_drm_error((result.stderr or "") + (result.stdout or "")):
+            return download_youtube_fallback(logger, track, work_dir, output_template)
+        raise PipelineError("yt-dlp failed: " + _output_tail(result))
     downloaded = find_downloaded_file(work_dir, track["id"])
     if downloaded is None:
         raise PipelineError("yt-dlp reported success but no audio file was found.")
