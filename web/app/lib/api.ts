@@ -295,3 +295,19 @@ export function setAppleMusicExport(on: boolean): Promise<{ appleMusicExport: bo
 export function addToAppleMusic(trackId: string): Promise<TrackDto> {
   return fetchJson<TrackDto>(`/api/tracks/${enc(trackId)}/apple-music`, { method: "POST" });
 }
+
+/** POST /api/tracks/:id/pick: download this copy of a catalog song (T12). */
+export async function pickVersion(trackId: string, url: string): Promise<void> {
+  await fetchJson<{ ok: true }>(`/api/tracks/${enc(trackId)}/pick`, {
+    method: "POST",
+    body: JSON.stringify({ url }),
+  });
+}
+
+/** POST /api/tracks/:id/pick: clear the pick so the PC searches again (T12). */
+export async function searchAgain(trackId: string): Promise<void> {
+  await fetchJson<{ ok: true }>(`/api/tracks/${enc(trackId)}/pick`, {
+    method: "POST",
+    body: JSON.stringify({ searchAgain: true }),
+  });
+}

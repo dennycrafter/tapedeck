@@ -1,0 +1,540 @@
+{
+ "recorded": "2026-10-15 on the owner's PC (ytmusicapi 1.12.3, yt-dlp 2026.08.19); thumbnails and unused fields dropped",
+ "catalog": {
+  "catalog_id": "import:soundcloud:part-time-killer-not-like-us-ptk-extended-edit",
+  "title": "Not Like Us (PTK Extended Edit)",
+  "artist": "Part Time Killer",
+  "album": null,
+  "duration_sec": 162,
+  "isrc": null,
+  "note": "A SoundCloud-only fan edit, as a playlist import would bring it in (no Deezer entry)."
+ },
+ "ytmusic": [
+  {
+   "resultType": "song",
+   "title": "Not Like Us",
+   "album": {
+    "name": "Not Like Us"
+   },
+   "videoId": "phLb_SoPBlA",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:35",
+   "duration_seconds": 275,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Kendrick Lamar"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Not Like You (Sextile Remix)",
+   "album": {
+    "name": "Not Like You (Sextile Remix)"
+   },
+   "videoId": "B5RXt5mXQnk",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:08",
+   "duration_seconds": 188,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "N8NOFACE"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Not Like Them",
+   "album": {
+    "name": "Frequencies, Vol.6"
+   },
+   "videoId": "F-T3Wotc5u0",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "7:00",
+   "duration_seconds": 420,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "KSF (Killer Sounding Frequencies)"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Not Like Them",
+   "album": {
+    "name": "MELTDOWN \u2014 Trap X Glitched"
+   },
+   "videoId": "rCh8MJnov0o",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:36",
+   "duration_seconds": 276,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Kryptic"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Not Like Them",
+   "album": {
+    "name": "Backwater"
+   },
+   "videoId": "MoJYSpDNuak",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:02",
+   "duration_seconds": 302,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Kllo"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Ain\u2019t Like Us (feat. 3 Times, Truestory Swain & Hitsquad Tan)",
+   "album": {
+    "name": "Street Tape Step Two"
+   },
+   "videoId": "Gp5_VmASfSE",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:21",
+   "duration_seconds": 261,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Bam"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Party Like Us",
+   "album": {
+    "name": "One of These Days"
+   },
+   "videoId": "Eqviy4-uANw",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:42",
+   "duration_seconds": 342,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Neophyte"
+    },
+    {
+     "name": "Evil Activities"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Not Like You",
+   "album": {
+    "name": "Not Like You"
+   },
+   "videoId": "6Tn7NwwHSDQ",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:18",
+   "duration_seconds": 138,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Yaman Khadzi"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Like Us",
+   "album": {
+    "name": "Like Us"
+   },
+   "videoId": "yto52GilStQ",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:48",
+   "duration_seconds": 228,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "4TUM"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "NOT LIKE THEM!",
+   "album": {
+    "name": "NOT LIKE THEM!"
+   },
+   "videoId": "fVvjAR9CDu8",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "1:45",
+   "duration_seconds": 105,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "P3tr"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Like Us or Not (The Barefoot Ninja Remix)",
+   "album": {
+    "name": "Like Us or Not"
+   },
+   "videoId": "mEQlXi7hoYs",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:39",
+   "duration_seconds": 339,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "BIG C"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Not Like Us",
+   "album": {
+    "name": "Not Like Us"
+   },
+   "videoId": "Xx1SrbxH1JU",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:35",
+   "duration_seconds": 275,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Kendrick Lamar"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Not Like This",
+   "album": {
+    "name": "Dr. Death (Original Series Soundtrack)"
+   },
+   "videoId": "fkyLYqR91Ys",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:07",
+   "duration_seconds": 187,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Atticus Ross"
+    },
+    {
+     "name": "Leopold Ross"
+    },
+    {
+     "name": "Nick Chuba"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "birthdays don't swim for dolphins like us when it's an empty light for a crowded stage",
+   "album": {
+    "name": "we can't see you, we won't see you"
+   },
+   "videoId": "wByJmaM90Z4",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "1:27",
+   "duration_seconds": 87,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "stopseascandals!"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Not Like Them",
+   "album": {
+    "name": "Not Like Them"
+   },
+   "videoId": "1L4t18F90Ys",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:42",
+   "duration_seconds": 222,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "DJ Mayson"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Not Like Them",
+   "album": {
+    "name": "Not Like Them"
+   },
+   "videoId": "Ag2_5U5wF3k",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:19",
+   "duration_seconds": 199,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "K-Experiment"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Not Like Before",
+   "album": {
+    "name": "IN GOD WE TRUST"
+   },
+   "videoId": "EPB2tkDJTWc",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "1:51",
+   "duration_seconds": 111,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "emune"
+    },
+    {
+     "name": "vasilik"
+    },
+    {
+     "name": "DJ Mile$"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Many Like Us",
+   "album": {
+    "name": "Star Wars: The Bad Batch \u2013 Season 2: Vol. 2 (Episodes 9-16) (Original Soundtrack)"
+   },
+   "videoId": "6U5rWcUYoMs",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:24",
+   "duration_seconds": 144,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Kevin Kiner"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "They Are Not Like You",
+   "album": {
+    "name": "They Are Not Like You"
+   },
+   "videoId": "ERhQNX_ukdg",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:33",
+   "duration_seconds": 333,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Icarus"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Like Us",
+   "album": {
+    "name": "Doperunr Radio"
+   },
+   "videoId": "Ms8LqvU9RNQ",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "1:31",
+   "duration_seconds": 91,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "pirelli"
+    }
+   ]
+  }
+ ],
+ "soundcloud": {
+  "_type": "playlist",
+  "id": "Part Time Killer Not Like Us (PTK Extended Edit)",
+  "title": "Part Time Killer Not Like Us (PTK Extended Edit)",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "2114819991",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A2114819991",
+    "webpage_url": "https://soundcloud.com/part-time-killer/kendrick-lamar-not-like-us-part-time-killer-extended-remix-free-dl",
+    "title": "Kendrick Lamar - Not Like Us (PTK Extended Edit) (Free DL)",
+    "description": "Feeling spontaneous today and will probably spontaneously delete in a couple weeks before I get cancelled, enjoy :>",
+    "duration": 162.046,
+    "uploader": "Part Time Killer",
+    "uploader_url": "https://soundcloud.com/part-time-killer"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "2331795572",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A2331795572",
+    "webpage_url": "https://soundcloud.com/luke-mmdj/part-time-killer-spikes-not",
+    "title": "Part Time Killer - Spikes Not Like Us (Luke Edit)  (Free Download)",
+    "description": "",
+    "duration": 106.913,
+    "uploader": "Luke",
+    "uploader_url": "https://soundcloud.com/luke-mmdj"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "2413339695",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A2413339695",
+    "webpage_url": "https://soundcloud.com/warschau-594503155/warschau-150-bpm-hard-trance",
+    "title": "Warschau - 150 BPM - Hard Trance - Training Set #3",
+    "description": "Tracklist:\n\n1. snoritz \u2013 Open The Gates [SLVA002]\n\n2. testpress & DR. GRECO \u2013 DERB\n\n3.snoritz \u2013 Open The Gates [SLVA002]\n\n4. Henk, August Kin \u2013 Laser Beams (Extended Mix)\n\n5. Bassjackers, Han \u2013 New Bass New Kick\n\n6. Jacidorex \u2013 Freed From Desire (FREE DL)\n\n7. Mischluft \u2013 Lights Out (Extended Mix)\n\n8. Kendrick Lamar (Part Time Killer) \u2013 Not Like Us (PTK Extended Edit) (Free DL)\n\n9. L.zwo \u2013 Cava Sella [RAWSH7]\n\n10. EsDeeKid (testpress) \u2013 4 Raws (testpress Remix)\n\n11. Zombie Nation (HIGH SENSE)\u2013 Ke",
+    "duration": 2416.51,
+    "uploader": "Warschau",
+    "uploader_url": "https://soundcloud.com/warschau-594503155"
+   }
+  ]
+ },
+ "youtube": {
+  "_type": "playlist",
+  "id": "Part Time Killer - Not Like Us (PTK Extended Edit)",
+  "title": "Part Time Killer - Not Like Us (PTK Extended Edit)",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "5hyOLrn7JlA",
+    "url": "https://www.youtube.com/watch?v=5hyOLrn7JlA",
+    "title": "10 Years Selected - Part Time Killer B2B Cara Elizabeth | H\u00d6R - September 24 / 2025",
+    "description": "Part Time Killer B2B Cara Elizabeth live from Berlin! Subscribe for more DJ sets! \u30c4 \ud83e\uddea\ufe0f H\u00d6R members' exclusive perks: Track\u00a0...",
+    "duration": 3358,
+    "channel": "H\u00d6R BERLIN",
+    "uploader": "H\u00d6R BERLIN",
+    "uploader_url": "https://www.youtube.com/@hoer.berlin"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "1KX1DYA02dc",
+    "url": "https://www.youtube.com/watch?v=1KX1DYA02dc",
+    "title": "Warschau - 150 BPM - Hard Trance - Training Set #3",
+    "description": "Mischluft \u2013 Lights Out (Extended Mix) 8. Kendrick Lamar (Part Time Killer) \u2013 Not Like Us (PTK Extended Edit) (Free DL) 9. L.zwo\u00a0...",
+    "duration": 2396,
+    "channel": "Warschau",
+    "uploader": "Warschau",
+    "uploader_url": "https://www.youtube.com/@warschau022"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "BfkV_FUWC74",
+    "url": "https://www.youtube.com/watch?v=BfkV_FUWC74",
+    "title": "Novatic - The State Of Mind [080] // (Borderline Donk/Techno Mix)",
+    "description": "Part Time Killer - Myself 19. Kendrick Lamar - Not Like Us (PTK\u00a0...",
+    "duration": 3605,
+    "channel": "Novatic Chaos",
+    "uploader": "Novatic Chaos",
+    "uploader_url": "https://www.youtube.com/@NovaticChaos"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "WrsFXgQk5UI",
+    "url": "https://www.youtube.com/watch?v=WrsFXgQk5UI",
+    "title": "Lil Uzi Vert - XO Tour Llif3 (Official Music Video)",
+    "description": "Win a chance to celebrate the holidays with Uzi - http://www.liluziofficial.com/win Lil Uzi Vert - XO Tour Llif3 (Official Music Video)\u00a0...",
+    "duration": 257,
+    "channel": "LIL UZI VERT",
+    "uploader": "LIL UZI VERT",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "8d70N1jc6k4",
+    "url": "https://www.youtube.com/watch?v=8d70N1jc6k4",
+    "title": "JUST DRIVE - Episode 1: DJ AK - Tehran Underground Mix (Techno/Hard Dance)",
+    "description": "Track Identifiers & Timings: 00:00:00 - Part Time Killer - Not Like Us (PTK Extended Edit) (Free DL) 00:02:07 - Funk Tribu,\u00a0...",
+    "duration": 3556,
+    "channel": "9th Plaza",
+    "uploader": "9th Plaza",
+    "uploader_url": "https://www.youtube.com/@9thPlaza"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "QufTQDgSOTE",
+    "url": "https://www.youtube.com/watch?v=QufTQDgSOTE",
+    "title": "Ric Flair Drip",
+    "description": "Provided to YouTube by Slaughter Gang, LLC/Epic/Quality Control Music/Motown/Capitol/Boominati Worldwide/Republic Ric Flair\u00a0...",
+    "duration": 173,
+    "channel": "OFFSETYRN",
+    "uploader": "OFFSETYRN",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "GC7TJ80CWC4",
+    "url": "https://www.youtube.com/watch?v=GC7TJ80CWC4",
+    "title": "10 Disturbing Interviews With Killers",
+    "description": "These shocking interviews will leave you shaken and disturbed. For this list, we'll be ranking the instances where accused\u00a0...",
+    "duration": 770,
+    "channel": "WatchMojo.com",
+    "uploader": "WatchMojo.com",
+    "uploader_url": "https://www.youtube.com/@WatchMojo"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "YRA7DNy3kzk",
+    "url": "https://www.youtube.com/watch?v=YRA7DNy3kzk",
+    "title": "NEMZZZ - 8PM [OFFICIAL VIDEO]",
+    "description": "NEMZZZ - 8PM [OFFICIAL VIDEO] '8PM' OUT NOW: https://nemzzz.lnk.to/8PM_AY DIRECTED BY DONPROD FOLLOW NEMZZZ\u00a0...",
+    "duration": 197,
+    "channel": "Nemzzz",
+    "uploader": "Nemzzz",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "z9mpuqp-wso",
+    "url": "https://www.youtube.com/watch?v=z9mpuqp-wso",
+    "title": "Jimmy and Timmy Take Out 13 Bloods - SOUTH PARK",
+    "description": "Jimmy and Timmy are made Crips after inadvertently causing a gas truck to kill thirteen Bloods at a convenience store.",
+    "duration": 134,
+    "channel": "South Park Studios",
+    "uploader": "South Park Studios",
+    "uploader_url": "https://www.youtube.com/@southpark"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "L397TWLwrUU",
+    "url": "https://www.youtube.com/watch?v=L397TWLwrUU",
+    "title": "Judas Priest - Breaking The Law (Official Music Video)",
+    "description": "Judas Priest's official music video for 'Breaking The Law'. Listen to Judas Priest: https://JudasPriest.lnk.to/listenYD Subscribe to\u00a0...",
+    "duration": 158,
+    "channel": "Judas Priest",
+    "uploader": "Judas Priest",
+    "uploader_url": null
+   }
+  ]
+ },
+ "details": {}
+}

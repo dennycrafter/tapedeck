@@ -44,7 +44,7 @@ Status (each ticket replaces only its own line):
 - T9 Foundation: done (branch `t9-foundation`). Migration runner (`web/lib/migrations.ts`, files in `supabase/migrations`, `npm run gen:migrations` after adding one), v2 columns, v2 fields in the library payload and the agent contract, `E2E_PORT` / `E2E_PROD_PORT`, `e2e:t9` to `e2e:t14`.
 - T10 Trim: done (branch `t10-trim`). PC suggests a trim (`agent/trim.py`: SponsorBlock plus silence), the player plays only the trimmed part (`web/lib/player/trim.ts`), Edit details has a trim editor (`TrimEditor.tsx`), `PATCH /api/tracks/:id` takes `trimStartSec` / `trimEndSec`, e2e `@T10`.
 - T11 Catalog search: not started
-- T12 Best-copy finder: not started
+- T12 Best-copy finder: done (branch `t12-finder`). `agent/finder.py` finds the best free copy of catalog songs (YouTube Music, then SoundCloud, then YouTube) on the PC; the downloader claims catalog rows, sends `resolvedUrl` and `matchInfo`; "Pick another version" in the song menu (`POST /api/tracks/:id/pick`). Fixtures: 14 real songs in `agent/tests/fixtures/finder`.
 - T13 Playlist import: not started
 - T14 Speed and pitch: not started
 

@@ -1,0 +1,555 @@
+{
+ "recorded": "2026-10-15 on the owner's PC (ytmusicapi 1.12.3, yt-dlp 2026.08.19); thumbnails and unused fields dropped",
+ "catalog": {
+  "catalog_id": "deezer:2783963122",
+  "title": "Not Like Us",
+  "artist": "Kendrick Lamar",
+  "album": "Not Like Us",
+  "duration_sec": 274,
+  "isrc": "USUG12400910"
+ },
+ "ytmusic": [
+  {
+   "resultType": "song",
+   "title": "Not Like Us",
+   "album": {
+    "name": "Not Like Us"
+   },
+   "videoId": "phLb_SoPBlA",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:35",
+   "duration_seconds": 275,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Kendrick Lamar"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Swagga Like Us",
+   "album": {
+    "name": "Paper Trail"
+   },
+   "videoId": "UR2zRsrHLMc",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:28",
+   "duration_seconds": 328,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "T.I."
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "We Cry Together",
+   "album": {
+    "name": "Mr. Morale & The Big Steppers"
+   },
+   "videoId": "uK0y77IXm1M",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:42",
+   "duration_seconds": 342,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Kendrick Lamar"
+    },
+    {
+     "name": "Taylour Paige"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Ain't Like Us (feat. A-Mafia)",
+   "album": {
+    "name": "Public Enemy #1"
+   },
+   "videoId": "oiN8-hZXiQo",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:00",
+   "duration_seconds": 240,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Cam'ron"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Not Like Us (Drake Diss)",
+   "album": {
+    "name": "Kendrick vs. Drake"
+   },
+   "videoId": "oIwpBTOC3fg",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:58",
+   "duration_seconds": 238,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Good Girls Inc."
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Not Like Us",
+   "album": {
+    "name": "Not Like Us"
+   },
+   "videoId": "WgEEgwuW7M8",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:34",
+   "duration_seconds": 274,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Nic Perez"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Do Not Disturb",
+   "album": {
+    "name": "More Life"
+   },
+   "videoId": "zhY_0DoQCQs",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:44",
+   "duration_seconds": 284,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Drake"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Not Like Me (feat. Big Tymers)",
+   "album": {
+    "name": "Tha Block Is Hot"
+   },
+   "videoId": "Y3xcZCxFW1w",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:04",
+   "duration_seconds": 244,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Lil Wayne"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Not Like Us (1960s)",
+   "album": {
+    "name": "Not Like Us (1960s)"
+   },
+   "videoId": "r39Kwq0pP2E",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "7:18",
+   "duration_seconds": 438,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Millieonthebeat"
+    },
+    {
+     "name": "junesforever"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "GOD.",
+   "album": {
+    "name": "DAMN. COLLECTORS EDITION."
+   },
+   "videoId": "bBTeAg5CFRA",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:09",
+   "duration_seconds": 249,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Kendrick Lamar"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Not Like Us (Superbowl Dance Remix)",
+   "album": {
+    "name": "Not Like Us (Remix Playlist EP)"
+   },
+   "videoId": "XKKm-QjMVx4",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:39",
+   "duration_seconds": 159,
+   "isExplicit": false,
+   "artists": []
+  },
+  {
+   "resultType": "song",
+   "title": "Just Like Us",
+   "album": {
+    "name": "Not Like Us"
+   },
+   "videoId": "fQ_afEUe3V4",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "7:27",
+   "duration_seconds": 447,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "ECHO DAFT"
+    },
+    {
+     "name": "Kryptone (SL)"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "The Ringer",
+   "album": {
+    "name": "Kamikaze"
+   },
+   "videoId": "ACNgFW50EbU",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:38",
+   "duration_seconds": 338,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Eminem"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Feel It (Kendrick Lamar They Not Like Us mix)",
+   "album": {
+    "name": "Feel It (Kendrick Lamar They Not Like Us mix)"
+   },
+   "videoId": "IQNphTEAtlg",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "1:50",
+   "duration_seconds": 110,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Tay Rolla"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Mona Lisa (feat. Kendrick Lamar)",
+   "album": {
+    "name": "Tha Carter V"
+   },
+   "videoId": "EmOoJme-uGQ",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:25",
+   "duration_seconds": 325,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Lil Wayne"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Jayda Elsie (Kendrick Lamar Not Like Us Remix) [Oppz Talking?]",
+   "album": {
+    "name": "BUTTERFLIEZ Pt. 1.0"
+   },
+   "videoId": "r3AN8eyljvk",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:18",
+   "duration_seconds": 198,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "DA HIP HOP PLUG"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Like Us",
+   "album": {
+    "name": "Autobiography"
+   },
+   "videoId": "9zhn4xMCWKs",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:47",
+   "duration_seconds": 167,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "NIJJAR"
+    },
+    {
+     "name": "Jazz Dee"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Not Like Us (Originally Performed By Kendrick Lamar)",
+   "album": {
+    "name": "Sunfly Instrumentals 2025, Vol. 1"
+   },
+   "videoId": "f9r5HAdewiY",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:39",
+   "duration_seconds": 279,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Sunfly House Band"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "They Don't Care About Us",
+   "album": {
+    "name": "HIStory: PAST, PRESENT AND FUTURE, BOOK I"
+   },
+   "videoId": "-_OPJ2d86kE",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:45",
+   "duration_seconds": 285,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Michael Jackson"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Not Like Us (Diss) Quilly & OT The Real",
+   "album": {
+    "name": "Not Like Us (Diss) Quilly & OT The Real"
+   },
+   "videoId": "12BS4T_VBu4",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:25",
+   "duration_seconds": 265,
+   "isExplicit": true,
+   "artists": [
+    {
+     "name": "Philly T Hood"
+    }
+   ]
+  }
+ ],
+ "soundcloud": {
+  "_type": "playlist",
+  "id": "Kendrick Lamar Not Like Us",
+  "title": "Kendrick Lamar Not Like Us",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1814709189",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1814709189",
+    "webpage_url": "https://soundcloud.com/kendrick-lamar-music/not-like-us",
+    "title": "Not Like Us",
+    "duration": 274.238,
+    "uploader": "Kendrick Lamar",
+    "uploader_url": "https://soundcloud.com/kendrick-lamar-music"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "2114819991",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A2114819991",
+    "webpage_url": "https://soundcloud.com/part-time-killer/kendrick-lamar-not-like-us-part-time-killer-extended-remix-free-dl",
+    "title": "Kendrick Lamar - Not Like Us (PTK Extended Edit) (Free DL)",
+    "description": "Feeling spontaneous today and will probably spontaneously delete in a couple weeks before I get cancelled, enjoy :>",
+    "duration": 162.046,
+    "uploader": "Part Time Killer",
+    "uploader_url": "https://soundcloud.com/part-time-killer"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1814607942",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1814607942",
+    "webpage_url": "https://soundcloud.com/user-851308226/kendrick-lamar-not-like-us",
+    "title": "Not Like Us [INSTRUMENTAL]",
+    "description": "",
+    "duration": 271.301,
+    "uploader": "Kendrick Lamar",
+    "uploader_url": "https://soundcloud.com/user-851308226"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1820351208",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1820351208",
+    "webpage_url": "https://soundcloud.com/jaminiofficial/not-like-us-jamini-popping-remix",
+    "title": "Not Like Us - Kendrick Lamar (Jamini Popping Remix)",
+    "description": "Well, this was bound to happen eventually! \n\nShoutout to the big homie Dion from AZ for the idea. I honestly did not think I could pull it off but here we are lol\n\nThis track was inspired by \u201cRide wit us\u201d by Daz and kurupt produced by DJ Battlecat",
+    "duration": 303.078,
+    "uploader": "Jamini",
+    "uploader_url": "https://soundcloud.com/jaminiofficial"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "2040356380",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A2040356380",
+    "webpage_url": "https://soundcloud.com/c-t-m-901087211/not-like-us-kendrick-lamar",
+    "title": "Not Like Us - Kendrick Lamar (Super Bowl Halftime Show 2025)",
+    "description": "",
+    "duration": 129.242,
+    "uploader": "mct.12",
+    "uploader_url": "https://soundcloud.com/c-t-m-901087211"
+   }
+  ]
+ },
+ "youtube": {
+  "_type": "playlist",
+  "id": "Kendrick Lamar - Not Like Us",
+  "title": "Kendrick Lamar - Not Like Us",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "H58vbez_m4E",
+    "url": "https://www.youtube.com/watch?v=H58vbez_m4E",
+    "title": "Kendrick Lamar - Not Like Us",
+    "description": "Kendrick Lamar \u201cNot Like Us\u201d Directed by Dave Free & Kendrick Lamar Production Company: pgLang / project3 Executive\u00a0...",
+    "duration": 355,
+    "channel": "Kendrick Lamar",
+    "uploader": "Kendrick Lamar",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "T6eK-2OQtew",
+    "url": "https://www.youtube.com/watch?v=T6eK-2OQtew",
+    "title": "Not Like Us",
+    "description": null,
+    "duration": 274,
+    "channel": "Kendrick Lamar",
+    "uploader": "Kendrick Lamar",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "3wkNLqetX0M",
+    "url": "https://www.youtube.com/watch?v=3wkNLqetX0M",
+    "title": "Kendrick Lamar - Not Like Us (Lyrics) Drake Diss",
+    "description": "Kendrick Lamar - Not Like Us (Lyrics) Drake Diss Subscribe and turn on notifications to stay updated with new uploads.",
+    "duration": 274,
+    "channel": "BagOnly",
+    "uploader": "BagOnly",
+    "uploader_url": "https://www.youtube.com/@BagOnly"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "c82oYGeWTx4",
+    "url": "https://www.youtube.com/watch?v=c82oYGeWTx4",
+    "title": "Kendrick Lamar - Not Like Us (Official Music Video)",
+    "description": "Kendrick Lamar - Not Like Us (Official Music Video) #kendricklamar #kendrick #notlikeus THANKS FOR WATCHING! LIKE\u00a0...",
+    "duration": 355,
+    "channel": "Real OG",
+    "uploader": "Real OG",
+    "uploader_url": "https://www.youtube.com/@OGTEGA"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "U0HhKFBhVTA",
+    "url": "https://www.youtube.com/watch?v=U0HhKFBhVTA",
+    "title": "Kendrick Lamar - Not Like Us & TV Off (4K Live 2025) Super Bowl LIX",
+    "description": "The Super Bowl LIX halftime show, officially known as the Apple Music Super Bowl LIX Halftime Show, was the halftime\u00a0...",
+    "duration": 174,
+    "channel": "Pulse of Live Music",
+    "uploader": "Pulse of Live Music",
+    "uploader_url": "https://www.youtube.com/@pulse_live_music"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "Xx1SrbxH1JU",
+    "url": "https://www.youtube.com/watch?v=Xx1SrbxH1JU",
+    "title": "Not Like Us",
+    "description": "Provided to YouTube by Universal Music Group Not Like Us \u00b7 Kendrick Lamar Not Like Us \u2117 2024 Kendrick Lamar, under\u00a0...",
+    "duration": 275,
+    "channel": "Kendrick Lamar",
+    "uploader": "Kendrick Lamar",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "Dr4j_oUL6wc",
+    "url": "https://www.youtube.com/watch?v=Dr4j_oUL6wc",
+    "title": "Kendrick Lamar - Not Like Us (Super Bowl Performance) Lyrics",
+    "description": "All rights reserved to the respective owners. No copyright infringement intended.",
+    "duration": 19,
+    "channel": "PRUDENTCITY LYRICS HUB",
+    "uploader": "PRUDENTCITY LYRICS HUB",
+    "uploader_url": "https://www.youtube.com/@prudentcitylyricshub"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "2uFPwJWu_xk",
+    "url": "https://www.youtube.com/watch?v=2uFPwJWu_xk",
+    "title": "Kendrick Performs Not Like Us 5 Times in a row in LA",
+    "description": null,
+    "duration": 1239,
+    "channel": "Mihji Chaka",
+    "uploader": "Mihji Chaka",
+    "uploader_url": "https://www.youtube.com/@thisisMihji"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "jqDYpXjMZcI",
+    "url": "https://www.youtube.com/watch?v=jqDYpXjMZcI",
+    "title": "Kendrick Lamar - Not Like Us / Drake diss (\u043f\u0435\u0440\u0435\u0432\u043e\u0434)",
+    "description": "Not Like Us\u201d - \u0447\u0435\u0442\u0432\u0435\u0440\u0442\u044b\u0439 \u0434\u0438\u0441\u0441-\u0442\u0440\u0435\u043a \u041a\u0435\u043d\u0434\u0440\u0438\u043a\u0430 \u041b\u0430\u043c\u0430\u0440\u0430, \u0430\u0434\u0440\u0435\u0441\u043e\u0432\u0430\u043d\u043d\u044b\u0439 \u0414\u0440\u0435\u0439\u043a\u0443, \u0432\u044b\u043f\u0443\u0449\u0435\u043d\u043d\u044b\u0439 \u0432\u0435\u0447\u0435\u0440\u043e\u043c 4 \u043c\u0430\u044f 2024 \u0433\u043e\u0434\u0430, \u043c\u0435\u043d\u0435\u0435\u00a0...",
+    "duration": 392,
+    "channel": "MT",
+    "uploader": "MT",
+    "uploader_url": "https://www.youtube.com/@musictranslatermt"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "Yar-WWUnDlw",
+    "url": "https://www.youtube.com/watch?v=Yar-WWUnDlw",
+    "title": "Kendrick Lamar - Not Like Us [Clean]",
+    "description": "Clean Version Of \u201cNot Like Us\u201d By @kendricklamar.",
+    "duration": 275,
+    "channel": "Sock With A Glock",
+    "uploader": "Sock With A Glock",
+    "uploader_url": "https://www.youtube.com/@sockwithaglock"
+   }
+  ]
+ },
+ "details": {}
+}

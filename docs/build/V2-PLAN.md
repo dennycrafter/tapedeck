@@ -187,6 +187,11 @@ Small, mechanical, unblocks everything else. Target: one short PR.
 
 Things only Denis can check, numbered, added by each ticket's PR:
 
+<<<<<<< HEAD
 1. (T10) On the PC: restart the downloader, add a YouTube music video that has a talking intro; after it is ready, check it starts at the music and its Edit details says "Trimmed automatically". On the iPhone: play a trimmed song with the phone locked and check the next song starts when the trimmed part ends.
 2. (T12) On the PC: add a song from catalog search; check the version it picked is the album version.
+=======
+1. (T10) On the PC: add a YouTube song that has a talking intro; after it is ready, check it starts at the music.
+2. (T12) On the PC: run `agent\install.bat` again (or `py -3.12 -m pip install -r requirements.txt` in `agent`) so `ytmusicapi` is installed. Add a song from catalog search; check the version it picked is the album version (song menu, Pick another version shows it as Current). Then pick another version and check the PC downloads that one.
+>>>>>>> e469d6c (T12: best-copy finder for catalog songs)
 3. (T14) On the iPhone: set a song to Sped up, lock the phone, check speed and pitch stay right into the next song.

@@ -1,0 +1,548 @@
+{
+ "recorded": "2026-10-15 on the owner's PC (ytmusicapi 1.12.3, yt-dlp 2026.08.19); thumbnails and unused fields dropped",
+ "catalog": {
+  "catalog_id": "deezer:14383880",
+  "title": "Levels (Radio Edit)",
+  "artist": "Avicii",
+  "album": "Levels",
+  "duration_sec": 199,
+  "isrc": "SEUM71100962"
+ },
+ "ytmusic": [
+  {
+   "resultType": "song",
+   "title": "Levels (Radio Edit)",
+   "album": {
+    "name": "Levels"
+   },
+   "videoId": "xAgv1mAyxr8",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:20",
+   "duration_seconds": 200,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Avicii"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Silhouettes (Syn Cole Creamfields Mix Radio Edit)",
+   "album": {
+    "name": "Silhouettes (Remixes)"
+   },
+   "videoId": "0a_OQY-5iTw",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:25",
+   "duration_seconds": 205,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Avicii"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Animals (Radio Edit)",
+   "album": {
+    "name": "Animals"
+   },
+   "videoId": "DYf28lOb8KU",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:57",
+   "duration_seconds": 177,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Martin Garrix"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Hey Brother (Radio Edit)",
+   "album": {
+    "name": "10's (Tens) Collected"
+   },
+   "videoId": "PqTMyOllv4A",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:13",
+   "duration_seconds": 193,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Avicii"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Levels",
+   "album": {
+    "name": "Levels"
+   },
+   "videoId": "wDuoOapZ9Z0",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:39",
+   "duration_seconds": 339,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Avicii"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Levels (Cazzette's NYC Mode Radio Mix) (feat. Cazzette)",
+   "album": {
+    "name": "Levels (Remixes)"
+   },
+   "videoId": "_UPPG_SMKL8",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:38",
+   "duration_seconds": 218,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Avicii"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Levels",
+   "album": {
+    "name": "Hands On (The Greatest Cover Versions), Vol. 1"
+   },
+   "videoId": "y0HVIfTAIz0",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:28",
+   "duration_seconds": 208,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Ray Avangarde"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Levels (Radio Edit)",
+   "album": {
+    "name": "Levels Ep"
+   },
+   "videoId": "XcRWDfS9IY0",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:19",
+   "duration_seconds": 199,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Forever 80"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Levels (Pumpin' Remix) [Made Popular By Avicii] [Instrumental Version]",
+   "album": {
+    "name": "Party Tyme Karaoke - Instrumentals 16"
+   },
+   "videoId": "zUraDdPm93k",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:15",
+   "duration_seconds": 255,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Party Tyme Karaoke"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Levels (Pumpin' Remix) [Made Popular By Avicii] [Vocal Version]",
+   "album": {
+    "name": "Party Tyme Karaoke - Pop Male Hits 5 (Vocal Versions)"
+   },
+   "videoId": "vG8FCSHxcyg",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:15",
+   "duration_seconds": 255,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Party Tyme Karaoke"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "X You (Radio Edit)",
+   "album": {
+    "name": "X You"
+   },
+   "videoId": "KZU0wQnyjTY",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:21",
+   "duration_seconds": 201,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Avicii"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Levels (Karaoke Version, Originally Performed By Avicii)",
+   "album": {
+    "name": "Hot Hits 2012 (Instrumental Versions for Karaoke)"
+   },
+   "videoId": "z1tEcbHSeHc",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:28",
+   "duration_seconds": 208,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Summit Latin Dance"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Levels (Techno)",
+   "album": {
+    "name": "Levels (Techno)"
+   },
+   "videoId": "K5llR77-_pA",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:29",
+   "duration_seconds": 149,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "XEKNO!"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Levels",
+   "album": {
+    "name": "Ibiza Summer Anthems : Essential Balearic Hits"
+   },
+   "videoId": "t-neysfTxzE",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:37",
+   "duration_seconds": 337,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "DJ Tokeo"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Blessed (Avicii Edit)",
+   "album": {
+    "name": "Blessed"
+   },
+   "videoId": "QNFUBxBxPsc",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:10",
+   "duration_seconds": 190,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Tom Hangs"
+    },
+    {
+     "name": "Shermanology"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Levels (Light Mix Studio)",
+   "album": {
+    "name": "Levels: Tribute to Avicii, Etta James"
+   },
+   "videoId": "AozqlR-97S0",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:49",
+   "duration_seconds": 229,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Gina"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Levels - Radio Edit",
+   "album": {
+    "name": "Levels"
+   },
+   "videoId": "fQfJHuJysWk",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:19",
+   "duration_seconds": 199,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Forever 80"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Medley : Levels / Hangover",
+   "album": {
+    "name": "Hits 2012 Dance Version"
+   },
+   "videoId": "8m15fjB3vhQ",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:28",
+   "duration_seconds": 208,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Junta"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Levels (Originally Performed by Avicii) (Instrumental Version)",
+   "album": {
+    "name": "Sing My Song Vol 8"
+   },
+   "videoId": "JmIwoZbrt2g",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:28",
+   "duration_seconds": 208,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Sounds Good"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Levels (Sped Up)",
+   "album": {
+    "name": "Levels (Sped Up)"
+   },
+   "videoId": "X8aWw9lZs24",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:47",
+   "duration_seconds": 167,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Way 2 Fast"
+    }
+   ]
+  }
+ ],
+ "soundcloud": {
+  "_type": "playlist",
+  "id": "Avicii Levels (Radio Edit)",
+  "title": "Avicii Levels (Radio Edit)",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "284331783",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A284331783",
+    "webpage_url": "https://soundcloud.com/aviciiofficial/levels-radio-edit",
+    "title": "Levels (Radio Edit)",
+    "duration": 30.0,
+    "uploader": "AviciiOfficial",
+    "uploader_url": "https://soundcloud.com/aviciiofficial"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "2370801983",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A2370801983",
+    "webpage_url": "https://soundcloud.com/aviciiofficial/levels-radio-edit-981463364",
+    "title": "Levels (Radio Edit)",
+    "duration": 30.0,
+    "uploader": "AviciiOfficial",
+    "uploader_url": "https://soundcloud.com/aviciiofficial"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "63052071",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A63052071",
+    "webpage_url": "https://soundcloud.com/wxnderlxnd/avicii-levels-radio-edit",
+    "title": "Avicii levels radio edit",
+    "description": "",
+    "duration": 200.144,
+    "uploader": "wxnderIxnd",
+    "uploader_url": "https://soundcloud.com/wxnderlxnd"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "255863007",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A255863007",
+    "webpage_url": "https://soundcloud.com/aviciiofficial/levels-instrumental-radio-edit",
+    "title": "Levels (Instrumental Radio Edit)",
+    "duration": 30.0,
+    "uploader": "AviciiOfficial",
+    "uploader_url": "https://soundcloud.com/aviciiofficial"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "59991610",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A59991610",
+    "webpage_url": "https://soundcloud.com/jacosta-1/10-avicii-levels-radio-edit",
+    "title": "10.Avicii - Levels (Radio Edit)",
+    "description": "",
+    "duration": 198.263,
+    "uploader": "jacosta1",
+    "uploader_url": "https://soundcloud.com/jacosta-1"
+   }
+  ]
+ },
+ "youtube": {
+  "_type": "playlist",
+  "id": "Avicii - Levels (Radio Edit)",
+  "title": "Avicii - Levels (Radio Edit)",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "8-t268I1XWg",
+    "url": "https://www.youtube.com/watch?v=8-t268I1XWg",
+    "title": "Avicii - Levels (Radio Edit)",
+    "description": "Avicii - Levels (Radio Edit) Song: Levels (Radio Edit) \u00c1rtist: Avicii \u00c1lbum: Levels Listen To The \u00c1lbum Here:\u00a0...",
+    "duration": 198,
+    "channel": "Avicii Music World",
+    "uploader": "Avicii Music World",
+    "uploader_url": "https://www.youtube.com/@AviciiMusicWorldOfficial"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "XEhKSc52QqY",
+    "url": "https://www.youtube.com/watch?v=XEhKSc52QqY",
+    "title": "Avicii - Levels (Radio Edit)",
+    "description": "Avicii - ID has been released and is now called Avicii - Level!",
+    "duration": 238,
+    "channel": "Dawid Skrzypkowski",
+    "uploader": "Dawid Skrzypkowski",
+    "uploader_url": "https://www.youtube.com/@MrDeyfit"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "_ovdm2yX4MA",
+    "url": "https://www.youtube.com/watch?v=_ovdm2yX4MA",
+    "title": "Avicii - Levels",
+    "description": "https://avicii.lnk.to/levels10yrs In loving memory of Tim \u201cAvicii\u201d Bergling (1989-2018). Please watch \u201cLevels\u201d in Avicii's final\u00a0...",
+    "duration": 199,
+    "channel": "Avicii",
+    "uploader": "Avicii",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "EKvStHU7t7A",
+    "url": "https://www.youtube.com/watch?v=EKvStHU7t7A",
+    "title": "Avicii - Levels (Radio Edit)",
+    "description": "Avicii - Levels (Radio Edit) Song: Levels (Radio Edit) \u00c1rtist: Avicii \u00c1lbum: Live A Life You Will Remember Listen To The \u00c1lbum\u00a0...",
+    "duration": 199,
+    "channel": "Avicii Music World",
+    "uploader": "Avicii Music World",
+    "uploader_url": "https://www.youtube.com/@AviciiMusicWorldOfficial"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "6NW-Xao_KqY",
+    "url": "https://www.youtube.com/watch?v=6NW-Xao_KqY",
+    "title": "Avicii - Levels (Radio Edit) HD/HQ",
+    "description": "Avicii - Levels.",
+    "duration": 203,
+    "channel": "OpenPremium",
+    "uploader": "OpenPremium",
+    "uploader_url": "https://www.youtube.com/@OpenPremium"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "wDuoOapZ9Z0",
+    "url": "https://www.youtube.com/watch?v=wDuoOapZ9Z0",
+    "title": "Levels (Original Version)",
+    "description": "Provided to YouTube by Universal Music Group Levels (Original Version) \u00b7 Avicii Levels \u2117 2011 Avicii, distributed by Universal\u00a0...",
+    "duration": 339,
+    "channel": "Avicii",
+    "uploader": "Avicii",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "1j2lm2NYj3E",
+    "url": "https://www.youtube.com/watch?v=1j2lm2NYj3E",
+    "title": "Levels (Instrumental Radio Edit)",
+    "description": "Provided to YouTube by Universal Music Group Levels (Instrumental Radio Edit) \u00b7 Avicii Levels \u2117 2011 Avicii, distributed by\u00a0...",
+    "duration": 200,
+    "channel": "Avicii",
+    "uploader": "Avicii",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "C3Ti0nZjtp8",
+    "url": "https://www.youtube.com/watch?v=C3Ti0nZjtp8",
+    "title": "Avicii - Levels (Lyrics)",
+    "description": "Avicii - Levels   Check out my Spotify playlist: https://spoti.fi/2Jba0lx Viral TikTok hits: https://spoti.fi/3G5dv9R Electronic Dance\u00a0...",
+    "duration": 203,
+    "channel": "Creative Chaos",
+    "uploader": "Creative Chaos",
+    "uploader_url": "https://www.youtube.com/@creativchaos"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "Ovi6Fgqgzik",
+    "url": "https://www.youtube.com/watch?v=Ovi6Fgqgzik",
+    "title": "Avicii - Levels (10 HOURS PERFECT LOOP) \ud83d\udd01 Viral EDM Classic",
+    "description": "Relive the ultimate EDM anthem with a seamless 10-hour perfect loop of \"Levels\" by Avicii! Experience the iconic synths and\u00a0...",
+    "duration": 36001,
+    "channel": "V_Aces_",
+    "uploader": "V_Aces_",
+    "uploader_url": "https://www.youtube.com/@VAces"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "byJQjW4CdwY",
+    "url": "https://www.youtube.com/watch?v=byJQjW4CdwY",
+    "title": "Avicii - Levels - Radio Edit (Lyrics)",
+    "description": "Avicii - Levels - Radio Edit (Lyrics) Avicii - Levels - Radio Edit\u00a0...",
+    "duration": 252,
+    "channel": "Drunk Cat ",
+    "uploader": "Drunk Cat ",
+    "uploader_url": "https://www.youtube.com/@drunkcat7145"
+   }
+  ]
+ },
+ "details": {}
+}

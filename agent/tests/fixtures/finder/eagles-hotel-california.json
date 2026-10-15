@@ -1,0 +1,544 @@
+{
+ "recorded": "2026-10-15 on the owner's PC (ytmusicapi 1.12.3, yt-dlp 2026.08.19); thumbnails and unused fields dropped",
+ "catalog": {
+  "catalog_id": "deezer:426703682",
+  "title": "Hotel California (2013 Remaster)",
+  "artist": "Eagles",
+  "album": "Hotel California (40th Anniversary Expanded Edition)",
+  "duration_sec": 391,
+  "isrc": "USEE11300353"
+ },
+ "ytmusic": [
+  {
+   "resultType": "song",
+   "title": "Hotel California",
+   "album": {
+    "name": "Legacy"
+   },
+   "videoId": "BciS5krYL80",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:32",
+   "duration_seconds": 392,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Eagles"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Hotel California Remaster",
+   "album": {
+    "name": "Rock 'n' Reggae"
+   },
+   "videoId": "FeBMQB9q008",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:04",
+   "duration_seconds": 364,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Sly & Robbie"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Hotel California",
+   "album": {
+    "name": "Ultimate Rock Anthems - The Greatest Rock Classics of All Time !"
+   },
+   "videoId": "i0Osv2QaJK4",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:31",
+   "duration_seconds": 391,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Masters of Rock"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Hotel California",
+   "album": {
+    "name": "The Definitive Tribute to The Eagles"
+   },
+   "videoId": "1iN-7rn9YY0",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:25",
+   "duration_seconds": 385,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "The Rock n Roll Players"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "One of These Nights (Single Version) (Single Version; 2018 Remaster)",
+   "album": {
+    "name": "One of These Nights (Single Version; 2018 Remaster)"
+   },
+   "videoId": "ESc2Tq2HzhQ",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:34",
+   "duration_seconds": 214,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Eagles"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "The Last Resort",
+   "album": {
+    "name": "To the Limit: The Essential Collection"
+   },
+   "videoId": "e8-3Ka5iMzk",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "7:25",
+   "duration_seconds": 445,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Eagles"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Hotel California (Originally Performed By The Eagles) [Full Vocal Version]",
+   "album": {
+    "name": "Karaoke Rock Hits, Vol. 31"
+   },
+   "videoId": "KIWPV3BW7tw",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:38",
+   "duration_seconds": 398,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Chart Collective"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Hotel California",
+   "album": {
+    "name": "RSO Performs Eagles"
+   },
+   "videoId": "H-GjIvnaVjk",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:02",
+   "duration_seconds": 362,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Roma Symphony Orchestra"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Hotel California",
+   "album": {
+    "name": "Bossa 'n Mix Vol 2"
+   },
+   "videoId": "9kVEz9Hu2jw",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:23",
+   "duration_seconds": 323,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Made famous by Eagles"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Hotel California",
+   "album": {
+    "name": "Infinite Impressions of Eagles"
+   },
+   "videoId": "46GbVhwVOA4",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:16",
+   "duration_seconds": 376,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Fearless Rock Band"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Hotel California",
+   "album": {
+    "name": "A Tribute To The Hits of The Eagles"
+   },
+   "videoId": "vHmdUyRJ4aU",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:43",
+   "duration_seconds": 223,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Wildlife"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Hotel California (Vocal Extended Mix)",
+   "album": {
+    "name": "Hotel California, Pt. 1"
+   },
+   "videoId": "6Y6qBXvQD4Q",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:45",
+   "duration_seconds": 345,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Minus 8 feat. Billie"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Already Gone (Live at The Forum, Los Angeles, CA, 10/20-22/1976)",
+   "album": {
+    "name": "Hotel California (40th Anniversary Expanded Edition)"
+   },
+   "videoId": "CGAD20topuo",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:16",
+   "duration_seconds": 316,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Eagles"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Hotel California",
+   "album": {
+    "name": "A Tribute to the Eagles"
+   },
+   "videoId": "JYAQURQPJ24",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:15",
+   "duration_seconds": 375,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "L.A. Session Singers"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Hotel California (Originally By The Eagles)",
+   "album": {
+    "name": "I Live For Rock Vol. 1"
+   },
+   "videoId": "NteQLyAhGCc",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:56",
+   "duration_seconds": 296,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Various Musique"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Take It Easy (Live at The Forum, Los Angeles, CA, 10/20-22/1976)",
+   "album": {
+    "name": "Hotel California (40th Anniversary Expanded Edition)"
+   },
+   "videoId": "GjlvB1sJ6yk",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "4:48",
+   "duration_seconds": 288,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Eagles"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Hotel California (Cover) (feat. Tuominen)",
+   "album": {
+    "name": "Hotel California (Cover)"
+   },
+   "videoId": "w4JfPHjLwZk",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:37",
+   "duration_seconds": 397,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Two Guns and a Bullet"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Hotel California",
+   "album": {
+    "name": "The Eagles Instrumental Tribute"
+   },
+   "videoId": "oEudJgZsMSc",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "6:34",
+   "duration_seconds": 394,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Tequila Sunrise"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Hotel California (Relax House Edit)",
+   "album": {
+    "name": "The Eagles Real Tribute Band"
+   },
+   "videoId": "IPyln1xSbXk",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:49",
+   "duration_seconds": 229,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "The Eagles Real Tribute Band"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Hotel California",
+   "album": {
+    "name": "Starsound Orchestra Plays Hits Of The Eagles"
+   },
+   "videoId": "8HW7jCkbCC8",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "5:07",
+   "duration_seconds": 307,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Starsound Orchestra"
+    }
+   ]
+  }
+ ],
+ "soundcloud": {
+  "_type": "playlist",
+  "id": "Eagles Hotel California (2013 Remaster)",
+  "title": "Eagles Hotel California (2013 Remaster)",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "231849488",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A231849488",
+    "webpage_url": "https://soundcloud.com/eaglesofficial/eagles-hotel-california",
+    "title": "Hotel California (2013 Remaster)",
+    "duration": 30.0,
+    "uploader": "Eagles",
+    "uploader_url": "https://soundcloud.com/eaglesofficial"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "255870663",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A255870663",
+    "webpage_url": "https://soundcloud.com/eaglesofficial/hotel-california-live",
+    "title": "Hotel California (Live at the Millennium Concert, Staples Center, Los Angeles, CA, 12/31/1999) [2013 Remaster] (Live at the Millennium Concert, Staples Center, Los Angeles, CA, 12/31/1999; 2013 Remaster)",
+    "duration": 30.0,
+    "uploader": "Eagles",
+    "uploader_url": "https://soundcloud.com/eaglesofficial"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "537703779",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A537703779",
+    "webpage_url": "https://soundcloud.com/ahmed-elnasser-77389108/hotel_california",
+    "title": "Hotel_California_(Eagles_2013_Remaster).mp3",
+    "duration": 29.956,
+    "uploader": "ahmed elnasser",
+    "uploader_url": "https://soundcloud.com/ahmed-elnasser-77389108"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "255870679",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A255870679",
+    "webpage_url": "https://soundcloud.com/eaglesofficial/hotel-california-live-version",
+    "title": "Hotel California (Live) [1999 Remaster] (Live; 1999 Remaster)",
+    "duration": 30.0,
+    "uploader": "Eagles",
+    "uploader_url": "https://soundcloud.com/eaglesofficial"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "182181729",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A182181729",
+    "webpage_url": "https://soundcloud.com/mai-cong-hung/hotel-california-the-eagles",
+    "title": "Hotel California - The Eagles (NF2013)",
+    "description": "",
+    "duration": 308.134,
+    "uploader": "Mai Cong Hung",
+    "uploader_url": "https://soundcloud.com/mai-cong-hung"
+   }
+  ]
+ },
+ "youtube": {
+  "_type": "playlist",
+  "id": "Eagles - Hotel California (2013 Remaster)",
+  "title": "Eagles - Hotel California (2013 Remaster)",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "dLl4PZtxia8",
+    "url": "https://www.youtube.com/watch?v=dLl4PZtxia8",
+    "title": "Eagles - Hotel California (Official Audio)",
+    "description": "Official Audio for \"Hotel California\" performed by the Eagles. Original song from 'Hotel California' (1976). \u266a The Latest from\u00a0...",
+    "duration": 392,
+    "channel": "Eagles",
+    "uploader": "Eagles",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "-CFkQKD7w8Q",
+    "url": "https://www.youtube.com/watch?v=-CFkQKD7w8Q",
+    "title": "01 Eagles - Hotel California (2013 Remaster)",
+    "description": null,
+    "duration": 395,
+    "channel": "Daily sounds update",
+    "uploader": "Daily sounds update",
+    "uploader_url": "https://www.youtube.com/@Zemplaylist"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "dgjyk84xsCw",
+    "url": "https://www.youtube.com/watch?v=dgjyk84xsCw",
+    "title": "EAGLES - Hotel California -  2013 Remaster",
+    "description": "On a dark desert highway, cool wind in my hair Warm smell of colitas rising up through the air Up ahead in the distance, I saw a\u00a0...",
+    "duration": 392,
+    "channel": "GLOBAL PRODUCTION ",
+    "uploader": "GLOBAL PRODUCTION ",
+    "uploader_url": "https://www.youtube.com/@GLOBALPRODUCTIONMUSIC-gp3to"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "09839DpTctU",
+    "url": "https://www.youtube.com/watch?v=09839DpTctU",
+    "title": "Eagles - Hotel California (Live 1977) (Official Video) [HD]",
+    "description": "HD Remastered Official Music Video for \"Hotel California\" (Live from the Capital Centre in Landover, Maryland in 1977) performed\u00a0...",
+    "duration": 405,
+    "channel": "Eagles",
+    "uploader": "Eagles",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "O08fRQcVZug",
+    "url": "https://www.youtube.com/watch?v=O08fRQcVZug",
+    "title": "EAGLES - Hotel California HD (Remastered 1080p)",
+    "description": "EAGLES - Hotel California HD (Remastered 1080p)",
+    "duration": 421,
+    "channel": "SDG Custom Video",
+    "uploader": "SDG Custom Video",
+    "uploader_url": "https://www.youtube.com/@sdgcustomvideo8372"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "NIDB0fHlMEU",
+    "url": "https://www.youtube.com/watch?v=NIDB0fHlMEU",
+    "title": "Eagles - Hotel California ( Hi-Res Audio )",
+    "description": "eagles #hotelcalifornia.",
+    "duration": 392,
+    "channel": "Kimberly Instrumentales Official ",
+    "uploader": "Kimberly Instrumentales Official ",
+    "uploader_url": "https://www.youtube.com/@Kimberlyisntrumentales"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "go4JcJ5H9Ck",
+    "url": "https://www.youtube.com/watch?v=go4JcJ5H9Ck",
+    "title": "Eagles \u2013 Hotel California (2026 Remastered)",
+    "description": "Eagles \u2013 Hotel California (2026 Remastered) A legendary journey through mystery, melody, and unforgettable guitar solos\u00a0...",
+    "duration": 392,
+    "channel": "AllErasRemastered",
+    "uploader": "AllErasRemastered",
+    "uploader_url": "https://www.youtube.com/@AllErasRemastered"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "iiZAlnU_IWE",
+    "url": "https://www.youtube.com/watch?v=iiZAlnU_IWE",
+    "title": "Eagles - Hotel California (HQ Audio)",
+    "description": "Year: 1976. #ballad #rock #music #pop #trending.",
+    "duration": 395,
+    "channel": "DJ ESCARCHE",
+    "uploader": "DJ ESCARCHE",
+    "uploader_url": "https://www.youtube.com/@DJESCARCHE"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "5r5ktX6ECDk",
+    "url": "https://www.youtube.com/watch?v=5r5ktX6ECDk",
+    "title": "Eagles - Hotel California (Full Album)",
+    "description": "Eagles' sixth album _Hotel California_ was released on December 8, 1976 by Asylum Records. Tracklist: 1. Hotel California 00:00\u00a0...",
+    "duration": 2608,
+    "channel": "Eagles",
+    "uploader": "Eagles",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "x2yd-XZtkvk",
+    "url": "https://www.youtube.com/watch?v=x2yd-XZtkvk",
+    "title": "Eagles - Hotel California | Lyric Video | Lirik Indonesia | Indo Subtitle | Lirik Terjemahan",
+    "description": "Eagles - Hotel California | Lyric Video | Lirik Indonesia | Indo Subtitle | Lirik Terjemahan Eagles - Hotel California | Lyric Video\u00a0...",
+    "duration": 392,
+    "channel": "Pop Paling Panas",
+    "uploader": "Pop Paling Panas",
+    "uploader_url": "https://www.youtube.com/@PopPalingPanas"
+   }
+  ]
+ },
+ "details": {}
+}

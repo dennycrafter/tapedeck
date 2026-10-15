@@ -36,6 +36,7 @@ Keep this file Python 3.12 compatible (the downloader targets Python
 
 import apple_music
 import argparse
+import finder
 import logging
 import os
 import shutil
@@ -85,12 +86,16 @@ PREVIEW_THRESHOLD = 0.6
 # SPEC 8.3: error text stored on the server is truncated to 500 chars.
 MAX_ERROR_CHARS = 500
 
+# Sent on claim (V2-PLAN T9, T12): this downloader can find a copy for
+# catalog songs, so the app also hands it rows that have no link yet.
+AGENT_CAPABILITIES = ["catalog"]
+
 
 class ClaimedTrack(TypedDict):
     """One row returned by POST /api/agent/claim (SPEC 8.3)."""
 
     id: str
-    source: str  # "youtube" or "soundcloud"
+    source: str  # "youtube", "soundcloud" or "catalog" (V2-PLAN T12: no link yet)
     source_url: str
     title: str
     artist: str
@@ -156,13 +161,15 @@ def coerce_claimed_track(row: Any) -> ClaimedTrack | None:
     if not isinstance(row, dict):
         return None
     track_id = coerce_optional_str(row.get("id"))
+    source = str(row.get("source") or "")
     source_url = coerce_optional_str(row.get("source_url"))
-    if not track_id or not source_url:
+    # Catalog rows have no link until the finder picks one (V2-PLAN T12).
+    if not track_id or (not source_url and source != "catalog"):
         return None
     return ClaimedTrack(
         id=track_id,
-        source=str(row.get("source") or ""),
-        source_url=source_url,
+        source=source,
+        source_url=source_url or "",
         title=str(row.get("title") or ""),
         artist=str(row.get("artist") or ""),
         album=coerce_optional_str(row.get("album")),
@@ -546,7 +553,9 @@ def poll_for_claims(logger: logging.Logger, cfg: DownloaderConfig) -> list[Claim
     try:
         with make_session(cfg) as session:
             response = session.post(
-                f"{cfg.app_url}/api/agent/claim", json={}, timeout=HTTP_TIMEOUT
+                f"{cfg.app_url}/api/agent/claim",
+                json={"capabilities": AGENT_CAPABILITIES},
+                timeout=HTTP_TIMEOUT,
             )
     except requests.RequestException as exc:
         logger.warning("Claim poll failed (will retry): %s", exc)
@@ -853,13 +862,15 @@ def upload_track(
     path: Path,
     duration_sec: float | None = None,
     auto_trim: dict[str, float] | None = None,
+    extra: dict[str, Any] | None = None,
 ) -> None:
     """Upload the finished .m4a and mark it ready (SPEC 8.3 step 2, 7.2).
 
     POST /api/agent/upload-url for a presigned PUT (15 min), PUT the file
     with Content-Type: audio/mp4 (the body is the exact byte count the
     complete call reports), then POST /api/agent/complete. `auto_trim`
-    carries the trim suggestion (autoTrimStartSec / autoTrimEndSec, T10).
+    carries the trim suggestion (autoTrimStartSec / autoTrimEndSec, T10);
+    `extra` carries resolvedUrl and matchInfo (T12). Their keys never overlap.
     """
     import requests
 
@@ -898,6 +909,7 @@ def upload_track(
             "bytes": len(data),
             "durationSec": round(duration_sec) if duration_sec is not None else None,
             **(auto_trim or {}),
+            **(extra or {}),
         }
         complete_response = session.post(
             f"{cfg.app_url}/api/agent/complete", json=complete_body, timeout=HTTP_TIMEOUT
@@ -995,7 +1007,11 @@ def maybe_export_to_apple_music(
 
 
 def report_result(
-    logger: logging.Logger, cfg: DownloaderConfig, track: ClaimedTrack, error: str
+    logger: logging.Logger,
+    cfg: DownloaderConfig,
+    track: ClaimedTrack,
+    error: str,
+    match_info: dict[str, Any] | None = None,
 ) -> None:
     """Report a failed attempt to the app (SPEC 8.3, POST /api/agent/fail).
 
@@ -1004,15 +1020,17 @@ def report_result(
     dead endpoint cannot take the whole loop down. Success reporting
     happens in upload_track (complete); the Apple Music copy calls
     /api/agent/apple-music-done and lands with T6 (SPEC 8.11).
+    `match_info` (T12) saves the finder's alternatives for "Pick another version".
     """
     import requests
 
+    body: dict[str, Any] = {"trackId": track["id"], "error": error[:MAX_ERROR_CHARS]}
+    if match_info is not None:
+        body["matchInfo"] = match_info
     try:
         with make_session(cfg) as session:
             response = session.post(
-                f"{cfg.app_url}/api/agent/fail",
-                json={"trackId": track["id"], "error": error[:MAX_ERROR_CHARS]},
-                timeout=HTTP_TIMEOUT,
+                f"{cfg.app_url}/api/agent/fail", json=body, timeout=HTTP_TIMEOUT
             )
         if response.status_code // 100 != 2:
             logger.warning(
@@ -1045,16 +1063,21 @@ def process_one_track(
     removed either way (SPEC 8.3 step 2: "Delete temp files").
     """
     logger.info("claim: track %s (%s)", track["id"], track["title"] or "untitled")
+    extra: dict[str, Any] = {}
     try:
+        if track["source"] == "catalog":
+            # V2-PLAN T12: pick the best free copy first (or the one picked in the app).
+            track, extra = finder.resolve_catalog_track(logger, track)
         path = download_track(logger, cfg, track)
         path, duration = convert_check(logger, track, path)
         auto_trim = trim.suggest_trim(logger, track, path, duration)  # V2-PLAN T10
         path = tag_track(logger, track, path)
-        upload_track(logger, cfg, track, path, duration, auto_trim)
+        upload_track(logger, cfg, track, path, duration, auto_trim, extra=extra)
         maybe_export_to_apple_music(logger, cfg, track, path, setting_on=export_enabled)
     except Exception as exc:  # SPEC 8.3 step 2: report every failure to the app.
         logger.error("track %s failed: %s", track["id"], exc)
-        report_result(logger, cfg, track, error=str(exc))
+        match_info = getattr(exc, "match_info", None) or extra.get("matchInfo")
+        report_result(logger, cfg, track, error=str(exc), match_info=match_info)
     finally:
         cleanup_tmp(logger, track["id"])
 

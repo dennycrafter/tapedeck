@@ -1,0 +1,565 @@
+{
+ "recorded": "2026-10-15 on the owner's PC (ytmusicapi 1.12.3, yt-dlp 2026.08.19); thumbnails and unused fields dropped",
+ "catalog": {
+  "catalog_id": "deezer:70322142",
+  "title": "I Wanna Be Yours",
+  "artist": "Arctic Monkeys",
+  "album": "AM",
+  "duration_sec": 183,
+  "isrc": "GBCEL1300373"
+ },
+ "ytmusic": [
+  {
+   "resultType": "song",
+   "title": "I Wanna Be Yours",
+   "album": {
+    "name": "AM"
+   },
+   "videoId": "nyuo9-OjNNg",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:04",
+   "duration_seconds": 184,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Arctic Monkeys"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Old Yellow Bricks",
+   "album": {
+    "name": "Favourite Worst Nightmare"
+   },
+   "videoId": "VwEpFbUZmcs",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:08",
+   "duration_seconds": 188,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Arctic Monkeys"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "i wanna be yours (slowed + reverb)",
+   "album": {
+    "name": "i wanna be yours"
+   },
+   "videoId": "XWWk2NNxDGQ",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:46",
+   "duration_seconds": 226,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "badkarma"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "I Wanna Be Yours (By Arctic Monkeys)",
+   "album": {
+    "name": "ZZang KARAOKE 2024 POP Vol.109"
+   },
+   "videoId": "YPuhA5orI28",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:05",
+   "duration_seconds": 185,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "ZZang KARAOKE"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "I Wanna Be Yours (By Arctic Monkeys)",
+   "album": {
+    "name": "ZZang KARAOKE 2024 POP Vol.109"
+   },
+   "videoId": "ToZdw6dz-6Q",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:05",
+   "duration_seconds": 185,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "ZZang KARAOKE"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "i wanna be yours (sped up)",
+   "album": {
+    "name": "i wanna be yours"
+   },
+   "videoId": "TcCz8QsUyIM",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:31",
+   "duration_seconds": 151,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "badkarma"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "I Wanna Be Yours",
+   "album": {
+    "name": "Piano Dreamers Play Arctic Monkeys"
+   },
+   "videoId": "f4SeGstPr6w",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:02",
+   "duration_seconds": 182,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Piano Dreamers"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "I Wanna Be Yours - Speed Up Reverb",
+   "album": {
+    "name": "I Wanna Be Yours - Speed Up Reverb"
+   },
+   "videoId": "eQGdXfUB2tQ",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:41",
+   "duration_seconds": 161,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "life illustrated"
+    },
+    {
+     "name": "Kulz"
+    },
+    {
+     "name": "Troy Grove"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Mad Sounds",
+   "album": {
+    "name": "AM"
+   },
+   "videoId": "up5DEICL_Q0",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:36",
+   "duration_seconds": 216,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Arctic Monkeys"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "i wanna be yours (sped up)",
+   "album": {
+    "name": "i wanna be yours"
+   },
+   "videoId": "jx9ZO7EyPY8",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "0:50",
+   "duration_seconds": 50,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "rosie xo"
+    },
+    {
+     "name": "brown eyed girl"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "i wanna be yours (cover)",
+   "album": {
+    "name": "i wanna be yours"
+   },
+   "videoId": "5cOeipH0Ck4",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:07",
+   "duration_seconds": 187,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "badkarma"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "i wanna be yours x cardigan (8d audio)",
+   "album": {
+    "name": "i wanna be yours x cardigan"
+   },
+   "videoId": "wtoz6v3tpYc",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:46",
+   "duration_seconds": 226,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "surround."
+    },
+    {
+     "name": "(((())))"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "I Wanna Be Yours (Cover)",
+   "album": {
+    "name": "Happy Music To Start Your Day Vol. 2 (Covers)"
+   },
+   "videoId": "zVtSqcTgoOw",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:35",
+   "duration_seconds": 155,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Covers Unplugged"
+    },
+    {
+     "name": "Wild Issues"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "I Wanna Be Yours",
+   "album": {
+    "name": "I Wanna Be Yours"
+   },
+   "videoId": "CBcrGUdgMzg",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:59",
+   "duration_seconds": 179,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Sara Conte"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "I Wanna Be Yours x Summertime Sadness (slowed to perfection)",
+   "album": {
+    "name": "I Wanna Be Yours x Summertime Sadness"
+   },
+   "videoId": "BTI0C7B0qBQ",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:44",
+   "duration_seconds": 224,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "TommyMuzzic"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "I Wanna Be Yours (Slowed & Reverb)",
+   "album": {
+    "name": "I Wanna Be Yours"
+   },
+   "videoId": "TFlUgMi1OVQ",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:35",
+   "duration_seconds": 215,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "A.P"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "I Wanna Be Yours (Techno Version)",
+   "album": {
+    "name": "I Wanna Be Yours"
+   },
+   "videoId": "6SRwdA7oqXA",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:49",
+   "duration_seconds": 169,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Too Much Kick"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "Arctic Monkeys - I Wanna Be Yours - Piano Cover Version",
+   "album": {
+    "name": "Arctic Monkeys - I Wanna Be Yours - Piano Cover Version"
+   },
+   "videoId": "Mra7puI2m0c",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:53",
+   "duration_seconds": 173,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "Piano Covers"
+    },
+    {
+     "name": "Piano Relaxation"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "i wanna be yours X Ilomilo (acoustic)",
+   "album": {
+    "name": "i wanna be yours X Ilomilo"
+   },
+   "videoId": "n4Zq8ovr3qw",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "2:32",
+   "duration_seconds": 152,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "sunkissed"
+    }
+   ]
+  },
+  {
+   "resultType": "song",
+   "title": "i wanna be yours x cardigan (acoustic)",
+   "album": {
+    "name": "i wanna be yours x cardigan"
+   },
+   "videoId": "wiqgEO6EnQY",
+   "videoType": "MUSIC_VIDEO_TYPE_ATV",
+   "duration": "3:28",
+   "duration_seconds": 208,
+   "isExplicit": false,
+   "artists": [
+    {
+     "name": "sunkissed"
+    }
+   ]
+  }
+ ],
+ "soundcloud": {
+  "_type": "playlist",
+  "id": "Arctic Monkeys I Wanna Be Yours",
+  "title": "Arctic Monkeys I Wanna Be Yours",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "255984222",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A255984222",
+    "webpage_url": "https://soundcloud.com/arcticmonkeys/i-wanna-be-yours",
+    "title": "I Wanna Be Yours",
+    "duration": 30.0,
+    "uploader": "ArcticMonkeys",
+    "uploader_url": "https://soundcloud.com/arcticmonkeys"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "366184949",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A366184949",
+    "webpage_url": "https://soundcloud.com/user-870885163/i-wanna-be-yours",
+    "title": "I Wanna Be Yours",
+    "description": "",
+    "duration": 190.032,
+    "uploader": "Silas",
+    "uploader_url": "https://soundcloud.com/user-870885163"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "183399868",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A183399868",
+    "webpage_url": "https://soundcloud.com/lauren-melon-ellis/i-wanna-be-yours-5-slower-arctic-monkeys",
+    "title": "i wanna be yours (5% slower) // arctic monkeys",
+    "description": "",
+    "duration": 190.087,
+    "uploader": "seafluff",
+    "uploader_url": "https://soundcloud.com/lauren-melon-ellis"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "1317789118",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A1317789118",
+    "webpage_url": "https://soundcloud.com/baexmiss/arctic-monkeys-x-lana-del-rey-summertime-sadness-i-wanna-be-yoursslowed",
+    "title": "arctic monkeys x lana del rey - summertime sadness & i wanna be yours(slowed)",
+    "description": "my youtube channe l\u27a1 https://www.youtube.com/c/byannn",
+    "duration": 205.102,
+    "uploader": "baexmiss",
+    "uploader_url": "https://soundcloud.com/baexmiss"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Soundcloud",
+    "id": "930631099",
+    "url": "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A930631099",
+    "webpage_url": "https://soundcloud.com/aulani-carey/arctic-monkeys-i-wanna-be",
+    "title": "Arctic Monkeys -  \ud835\udc22 \ud835\udc30\ud835\udc1a\ud835\udc27\ud835\udc27\ud835\udc1a \ud835\udc1b\ud835\udc1e \ud835\udc32\ud835\uddfc\ud835\udc2e\ud835\udc2b\ud835\udc2c (Slowed Down)",
+    "description": "",
+    "duration": 236.855,
+    "uploader": "\u2728slowed sounds\u2728",
+    "uploader_url": "https://soundcloud.com/aulani-carey"
+   }
+  ]
+ },
+ "youtube": {
+  "_type": "playlist",
+  "id": "Arctic Monkeys - I Wanna Be Yours",
+  "title": "Arctic Monkeys - I Wanna Be Yours",
+  "entries": [
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "nyuo9-OjNNg",
+    "url": "https://www.youtube.com/watch?v=nyuo9-OjNNg",
+    "title": "I Wanna Be Yours",
+    "description": "Provided to YouTube by Domino I Wanna Be Yours \u00b7 Arctic Monkeys AM \u2117 2013 Domino Recording Co Ltd Released on:\u00a0...",
+    "duration": 184,
+    "channel": "Official Arctic Monkeys",
+    "uploader": "Official Arctic Monkeys",
+    "uploader_url": null
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "fukGbiPuBjU",
+    "url": "https://www.youtube.com/watch?v=fukGbiPuBjU",
+    "title": "Arctic Monkeys - I Wanna Be Yours",
+    "description": "Arctic Monkeys - I Wanna Be Yours \u00bb Descargar: \u00bb Follow Arctic Monkeys: https://www.instagram.com/arcticmonkeys/\u00a0...",
+    "duration": 185,
+    "channel": "LatinHype",
+    "uploader": "LatinHype",
+    "uploader_url": "https://www.youtube.com/@LatinHype."
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "6ayyfucIl6M",
+    "url": "https://www.youtube.com/watch?v=6ayyfucIl6M",
+    "title": "Arctic Monkeys - I Wanna Be Yours (Live)",
+    "description": "Arctic Monkeys live at L'Album de la Semaine | France.",
+    "duration": 230,
+    "channel": "rowdy",
+    "uploader": "rowdy",
+    "uploader_url": "https://www.youtube.com/@rowdy_505"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "x76m_89k_vM",
+    "url": "https://www.youtube.com/watch?v=x76m_89k_vM",
+    "title": "Arctic Monkeys - I Wanna Be Yours || 1 HOUR",
+    "description": "If you have suggestions of songs you want to listen to for an hour, leave me a comment, and I'll consider it \u203c\ufe0f",
+    "duration": 3675,
+    "channel": "1HOURMIX",
+    "uploader": "1HOURMIX",
+    "uploader_url": "https://www.youtube.com/@1hourmix591"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "7i2gb3dJ6ik",
+    "url": "https://www.youtube.com/watch?v=7i2gb3dJ6ik",
+    "title": "Arctic Monkeys - I Wanna Be Yours - Session Acoustique O\u00dcI FM",
+    "description": "Arctic Monkeys - I Wanna Be Yours Session du 13 septembre 2013 Toutes le vid\u00e9os : http://www.ouifm.fr/ Les session de 2014\u00a0...",
+    "duration": 173,
+    "channel": "O\u00fci FM",
+    "uploader": "O\u00fci FM",
+    "uploader_url": "https://www.youtube.com/@ouifm"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "4jJUlzqi3gA",
+    "url": "https://www.youtube.com/watch?v=4jJUlzqi3gA",
+    "title": "Arctic Monkeys - I Wanna Be Yours",
+    "description": "Track 12 Arctic Monkeys - AM (2013) Cover John Cooper Clarke I wanna be your vacuum cleaner Breathing in your dust I wanna\u00a0...",
+    "duration": 185,
+    "channel": "Francisco Cer\u00f3n",
+    "uploader": "Francisco Cer\u00f3n",
+    "uploader_url": "https://www.youtube.com/@Pancho_Ceron"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "AVNbFL9liP4",
+    "url": "https://www.youtube.com/watch?v=AVNbFL9liP4",
+    "title": "Arctic Monkeys - I Wanna Be Yours/Star Treatment (Live at Rock Werchter 2023)",
+    "description": null,
+    "duration": 268,
+    "channel": "pijuliko",
+    "uploader": "pijuliko",
+    "uploader_url": "https://www.youtube.com/@pijuliko9849"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "cZ-7OSX-x8s",
+    "url": "https://www.youtube.com/watch?v=cZ-7OSX-x8s",
+    "title": "I Wanna Be Yours - Arctic Monkeys (1 hour)",
+    "description": "An extended version of I Wanna Be Yours by Arctic Monkeys. Perfect for night time, relaxing, or studying. Like, comment, and\u00a0...",
+    "duration": 3681,
+    "channel": "LoTunes",
+    "uploader": "LoTunes",
+    "uploader_url": "https://www.youtube.com/@LoTunesMusic"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "H7Zm62ehPYA",
+    "url": "https://www.youtube.com/watch?v=H7Zm62ehPYA",
+    "title": "i wanna be yours ( s l o w e d  &  r e v e r b )",
+    "description": null,
+    "duration": 224,
+    "channel": "Emile Wallace",
+    "uploader": "Emile Wallace",
+    "uploader_url": "https://www.youtube.com/@emilewallace8074"
+   },
+   {
+    "_type": "url",
+    "ie_key": "Youtube",
+    "id": "IdAjA-cev2w",
+    "url": "https://www.youtube.com/watch?v=IdAjA-cev2w",
+    "title": "i wanna be yours but it hits at the end",
+    "description": "01:55.",
+    "duration": 182,
+    "channel": "marusya \u2606",
+    "uploader": "marusya \u2606",
+    "uploader_url": "https://www.youtube.com/@iammarusya"
+   }
+  ]
+ },
+ "details": {}
+}
