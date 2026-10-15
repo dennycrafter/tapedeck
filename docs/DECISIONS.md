@@ -4,6 +4,32 @@ This file records every deviation from SPEC.md and every choice the spec left op
 
 Each entry lists the date, the ticket, the decision, and a one line reason for it, newest first. Entries are never edited after the fact; a later decision that replaces an earlier one is added as a new entry that names the entry it replaces.
 
+## v2 (T9 to T14, see docs/build/V2-PLAN.md)
+
+Each v2 ticket adds its entries under its own heading below, newest first, so tickets built at the same time never edit the same lines.
+
+### Plan
+- 2026-10-15 (v2 plan): Friends who want Tapedeck each run their own copy (own Vercel, Supabase, R2 and PC downloader); there is no shared multi-user server. Reason: a shared server would store downloaded songs and stream them to other people, which is distributing copies, not personal use.
+- 2026-10-15 (v2 plan): Trim is stored as start and end points; the audio file is never cut. Reason: undo must always work and the offline copy stays the same file.
+- 2026-10-15 (v2 plan): Catalog search uses Deezer's free public API with iTunes as the fallback, not Spotify. Reason: since February 2026 Spotify's API needs the app owner to pay for Premium, allows 5 users, caps search at 10 results and only returns tracks of playlists you own.
+- 2026-10-15 (v2 plan): Import offers a MusicAPI.com login and paste-a-link. Reason: our own Spotify login would be limited to 5 people and Spotify only lifts that for businesses with 250,000 monthly users; Denis wants a playlist checklist, not one link at a time.
+- 2026-10-15 (v2 plan): The best-copy finder only uses freely available sources (YouTube Music, SoundCloud, YouTube) and never tools that strip DRM from paid streaming services. Reason: breaking copy protection is a line Tapedeck does not cross.
+- 2026-10-15 (v2 plan): Speed uses the audio element's playbackRate and preservesPitch; pitch shift without a speed change is out of scope. Reason: it needs Web Audio, which stops when the iPhone locks.
+
+### T9
+
+### T10
+
+### T11
+
+### T12
+
+### T13
+
+### T14
+
+## v1 (T0 to T8)
+
 - 2026-10-14 (T4 fix): Downloaded songs play from `/offline-audio/<track id>`, an address the service worker answers from IndexedDB with byte ranges (200, 206 or 416); a blob URL (`URL.createObjectURL`, as SPEC 8.9 says) is now only the fallback when no service worker is in control. Replaces the blob-only playback. Reason: in CI, WebKit failed blob playback now and then even as `audio/x-m4a`, while plain addresses played every time; media players stream normal addresses most reliably.
 - 2026-10-14 (T7): `scripts/check-repo.sh` leaves out SPEC.md (the build spec, kept exactly as written) and `web/AGENTS.md` (Next.js regenerates it with its own dashes) from the dash check, and SPEC.md and `.env.example` files from the key-prefix check (they only describe the formats). It matches bytes with `LC_ALL=C` so the result does not depend on the machine's locale. It also runs in CI.
 - 2026-10-14 (T7): The throwaway e2e secrets are derived at run time (SHA-256 of fixed labels) instead of written as 64-character hex literals; fake keys in unit tests no longer use real key prefixes; the expired CDN signatures in the recorded Deezer fixture are replaced with `redacted`. Reason: the T7 check forbids those strings in tracked files.

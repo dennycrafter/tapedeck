@@ -35,7 +35,18 @@ My personal Spotify replacement. Paste a YouTube or SoundCloud link (or search Y
 - To check on the real iPhone (T8 list): download a playlist, turn on airplane mode, open the app from the home screen, play; and Save to Files opens the share sheet.
 
 ## Left to build after T2 (in this order)
-1. Nothing left to build. Next: go live with Denis (below).
+1. Nothing left from the original spec. Next: go live with Denis (below).
+
+## v2 (started 15 Oct 2026)
+New features (trim, catalog search, best-copy finder, playlist import, speed and pitch) are planned as tickets T9 to T14 in [V2-PLAN.md](V2-PLAN.md). Read it before starting any of them; it has the order, the parallel waves and the rules for running several sessions at once.
+
+Status (each ticket replaces only its own line):
+- T9 Foundation: not started
+- T10 Trim: not started
+- T11 Catalog search: not started
+- T12 Best-copy finder: not started
+- T13 Playlist import: not started
+- T14 Speed and pitch: not started
 
 ## Then go live (I do this with help)
 1. Set up Supabase and Cloudflare R2.
