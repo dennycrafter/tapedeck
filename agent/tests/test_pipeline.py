@@ -249,3 +249,91 @@ class TestUpgradeYtDlp:
 
         monkeypatch.setattr(subprocess, "run", raise_not_found)
         downloader.upgrade_yt_dlp(quiet_logger)  # must not raise
+
+
+DRM_STDERR = "ERROR: [soundcloud] 2411589765: This video is DRM protected"
+
+
+class TestSoundCloudDrmFallback:
+    """A DRM protected SoundCloud link falls back to the same song on YouTube."""
+
+    def sc_track(self, **overrides):
+        fields = {
+            "source": "soundcloud",
+            "source_url": "https://soundcloud.com/octobersveryown/solar-eclipse",
+            "title": "Solar Eclipse",
+            "artist": "Drake",
+            "duration_sec": 200,
+        }
+        fields.update(overrides)
+        return make_track(**fields)
+
+    def test_detects_drm_error(self):
+        assert downloader.is_drm_error(DRM_STDERR)
+        assert not downloader.is_drm_error("ERROR: Sign in to confirm you're not a bot")
+        assert not downloader.is_drm_error("")
+
+    def test_search_query(self):
+        assert downloader.youtube_search_query(self.sc_track()) == "Drake Solar Eclipse"
+        assert downloader.youtube_search_query(self.sc_track(artist="", title="  ")) is None
+
+    def test_duration_filter(self):
+        assert downloader.duration_match_filter(200) == "duration >= 160 & duration <= 240"
+        # Short songs get at least 20 seconds of slack either way.
+        assert downloader.duration_match_filter(60) == "duration >= 40 & duration <= 80"
+        assert downloader.duration_match_filter(None) is None
+        assert downloader.duration_match_filter(0) is None
+
+    def test_fallback_command(self):
+        cmd = downloader.build_youtube_fallback_command(self.sc_track(), "out.%(ext)s")
+        assert cmd[-1] == "ytsearch5:Drake Solar Eclipse"
+        assert cmd[cmd.index("--max-downloads") + 1] == "1"
+        assert cmd[cmd.index("--match-filter") + 1] == "duration >= 160 & duration <= 240"
+        assert "--no-playlist" not in cmd  # a search result list is a playlist
+        no_len = downloader.build_youtube_fallback_command(
+            self.sc_track(duration_sec=None), "out.%(ext)s"
+        )
+        assert "--match-filter" not in no_len
+
+    def test_drm_falls_back_to_youtube(self, quiet_logger, tmp_work, monkeypatch):
+        work = tmp_work / "tr1"
+        calls = []
+
+        def fake_run(command, **kwargs):
+            calls.append(command)
+            if len(calls) == 1:
+                return subprocess.CompletedProcess(command, 1, stdout="", stderr=DRM_STDERR)
+            work.mkdir(parents=True, exist_ok=True)
+            (work / "tr1.m4a").write_bytes(b"audio")
+            # --max-downloads makes yt-dlp exit with 101 after the one download.
+            return subprocess.CompletedProcess(command, 101, stdout="", stderr="")
+
+        monkeypatch.setattr(subprocess, "run", fake_run)
+        path = downloader.download_track(quiet_logger, None, self.sc_track())
+        assert path == work / "tr1.m4a"
+        assert calls[1][-1] == "ytsearch5:Drake Solar Eclipse"
+
+    def test_no_youtube_match_gives_friendly_error(self, quiet_logger, tmp_work, monkeypatch):
+        def fake_run(command, **kwargs):
+            if "soundcloud.com" in command[-1]:
+                return subprocess.CompletedProcess(command, 1, stdout="", stderr=DRM_STDERR)
+            return subprocess.CompletedProcess(command, 0, stdout="", stderr="")
+
+        monkeypatch.setattr(subprocess, "run", fake_run)
+        with pytest.raises(downloader.PipelineError) as err:
+            downloader.download_track(quiet_logger, None, self.sc_track())
+        assert str(err.value) == downloader.DRM_ERROR_MESSAGE
+        assert "Paste a YouTube link" in str(err.value)
+        assert len(str(err.value)) <= downloader.MAX_ERROR_CHARS
+
+    def test_no_title_skips_search(self, quiet_logger, tmp_work, monkeypatch):
+        calls = []
+
+        def fake_run(command, **kwargs):
+            calls.append(command)
+            return subprocess.CompletedProcess(command, 1, stdout="", stderr=DRM_STDERR)
+
+        monkeypatch.setattr(subprocess, "run", fake_run)
+        with pytest.raises(downloader.PipelineError, match="protected"):
+            downloader.download_track(quiet_logger, None, self.sc_track(artist="", title=""))
+        assert len(calls) == 1
