@@ -9,7 +9,7 @@ import { createHash, timingSafeEqual } from "node:crypto";
  * Contract from SPEC 7.2 and 8.12: the setup is complete when the `settings`
  * table exists (the schema's seed row is its marker). Finish checks the
  * password constant-time, applies supabase/schema.sql if the settings table
- * does not exist, applies the R2 CORS rules, checks every service like
+ * does not exist, then any pending v2 migrations, applies the R2 CORS rules, checks every service like
  * /api/health does, and returns per-service results.
  */
 
@@ -34,6 +34,8 @@ export interface SetupDb {
   settingsExists(): Promise<boolean>;
   /** Execute the whole schema file; the adapter handles statement splitting. */
   applySchema(schemaSql: string): Promise<void>;
+  /** Run pending v2 migrations (V2-PLAN T9); returns the names applied. */
+  applyMigrations(): Promise<string[]>;
   /** Throw when the database is unreachable or the settings row is gone. */
   ping(): Promise<void>;
 }
@@ -137,6 +139,25 @@ export async function runFinish(input: FinishInput): Promise<FinishOutcome> {
         ],
       };
     }
+  }
+
+  // v2 migrations run after the base schema, on a fresh database and on one
+  // set up before v2 alike (V2-PLAN T9).
+  try {
+    await db.applyMigrations();
+  } catch (cause) {
+    return {
+      ok: false,
+      rejected: null,
+      schemaApplied,
+      services: [
+        {
+          name: "database",
+          status: "ERROR",
+          detail: `Could not update the database tables: ${errorDetail(cause)}`,
+        },
+      ],
+    };
   }
 
   const services: ServiceResult[] = [];

@@ -1,5 +1,7 @@
 import { beforeAll, describe, expect, it } from "vitest";
 import { PGlite } from "@electric-sql/pglite";
+import { pgliteExecutor } from "../../../../lib/db";
+import { applyMigrations } from "../../../../lib/migrations";
 import { runFinish, type SetupDb } from "./finish";
 import { SCHEMA_SQL } from "./schema-sql";
 import { databaseCheck, storageCheck, youtubeCheck, type FetchJson } from "./services";
@@ -28,6 +30,7 @@ function pgliteDb(db: PGlite): SetupDb {
         await db.exec(statement);
       }
     },
+    applyMigrations: () => applyMigrations(pgliteExecutor(db)),
     ping: async () => {
       const { rows } = await db.query("select 1 from settings limit 1");
       if (rows.length !== 1) throw new Error("the settings row is missing");
@@ -104,12 +107,24 @@ describe("runFinish against PGlite", () => {
       "play_events",
       "playlist_tracks",
       "playlists",
+      "schema_migrations",
       "search_cache",
       "settings",
       "tracks",
     ]);
     const { rows } = await db.query<{ id: number }>("select id from settings");
     expect(rows).toEqual([{ id: 1 }]);
+  });
+
+  it("applied the v2 migrations after the schema (V2-PLAN T9)", async () => {
+    const { rows } = await db.query<{ name: string }>("select name from schema_migrations order by name");
+    expect(rows.map((row) => row.name)).toContain("t09_v2_foundation.sql");
+    const columns = await db.query<{ column_name: string }>(
+      "select column_name from information_schema.columns where table_name = 'tracks'",
+    );
+    expect(columns.rows.map((row) => row.column_name)).toEqual(
+      expect.arrayContaining(["isrc", "match_info", "trim_start_sec", "playback_rate", "preserve_pitch"]),
+    );
   });
 
   it("rejects the dev default once the real password is set", async () => {

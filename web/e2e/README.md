@@ -1,7 +1,8 @@
 # E2E tests (SPEC 9.0)
 
 Playwright runs the whole app by itself, with the 4.1 stand-ins: the config
-starts `next dev` on port 3100 over https (a throwaway self-signed cert is
+starts `next dev` on port 3100 (or `E2E_PORT`; the production server for
+the offline checks uses 3102 or `E2E_PROD_PORT`) over https (a throwaway self-signed cert is
 generated per run, since SPEC 8.1 marks the session cookie Secure, and WebKit
 rejects Secure cookies on plain http) with `TAPEDECK_TEST=1` (in-memory
 PGlite, local storage in a temp folder) and the MSW fixtures under

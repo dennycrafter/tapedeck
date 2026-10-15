@@ -11,10 +11,16 @@
  * place to align.
  */
 import type { TrackStatus } from "@/lib/player/store";
+import type { TrackV2Fields } from "@/lib/track-v2";
 
-export interface TrackDto {
+/**
+ * v2 fields (web/lib/track-v2.ts) are optional here because offline snapshots
+ * saved before v2 lack them; normalizeLibrary fills the defaults, so every
+ * track the screens get has them.
+ */
+export interface TrackDto extends Partial<TrackV2Fields> {
   id: string;
-  source: "youtube" | "soundcloud";
+  source: "youtube" | "soundcloud" | "catalog";
   sourceUrl: string;
   title: string;
   artist: string;

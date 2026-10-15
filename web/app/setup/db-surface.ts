@@ -1,4 +1,5 @@
 import type { DbExecutor } from "@/lib/db";
+import { applyMigrations } from "../../lib/migrations";
 import type { SetupDb } from "../api/setup/finish/finish";
 
 /**
@@ -27,6 +28,8 @@ export function toSetupDb(db: DbExecutor): SetupDb {
     // DbExecutor.exec runs a multi-statement SQL script (its documented use
     // is schema bootstrap), so the schema file goes through as one call.
     applySchema: (schemaSql) => db.exec(schemaSql),
+
+    applyMigrations: () => applyMigrations(db),
 
     ping: async () => {
       const rows = await db`select 1 from settings limit 1`;

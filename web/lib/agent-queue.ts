@@ -15,6 +15,7 @@
  */
 
 import { sql, type Row } from './db'
+import type { MatchInfo } from './track-v2'
 
 /** The one storage key layout (SPEC 4): `tracks/<track_id>.m4a`. */
 export function trackKey(trackId: string): string {
@@ -28,7 +29,7 @@ export function trackKey(trackId: string): string {
  */
 export interface ClaimedTrack {
   id: string
-  source: 'youtube' | 'soundcloud'
+  source: 'youtube' | 'soundcloud' | 'catalog'
   source_url: string
   title: string
   artist: string
@@ -36,7 +37,20 @@ export interface ClaimedTrack {
   cover_url: string | null
   duration_sec: number | null
   apple_music: boolean
+  /** v2 (V2-PLAN T9): catalog ISRC, when known. */
+  isrc: string | null
+  /** v2: `source_id` for catalog rows (for example `deezer:3135556`), else null. */
+  catalog_id: string | null
+  /** v2: a copy already chosen (T12 "Pick another version"); download exactly this. */
+  resolved_url: string | null
 }
+
+/**
+ * What a downloader says it can do on claim (V2-PLAN T9). `catalog`: it can
+ * find a copy for catalog songs (T12). Older downloaders send nothing and are
+ * never handed catalog rows.
+ */
+export type AgentCapability = 'catalog' | (string & {})
 
 /** SPEC 8.3: a downloading row claimed longer ago than this is stale. */
 export const STALE_CLAIM_SECONDS = 15 * 60
@@ -63,7 +77,7 @@ export async function resetStaleClaims(): Promise<number> {
 function toClaimedTrack(row: Row): ClaimedTrack {
   return {
     id: String(row.id),
-    source: row.source === 'soundcloud' ? 'soundcloud' : 'youtube',
+    source: row.source === 'soundcloud' || row.source === 'catalog' ? row.source : 'youtube',
     source_url: String(row.source_url),
     title: String(row.title),
     artist: String(row.artist),
@@ -71,6 +85,9 @@ function toClaimedTrack(row: Row): ClaimedTrack {
     cover_url: (row.cover_url as string | null) ?? null,
     duration_sec: (row.duration_sec as number | null) ?? null,
     apple_music: row.apple_music === true,
+    isrc: (row.isrc as string | null) ?? null,
+    catalog_id: row.source === 'catalog' ? String(row.source_id) : null,
+    resolved_url: (row.resolved_url as string | null) || null,
   }
 }
 
@@ -79,13 +96,18 @@ function toClaimedTrack(row: Row): ClaimedTrack {
  * reset stale claims, then set status='downloading', claimed_at=now() and
  * attempts = attempts + 1 on up to `limit` waiting rows and return them.
  */
-export async function claimTracks(limit: number = CLAIM_BATCH): Promise<ClaimedTrack[]> {
+export async function claimTracks(
+  limit: number = CLAIM_BATCH,
+  capabilities: readonly AgentCapability[] = [],
+): Promise<ClaimedTrack[]> {
   await resetStaleClaims()
+  const takesCatalog = capabilities.includes('catalog')
 
   const rows = await sql`
     with picked as (
       select id from tracks
       where status = 'waiting'
+        and (source <> 'catalog' or ${takesCatalog})
       order by created_at
       limit ${limit}
       for update skip locked
@@ -95,10 +117,11 @@ export async function claimTracks(limit: number = CLAIM_BATCH): Promise<ClaimedT
       set status = 'downloading', claimed_at = now(), attempts = t.attempts + 1
       from picked p
       where t.id = p.id
-      returning t.id, t.source, t.source_url, t.title, t.artist, t.album,
-                t.cover_url, t.duration_sec, t.apple_music, t.created_at
+      returning t.id, t.source, t.source_id, t.source_url, t.title, t.artist, t.album,
+                t.cover_url, t.duration_sec, t.apple_music, t.isrc, t.resolved_url, t.created_at
     )
-    select id, source, source_url, title, artist, album, cover_url, duration_sec, apple_music
+    select id, source, source_id, source_url, title, artist, album, cover_url, duration_sec,
+           apple_music, isrc, resolved_url
     from claimed
     order by created_at`
   return rows.map(toClaimedTrack)
@@ -122,6 +145,13 @@ export interface CompleteInput {
   bytes: number
   /** Real duration from ffprobe; omitted/null leaves the stored value. */
   durationSec?: number | null
+  /** v2 (V2-PLAN T9): the copy that was downloaded (T12). Omitted keeps the stored value. */
+  resolvedUrl?: string | null
+  /** v2: how the copy was chosen (T12). Omitted keeps the stored value. */
+  matchInfo?: MatchInfo | null
+  /** v2: trim suggested by the PC (T10). Omitted keeps the stored value. */
+  autoTrimStartSec?: number | null
+  autoTrimEndSec?: number | null
 }
 
 /**
@@ -132,12 +162,17 @@ export interface CompleteInput {
 export async function completeTrack(input: CompleteInput): Promise<boolean> {
   const durationSec =
     input.durationSec == null ? null : Math.round(input.durationSec)
+  const matchInfo = input.matchInfo == null ? null : JSON.stringify(input.matchInfo)
   const rows = await sql`
     update tracks
     set status = 'ready',
         storage_key = ${input.key},
         bytes = ${input.bytes},
         duration_sec = coalesce(${durationSec}, duration_sec),
+        resolved_url = coalesce(${input.resolvedUrl ?? null}, resolved_url),
+        match_info = coalesce(${matchInfo}::jsonb, match_info),
+        auto_trim_start_sec = coalesce(${input.autoTrimStartSec ?? null}::numeric, auto_trim_start_sec),
+        auto_trim_end_sec = coalesce(${input.autoTrimEndSec ?? null}::numeric, auto_trim_end_sec),
         ready_at = now(),
         error = ''
     where id = ${input.trackId}
@@ -153,15 +188,26 @@ export async function completeTrack(input: CompleteInput): Promise<boolean> {
 export async function failTrack(
   trackId: string,
   error: string,
+  /** v2 (V2-PLAN T9): "no good match" still saves the alternatives (T12). */
+  matchInfo?: MatchInfo | null,
 ): Promise<'waiting' | 'failed' | null> {
+  const matchJson = matchInfo == null ? null : JSON.stringify(matchInfo)
   const rows = await sql`
     update tracks
     set status = case when attempts < ${MAX_ATTEMPTS} then 'waiting' else 'failed' end,
-        error = left(${error}, 500)
+        error = left(${error}, 500),
+        match_info = coalesce(${matchJson}::jsonb, match_info)
     where id = ${trackId}
     returning status`
   const status = rows[0]?.status
   return status === 'failed' ? 'failed' : status === 'waiting' ? 'waiting' : null
+}
+
+/** The stored length of a track in seconds, or null when unknown or the track is gone. */
+export async function storedDurationSec(trackId: string): Promise<number | null> {
+  const rows = await sql`select duration_sec from tracks where id = ${trackId}`
+  const value = rows[0]?.duration_sec
+  return value == null ? null : Number(value)
 }
 
 /**

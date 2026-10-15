@@ -11,6 +11,7 @@ const eslintConfig = defineConfig([
     ".next/**",
     // The e2e production server's build (e2e/prod-server.mjs).
     ".next-e2e/**",
+    ".next-e2e-*/**",
     "out/**",
     "build/**",
     "next-env.d.ts",

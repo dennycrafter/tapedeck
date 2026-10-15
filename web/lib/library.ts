@@ -10,6 +10,7 @@
  */
 import { sql, type Row } from './db'
 import { getStorage } from './storage'
+import { TRACK_V2_COLUMNS, v2FieldsFromRow, type TrackV2Fields } from './track-v2'
 
 /** "Today" and "this month" are Chicago time (SPEC 3). */
 export const APP_TIMEZONE = 'America/Chicago'
@@ -24,9 +25,10 @@ export const MAX_DESCRIPTION_LENGTH = 300
 /** A single play can never be longer than this (bounds bad input). */
 export const MAX_PLAY_SECONDS = 6 * 60 * 60
 
-export interface LibraryTrack {
+/** Every v2 field (lib/track-v2.ts) rides along so the phone has it offline too. */
+export interface LibraryTrack extends TrackV2Fields {
   id: string
-  source: 'youtube' | 'soundcloud'
+  source: 'youtube' | 'soundcloud' | 'catalog'
   sourceUrl: string
   title: string
   artist: string
@@ -88,7 +90,7 @@ function toNumberOrNull(value: unknown): number | null {
 function trackFromRow(row: Row): LibraryTrack {
   return {
     id: String(row.id),
-    source: row.source === 'soundcloud' ? 'soundcloud' : 'youtube',
+    source: row.source === 'soundcloud' || row.source === 'catalog' ? row.source : 'youtube',
     sourceUrl: String(row.source_url),
     title: String(row.title),
     artist: String(row.artist ?? ''),
@@ -103,13 +105,15 @@ function trackFromRow(row: Row): LibraryTrack {
     likedAt: toIso(row.liked_at),
     bytes: toNumberOrNull(row.bytes),
     appleMusic: row.apple_music === true,
+    ...v2FieldsFromRow(row),
   }
 }
 
 export async function getLibrarySnapshot(): Promise<LibrarySnapshot> {
   const trackRows = await sql`
     select id, source, source_url, title, artist, album, album_artist, cover_url,
-           duration_sec, status, error, created_at, liked, liked_at, bytes, apple_music
+           duration_sec, status, error, created_at, liked, liked_at, bytes, apple_music,
+           ${sql.raw(TRACK_V2_COLUMNS)}
     from tracks
     order by created_at desc, id desc
   `

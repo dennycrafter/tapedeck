@@ -6,6 +6,7 @@
  */
 import type { PlayerTrack } from "@/lib/player/store";
 import type { FavoriteAlbumDto, LibraryResponse, PlaylistDto, TrackDto } from "./api";
+import { withV2Defaults } from "../../lib/track-v2";
 
 export type SongSort = "recent" | "title" | "artist";
 
@@ -184,6 +185,13 @@ export function toPlayerTrack(track: TrackDto): PlayerTrack {
     coverUrl: track.coverUrl,
     status: track.status,
     durationSec: track.durationSec,
+    // v2 playback settings (T10 trim, T14 speed); absent means the defaults.
+    autoTrimStartSec: track.autoTrimStartSec ?? null,
+    autoTrimEndSec: track.autoTrimEndSec ?? null,
+    trimStartSec: track.trimStartSec ?? null,
+    trimEndSec: track.trimEndSec ?? null,
+    playbackRate: track.playbackRate ?? 1,
+    preservePitch: track.preservePitch ?? true,
   };
 }
 
@@ -226,7 +234,8 @@ export function greeting(displayName: string | undefined): string {
 /** Fills the optional snapshot fields so screens never deal with undefined. */
 export function normalizeLibrary(data: LibraryResponse): Required<LibraryResponse> {
   return {
-    tracks: data.tracks,
+    // Snapshots saved before v2 lack the v2 fields (V2-PLAN T9).
+    tracks: data.tracks.map(withV2Defaults),
     downloader: data.downloader,
     playlists: data.playlists ?? [],
     favoriteAlbums: data.favoriteAlbums ?? [],

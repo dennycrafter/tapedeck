@@ -2,7 +2,15 @@ import { mkdtempSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { defineConfig, devices } from '@playwright/test';
-import { appEnv, BASE_URL, E2E_PORT, E2E_PROD_PORT, ensureE2ECertificate, PROD_URL } from './e2e/helpers/env';
+import {
+  appEnv,
+  BASE_URL,
+  E2E_PORT,
+  E2E_PROD_DIST_DIR,
+  E2E_PROD_PORT,
+  ensureE2ECertificate,
+  PROD_URL,
+} from './e2e/helpers/env';
 
 /*
  * SPEC 9.0: Playwright starts the app itself with the 4.1 stand-ins:
@@ -104,7 +112,7 @@ export default defineConfig({
       timeout: 600_000,
       env: {
         ...appEnv(),
-        TAPEDECK_DIST_DIR: '.next-e2e',
+        TAPEDECK_DIST_DIR: E2E_PROD_DIST_DIR,
         TAPEDECK_E2E_PROD_PORT: String(E2E_PROD_PORT),
         TAPEDECK_E2E_KEY_FILE: e2eCert.keyPath,
         TAPEDECK_E2E_CERT_FILE: e2eCert.certPath,

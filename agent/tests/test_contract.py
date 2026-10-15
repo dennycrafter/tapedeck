@@ -64,3 +64,31 @@ def test_module_imports_on_stdlib_alone():
         check=False,
     )
     assert result.returncode == 0, result.stderr
+
+
+def test_claim_rows_carry_the_v2_fields():
+    """V2-PLAN T9: claim also returns isrc, catalog_id and resolved_url."""
+    row = {
+        "id": "tr1",
+        "source": "youtube",
+        "source_url": "https://www.youtube.com/watch?v=jNQXAC9IVRw",
+        "title": "Harder",
+        "artist": "Daft Punk",
+        "duration_sec": 224,
+        "apple_music": False,
+        "isrc": "GBDUW0000059",
+        "catalog_id": "deezer:3135556",
+        "resolved_url": " https://music.youtube.com/watch?v=abc ",
+    }
+    track = downloader.coerce_claimed_track(row)
+    assert track is not None
+    assert track["isrc"] == "GBDUW0000059"
+    assert track["catalog_id"] == "deezer:3135556"
+    assert track["resolved_url"] == "https://music.youtube.com/watch?v=abc"
+
+
+def test_claim_rows_from_an_older_app_read_the_v2_fields_as_none():
+    row = {"id": "tr1", "source": "youtube", "source_url": "https://www.youtube.com/watch?v=x"}
+    track = downloader.coerce_claimed_track(row)
+    assert track is not None
+    assert (track["isrc"], track["catalog_id"], track["resolved_url"]) == (None, None, None)
