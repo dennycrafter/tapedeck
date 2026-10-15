@@ -38,6 +38,7 @@ import { cleanWithFallback } from '../../../lib/ai-clean'
 import { lookupCoverArt } from '../../../lib/cover-art'
 import { parseSongLink, type ParsedSongLink } from '../../../lib/parse-source-url'
 import { sql, type Row } from '../../../lib/db'
+import { handleCatalogAdd, isCatalogAddBody } from '../../../lib/catalog-add'
 
 /** SPEC 8.2: "max 25 per request". */
 export const MAX_LINES = 25
@@ -167,6 +168,8 @@ export async function POST(request: Request): Promise<Response> {
   } catch {
     return Response.json({ error: 'Expected a JSON body.' }, { status: 400 })
   }
+  // V2-PLAN T11: `{ catalog: [...] }` adds catalog songs (lib/catalog-add.ts).
+  if (isCatalogAddBody(body)) return handleCatalogAdd(body)
   const urls =
     typeof body === 'object' && body !== null && 'urls' in body ? (body as { urls: unknown }).urls : null
   if (

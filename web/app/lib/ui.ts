@@ -19,6 +19,15 @@ export const STATUS_META: Record<TrackStatus, StatusMeta> = {
   ready: { label: "", dotClass: null },
 };
 
+/** V2-PLAN T11: a catalog song has no link yet; the PC finds a copy first. */
+export const CATALOG_WAITING_LABEL = "Waiting for your PC to find it";
+
+/** The status text for one song: catalog songs get their own waiting label (T11). */
+export function statusLabel(track: { status: TrackStatus; source?: string }): string {
+  if (track.status === "waiting" && track.source === "catalog") return CATALOG_WAITING_LABEL;
+  return STATUS_META[track.status].label;
+}
+
 /** Summary toast copy: "3 added, 1 already in library" (SPEC 8.2). */
 export function summarizeAddResults(results: readonly AddLineResult[]): string | null {
   const added = results.filter((r) => r.status === "added").length;

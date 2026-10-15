@@ -141,7 +141,7 @@ function Sidebar() {
         Tapedeck
       </Link>
       <NavLink href="/" label="Home" active={pathname === "/"} icon={<HomeIcon />} testId="nav-home" />
-      <NavLink href="/search" label="Search" active={pathname === "/search"} icon={<SearchIcon />} testId="nav-search" />
+      <NavLink href="/search" label="Search" active={pathname === "/search" || pathname.startsWith("/catalog/")} icon={<SearchIcon />} testId="nav-search" />
       <p className="mt-5 px-3 pb-1 text-xs font-semibold uppercase tracking-wider text-muted">Library</p>
       {libraryLinks.map((item) => (
         <NavLink key={item.href} {...item} />

@@ -17,7 +17,7 @@ import { canPlayNow } from "../lib/offline";
 import { useLibrary } from "./LibraryProvider";
 import { useOverlays } from "./Overlays";
 import { formatDuration } from "@/lib/player/format";
-import { STATUS_META, rowSubtitle } from "../lib/ui";
+import { STATUS_META, rowSubtitle, statusLabel } from "../lib/ui";
 import type { TrackDto } from "../lib/api";
 
 interface TrackRowProps {
@@ -79,7 +79,7 @@ export function TrackRow({ track, onPlay, current, playlistId, leading }: TrackR
         ) : (
           <span className="flex items-center gap-1.5" data-testid="track-status">
             <span className={`h-2 w-2 rounded-full ${statusMeta.dotClass ?? ""}`} aria-hidden="true" />
-            {statusMeta.label}
+            {statusLabel(track)}
           </span>
         )}
         {track.status === "failed" && (

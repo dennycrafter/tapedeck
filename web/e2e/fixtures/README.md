@@ -56,3 +56,32 @@ Raw captures live outside the repo. To refresh a fixture, repeat the matching
 `curl` above, paste the body into the file, and note the new date here. Keep
 bodies verbatim (do not "clean them up") and keep lookup keys consistent
 with the handlers' normalisation.
+
+## Catalog fixtures (T11)
+
+`catalog-deezer.json` and `catalog-itunes.json` back the catalog search (V2-PLAN
+T11). Unlike the files above they are read by the app itself: with
+`TAPEDECK_TEST=1` (every e2e run) `web/lib/catalog-fixtures.ts` answers every
+Deezer and iTunes catalog call from them, so tests never reach either service.
+Unit tests serve the same files through MSW (`../mocks/catalog-handlers.ts`).
+
+Recorded live on **2026-10-15** with a one-off script (no keys needed):
+
+| File | Requests recorded |
+|---|---|
+| `catalog-deezer.json` | `/search?q=daft punk&limit=25`, `/search/album?q=daft punk&limit=25`, `/search/artist?q=daft punk&limit=10`, `/artist/27`, `/artist/27/top?limit=10`, `/artist/27/albums?limit=100`, `/album/6575789` and `/album/302127` with `/tracks?limit=200`, `/track/:id` for the 10 top songs; `unknown` is the live answer for `/album/0` (HTTP 200, `{"error":{"code":800}}`) |
+| `catalog-itunes.json` | `/search?term=daft punk&country=US` with `entity=song` (25), `album` (25), `musicArtist` (10); `/lookup?id=5468295` (Daft Punk) with `entity=album&limit=100` and `entity=song&limit=10`; `/lookup?id=617154241&entity=song&limit=200` (Random Access Memories) |
+
+- Shape: `{ recordedAt, responses: { "<path>?<sorted query>": body }, empty, unknown? }`.
+  Keys come from `fixtureKey` in `web/lib/catalog-fixtures.ts`: the path plus
+  the query sorted by name, with `q` / `term` lowercased and spaces collapsed.
+- Unknown searches answer `empty`; unknown Deezer ids answer `unknown` (the
+  recorded "no data" error).
+- Bodies are verbatim except: Deezer preview links have their `hmac=` value
+  replaced with `fixture` and `track_token` is `fixture` (signed, expiring
+  values that `scripts/check-repo.sh` would flag as 64-character hex), and
+  the files are written with `\uXXXX` escapes for non-ASCII text so no raw
+  en or em dash lands in the repo.
+- Offline development: `CATALOG_SOURCE=fixtures npm run dev` uses these files
+  instead of the network (only "daft punk", its artist page and two albums
+  are recorded).

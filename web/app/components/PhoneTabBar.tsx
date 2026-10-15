@@ -51,7 +51,7 @@ export function PhoneTabBar() {
       <TabLink href="/" label="Home" active={pathname === "/"}>
         <HomeIcon />
       </TabLink>
-      <TabLink href="/search" label="Search" active={pathname === "/search"}>
+      <TabLink href="/search" label="Search" active={pathname === "/search" || pathname.startsWith("/catalog/")}>
         <SearchIcon />
       </TabLink>
       <TabLink href="/library" label="Library" active={LIBRARY_PATHS.some((p) => pathname.startsWith(p))}>
