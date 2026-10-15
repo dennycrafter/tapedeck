@@ -157,36 +157,60 @@ class TestSelftest:
         assert complete["durationSec"] == 180
 
 
+@pytest.fixture
+def env_file(monkeypatch, tmp_path):
+    """Point load_env at a temp .env so the owner's real agent/.env is never touched."""
+    path = tmp_path / ".env"
+    monkeypatch.setattr(downloader, "ENV_FILE", path)
+    return path
+
+
 class TestLoadEnv:
-    def test_reads_agent_env_file(self, quiet_logger, monkeypatch):
-        env_file = AGENT_DIR / ".env"
-        assert not env_file.exists(), "the real .env must never exist in the repo"
+    def test_default_path_is_agent_env(self):
+        assert downloader.ENV_FILE == AGENT_DIR / ".env"
+
+    def test_reads_agent_env_file(self, quiet_logger, monkeypatch, env_file):
+        env_file.write_text("APP_URL=https://example.app\nAGENT_TOKEN=abc123\n")
+        monkeypatch.delenv("APP_URL", raising=False)
+        monkeypatch.delenv("AGENT_TOKEN", raising=False)
         try:
-            env_file.write_text("APP_URL=https://example.app\nAGENT_TOKEN=abc123\n")
-            monkeypatch.delenv("APP_URL", raising=False)
-            monkeypatch.delenv("AGENT_TOKEN", raising=False)
             downloader.load_env(quiet_logger)
             assert os.environ["APP_URL"] == "https://example.app"
             assert os.environ["AGENT_TOKEN"] == "abc123"
         finally:
-            env_file.unlink(missing_ok=True)
             os.environ.pop("APP_URL", None)
             os.environ.pop("AGENT_TOKEN", None)
 
-    def test_missing_env_file_is_fine(self, quiet_logger, caplog):
+    def test_missing_env_file_is_fine(self, quiet_logger, caplog, env_file):
         caplog.set_level(logging.INFO)
         downloader.load_env(quiet_logger)  # must not raise
         assert any("process environment" in message for message in caplog.messages)
 
-    def test_real_environment_wins_over_env_file(self, quiet_logger, monkeypatch):
-        env_file = AGENT_DIR / ".env"
+    def test_real_environment_wins_over_env_file(self, quiet_logger, monkeypatch, env_file):
+        env_file.write_text("APP_URL=https://from-file.app\n")
+        monkeypatch.setenv("APP_URL", "https://from-env.app")
+        downloader.load_env(quiet_logger)
+        assert os.environ["APP_URL"] == "https://from-env.app"
+
+
+class TestMainReadsEnvFile:
+    def test_normal_start_reads_env_file_before_config(self, monkeypatch, env_file):
+        """Started by Task Scheduler, the settings come only from agent/.env."""
+        env_file.write_text("APP_URL=https://example.app/\nAGENT_TOKEN=abc123\n")
+        monkeypatch.delenv("APP_URL", raising=False)
+        monkeypatch.delenv("AGENT_TOKEN", raising=False)
+        started = {}
+        monkeypatch.setattr(downloader, "setup_logging", lambda: logging.getLogger("test.main"))
+        monkeypatch.setattr(
+            downloader, "run_loop", lambda logger, cfg: started.setdefault("cfg", cfg)
+        )
         try:
-            env_file.write_text("APP_URL=https://from-file.app\n")
-            monkeypatch.setenv("APP_URL", "https://from-env.app")
-            downloader.load_env(quiet_logger)
-            assert os.environ["APP_URL"] == "https://from-env.app"
+            assert downloader.main([]) == 0
+            assert started["cfg"].app_url == "https://example.app"
+            assert started["cfg"].agent_token == "abc123"
         finally:
-            env_file.unlink(missing_ok=True)
+            os.environ.pop("APP_URL", None)
+            os.environ.pop("AGENT_TOKEN", None)
 
 
 class TestLoadConfig:
