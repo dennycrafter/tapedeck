@@ -9,16 +9,30 @@ export const WEB_ROOT = path.resolve(__dirname, '..', '..');
 export const REPO_ROOT = path.resolve(WEB_ROOT, '..');
 export const AGENT_SCRIPT = path.join(REPO_ROOT, 'agent', 'downloader.py');
 
-// SPEC 9.0: the e2e server runs on its own fixed port so a developer's
+// SPEC 9.0: the e2e server runs on its own port so a developer's
 // `npm run dev` on 3000 never collides with a test run. The server is https:
 // SPEC 8.1 marks the session cookie Secure, and WebKit rejects Secure
 // cookies on plain http://localhost (Chromium exempts it; the smoke caught
 // the difference), so the contract is only exercised faithfully over TLS.
-export const E2E_PORT = 3100;
+//
+// V2-PLAN T9: E2E_PORT and E2E_PROD_PORT pick the ports (defaults 3100 and
+// 3102), so several worktrees can run their e2e checks at the same time.
+function portFromEnv(name: string, fallback: number): number {
+  const raw = process.env[name]?.trim();
+  if (!raw) return fallback;
+  const port = Number(raw);
+  if (!Number.isInteger(port) || port < 1024 || port > 65535) {
+    throw new Error(`${name} must be a port number from 1024 to 65535, got "${raw}"`);
+  }
+  return port;
+}
+export const E2E_PORT = portFromEnv('E2E_PORT', 3100);
 export const BASE_URL = `https://localhost:${E2E_PORT}`;
 /** The e2e production server (e2e/prod-server.mjs) for the offline checks (T4). */
-export const E2E_PROD_PORT = 3102;
+export const E2E_PROD_PORT = portFromEnv('E2E_PROD_PORT', 3102);
 export const PROD_URL = `https://localhost:${E2E_PROD_PORT}`;
+/** Its build folder carries the port, so two runs never share one. */
+export const E2E_PROD_DIST_DIR = `.next-e2e-${E2E_PROD_PORT}`;
 
 // SPEC 4.1: APP_PASSWORD defaults to `tapedeck-dev` in development.
 // Tests pass it explicitly (appEnv below) so every run is deterministic.

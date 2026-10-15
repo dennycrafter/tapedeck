@@ -103,14 +103,18 @@ describe('claimTracks (SPEC 8.3)', () => {
     expect(row.claimed_at).not.toBeNull()
   })
 
-  it('returns exactly the SPEC 8.3 field list', async () => {
+  it('returns exactly the SPEC 8.3 field list plus the v2 fields', async () => {
     await seedTrack({ title: 'Song', appleMusic: true, createdSecondsAgo: 30 })
 
     const [claimed] = await claimTracks()
 
     expect(claimed).toBeDefined()
     expect(Object.keys(claimed!).sort()).toEqual(
-      ['album', 'apple_music', 'artist', 'cover_url', 'duration_sec', 'id', 'source', 'source_url', 'title'].sort(),
+      [
+        'album', 'apple_music', 'artist', 'cover_url', 'duration_sec', 'id', 'source', 'source_url', 'title',
+        // v2 (V2-PLAN T9)
+        'isrc', 'catalog_id', 'resolved_url',
+      ].sort(),
     )
     expect(claimed!.apple_music).toBe(true)
     expect(claimed!.source).toBe('youtube')

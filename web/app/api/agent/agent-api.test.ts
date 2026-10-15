@@ -35,6 +35,10 @@ const CLAIM_FIELDS = [
   'cover_url',
   'duration_sec',
   'apple_music',
+  // v2 (V2-PLAN T9)
+  'isrc',
+  'catalog_id',
+  'resolved_url',
 ].sort()
 
 // Every bearer-guarded handler, addressed uniformly for the auth matrix.

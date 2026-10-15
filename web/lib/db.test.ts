@@ -135,7 +135,11 @@ describe('postgres mode (mocked driver)', () => {
   it('skips the schema bootstrap in production (Finish setup owns it)', async () => {
     setEnv({ DATABASE_URL: POOL_URL, NODE_ENV: 'production' })
     await getDb()
-    expect(postgresState.queries).toEqual([])
+    // Only the "is the schema there yet" check before migrations (V2-PLAN T9);
+    // the fake reports no settings table, so nothing else runs.
+    const texts = postgresState.queries.map((query) => query.text)
+    expect(texts).toHaveLength(1)
+    expect(texts[0]).toContain("to_regclass('public.settings')")
   })
 
   it('interpolates tagged templates into $n parameters', async () => {
@@ -209,6 +213,11 @@ describe('in-memory PGlite (TAPEDECK_TEST=1)', () => {
 
     const after = await sql`select count(*)::int as n from playlists`
     expect(after[0].n).toBe(1)
+  })
+
+  it('applies the v2 migrations at startup (V2-PLAN T9)', async () => {
+    const rows = await sql`select name from schema_migrations`
+    expect(rows.map((row) => row.name)).toContain('t09_v2_foundation.sql')
   })
 
   it('schema bootstrap is idempotent', async () => {

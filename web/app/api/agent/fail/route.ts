@@ -5,11 +5,14 @@
 // final) it becomes `failed` and only the UI "Retry" can requeue it. The
 // error is stored truncated to its first 500 characters. Returns the new
 // status so the downloader can log the outcome.
+// v2 (V2-PLAN T9): optional matchInfo (object under 8 KB), so "no good
+// match" still saves the alternatives for "Pick another version" (T12).
 // Auth: bearer AGENT_TOKEN only (the proxy exempts /api/agent/, SPEC 2).
 
 import { agentAuthorized } from '../auth'
 import { isUuid, jsonError, readJsonObject } from '../requests'
 import { failTrack } from '../../../../lib/agent-queue'
+import { parseMatchInfo } from '../v2-fields'
 
 export async function POST(request: Request): Promise<Response> {
   if (!agentAuthorized(request)) {
@@ -30,8 +33,13 @@ export async function POST(request: Request): Promise<Response> {
     return jsonError(400, 'error must be a string')
   }
 
+  const matchInfo = parseMatchInfo(body.matchInfo)
+  if (matchInfo.error) {
+    return jsonError(400, matchInfo.error)
+  }
+
   try {
-    const status = await failTrack(trackId, error)
+    const status = await failTrack(trackId, error, matchInfo.value)
     if (!status) {
       return jsonError(404, 'Track not found')
     }

@@ -38,6 +38,14 @@ export interface PlayerTrack {
   readonly coverUrl: string | null;
   readonly status: TrackStatus;
   readonly durationSec: number | null;
+  /** v2 (V2-PLAN T9): trim points in seconds of media time (T10); null means none. */
+  readonly autoTrimStartSec?: number | null;
+  readonly autoTrimEndSec?: number | null;
+  readonly trimStartSec?: number | null;
+  readonly trimEndSec?: number | null;
+  /** v2: speed 0.5 to 1.5 and whether pitch is kept (T14); absent means 1 and true. */
+  readonly playbackRate?: number;
+  readonly preservePitch?: boolean;
 }
 
 export interface PlayerState {

@@ -4,11 +4,15 @@
 // cleared. The key is echoed from upload-url's response; durationSec is the
 // real duration from ffprobe (rounded to the int column; omitted or null
 // leaves the stored value, since completing must not erase known metadata).
+// v2 (V2-PLAN T9), all optional: resolvedUrl (http(s)), matchInfo (object
+// under 8 KB), autoTrimStartSec and autoTrimEndSec (seconds within the real
+// length). Omitted fields keep the stored values.
 // Auth: bearer AGENT_TOKEN only (the proxy exempts /api/agent/, SPEC 2).
 
 import { agentAuthorized } from '../auth'
 import { isUuid, jsonError, readJsonObject } from '../requests'
-import { completeTrack } from '../../../../lib/agent-queue'
+import { completeTrack, storedDurationSec } from '../../../../lib/agent-queue'
+import { parseAutoTrim, parseMatchInfo, parseResolvedUrl } from '../v2-fields'
 
 export async function POST(request: Request): Promise<Response> {
   if (!agentAuthorized(request)) {
@@ -41,8 +45,29 @@ export async function POST(request: Request): Promise<Response> {
     durationSec = duration
   }
 
+  const resolvedUrl = parseResolvedUrl(body.resolvedUrl)
+  if (resolvedUrl.error) return jsonError(400, resolvedUrl.error)
+  const matchInfo = parseMatchInfo(body.matchInfo)
+  if (matchInfo.error) return jsonError(400, matchInfo.error)
+
   try {
-    const completed = await completeTrack({ trackId, key, bytes, durationSec })
+    let trim: { start: number | null; end: number | null } | undefined
+    if (body.autoTrimStartSec != null || body.autoTrimEndSec != null) {
+      const length = durationSec ?? (await storedDurationSec(trackId))
+      const parsed = parseAutoTrim(body.autoTrimStartSec, body.autoTrimEndSec, length)
+      if (parsed.error) return jsonError(400, parsed.error)
+      trim = parsed.value
+    }
+    const completed = await completeTrack({
+      trackId,
+      key,
+      bytes,
+      durationSec,
+      resolvedUrl: resolvedUrl.value,
+      matchInfo: matchInfo.value,
+      autoTrimStartSec: trim?.start,
+      autoTrimEndSec: trim?.end,
+    })
     if (!completed) {
       return jsonError(404, 'Track not found')
     }

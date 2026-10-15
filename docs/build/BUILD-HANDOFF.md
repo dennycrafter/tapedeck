@@ -41,7 +41,7 @@ My personal Spotify replacement. Paste a YouTube or SoundCloud link (or search Y
 New features (trim, catalog search, best-copy finder, playlist import, speed and pitch) are planned as tickets T9 to T14 in [V2-PLAN.md](V2-PLAN.md). Read it before starting any of them; it has the order, the parallel waves and the rules for running several sessions at once.
 
 Status (each ticket replaces only its own line):
-- T9 Foundation: not started
+- T9 Foundation: done (branch `t9-foundation`). Migration runner (`web/lib/migrations.ts`, files in `supabase/migrations`, `npm run gen:migrations` after adding one), v2 columns, v2 fields in the library payload and the agent contract, `E2E_PORT` / `E2E_PROD_PORT`, `e2e:t9` to `e2e:t14`.
 - T10 Trim: not started
 - T11 Catalog search: not started
 - T12 Best-copy finder: not started

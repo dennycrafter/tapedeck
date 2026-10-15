@@ -12,6 +12,8 @@
  * On first start (development and PGlite), `supabase/schema.sql` is applied when
  * the `settings` table is missing. In production the schema runs from "Finish
  * setup" (8.12) instead; call `ensureSchema(db)` from there.
+ * Pending v2 migrations (supabase/migrations, lib/migrations.ts) then run once
+ * per server instance, on every driver, whenever the schema is in place.
  *
  * The same small surface works on both drivers:
  *   await sql`select * from tracks where id = ${id}`
@@ -28,6 +30,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { PGlite } from '@electric-sql/pglite'
 import postgres from 'postgres'
+import { applyMigrations } from './migrations'
 
 export type Row = Record<string, unknown>
 
@@ -237,6 +240,11 @@ function pgliteRootDriver(pg: PGlite): Driver {
   })
 }
 
+/** A standalone executor over a PGlite instance the caller owns (tests). */
+export function pgliteExecutor(pg: PGlite): DbExecutor {
+  return createExecutor(pgliteRootDriver(pg))
+}
+
 // ---------------------------------------------------------------------------
 // Mode selection, schema bootstrap, singleton
 // ---------------------------------------------------------------------------
@@ -271,6 +279,17 @@ export async function ensureSchema(db: DbExecutor, schemaSql?: string): Promise<
   return true
 }
 
+/**
+ * Run pending migrations when the base schema exists. Before Finish setup has
+ * run there is nothing to migrate (Finish setup applies them itself), and the
+ * Setup page must keep working, so a missing schema is skipped quietly.
+ */
+async function migrateIfSetUp(db: DbExecutor): Promise<void> {
+  const rows = await db`select to_regclass('public.settings') as reg`
+  if ((rows[0]?.['reg'] as string | null | undefined) == null) return
+  await applyMigrations(db)
+}
+
 let cachedExecutor: DbExecutor | null = null
 let driverEnd: (() => Promise<void>) | null = null
 let initPromise: Promise<DbExecutor> | null = null
@@ -300,6 +319,7 @@ async function init(): Promise<DbExecutor> {
     const executor = createExecutor(postgresDriver(client))
     driverEnd = () => client.end()
     if (process.env.NODE_ENV !== 'production') await ensureSchema(executor)
+    await migrateIfSetUp(executor)
     return executor
   }
 
@@ -311,6 +331,7 @@ async function init(): Promise<DbExecutor> {
   driverEnd = () => pg.close()
   // PGlite only runs in dev/test, so bootstrap always applies here.
   await ensureSchema(executor)
+  await applyMigrations(executor)
   return executor
 }
 

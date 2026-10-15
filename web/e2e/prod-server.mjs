@@ -5,30 +5,43 @@
 // service worker with its precache, and `next dev` will not start the app
 // from cached files with the network off.
 //
-// Builds into .next-e2e (TAPEDECK_DIST_DIR) so it never touches the dev
-// server's .next. Set TAPEDECK_E2E_SKIP_BUILD=1 to reuse the last build.
+// Builds into .next-e2e-<port> (TAPEDECK_DIST_DIR) so it never touches the
+// dev server's .next, nor another worktree's run on another port (V2-PLAN
+// T9). Set TAPEDECK_E2E_SKIP_BUILD=1 to reuse the last build.
+//
+// Next.js adds each build folder's type paths to the tsconfig it builds
+// with, so the build uses a throwaway copy, tsconfig.e2e-<port>.json
+// (git-ignored, next.config.ts reads TAPEDECK_TSCONFIG), and the real
+// tsconfig.json stays untouched whatever the port.
 import { execFileSync } from 'node:child_process';
-import { existsSync, readFileSync } from 'node:fs';
+import { copyFileSync, existsSync, readFileSync } from 'node:fs';
 import { createServer } from 'node:https';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const webRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const port = Number(process.env.TAPEDECK_E2E_PROD_PORT ?? 3102);
-const distDir = process.env.TAPEDECK_DIST_DIR ?? '.next-e2e';
+const distDir = process.env.TAPEDECK_DIST_DIR ?? `.next-e2e-${port}`;
 process.env.TAPEDECK_DIST_DIR = distDir;
+const tsconfig = `tsconfig.e2e-${port}.json`;
+process.env.TAPEDECK_TSCONFIG = tsconfig;
 
 const keyFile = process.env.TAPEDECK_E2E_KEY_FILE;
 const certFile = process.env.TAPEDECK_E2E_CERT_FILE;
 if (!keyFile || !certFile) throw new Error('prod-server: TAPEDECK_E2E_KEY_FILE and TAPEDECK_E2E_CERT_FILE must be set (playwright.config.ts does this)');
 
 const skipBuild = process.env.TAPEDECK_E2E_SKIP_BUILD === '1' && existsSync(path.join(webRoot, distDir, 'BUILD_ID'));
+if (!skipBuild || !existsSync(path.join(webRoot, tsconfig))) {
+  copyFileSync(path.join(webRoot, 'tsconfig.json'), path.join(webRoot, tsconfig));
+}
 if (!skipBuild) {
   const env = { ...process.env, NODE_ENV: 'production' };
   const npx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+  // Node refuses to start .cmd files without a shell (EINVAL) on Windows.
+  const shell = process.platform === 'win32';
   console.log(`[prod-server] building into ${distDir} ...`);
-  execFileSync(npx, ['next', 'build'], { cwd: webRoot, env, stdio: 'inherit' });
-  execFileSync(npx, ['serwist', 'build', 'serwist.config.mjs'], { cwd: webRoot, env, stdio: 'inherit' });
+  execFileSync(npx, ['next', 'build'], { cwd: webRoot, env, stdio: 'inherit', shell });
+  execFileSync(npx, ['serwist', 'build', 'serwist.config.mjs'], { cwd: webRoot, env, stdio: 'inherit', shell });
 }
 
 process.env.NODE_ENV = 'production';

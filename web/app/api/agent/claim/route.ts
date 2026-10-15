@@ -11,13 +11,19 @@
 //
 // Response: a bare JSON array of claimed tracks with the SPEC 8.3 field list
 // (id, source, source_url, title, artist, album, cover_url, duration_sec,
-// apple_music); the downloader iterates it directly.
+// apple_music) plus the v2 fields isrc, catalog_id and resolved_url; the
+// downloader iterates it directly.
+//
+// v2 (V2-PLAN T9): an optional body `{ capabilities: string[] }`. Catalog
+// songs only go to a downloader that sends "catalog"; older ones send no
+// body and never get them.
 //
 // Reading `request` keeps the handler per-request (Next 16 Cache Components),
 // so the response is never cached.
 
 import { agentAuthorized, agentVersion } from '../auth'
-import { jsonError } from '../requests'
+import { jsonError, readJsonObject } from '../requests'
+import { parseCapabilities } from '../v2-fields'
 import { claimTracks, recordAgentSeen } from '../../../../lib/agent-queue'
 
 export async function POST(request: Request): Promise<Response> {
@@ -25,7 +31,8 @@ export async function POST(request: Request): Promise<Response> {
     return jsonError(401, 'Unauthorized')
   }
   try {
-    const tracks = await claimTracks()
+    const capabilities = parseCapabilities(await readJsonObject(request))
+    const tracks = await claimTracks(undefined, capabilities)
     await recordAgentSeen(agentVersion(request))
     return Response.json(tracks)
   } catch (error) {

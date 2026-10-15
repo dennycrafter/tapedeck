@@ -96,6 +96,10 @@ class ClaimedTrack(TypedDict):
     cover_url: str | None
     duration_sec: int | None
     apple_music: bool
+    # v2 (V2-PLAN T9); older apps leave them out, which reads as None.
+    isrc: str | None  # catalog ISRC
+    catalog_id: str | None  # source_id of a catalog row, for example "deezer:3135556"
+    resolved_url: str | None  # a copy already picked (T12 "Pick another version")
 
 
 @dataclass(frozen=True)
@@ -163,6 +167,9 @@ def coerce_claimed_track(row: Any) -> ClaimedTrack | None:
         cover_url=coerce_optional_str(row.get("cover_url")),
         duration_sec=coerce_optional_int(row.get("duration_sec")),
         apple_music=bool(row.get("apple_music")),
+        isrc=coerce_optional_str(row.get("isrc")),
+        catalog_id=coerce_optional_str(row.get("catalog_id")),
+        resolved_url=coerce_optional_str(row.get("resolved_url")),
     )
 
 
