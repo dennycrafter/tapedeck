@@ -579,3 +579,23 @@ export async function lookupIsrc(id: string): Promise<string | null> {
     return null
   }
 }
+
+/**
+ * The catalog song with this ISRC (Deezer `/track/isrc:<ISRC>`; V2-PLAN T13
+ * import matching), or null when Deezer has none. Cached like every catalog
+ * answer. Other Deezer errors throw, so the caller can tell "no such song"
+ * from "Deezer is down".
+ */
+export async function findTrackByIsrc(code: string): Promise<CatalogTrack | null> {
+  const clean = isrc(code)
+  if (!clean) return null
+  const found = await cached(`isrc:${clean}`, async () => {
+    try {
+      return { track: deezerTrack(await deezerGet<DzTrack>(`/track/isrc:${clean}`)) }
+    } catch (cause) {
+      if (cause instanceof CatalogNotFoundError) return { track: null }
+      throw cause
+    }
+  })
+  return found.track
+}

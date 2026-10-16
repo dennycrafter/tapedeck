@@ -104,6 +104,8 @@ describe("runFinish against PGlite", () => {
     // The schema is really in: all 7 tables plus the seeded settings row.
     expect(await tableNames(db)).toEqual([
       "album_favorites",
+      "import_items", // T13 migration
+      "import_jobs", // T13 migration
       "play_events",
       "playlist_tracks",
       "playlists",

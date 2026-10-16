@@ -85,3 +85,24 @@ Recorded live on **2026-10-15** with a one-off script (no keys needed):
 - Offline development: `CATALOG_SOURCE=fixtures npm run dev` uses these files
   instead of the network (only "daft punk", its artist page and two albums
   are recorded).
+
+## Import matching fixtures (T13)
+
+`import-deezer.json` holds the Deezer answers the playlist import's catalog
+matching needs (V2-PLAN T13, `web/lib/import-match.ts`). Same shape and keys
+as `catalog-deezer.json` (`{ recordedAt, responses }`, keys from
+`fixtureKey`); `web/lib/catalog-fixtures.ts` and `../mocks/catalog-handlers.ts`
+merge it with the T11 file, and unknown keys fall back to that file's
+`empty` and `unknown` answers.
+
+Recorded live on **2026-10-15** with a one-off script (no keys needed):
+`/track/isrc:GBDUW0000059` and `/search?limit=25&q=` for `daft punk something
+about us`, `daft punk veridis quo` and `daft punk one more time`. Same edits
+as the T11 file: preview `hmac=` and `share` `utm_term=` values replaced with
+`fixture`, non-ASCII text written as `\uXXXX` escapes.
+
+The songs of the stand-in importer (`web/lib/importers/fake.ts`) are chosen
+against these answers: an ISRC match, artist + title matches, a cover version
+and a remix to pass over, a length too far off, and songs the catalog does
+not have. An import adapter's own fixtures (pages, CSV files, provider
+answers) go in its own folder, `import-<adapter>/`.
