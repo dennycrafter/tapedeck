@@ -1,0 +1,4496 @@
+{
+ "recorded": "2026-10-16",
+ "pages": {
+  "user/spotify": {
+   "status": 200,
+   "initialState": {
+    "entities": {
+     "items": {
+      "spotify:user:spotify": {
+       "__typename": "User",
+       "avatar": {
+        "extractedColors": {
+         "colorDark": {
+          "hex": "#10893F"
+         }
+        },
+        "sources": [
+         {
+          "height": 64,
+          "url": "https://i.scdn.co/image/ab67757000003b8255c25988a6ac314394d3fbf5",
+          "width": 64
+         },
+         {
+          "height": 300,
+          "url": "https://i.scdn.co/image/ab6775700000ee8555c25988a6ac314394d3fbf5",
+          "width": 300
+         }
+        ]
+       },
+       "id": "spotify",
+       "name": "Spotify",
+       "publicPlaylistsV2": {
+        "items": [
+         {
+          "__typename": "PlaylistResponseWrapper",
+          "_uri": "spotify:playlist:37i9dQZF1DXcBWIGoYBM5M",
+          "data": {
+           "__typename": "Playlist",
+           "followers": 33714247,
+           "images": {
+            "items": [
+             {
+              "sources": [
+               {
+                "height": null,
+                "url": "https://i.scdn.co/image/ab67706f0000000230888e59410296f950502d00",
+                "width": null
+               }
+              ]
+             }
+            ]
+           },
+           "name": "Today’s Top Hits",
+           "uri": "spotify:playlist:37i9dQZF1DXcBWIGoYBM5M"
+          }
+         },
+         {
+          "__typename": "PlaylistResponseWrapper",
+          "_uri": "spotify:playlist:37i9dQZF1DX0XUsuxWHRQd",
+          "data": {
+           "__typename": "Playlist",
+           "followers": 15523769,
+           "images": {
+            "items": [
+             {
+              "sources": [
+               {
+                "height": null,
+                "url": "https://i.scdn.co/image/ab67706f00000002e1faae98d1b3f2311aef0c51",
+                "width": null
+               }
+              ]
+             }
+            ]
+           },
+           "name": "RapCaviar",
+           "uri": "spotify:playlist:37i9dQZF1DX0XUsuxWHRQd"
+          }
+         },
+         {
+          "__typename": "PlaylistResponseWrapper",
+          "_uri": "spotify:playlist:37i9dQZF1DX1lVhptIYRda",
+          "data": {
+           "__typename": "Playlist",
+           "followers": 7637570,
+           "images": {
+            "items": [
+             {
+              "sources": [
+               {
+                "height": null,
+                "url": "https://i.scdn.co/image/ab67706f000000022e1e66e6dd36865f7f2735ce",
+                "width": null
+               }
+              ]
+             }
+            ]
+           },
+           "name": "Hot Country",
+           "uri": "spotify:playlist:37i9dQZF1DX1lVhptIYRda"
+          }
+         },
+         {
+          "__typename": "PlaylistResponseWrapper",
+          "_uri": "spotify:playlist:37i9dQZF1DX10zKzsJ2jva",
+          "data": {
+           "__typename": "Playlist",
+           "followers": 15110421,
+           "images": {
+            "items": [
+             {
+              "sources": [
+               {
+                "height": null,
+                "url": "https://i.scdn.co/image/ab67706f00000002f3a737e31744079ef77b7c4c",
+                "width": null
+               }
+              ]
+             }
+            ]
+           },
+           "name": "Viva Latino",
+           "uri": "spotify:playlist:37i9dQZF1DX10zKzsJ2jva"
+          }
+         },
+         {
+          "__typename": "PlaylistResponseWrapper",
+          "_uri": "spotify:playlist:37i9dQZF1DX4JAvHpjipBk",
+          "data": {
+           "__typename": "Playlist",
+           "followers": 4643137,
+           "images": {
+            "items": [
+             {
+              "sources": [
+               {
+                "height": null,
+                "url": "https://i.scdn.co/image/ab67706f00000002b299b91ee0cfcac7d8c15f1c",
+                "width": null
+               }
+              ]
+             }
+            ]
+           },
+           "name": "New Music Friday",
+           "uri": "spotify:playlist:37i9dQZF1DX4JAvHpjipBk"
+          }
+         },
+         {
+          "__typename": "PlaylistResponseWrapper",
+          "_uri": "spotify:playlist:37i9dQZF1DX4sWSpwq3LiO",
+          "data": {
+           "__typename": "Playlist",
+           "followers": 7909638,
+           "images": {
+            "items": [
+             {
+              "sources": [
+               {
+                "height": null,
+                "url": "https://i.scdn.co/image/ab67706f0000000270e1fb7db7b45809d6a80377",
+                "width": null
+               }
+              ]
+             }
+            ]
+           },
+           "name": "Peaceful Piano",
+           "uri": "spotify:playlist:37i9dQZF1DX4sWSpwq3LiO"
+          }
+         },
+         {
+          "__typename": "PlaylistResponseWrapper",
+          "_uri": "spotify:playlist:37i9dQZF1DX4SBhb3fqCJd",
+          "data": {
+           "__typename": "Playlist",
+           "followers": 6015065,
+           "images": {
+            "items": [
+             {
+              "sources": [
+               {
+                "height": null,
+                "url": "https://i.scdn.co/image/ab67706f00000002caf56ca5761d1a0301877d46",
+                "width": null
+               }
+              ]
+             }
+            ]
+           },
+           "name": "RNB X",
+           "uri": "spotify:playlist:37i9dQZF1DX4SBhb3fqCJd"
+          }
+         },
+         {
+          "__typename": "PlaylistResponseWrapper",
+          "_uri": "spotify:playlist:37i9dQZF1DWXRqgorJj26U",
+          "data": {
+           "__typename": "Playlist",
+           "followers": 13642599,
+           "images": {
+            "items": [
+             {
+              "sources": [
+               {
+                "height": null,
+                "url": "https://i.scdn.co/image/ab67706f00000002694bf33281695f3b7542a09a",
+                "width": null
+               }
+              ]
+             }
+            ]
+           },
+           "name": "Rock Classics",
+           "uri": "spotify:playlist:37i9dQZF1DWXRqgorJj26U"
+          }
+         },
+         {
+          "__typename": "PlaylistResponseWrapper",
+          "_uri": "spotify:playlist:37i9dQZF1DX4dyzvuaRJ0n",
+          "data": {
+           "__typename": "Playlist",
+           "followers": 5449603,
+           "images": {
+            "items": [
+             {
+              "sources": [
+               {
+                "height": null,
+                "url": "https://i.scdn.co/image/ab67706f00000002edfc628be2044100d44b3de5",
+                "width": null
+               }
+              ]
+             }
+            ]
+           },
+           "name": "mint",
+           "uri": "spotify:playlist:37i9dQZF1DX4dyzvuaRJ0n"
+          }
+         },
+         {
+          "__typename": "PlaylistResponseWrapper",
+          "_uri": "spotify:playlist:37i9dQZF1DXcF6B6QPhFDv",
+          "data": {
+           "__typename": "Playlist",
+           "followers": 4153312,
+           "images": {
+            "items": [
+             {
+              "sources": [
+               {
+                "height": null,
+                "url": "https://i.scdn.co/image/ab67706f000000026a89653fd5e70d5ef1dc36a4",
+                "width": null
+               }
+              ]
+             }
+            ]
+           },
+           "name": "MARROW",
+           "uri": "spotify:playlist:37i9dQZF1DXcF6B6QPhFDv"
+          }
+         }
+        ],
+        "totalCount": 1519
+       },
+       "uri": "spotify:user:spotify",
+       "verified": true
+      }
+     }
+    }
+   }
+  },
+  "user/0000notarealuser0000": {
+   "status": 404
+  },
+  "embed/playlist/37i9dQZF1DX4UtSsGT1Sbe": {
+   "status": 200,
+   "nextData": {
+    "props": {
+     "pageProps": {
+      "state": {
+       "data": {
+        "entity": {
+         "type": "playlist",
+         "name": "All Out 80s",
+         "uri": "spotify:playlist:37i9dQZF1DX4UtSsGT1Sbe",
+         "id": "37i9dQZF1DX4UtSsGT1Sbe",
+         "title": "All Out 80s",
+         "subtitle": "Spotify",
+         "authors": null,
+         "coverArt": {
+          "sources": [
+           {
+            "height": null,
+            "width": null,
+            "url": "https://i.scdn.co/image/ab67706f00000002fb8e01f2c022ab1a32e2c5a0"
+           }
+          ]
+         },
+         "releaseDate": null,
+         "duration": 0,
+         "isPlayable": true,
+         "playabilityReason": "UNKNOWN",
+         "isExplicit": false,
+         "hasVideo": false,
+         "relatedEntityUri": "spotify:playlist:37i9dQZF1DX4UtSsGT1Sbe",
+         "trackList": [
+          {
+           "uri": "spotify:track:6r8k1vznHrzlEKYxL4dZEe",
+           "uid": "36336534336238303561613339616630",
+           "title": "La Isla Bonita",
+           "subtitle": "Madonna",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 242733,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/52d1ee7e76fc956e22fcb5c0fcc1ce1cc800746e"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7wuJGgpTNzbUyn26IOY6rj",
+           "uid": "64313133313337666139336439323464",
+           "title": "Total Eclipse of the Heart",
+           "subtitle": "Bonnie Tyler",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 267360,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/42af1cbc20498d5e7de081f39b218ab035c9a57a"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:37Q5anxoGWYdRsyeXkkNoI",
+           "uid": "61653431323062323639303538636636",
+           "title": "Heaven Is A Place On Earth",
+           "subtitle": "Belinda Carlisle",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 246520,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/14bab659cdd73644ed4dbe48409c370fd1b587a9"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5ChkMS8OtdzJeqyybCc9R5",
+           "uid": "39386563306339396138646133313061",
+           "title": "Billie Jean",
+           "subtitle": "Michael Jackson",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 293826,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/0f6b8a3524ec410020457da4cdd7717f9addce2f"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2v7ywbUzCgcVohHaKUcacV",
+           "uid": "64656539666633636537303566393537",
+           "title": "Like a Prayer",
+           "subtitle": "Madonna",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 340866,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/7a64405e927aaae772c70c3524dc6cb49310e71f"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:37ZJ0p5Jm13JPevGcx4SkF",
+           "uid": "66343263616139643462373739623934",
+           "title": "Livin' On A Prayer",
+           "subtitle": "Bon Jovi",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 249293,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/2a84c209d6bfe17da820bbc28d1e610a5d304a53"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0dOg1ySSI7NkpAe89Zo0b9",
+           "uid": "34343462633637313038313837353766",
+           "title": "Born in the U.S.A.",
+           "subtitle": "Bruce Springsteen",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 279786,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/5b1bb7bc9981b018a1abc88984e9ee6aa6dc4af1"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:1OOtq8tRnDM8kG2gqUPjAj",
+           "uid": "32373261333936633337643338633364",
+           "title": "Beat It",
+           "subtitle": "Michael Jackson",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 258040,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/174b7bd06c6ddb87d25acec6afc731c6edc9db62"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3HCah9Waf9Jby9gLIWN4MI",
+           "uid": "66393538386337633634343330306638",
+           "title": "Eyes Without A Face - Remastered 1999",
+           "subtitle": "Billy Idol",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 297426,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/e13306f0bc025f751e09a4ba914a474aed1a8029"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2WfaOiMkCvy7F5fcp2zZ8L",
+           "uid": "64313761623062303732613536336231",
+           "title": "Take on Me",
+           "subtitle": "a-ha",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 225280,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/d1427dd0a300eeccfc53b99a2ebf3c664a67414a"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4tcauy2xyIv1q0ckvQmc4H",
+           "uid": "37393736653762656564666236623535",
+           "title": "Material Girl - 2024 Remaster",
+           "subtitle": "Madonna",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 242337,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/a5760cb89cbbd16abd3f4756ae59a4834671b2aa"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3oEkrIfXfSh9zGnE7eBzSV",
+           "uid": "63363239633238373164613763353638",
+           "title": "The Winner Takes It All",
+           "subtitle": "ABBA",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 294720,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/a5c0b3c58f991b2b1f492ddb59223bb561a9a787"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5Hyr47BBGpvOfcykSCcaw9",
+           "uid": "63326631366632383435393234333438",
+           "title": "Holding Out for a Hero - From \"Footloose\" Soundtrack",
+           "subtitle": "Bonnie Tyler",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 348333,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/e0e159fbfdde5340f891d688061ccfd08ff1cdab"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7arHM2KZ0KzIZXFVDRGClI",
+           "uid": "34613162373732343938646636343963",
+           "title": "Holiday",
+           "subtitle": "Madonna",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 370426,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/5f46c1803634326c0ddb8907c6995f345183c7c9"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4cgjA7B4fJBHyB9Ya2bu0t",
+           "uid": "64633561346439353135313934343231",
+           "title": "Human Nature",
+           "subtitle": "Michael Jackson",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 245837,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/e46a52da66fa7aeff958211ff2b193dcc810c07b"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2374M0fQpWi3dLnB54qaLX",
+           "uid": "34363534313864363831636631643666",
+           "title": "Africa",
+           "subtitle": "TOTO",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 295282,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/e7321b4ea1af32a9c622bc8ec3adcd0a0bb06b1e"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7Ewz6bJ97vUqk5HdkvguFQ",
+           "uid": "65663066393661646166346364393433",
+           "title": "Heaven",
+           "subtitle": "Bryan Adams",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 243360,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/a02f96375ee67e1e572e9ff777a710f7e950a017"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:08mG3Y1vljYA6bvDt4Wqkj",
+           "uid": "34653631646632333063613965646135",
+           "title": "Back In Black",
+           "subtitle": "AC/DC",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 256000,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/41d043fd2287a7e5ba775d131ccc2b44d83c63ce"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:1TfqLAPs4K3s2rJMoCokcS",
+           "uid": "32313265646662613530656635613234",
+           "title": "Sweet Dreams (Are Made of This) - 2005 Remaster",
+           "subtitle": "Eurythmics, Annie Lennox, Dave Stewart",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 216933,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/d69101dbd66295473706112d3edf978b70fc4550"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:1JLn8RhQzHz3qDqsChcmBl",
+           "uid": "64373233366264643335336138313565",
+           "title": "I Want to Know What Love Is - 1999 Remaster",
+           "subtitle": "Foreigner",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 304786,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/23f9b7ad0a9008aca1017cce9b5ba375b322ac8b"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2tUBqZG2AbRi7Q0BIrVrEj",
+           "uid": "63393630616562636165633035343638",
+           "title": "I Wanna Dance with Somebody (Who Loves Me)",
+           "subtitle": "Whitney Houston",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 292875,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/6d13b049b24af1bef77aa4d366c088c316ca1b65"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7j74lucZ59vqN67Ipe2ZcY",
+           "uid": "65653039303834626461656431663664",
+           "title": "Maneater",
+           "subtitle": "Daryl Hall & John Oates",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 273173,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/d689e007e59681c1520d7492aa605e3e5073661d"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4RvWPyQ5RL0ao9LPZeSouE",
+           "uid": "37373433343231316663366361396534",
+           "title": "Everybody Wants To Rule The World",
+           "subtitle": "Tears For Fears",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 251488,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/49a5e33d422484fde5484d3e665821e9a3a8b540"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5vmRQ3zELMLUQPo2FLQ76x",
+           "uid": "37316430386261346633353132366365",
+           "title": "Smalltown Boy",
+           "subtitle": "Bronski Beat",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 302413,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/08b4918efd23294b185b5844ac44ac1e65ed9018"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5zA8vzDGqPl2AzZkEYQGKh",
+           "uid": "34666634316635653032346366643732",
+           "title": "Uptown Girl",
+           "subtitle": "Billy Joel",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 198294,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/13fbf3eed96eefbb31a73638927a2911e0aa2748"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4S1VYqwfkLit9mKVY3MXoo",
+           "uid": "64303732373662633630663366353066",
+           "title": "Forever Young",
+           "subtitle": "Alphaville",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 226706,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/715c3b3b956d769f21ce4e43ede766fce7cd31fe"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:1NCuYqMc8hKMb4cpNTcJbD",
+           "uid": "63623464353865303363313461663833",
+           "title": "Another Day in Paradise - 2016 Remaster",
+           "subtitle": "Phil Collins",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 322133,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/6e86a5698f1165e5ffa7a537e4f19018e0e10eb4"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0WQiDwKJclirSYG9v5tayI",
+           "uid": "32373064613339626533353130643034",
+           "title": "There Is a Light That Never Goes Out - 2011 Remaster",
+           "subtitle": "The Smiths",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 244586,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/23f6c629d7072e1adbe90b0a155b1110b2f94714"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:1Hv1VTm8zeOeybub15mA2R",
+           "uid": "36633638643436656633396565353135",
+           "title": "Smooth Operator - Single Version",
+           "subtitle": "Sade",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 258693,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/43f389ca63d0814eb6e316b42f13011d802373ff"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0GONea6G2XdnHWjNZd6zt3",
+           "uid": "32616435373339393239653064316333",
+           "title": "Summer Of '69",
+           "subtitle": "Bryan Adams",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 216053,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/2300238dbef57e50bd68cec1093b30c62c86d090"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4w3tQBXhn5345eUXDGBWZG",
+           "uid": "37333539643064373133643039386161",
+           "title": "9 to 5",
+           "subtitle": "Dolly Parton",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 166749,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/227e1589aee0f9ef60be36300842066da5ef25b6"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4ByEFOBuLXpCqvO1kw8Wdm",
+           "uid": "33623964613233343163633165653263",
+           "title": "(I Just) Died In Your Arms",
+           "subtitle": "Cutting Crew",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 280400,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/3b38a8a511f4f6717fbf046bdad469a5a6e4ae55"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7FwBtcecmlpc1sLySPXeGE",
+           "uid": "61353463643530646338663333666363",
+           "title": "Dancing In the Dark",
+           "subtitle": "Bruce Springsteen",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 245296,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/31ab1d6af09bcc1beae06723c423a8edd48e0d8c"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2LlQb7Uoj1kKyGhlkBf9aC",
+           "uid": "30316237643163663933633533363165",
+           "title": "Thriller",
+           "subtitle": "Michael Jackson",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 358807,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/8b324c9265b3d58a815b9e405fd93238a740152d"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:18AXbzPzBS8Y3AkgSxzJPb",
+           "uid": "32386565393939396465383161656261",
+           "title": "In the Air Tonight - 2015 Remaster",
+           "subtitle": "Phil Collins",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 336453,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/f473d24b69befb3d54b6ea2c313eade337313f4e"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2M9ro2krNb7nr7HSprkEgo",
+           "uid": "32363863303063313739336263663565",
+           "title": "Fast Car",
+           "subtitle": "Tracy Chapman",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 296800,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/ce0d4429f7d48e488e464ecf03a690ada14da02c"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5O4erNlJ74PIF6kGol1ZrC",
+           "uid": "32633035383164333662616535623739",
+           "title": "Could You Be Loved",
+           "subtitle": "Bob Marley & The Wailers",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 237000,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/d2253556f10fdcba3c7237e582f300cea2116972"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3ZZq9396zv8pcn5GYVhxUi",
+           "uid": "38333334663837323165373265323763",
+           "title": "Down Under",
+           "subtitle": "Men At Work",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 222320,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/7caffe3fc98c828bdfdd88022a6b331250fdd1ca"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:39shmbIHICJ2Wxnk1fPSdz",
+           "uid": "63643064626234316463643236636239",
+           "title": "Should I Stay or Should I Go - Remastered",
+           "subtitle": "The Clash",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 188987,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/321794a1ec89d9bada7ffb33ab292e0321395134"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3PzsbWSQdLCKDLxn7YZfkM",
+           "uid": "64353230623337646563303030396333",
+           "title": "I'm On Fire",
+           "subtitle": "Bruce Springsteen",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 159313,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/e9bb2268bc574f78cb700ad364fa087fe3fd04bb"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3koCCeSaVUyrRo3N2gHrd8",
+           "uid": "38396366366130643930383930653938",
+           "title": "Let's Groove",
+           "subtitle": "Earth, Wind & Fire",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 339018,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/9101695e26a9d9feecf8423f36874cef2d128b7d"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4o6BgsqLIBViaGVbx5rbRk",
+           "uid": "31393034313031613437626665333431",
+           "title": "You Make My Dreams (Come True)",
+           "subtitle": "Daryl Hall & John Oates",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 190626,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/5f096f9722067db33f1453ea8804725ca15ac5bf"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:1CgmY8fVN7kstVDZmsdM5k",
+           "uid": "36616132616462353463363837633234",
+           "title": "P.Y.T. (Pretty Young Thing)",
+           "subtitle": "Michael Jackson",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 238333,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/cf809787b0b0afcdbb950146fa72ee6f1f056a18"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2aEuA8PSqLa17Y4hKPj5rr",
+           "uid": "37653761383165656437636163313030",
+           "title": "Cheri Cheri Lady",
+           "subtitle": "Modern Talking",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 226333,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/f62892f987c395c6bc44892ce8f415ab27c7a61e"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0odIT9B9BvOCnXfS0e4lB5",
+           "uid": "64333766616230303264646136323634",
+           "title": "Bette Davis Eyes",
+           "subtitle": "Kim Carnes",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 228000,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/a4f997fc2efeacdc204502993a620ba8015d785b"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2MuWTIM3b0YEAskbeeFE1i",
+           "uid": "35363433643939323161613636646165",
+           "title": "Master Of Puppets",
+           "subtitle": "Metallica",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 515386,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/0fdb849c9a1fa299ac76146ea3337c5c19820c07"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7L3b6iaVhDVjfo52Hbvh9Z",
+           "uid": "34363534373138306363343663613065",
+           "title": "Edge of Seventeen - 2016 Remaster",
+           "subtitle": "Stevie Nicks",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 329413,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/3a2722ed50f054dc8965614dfc6782838c7554e0"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4CoSCPlKNrWli7E5kFtbcl",
+           "uid": "64656530306137633037626465666232",
+           "title": "Little Lies - 2017 Remaster",
+           "subtitle": "Fleetwood Mac",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 221053,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/aa049a8851031bd8e5636fa91f51041bdafc59d2"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4LFwNJWoj74Yd71fIr1W8x",
+           "uid": "64643862656335653262376133616334",
+           "title": "Right Here Waiting",
+           "subtitle": "Richard Marx",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 264333,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/83c1cefb497290ece6857f2787c76b04a42c7d5c"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:63CHa6rmamv9OsehkRD8oz",
+           "uid": "65613837393434386162646561613532",
+           "title": "Against All Odds (Take a Look at Me Now) - 2016 Remaster",
+           "subtitle": "Phil Collins",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 206360,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/521852836c6bfd67f27d4d286e0f9ee509e24f8a"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:6JNJERZGJwDVgkmbohBw7u",
+           "uid": "66306635616366636532366661336637",
+           "title": "Self Control",
+           "subtitle": "Laura Branigan",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 246440,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/736e6e3bcc1d3a45042ba36a96734cd6a2a897e1"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:05wIrZSwuaVWhcv5FfqeH0",
+           "uid": "36616437386564643261653665663038",
+           "title": "Walking On Sunshine",
+           "subtitle": "Katrina & The Waves",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 238733,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/bdb74b1bc099b5201744ee766e537d4e068c9153"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:19Ym5Sg0YyOCa6ao21bdoG",
+           "uid": "62343031346137633333613361636533",
+           "title": "Gypsy",
+           "subtitle": "Fleetwood Mac",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 264906,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/784cc7ca4e167eeb1427009d58666fa8037acf13"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3Cx4yrFaX8CeHwBMReOWXI",
+           "uid": "37633236636636336566313261373436",
+           "title": "We Didn't Start the Fire",
+           "subtitle": "Billy Joel",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 291100,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/7a71c92078ca98f37cb3a74dcca65a927f5288c0"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3MrRksHupTVEQ7YbA0FsZK",
+           "uid": "36623334326664373562613933663466",
+           "title": "The Final Countdown",
+           "subtitle": "Europe",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 310333,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/eaa4589de811f47326f5a15013ed58bd62a9e96a"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:6RNDeRnWsRMjPdNVgupZCs",
+           "uid": "66393338303666346437623437303834",
+           "title": "I Just Called To Say I Love You",
+           "subtitle": "Stevie Wonder",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 262240,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/b74be3987a64ad264aabf0acb55f7447c0118e57"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:6pPWRBubXOBAHnjl5ZIujB",
+           "uid": "34613064633830373265623062363435",
+           "title": "The Best",
+           "subtitle": "Tina Turner",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 329800,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/72ecae1737bc2e5e3cb7239966d5d9a6082b03b2"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7N3PAbqfTjSEU1edb2tY8j",
+           "uid": "62356664383538663630623436633036",
+           "title": "Jump - 2015 Remaster",
+           "subtitle": "Van Halen",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 241599,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/86b253d59e8485604c5cdcba34b67caa9307c17f"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7HKez549fwJQDzx3zLjHKC",
+           "uid": "36366164316439636437383835666134",
+           "title": "Start Me Up - Remastered 2009",
+           "subtitle": "The Rolling Stones",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 213066,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/6b6f57d8c70b98d05ac1566144506874ef67ee6f"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2RWFncSWZEhSRRifqiDNVV",
+           "uid": "36633136363335663532353130653663",
+           "title": "Run To You",
+           "subtitle": "Bryan Adams",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 233270,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/fb04e9f864f93cbcea9c19dc4fedd2a6c848a6de"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4JEylZNW8SbO4zUyfVrpb7",
+           "uid": "62643562336337393365613038663934",
+           "title": "Caribbean Queen (No More Love On the Run)",
+           "subtitle": "Billy Ocean",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 244426,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/306a359f97a70de60da94c16c360e37370eaec90"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:6WK9dVrRABMkUXFLNlgWFh",
+           "uid": "62333465383361303136323033666538",
+           "title": "Enjoy the Silence",
+           "subtitle": "Depeche Mode",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 255133,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/ab4f49fb9cd4c516eec703c05029636015fa87f8"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:1YrnDTqvcnUKxAIeXyaEmU",
+           "uid": "32636237353166636134623430353466",
+           "title": "How Soon Is Now? - 2011 Remaster",
+           "subtitle": "The Smiths",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 408173,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/e3c2d307083f1aa526e3ac5cd662fed101346984"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2DjWsDGgL1xNbhnr7f6t5F",
+           "uid": "33663566343063366434376362383332",
+           "title": "Baby Can I Hold You",
+           "subtitle": "Tracy Chapman",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 193120,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/c2bb675f67e498694633c81f3e8c1682b0197e30"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3cbV252akVZInSvJk7jAYX",
+           "uid": "66613437383738616534613839363063",
+           "title": "Flashdance...What a Feeling - Radio Edit",
+           "subtitle": "Irene Cara",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 237053,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/2d32514c920447ce869c2599cc0950e8f8d5d789"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5dRQUolXAVX3BbCiIxmSsf",
+           "uid": "35633137666532396431323437383230",
+           "title": "Your Love",
+           "subtitle": "The Outfield",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 221840,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/70ba0126426a961829911794993a07c520a95d96"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:54b8qPFqYqIndfdxiLApea",
+           "uid": "39393635636536393832363836326263",
+           "title": "Alone",
+           "subtitle": "Heart",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 218733,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/2c4286990387cbb419d7456dc9805feadfc32b20"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:77NNZQSqzLNqh2A9JhLRkg",
+           "uid": "65633465346663623335376432336565",
+           "title": "Don't Stop Believin'",
+           "subtitle": "Journey",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 248906,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/05062466007cbd34ebeecec6f7302e88448c5a9c"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0qxYx4F3vm1AOnfux6dDxP",
+           "uid": "63383962633065623336313765643961",
+           "title": "You Can Call Me Al",
+           "subtitle": "Paul Simon",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 280586,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/d9144f35328ebf1e07dea90119171fcf468e9f45"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2KH16WveTQWT6KOG9Rg6e2",
+           "uid": "38396134613130656533393438333333",
+           "title": "Eye of the Tiger",
+           "subtitle": "Survivor",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 245640,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/ae5fdf6639eeb270ed9732750b65a3656b807154"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0rmGAIH9LNJewFw7nKzZnc",
+           "uid": "36303531313463333638376464353135",
+           "title": "You Give Love A Bad Name",
+           "subtitle": "Bon Jovi",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 222706,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/8725d17310a4bb00377f22ef21fe93fc5fbff0da"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:56KqaFSGTb7ifpt16t5Y1N",
+           "uid": "61346233623038343461633634663632",
+           "title": "Rock the Casbah - Remastered",
+           "subtitle": "The Clash",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 222437,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/63146c1867836bd722f41b486a66e87fa1485996"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0J2p4KYdr6Mg4ET6JPlbe1",
+           "uid": "33633935666536386232383466343134",
+           "title": "Super Trouper",
+           "subtitle": "ABBA",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 252853,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/5d7a5617b717cb3baba3b230b62b7a4aaef900ab"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5zWZ9iNevP0397xB3jWV2z",
+           "uid": "34316339643338613666316137653336",
+           "title": "Brother Louie",
+           "subtitle": "Modern Talking",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 222666,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/b234d26fad553ad8aee6d114b01d862b9c95e92c"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:62LJFaYihsdVrrkgUOJC05",
+           "uid": "38303061356166643632356563636238",
+           "title": "Kiss",
+           "subtitle": "Prince",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 226240,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/390cf478a1f3fbdcf7b5346a6004d273ed47ed3f"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0e3yhVeNaTfKIWQRw9U9sY",
+           "uid": "30313161303431396139323539623163",
+           "title": "Sacrifice",
+           "subtitle": "Elton John",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 304133,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/c05cfff4bb6571ca0b1e304a30dcc513f4cb80c7"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:6ADSaE87h8Y3lccZlBJdXH",
+           "uid": "31323030323034353663666238366137",
+           "title": "With Or Without You",
+           "subtitle": "U2",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 295515,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/a7e5de3437eecf201cc1817a7b2d8fae96910199"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:44aTAUBF0g6sMkMNE8I5kd",
+           "uid": "66353964363739393237306465303837",
+           "title": "Every Little Thing She Does Is Magic",
+           "subtitle": "The Police",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 260573,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/6f816f12a8d0abff7e552609d5a30d0b6be58834"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0qi4b1l0eT3jpzeNHeFXDT",
+           "uid": "38623562666166313038373138643763",
+           "title": "Just Can't Get Enough",
+           "subtitle": "Depeche Mode",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 220893,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/1fd77f7080608d8349aca06f53e57b0a368f2234"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0X1sqQ652p1sceKM2nJlIJ",
+           "uid": "64356266376261316535376636303066",
+           "title": "Runaway",
+           "subtitle": "Bon Jovi",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 230666,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/eae4e69de022d463fb0cb4b2fc10e9e800721fb5"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2PFIZFcGry0po3ZfRZkzKc",
+           "uid": "36323536393332663030313131663364",
+           "title": "Hysteria",
+           "subtitle": "Def Leppard",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 354636,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/74afcfe2b4cf30737255d2d75019767fc1532cfb"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:36lkJSDyMEZoWTqtRj8Q8q",
+           "uid": "65353164393634336163363833643430",
+           "title": "You're the Inspiration - 2006 Remaster",
+           "subtitle": "Chicago",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 229240,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/da2133abe8aa91b9fdcb911bfb6a2bda3fe293b1"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7gSQv1OHpkIoAdUiRLdmI6",
+           "uid": "38336634646663643563303164303030",
+           "title": "I Won't Back Down",
+           "subtitle": "Tom Petty",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 178360,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/2efef1deacda363a01f8d713502bef6674c3cee4"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:1eyq8cjUQ2daFthW2PC2GM",
+           "uid": "36396364643230633131656566383362",
+           "title": "Glory of Love",
+           "subtitle": "Peter Cetera",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 258333,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/db8481c754fe86fe6d76c517c089b02013666089"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:39lSeqnyjZJejRuaREfyLL",
+           "uid": "61666337363334666361643064623163",
+           "title": "Hungry Like the Wolf - 2009 Remaster",
+           "subtitle": "Duran Duran",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 220626,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/2a75c1b7c9d5aa716edc8162b19da4d627e0be43"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:37BTh5g05cxBIRYMbw8g2T",
+           "uid": "39316366326163383232323639643334",
+           "title": "Rosanna",
+           "subtitle": "TOTO",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 330943,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/b4a411d8d813e9ff5bac2a6042de08d916f1797f"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4KFM3A5QF2IMcc6nHsu3Wp",
+           "uid": "31343639656331353465623933336331",
+           "title": "Englishman In New York",
+           "subtitle": "Sting",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 267266,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/567a0a36bcbbf673f64446947f99774ebd430f01"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0GTK6TesV108Jj5D3MHsYb",
+           "uid": "30613830393434383935356665656230",
+           "title": "Owner of a Lonely Heart",
+           "subtitle": "Yes",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 268506,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/bad9a44db930e3f283d9ca08bfe182aab326324b"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:1KU5EHSz04JhGg3rReGJ0N",
+           "uid": "64336438353333626538303830346461",
+           "title": "Black Velvet",
+           "subtitle": "Alannah Myles",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 287440,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/14a0223b2f08a0e6ce09e5c02505fcc5e0187866"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:34x6hEJgGAOQvmlMql5Ige",
+           "uid": "33333764636631643531623333343235",
+           "title": "Danger Zone - From \"Top Gun\" Original Soundtrack",
+           "subtitle": "Kenny Loggins",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 215133,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/7d6db49ec04eaff2523b3c00720fc8641ad95d50"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:15MJ5NThPjj6xhPcts8MiY",
+           "uid": "66303561343737373266653731303036",
+           "title": "Take My Breath Away - Love Theme from \"Top Gun\"",
+           "subtitle": "Berlin",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 255733,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/003bb868d160870d493cec4ee4527fbfa0ce75d8"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5fnOrhQ4KgT5irGCjIccGH",
+           "uid": "30376134306138643734383331636465",
+           "title": "Arthur's Theme (Best That You Can Do)",
+           "subtitle": "Christopher Cross",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 234493,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/912f926fab71be4834a37da69626aa40deef7639"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:21qnJAMtzC6S5SESuqQLEK",
+           "uid": "30333630663734363863303931383236",
+           "title": "Pump Up The Jam",
+           "subtitle": "Technotronic",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 320306,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/82a1c5bc4cbf4aa75fe052a88c800f1096c0bf7b"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2AX5E86cn9n2dgioZEjirI",
+           "uid": "63303938323931393066663132346232",
+           "title": "Golden Brown",
+           "subtitle": "The Stranglers",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 206760,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/44d0471c8546a080eebb2fd3643a32adde9614ff"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4YwbSZaYeYja8Umyt222Qf",
+           "uid": "30323338653039383736316565626264",
+           "title": "You Can't Hurry Love - 2016 Remaster",
+           "subtitle": "Phil Collins",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 175746,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/153e910b0235f6460be80b228872d954bd4c96c2"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5WwqdeavrQrbeAMDxGawse",
+           "uid": "38356663663934396332356239636664",
+           "title": "Can't Fight This Feeling",
+           "subtitle": "REO Speedwagon",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 294773,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/47811ce4b58e8fb058e13bdfb21225aa357a5c9f"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:56GbZVwxMdf1DENCluYS8A",
+           "uid": "31333931326630376132373337323838",
+           "title": "Don't Dream It's Over",
+           "subtitle": "Crowded House",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 238173,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/79d24cbed581bdbb12b224e95cfd473947924739"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:1ff8lsrJ2kuZuofMw81EQo",
+           "uid": "36643764333464663032616161646334",
+           "title": "Save a Prayer - 2009 Remaster",
+           "subtitle": "Duran Duran",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 333306,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/f0745ec116266809b99283086e8db030097605bb"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3L7RtEcu1Hw3OXrpnthngx",
+           "uid": "38303531643861373561363134356164",
+           "title": "Don't You Want Me",
+           "subtitle": "The Human League",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 236920,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/37e6049e5c604a5a0b0c0c5ef68208f72e0fed38"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:05RgAMGypEvqhNs5hPCbMS",
+           "uid": "33666637376466356664333961323034",
+           "title": "Panama - 2015 Remaster",
+           "subtitle": "Van Halen",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 210226,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/67d068feb0fb7e3c89fc786a7bfa0032b77aff53"
+           },
+           "entityType": "track"
+          }
+         ],
+         "visualIdentity": {
+          "backgroundBase": {
+           "alpha": 255,
+           "blue": 80,
+           "green": 64,
+           "red": 56
+          },
+          "backgroundTintedBase": {
+           "alpha": 255,
+           "blue": 111,
+           "green": 94,
+           "red": 86
+          },
+          "textBase": {
+           "alpha": 255,
+           "blue": 255,
+           "green": 255,
+           "red": 255
+          },
+          "textBrightAccent": {
+           "alpha": 255,
+           "blue": 255,
+           "green": 255,
+           "red": 255
+          },
+          "textSubdued": {
+           "alpha": 255,
+           "blue": 226,
+           "green": 206,
+           "red": 196
+          },
+          "image": [
+           {
+            "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706f00000001fb8e01f2c022ab1a32e2c5a0",
+            "maxHeight": 64,
+            "maxWidth": 64
+           },
+           {
+            "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706f00000002fb8e01f2c022ab1a32e2c5a0",
+            "maxHeight": 300,
+            "maxWidth": 300
+           },
+           {
+            "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706f00000003fb8e01f2c022ab1a32e2c5a0",
+            "maxHeight": 640,
+            "maxWidth": 640
+           }
+          ]
+         },
+         "attributes": [
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "uri",
+           "value": "spotify:user:spotify:playlist:37i9dQZF1DX4UtSsGT1Sbe"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "status",
+           "value": "PUBLISHED"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "isAlgotorial",
+           "value": "true"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "moveFollowersJobId",
+           "value": "b23b7e5b-25ce-4fb5-95db-b617ed77bb5e"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "primary_color",
+           "value": "#ffffff"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "autoplay",
+           "value": "spotify:playlist:37i9dQZF1DX0mziTeNtU34"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "is_video_first",
+           "value": "false"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "correlation-id",
+           "value": "ssp~065deecb717226d6c706f9f55165f1909083"
+          }
+         ],
+         "format": "editorial"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "embed/playlist/37i9dQZF1DXcBWIGoYBM5M": {
+   "status": 200,
+   "nextData": {
+    "props": {
+     "pageProps": {
+      "state": {
+       "data": {
+        "entity": {
+         "type": "playlist",
+         "name": "Today’s Top Hits",
+         "uri": "spotify:playlist:37i9dQZF1DXcBWIGoYBM5M",
+         "id": "37i9dQZF1DXcBWIGoYBM5M",
+         "title": "Today’s Top Hits",
+         "subtitle": "Spotify",
+         "authors": null,
+         "coverArt": {
+          "sources": [
+           {
+            "height": null,
+            "width": null,
+            "url": "https://i.scdn.co/image/ab67706f0000000230888e59410296f950502d00"
+           }
+          ]
+         },
+         "releaseDate": null,
+         "duration": 0,
+         "isPlayable": true,
+         "playabilityReason": "UNKNOWN",
+         "isExplicit": false,
+         "hasVideo": false,
+         "relatedEntityUri": "spotify:playlist:37i9dQZF1DXcBWIGoYBM5M",
+         "trackList": [
+          {
+           "uri": "spotify:track:3XmwAZpIMNpTJy8faw3ajD",
+           "uid": "6e4a782b54436844635930",
+           "title": "expectations (feat. Chappell Roan)",
+           "subtitle": "Olivia Rodrigo, Chappell Roan",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 223935,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/3949e120ef8170dfd179ce5fa105aa55c4c0f761"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:70cHKK8bHAfJrOGVnfRG9J",
+           "uid": "6b754146414d5346426877",
+           "title": "Nicole Kidman",
+           "subtitle": "ADÉLA",
+           "isExplicit": true,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": [
+             "EXPLICIT"
+            ]
+           },
+           "duration": 181270,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/68bc3cb0611cfe6569ce56eeb025359233168a69"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3zOYmiNOuyDL0ClxJcEJ0T",
+           "uid": "654e44597543482f767755",
+           "title": "Stop The Wedding!",
+           "subtitle": "Ashe",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 198840,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/8a374e33d78679e1143d7a07797ddfa0225f8586"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:11hcBLPtbMp4aQI6zGQLub",
+           "uid": "65384a4654507478686867",
+           "title": "Patient Zero",
+           "subtitle": "Taylor Swift",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 225868,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/3b622221c4b4a6c28ef70ed256b47ef825108142"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0eAuGrXyGFYwur9ARUe7LJ",
+           "uid": "556b796e4767396e376263",
+           "title": "Earrings",
+           "subtitle": "Malcolm Todd",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 151500,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/20a1469df9f65a51878811bbe49979c418abc1b7"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3h5T5JypYU7huFiVYhv1dr",
+           "uid": "526e6338483751544d4338",
+           "title": "BbY WOW",
+           "subtitle": "KAROL G, Judeline, rusowsky",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 225834,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/f6ab45a8375c5bcf6f03161edd9f44c1fad501c8"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2sFepQNyl1WjpROruP8bJ0",
+           "uid": "33345a6b58796e51557934",
+           "title": "Housewife",
+           "subtitle": "Tate McRae",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 208810,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/724b097d9dc53e0541de27d199adfe3f610944ba"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7bxaFZ1O3cHkgLKMsdC3xR",
+           "uid": "6d2f566d4b543975424441",
+           "title": "Loser",
+           "subtitle": "Tame Impala",
+           "isExplicit": true,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": [
+             "EXPLICIT"
+            ]
+           },
+           "duration": 223069,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/0015e9347a45b62215447eba657b2fc3ce279d2d"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:20jbSiX29FDX4oQxBXyUEi",
+           "uid": "33466a6d35577649464373",
+           "title": "hate that i made you love me",
+           "subtitle": "Ariana Grande",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 197949,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/9fb8e09c9facc2d9443b6e57ae36d47bf83c01b8"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0kosUz0jePvjiz4ctmR6wL",
+           "uid": "546e4a384556363067654d",
+           "title": "Dai Dai",
+           "subtitle": "Shakira, Burna Boy",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 223448,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/a6955a6725dcf614e9915396987847ea0b509580"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4EoJ151oQ5jY48z4RhSE96",
+           "uid": "54456244394f3755774667",
+           "title": "the cure",
+           "subtitle": "Olivia Rodrigo",
+           "isExplicit": true,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": [
+             "EXPLICIT"
+            ]
+           },
+           "duration": 297090,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/7559346825a2233855b5fc77e84a954606de3444"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3ouNEk0tv5TTi8VWMe1xbX",
+           "uid": "67446f7a7745394c334e63",
+           "title": "Animal",
+           "subtitle": "KATSEYE",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 158494,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/65040556453e4f1c76bcefebf54a718521588331"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4qW3BbQAwZsrnu8a3ZRdyT",
+           "uid": "456265744d4d5136455934",
+           "title": "Self Aware",
+           "subtitle": "Temper City",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 180740,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/98af5b6b77831ad55b6d1129148745705a311973"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:65DbTqJKhbwqYbZ1Okr0rc",
+           "uid": "67424d3141527444343651",
+           "title": "Choosin' Texas",
+           "subtitle": "Ella Langley",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 232226,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/ad3f225321f11467402cc47e09f9ea1195f3de91"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7yNf9YjeO5JXUE3JEBgnYc",
+           "uid": "6c312f554d48627049346f",
+           "title": "Babydoll",
+           "subtitle": "Dominic Fike",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 97960,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/bf5ab98492256120bd9c48658e9c899c8692f77f"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:02HyFYmpzt02VJ8k0CqxKj",
+           "uid": "544535656f47797636364d",
+           "title": "Ain't In LA",
+           "subtitle": "ADÉLA",
+           "isExplicit": true,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": [
+             "EXPLICIT"
+            ]
+           },
+           "duration": 184927,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/a3d0119e3182fbb19636c2a44737fa3e0b71f939"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:1qbmS6ep2hbBRaEZFpn7BX",
+           "uid": "4c56316f79666c46463673",
+           "title": "Man I Need",
+           "subtitle": "Olivia Dean",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 184000,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/0a36635f94b4e44e6e4f5b7edb3f501d458812d9"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7ujApz6iFP3PmKIDGcaGbe",
+           "uid": "59393259585a3159634b63",
+           "title": "Great Expectation",
+           "subtitle": "SIENNA SPIRO",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 173975,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/f82f2f3e714a66934fc309e357cbf249ad045f62"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4LfCY65LvojKjWEnU7fNN4",
+           "uid": "486e64713763777246694d",
+           "title": "stupid song",
+           "subtitle": "Olivia Rodrigo",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 209680,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/894b272aa0422aeebe856825b55e5c736a9bc5ee"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:22NHkFYbgxB2Zirj29Gbp8",
+           "uid": "396c5766725164616f4155",
+           "title": "oh yeah?",
+           "subtitle": "Steve Lacy",
+           "isExplicit": true,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": [
+             "EXPLICIT"
+            ]
+           },
+           "duration": 170584,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/72b6457625435b7f64c345e86930e5f0071c559c"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4W6yulge3h7FSy0zGFrNKs",
+           "uid": "736c7a6d4f707774754863",
+           "title": "Orbiter",
+           "subtitle": "Noah Kahan",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 286967,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/3f175c1a53a23119bfe50c9ca04e68d27d3131a5"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3sK8wGT43QFpWrvNQsrQya",
+           "uid": "357844753330554b48466b",
+           "title": "DtMF",
+           "subtitle": "Bad Bunny",
+           "isExplicit": true,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": [
+             "EXPLICIT"
+            ]
+           },
+           "duration": 237117,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/e41ce6b82410d81c08baacca2a7169e5ace4287d"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0FZd4IaxB12sUTKSUUGwWq",
+           "uid": "70364c36364362374e6138",
+           "title": "STORM II",
+           "subtitle": "GENER8ION, Yung Lean",
+           "isExplicit": true,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": [
+             "EXPLICIT"
+            ]
+           },
+           "duration": 173433,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/369b246146e99c2f6ebabf5dfb9e20df98b8fe65"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:514joG57v4yKTsfQmz7stz",
+           "uid": "6e4b42734c71735977726f",
+           "title": "Janice STFU",
+           "subtitle": "Drake",
+           "isExplicit": true,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": [
+             "EXPLICIT"
+            ]
+           },
+           "duration": 237344,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/1de9b315e1aa811aedaf905b1058b668b2d3146e"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2oWFJJW9d1bIra3zHjR6GO",
+           "uid": "54744f657931492b653541",
+           "title": "bloodstream",
+           "subtitle": "Alyssa Grace",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 177428,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/f1e7acbb1c04e8ba21d08d2402cf069a8eed8f96"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5y2ijHECwFYWqcAHKTZgzD",
+           "uid": "7967575a2b70705371344d",
+           "title": "Risk It All",
+           "subtitle": "Bruno Mars",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 204068,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/2467ff71a7508c57a62112ee5beb996bd6b9e957"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7MZHqgTVTnN6xZGYAcEEAf",
+           "uid": "4f2b4b6c68784541394473",
+           "title": "Rein Me In (with Olivia Dean)",
+           "subtitle": "Sam Fender, Olivia Dean",
+           "isExplicit": true,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": [
+             "EXPLICIT"
+            ]
+           },
+           "duration": 339410,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/6c85f9e4507e93478ee4adb7782f1a35a9d0e1ce"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:1o9mAOmNm3wT2NdyGV1Ard",
+           "uid": "6d39574c774c7033437373",
+           "title": "Babydoll",
+           "subtitle": "Jamie Miller",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 178822,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/aaf6fc2f4516963243325a71453dd8582cb4dacf"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3oTuTpF1F3A7rEC6RKsMRz",
+           "uid": "73624a6c624e68442f5863",
+           "title": "Raindance (feat. Tems)",
+           "subtitle": "Dave, Tems",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 219743,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/7d860804d259f81b4a7bc04900a5410d99995fd4"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4IAWZw00ZI9DLKDjesx86u",
+           "uid": "436537546b564b4d444f4d",
+           "title": "Solar Eclipse (feat. Don Toliver)",
+           "subtitle": "Drake, Don Toliver",
+           "isExplicit": true,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": [
+             "EXPLICIT"
+            ]
+           },
+           "duration": 218388,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/4feadd4524eee165380031ed90bdff09daacb902"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5BZsQlgw21vDOAjoqkNgKb",
+           "uid": "524f77726c6e33562f424d",
+           "title": "DAISIES",
+           "subtitle": "Justin Bieber",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 176453,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/d990a355be1d84adc0882bda733862fba7767e70"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:37UCSVSqiPGdR1DijOFyYY",
+           "uid": "424d34524a414c384a5377",
+           "title": "Midnight Sun",
+           "subtitle": "Zara Larsson",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 189898,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/c5bbc379559c92c9d07e2cebf4a1e14029d01331"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:1VWiDyYTrqQhhmnWANWkFa",
+           "uid": "4a367832475333696e5777",
+           "title": "SaWaDiKa",
+           "subtitle": "LISA",
+           "isExplicit": true,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": [
+             "EXPLICIT"
+            ]
+           },
+           "duration": 188531,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/3f5b29adf9f673b9f985c1976c26f5820649d711"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:55lijDD6OAjLFFUHU9tcDm",
+           "uid": "786e3948446c795a4c6930",
+           "title": "WHERE IS MY HUSBAND!",
+           "subtitle": "RAYE",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 197142,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/0194ff4186a1f53bff2cdf6d7660289ca8eb0e7e"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:6QKpHmO41jkd9pTp0FfmHs",
+           "uid": "7a4b4c6e6a4d3457704538",
+           "title": "UNETHICAL",
+           "subtitle": "Faouzia",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 219864,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/7600d81f153683eb1265f92aa5567cc313658481"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5KTcGJKm4HgLhLt8Tc7EQ5",
+           "uid": "76654b4c42765530726851",
+           "title": "Draw You Out - From The Hunger Games: Sunrise on the Reaping - The Album",
+           "subtitle": "Noah Kahan, The Hunger Games",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 255984,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/4e369f5cce22a4bcc212166ee320dc8679ce9c79"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0QPdjsMOUhwouq1NS3HwfQ",
+           "uid": "7965492f65555039774751",
+           "title": "Coming Up Roses",
+           "subtitle": "Harry Styles",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 248866,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/03a64c71a3d7477335cd39a069e0e175e65798b6"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:42UBPzRMh5yyz0EDPr6fr1",
+           "uid": "49416d4a6e727436366130",
+           "title": "Manchild",
+           "subtitle": "Sabrina Carpenter",
+           "isExplicit": true,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": [
+             "EXPLICIT"
+            ]
+           },
+           "duration": 213645,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/37c21b6b0df9b7156527d0729a58b6db37c88a0a"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:36idurZmYRjJ56KQ8JD9bN",
+           "uid": "674865434a50336c336e30",
+           "title": "Boston",
+           "subtitle": "STELLA LEFTY",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 170859,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/7ffa15bbf70382813f8661408e976cc41655b367"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:1DwscornXpj8fmOmYVlqZt",
+           "uid": "587155366f63585955486b",
+           "title": "Stateside + Zara Larsson",
+           "subtitle": "PinkPantheress, Zara Larsson",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 184761,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/cc3201e7ed85d09f1683e591fd2eb964ea7247a6"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:6sGIMrtIzQjdzNndVxe397",
+           "uid": "4b61393274303844667349",
+           "title": "So Easy (To Fall In Love)",
+           "subtitle": "Olivia Dean",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 169000,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/e0ea7353932017364bdb12dc776e89b360abac42"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:12bYYQaLqHliSXvRIYlq8G",
+           "uid": "37364663397a6a784a7041",
+           "title": "I Just Might",
+           "subtitle": "Bruno Mars",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 212973,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/d3b9a6318dcc942387b69c677a80377044856d69"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:70pVCVMGjmIWPbWXDwf11e",
+           "uid": "424f774c71596762514867",
+           "title": "petal",
+           "subtitle": "Ariana Grande",
+           "isExplicit": true,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": [
+             "EXPLICIT"
+            ]
+           },
+           "duration": 184248,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/30dc1adb43c170165bb8091e788b55f26f2fc672"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7tICCrK3CcyRFKza7yrR0z",
+           "uid": "4e3870615158616d517349",
+           "title": "Homewrecker",
+           "subtitle": "sombr",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 209066,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/d46acdc8f94c6fa471388c7a10c619bb08c88197"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7e4zDInS6tA2jwzphvs2Ay",
+           "uid": "6e4a4c6f58487153565a41",
+           "title": "Jamaican (Bam Bam)",
+           "subtitle": "HUGEL, SOLTO (FR)",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 156393,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/90e14dd98b61140a5259ce400de788704d406742"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2LSmH4vxyRhkJ2pPqcmkXw",
+           "uid": "7753326141546139436e6b",
+           "title": "NOBLE",
+           "subtitle": "F3miii",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 185806,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/5fada77b20c9b592ea707bf74334195c2b8a125f"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:6oUUmBcUbZa5O48V5pjgAD",
+           "uid": "6962347148455975326641",
+           "title": "Hootie Frutti",
+           "subtitle": "KATSEYE",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 140720,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/b90cdabeb3093431041841713c812e70bafb1478"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5ViLKrbyL3HD6wsq3AB9eI",
+           "uid": "4742363948376259502f38",
+           "title": "White Keys",
+           "subtitle": "Dominic Fike",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 144101,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/4c09f53084e36b6c85f8b2a44893c226a3194f42"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0kl6Ozan3fuUdCl6TlB15v",
+           "uid": "4f32652f723057344f7730",
+           "title": "Talk To You (ft. 54 Ultra)",
+           "subtitle": "ANOTR, 54 Ultra",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 191076,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/b55c8fa4e31192a3e35ad53d3e889733f9cd9da1"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:68lbSrXDORS51pmyjZv712",
+           "uid": "58687561714a7232426363",
+           "title": "SWIM",
+           "subtitle": "BTS",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 159007,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/acafb81cc609de53b9687a40f214f79d828b6947"
+           },
+           "entityType": "track"
+          }
+         ],
+         "visualIdentity": {
+          "backgroundBase": {
+           "alpha": 255,
+           "blue": 0,
+           "green": 61,
+           "red": 133
+          },
+          "backgroundTintedBase": {
+           "alpha": 255,
+           "blue": 0,
+           "green": 28,
+           "red": 90
+          },
+          "textBase": {
+           "alpha": 255,
+           "blue": 255,
+           "green": 255,
+           "red": 255
+          },
+          "textBrightAccent": {
+           "alpha": 255,
+           "blue": 255,
+           "green": 255,
+           "red": 255
+          },
+          "textSubdued": {
+           "alpha": 255,
+           "blue": 149,
+           "green": 192,
+           "red": 255
+          },
+          "image": [
+           {
+            "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706f0000000130888e59410296f950502d00",
+            "maxHeight": 64,
+            "maxWidth": 64
+           },
+           {
+            "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706f0000000230888e59410296f950502d00",
+            "maxHeight": 300,
+            "maxWidth": 300
+           },
+           {
+            "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706f0000000330888e59410296f950502d00",
+            "maxHeight": 640,
+            "maxWidth": 640
+           }
+          ]
+         },
+         "attributes": [
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "uri",
+           "value": "spotify:user:spotify:playlist:37i9dQZF1DXcBWIGoYBM5M"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "status",
+           "value": "PUBLISHED"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "isAlgotorial",
+           "value": "false"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "editorial_profile",
+           "value": "true"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "moveFollowersJobId",
+           "value": "f4e857d1-a699-47fe-b5ea-d3d036ebc357"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "primary_color",
+           "value": "#FFFFFF"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "clips_header_entrypoint",
+           "value": "enabled"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "recs.hasArtists",
+           "value": "spotify:artist:1McMsnEElThX1knmY4oliG,spotify:artist:2qanRMyA5bNuTvz1dK45OP,spotify:artist:6P5NO5hzJbuOqSdyPB7SJM,spotify:artist:06HL4z0CvFAxyc27GXpf02,spotify:artist:7eKkW1zo5uzW8kUntiiBvz"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "autoplay",
+           "value": "spotify:playlist:37i9dQZF1DX0kbJZpiYdZl"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "header_image_url_desktop",
+           "value": "https://i.scdn.co/image/ab6768640000fe894e761c46e8afb1b51669f790"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "image_url",
+           "value": "https://i.scdn.co/image/ab67686d00003ae0ced68ffb662c97b7dffafa5b"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "episode_description",
+           "value": "The hottest 50. Cover: Chappell Roan & Olivia Rodrigo"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "is_video_first",
+           "value": "false"
+          },
+          {
+           "__typename": "PlaylistAttribute",
+           "key": "correlation-id",
+           "value": "ssp~065dee46fd096dca99d463843320f15146f3"
+          }
+         ],
+         "format": "format-shows-shuffle"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "embed/playlist/0000000000000000000000": {
+   "status": 200,
+   "nextData": {
+    "props": {
+     "pageProps": {
+      "status": 404,
+      "title": "Page not found",
+      "description": "We can’t seem to find the page you are looking for."
+     }
+    }
+   }
+  },
+  "embed/playlist/5FPvD2X2jBM782H8zGgjT3": {
+   "status": 200,
+   "nextData": {
+    "props": {
+     "pageProps": {
+      "state": {
+       "data": {
+        "entity": {
+         "type": "playlist",
+         "name": "Daft Punk Essentials",
+         "uri": "spotify:playlist:5FPvD2X2jBM782H8zGgjT3",
+         "id": "5FPvD2X2jBM782H8zGgjT3",
+         "title": "Daft Punk Essentials",
+         "subtitle": "Daft Punk",
+         "authors": null,
+         "coverArt": {
+          "sources": [
+           {
+            "height": null,
+            "width": null,
+            "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84e7ca9ca9e0336b3382e1556d"
+           }
+          ]
+         },
+         "releaseDate": null,
+         "duration": 0,
+         "isPlayable": true,
+         "playabilityReason": "UNKNOWN",
+         "isExplicit": false,
+         "hasVideo": false,
+         "relatedEntityUri": "spotify:playlist:5FPvD2X2jBM782H8zGgjT3",
+         "trackList": [
+          {
+           "uri": "spotify:track:0DiWol3AO6WpXZgp0goxAV",
+           "uid": "db12b9c283d94590",
+           "title": "One More Time",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 320357,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/67a14210e33bf6d87d92faaed08ddf353d6b985f"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2LD2gT7gwAurzdQDQtILds",
+           "uid": "67baa53e15f74fd0",
+           "title": "Veridis Quo",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 345186,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/58d8089f7e9d99a8d64702c393e038e67ef74c6d"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3aCKAkMx3yfaj3AO5Gz47e",
+           "uid": "99c9cd58cdece8e8",
+           "title": "Human After All",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 319879,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/c4640d45ffd9f45875df3ddfc360f5d6cfc33430"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5W3cjX2J3tjhG8zb6u0qHn",
+           "uid": "826e06b6c7422a40",
+           "title": "Harder, Better, Faster, Stronger",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 226413,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/72297a3ed4ffd5cda242124480db258877f2abb6"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:69kOkLUCkxIZYexIgSG8rq",
+           "uid": "4057b1499b36fb3d",
+           "title": "Get Lucky (feat. Pharrell Williams and Nile Rodgers)",
+           "subtitle": "Daft Punk, Pharrell Williams, Nile Rodgers",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 369626,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/6de52dda0d37a0646987856c3b9f7da075d965b4"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2cGxRwrMyEAp8dEbuZaVv6",
+           "uid": "83dcd1e30df8495b",
+           "title": "Instant Crush (feat. Julian Casablancas)",
+           "subtitle": "Daft Punk, Julian Casablancas",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 337560,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/a52d000457fc91fdb18bfaa1f690c82bf7b1a036"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:1pKYYY0dkg23sQQXi0Q5zN",
+           "uid": "a9eda4061ed507f2",
+           "title": "Around the World",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 429533,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/069ca7413057323193028d0992abac9980c7f3c5"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2KHRENHQzTIQ001nlP9Gdc",
+           "uid": "9f9f6b6e483a3bfa",
+           "title": "Contact",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 383626,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/623b53b537f0e52123bdd735cb3434064cbf02cc"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:6hgBJPTHoDJyxydmtFWHKf",
+           "uid": "c09fabdbf9b8058e",
+           "title": "Rollin' & Scratchin'",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 448626,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/bb165c4d5cb7b89a7dec1dccc2d38571a528c9db"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:2VEZx7NWsZ1D0eJ4uv5Fym",
+           "uid": "471dffa9ae41e56e",
+           "title": "Digital Love",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 301373,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/dd838fe44ae6dc31630102a7ecc350f14356f8ec"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4ABWPP59ItFKykdaDF09K5",
+           "uid": "4ff9f28ae2ccdcd3",
+           "title": "Make Love",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 289680,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/c23e57fe786c75e53f76f3e62855cbabe7879594"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7Bxv0WL7UC6WwQpk9TzdMJ",
+           "uid": "6b78306f4e57c36b",
+           "title": "Within",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 228506,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/3d71ce9dcd49cea042249af69d042aeff2a785c7"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7LL40F6YdZgeiQ6en1c7Lk",
+           "uid": "67512b7396207f8a",
+           "title": "Robot Rock",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 287720,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/b2c4b594e86720ca71c59d6f2681a43c38b3fd06"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:1iNeZGJsoC0D7ZyJTdIbDS",
+           "uid": "85c4722866d93544",
+           "title": "Technologic",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 284280,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/4e68f73933a203aec3e11fb5df3898d70f98d68a"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:37M8nuFfSrlKfTR0AAp7gK",
+           "uid": "8ce8b64e64259bf2",
+           "title": "Television Rules the Nation",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 287840,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/14656ff6f43fe87d31a293024f1bb25922e67596"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0MyY4WcN7DIfbSmp5yej5z",
+           "uid": "267734d3d4c5d3ee",
+           "title": "Da Funk",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 328680,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/efebf4ba1837d04a588c7636490e72d6e46d1c27"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5VnKPeawtH2h8fmqAvBDqY",
+           "uid": "776642e0f560c221",
+           "title": "Lose Yourself to Dance (feat. Pharrell Williams)",
+           "subtitle": "Daft Punk, Pharrell Williams",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 353867,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/a09c59da39ee2491776075d5be3a69ac129a5d7c"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0oks4FnzhNp5QPTZtoet7c",
+           "uid": "3ecfb033e7096d01",
+           "title": "Giorgio by Moroder",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 544626,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/ffbe7c12252438f212fd67000bcbd8cdc5ba4525"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4r4fX4NZIqVIhGyDvERp0l",
+           "uid": "6fdc17062aea2f3b",
+           "title": "Infinity Repeating (2013 Demo) [feat. Julian Casablancas+The Voidz]",
+           "subtitle": "Daft Punk, Julian Casablancas, The Voidz",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 239213,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/883a28b033dc66cf7481890d8ffb42ee70548dd3"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5pgZpHqfv4TSomtkfGZGrG",
+           "uid": "9e8b259d72ba64b0",
+           "title": "Revolution 909",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 335026,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/17f0284b47419d6949d6aea9b2b1cc0dbfbafd1b"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7cMFjxhbXBpOlais7KMF3j",
+           "uid": "c14d503d2411ce54",
+           "title": "Voyager",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 227866,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/98d53ab9e99c0cd08313a5ebba276388db3ea2ee"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5aPrFctv3WJZyJ99Ld7leT",
+           "uid": "136d946d6a9c18fd",
+           "title": "Give Life Back to Music",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 274407,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/c6901b44c580c4abb2c92ab4663e57c8504ebf54"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3hFObHqnsUQ2PCA2UpVFu8",
+           "uid": "8a0fe99a402b42f4",
+           "title": "Touch (feat. Paul Williams)",
+           "subtitle": "Daft Punk, Paul Williams",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 499014,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/f4f27dd4b6d4e963f602aa35cd6587922dee88d6"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5nuJ5frI7lmdPYjgyoBrqm",
+           "uid": "d16973fc8983c6da",
+           "title": "Motherboard (Drumless Edition)",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 341853,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/01b60a7c0a079972d09b694659c9c0416a8cbe47"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:1NeLwFETswx8Fzxl2AFl91",
+           "uid": "84c38aae30edd7c0",
+           "title": "Something About Us",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 232666,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/7ff6558ab95f5c7c1794ff493660e52ec2ca225e"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4MeKGdl7CImLdWxvjB9lTa",
+           "uid": "1902a22ef335c927",
+           "title": "Beyond (Drumless Edition)",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 290333,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/6afe2fcf0fa6e3641cdffe0152fded0734578ff1"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3dhjNA0jGA8vHBQ1VdD6vV",
+           "uid": "fabefcc53eaab590",
+           "title": "I Feel It Coming",
+           "subtitle": "The Weeknd, Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 269186,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/9bc079936914a9af96a94b0158b095abf2452d05"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3HmKTOTV4sxvQocdkDdb0u",
+           "uid": "25a2e5aa5084ce4d",
+           "title": "Give Life Back to Music (Drumless Edition)",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 274520,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/91c57c3e562263c564cc2b2fcf0d45f4ec5e38ef"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4wUZgNANjM4GqDJSOJkytV",
+           "uid": "53a8056f70466635",
+           "title": "Doin' it Right (Drumless Edition) (feat. Panda Bear)",
+           "subtitle": "Daft Punk, Panda Bear",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 251426,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/cf01aaf37e6b09edcdaf05b62119d24c2360fefc"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:09TlxralXOGX35LUutvw7I",
+           "uid": "80a272aae061619d",
+           "title": "End of Line",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 156486,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/92daf65ab5859aaf02fd9326713b6d2b8e5ab4bc"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:098ttCNmncrO4YvqWUNMvn",
+           "uid": "18475624e1a3a8b7",
+           "title": "High Life",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 201800,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/5ff01ba7b62bb117c06da366f7c427dc2d3f5344"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5ji1dPNLh6c9mvK7XoNOjM",
+           "uid": "bce28062b6ae6dcf",
+           "title": "The Game of Love (Drumless Edition)",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 322306,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/a4e2ea19cf8f823dce75c075f9951c941f3c5d7c"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:6XRP3yOrS9tgLVwIOL5Oit",
+           "uid": "e64526b1d8967c3d",
+           "title": "Fragments of Time (Drumless Edition) (feat. Todd Edwards)",
+           "subtitle": "Daft Punk, Todd Edwards",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 279920,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/e5f1b60c91d808722654731a46ac9bd58b175404"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:6nSOhDfZOulWp0pnEHFrnn",
+           "uid": "322ad3d9b151d1dc",
+           "title": "Burnin'",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 414173,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/d4853f938b6c84cd09c108cb878f94460f0976d4"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7lQqaqZu0vjxzpdATOIsDt",
+           "uid": "edb3ec7eb92239e5",
+           "title": "Starboy",
+           "subtitle": "The Weeknd, Daft Punk",
+           "isExplicit": true,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": [
+             "EXPLICIT"
+            ]
+           },
+           "duration": 230466,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/57c1238d183c40da3157c2892346f58445b1377c"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3RCYGIVLV33JCNwzMVyWMI",
+           "uid": "5783df31533cc3eb",
+           "title": "Contact (Drumless Edition)",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 381506,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/3a85f172012f784249d8f560ef63c13bacb73592"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0hhXziDUO0wNYPsstDQWN6",
+           "uid": "b0db540d3aa137ea",
+           "title": "Overnight",
+           "subtitle": "Parcels",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 219604,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/623790911cb9b38bb8e64cb74456fd9cf8bf56b3"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:78H72MElkOY9cRnaudxZFY",
+           "uid": "d90e0706dd6b7678",
+           "title": "Fresh",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 244400,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/f1baba65ade7d9a3e19adfa1cb1df1d17e51903a"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:7v9Q0dAb9t7h8gJOkcJHay",
+           "uid": "a58ca704b5b9a2a3",
+           "title": "Face to Face",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 240173,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/680795e2968227aebda05063912377701e25eb0d"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4ZdjCuiWBv2weLftWPJ72c",
+           "uid": "7a16dbaab56902a6",
+           "title": "Teachers",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 173493,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/ba7a62d108048416a04f6b6394d34628c9c30c4f"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5aZCwTIsfqv22p5bewcrgf",
+           "uid": "226087990fc6692c",
+           "title": "Derezzed",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 104120,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/27ec5db0408dd85175c8638dbb8974b05d59372e"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5mOg5qguKHwzN9vjM8XOYV",
+           "uid": "3c1f881ae316e42f",
+           "title": "Burnin' - Ian Pooley Cut up Mix",
+           "subtitle": "Daft Punk, Ian Pooley",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 320800,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/6735f1784559e46ad8c495236575ad2b1d72c558"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:3H3cOQ6LBLSvmcaV7QkZEu",
+           "uid": "3cbe8257bc82fa77",
+           "title": "Aerodynamic",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 212546,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/1956d708af792c73aada555bf9fb913c55ac6e40"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:0UZRFYMoz9xmeE2AQUhTDl",
+           "uid": "5a396cc12fc0d2f7",
+           "title": "The Prime Time of Your Life",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 263240,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/c7cf4974addc9d3300034b7ead88eb24086ff538"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:5JSkyPoYHVT85NSd60PVEz",
+           "uid": "20147bfbae561f3b",
+           "title": "The Son of Flynn",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 95226,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/2ae84338970b76e81a451f2db94a97c12f4c3314"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:27VUxjFyXj3HUiImMyF7Az",
+           "uid": "8e85ad0812b685e3",
+           "title": "Burnin' - DJ Sneak Main Mix",
+           "subtitle": "Daft Punk, DJ Sneak",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 550666,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/e5605f9b1606cfe5f5ae0be642940d0237dcf8e4"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:02CsNQg3AKP7OdDmzzDWc5",
+           "uid": "2549289349236082",
+           "title": "GLBTM (Studio Outtakes)",
+           "subtitle": "Daft Punk",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 381666,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/7be35b71b802945ec6bda62ebf369e4b6fca1339"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4yRhLnDM5WdSP4btzqzNLN",
+           "uid": "624b5d485dabd879",
+           "title": "Around the World - Kenlou Mix",
+           "subtitle": "Daft Punk, Masters At Work",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 470986,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/c4430fd8488e9e13476538a0a1b6245198d435d9"
+           },
+           "entityType": "track"
+          },
+          {
+           "uri": "spotify:track:4VCDNR9AYxBZuGRfrhvnT4",
+           "uid": "ac799ca6b1db8c79",
+           "title": "The Writing of Fragments of Time (feat. Todd Edwards)",
+           "subtitle": "Daft Punk, Todd Edwards",
+           "isExplicit": false,
+           "isNineteenPlus": false,
+           "contentRatings": {
+            "labels": []
+           },
+           "duration": 497146,
+           "isPlayable": true,
+           "playabilityReason": "PLAYABLE",
+           "audioPreview": {
+            "format": "MP3_96",
+            "url": "https://p.scdn.co/mp3-preview/dbc9781dae8896d539de1713649acbbaf1ce9e0f"
+           },
+           "entityType": "track"
+          }
+         ],
+         "visualIdentity": {
+          "backgroundBase": {
+           "alpha": 255,
+           "blue": 83,
+           "green": 83,
+           "red": 83
+          },
+          "backgroundTintedBase": {
+           "alpha": 255,
+           "blue": 51,
+           "green": 51,
+           "red": 51
+          },
+          "textBase": {
+           "alpha": 255,
+           "blue": 255,
+           "green": 255,
+           "red": 255
+          },
+          "textBrightAccent": {
+           "alpha": 255,
+           "blue": 255,
+           "green": 255,
+           "red": 255
+          },
+          "textSubdued": {
+           "alpha": 255,
+           "blue": 205,
+           "green": 205,
+           "red": 205
+          },
+          "image": [
+           {
+            "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c00006c11e7ca9ca9e0336b3382e1556d",
+            "maxHeight": 64,
+            "maxWidth": 64
+           },
+           {
+            "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000bebbe7ca9ca9e0336b3382e1556d",
+            "maxHeight": 640,
+            "maxWidth": 640
+           },
+           {
+            "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84e7ca9ca9e0336b3382e1556d",
+            "maxHeight": 300,
+            "maxWidth": 300
+           }
+          ]
+         },
+         "attributes": [],
+         "format": ""
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "unavailable": {
+  "status": 200,
+  "nextData": {
+   "props": {
+    "pageProps": {
+     "status": 500,
+     "title": "Page not available",
+     "description": "Something went wrong, please try again later."
+    }
+   }
+  }
+ }
+}
