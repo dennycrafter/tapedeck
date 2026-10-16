@@ -54,6 +54,12 @@ Status (each ticket replaces only its own line):
 3. Fill in the env vars.
 4. Press "Finish setup" in the app.
 5. Run `npm run e2e:live` to test the real services.
+6. Optional, the "Log in" import through MusicAPI.com (T13). Without it the import still works by pasting links. Cost first: their sandbox is free, but real use bills at least 500 EUR a month, so only do this if the sandbox lets you log in with your own account.
+   1. Go to https://app.musicapi.com/admin and make a free developer account. Business name: Tapedeck. Add a logo (the music services show both on the log-in screen).
+   2. Under Integrations, turn on the services you use (Spotify, Apple Music, YouTube Music, Tidal, Deezer) and press "Test" on one to see it work.
+   3. Add this return URL to the allowed list: `https://<your app address>/api/import/callback/musicapi`.
+   4. Copy the Client ID, the Client Secret and your account slug (the short name in your log-in link, `app.musicapi.com/integrations/<slug>`).
+   5. In Vercel, Settings, Environment Variables, add `MUSICAPI_CLIENT_ID`, `MUSICAPI_CLIENT_SECRET` and `MUSICAPI_SLUG`, then redeploy. A "Log in to Spotify" button (and one for each other service) appears under Add, Import.
 
 ## How to work
 - Do one ticket at a time: branch, build, test, PR, then merge when CI is green.
