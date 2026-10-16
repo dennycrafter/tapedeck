@@ -37,6 +37,7 @@ Keep this file Python 3.12 compatible (the downloader targets Python
 import apple_music
 import argparse
 import finder
+import import_listing
 import logging
 import os
 import shutil
@@ -1102,6 +1103,8 @@ def run_loop(logger: logging.Logger, cfg: DownloaderConfig) -> None:
     logger.info("Downloader started; polling %s every %s s.", cfg.app_url, cfg.poll_interval_sec)
     while True:
         export_enabled = fetch_apple_music_export(logger, cfg)
+        # V2-PLAN T13: list playlists for an import first (the owner is waiting on that page).
+        import_listing.run_once(logger, cfg)
         for track in poll_for_claims(logger, cfg):
             process_one_track(logger, cfg, track, export_enabled)
         time.sleep(cfg.poll_interval_sec)

@@ -1,0 +1,101 @@
+{
+ "id": "FL_kRDKYrUlrbtrSiyu5Tflg",
+ "title": "Favorites",
+ "availability": "public",
+ "channel_follower_count": null,
+ "modified_date": "20241105",
+ "view_count": 42595,
+ "playlist_count": 31,
+ "channel": "Daft Punk",
+ "channel_id": "UC_kRDKYrUlrbtrSiyu5Tflg",
+ "uploader_id": "@daftpunk",
+ "uploader": "Daft Punk",
+ "channel_url": "https://www.youtube.com/channel/UC_kRDKYrUlrbtrSiyu5Tflg",
+ "uploader_url": "https://www.youtube.com/@daftpunk",
+ "_type": "playlist",
+ "extractor_key": "YoutubeTab",
+ "extractor": "youtube:tab",
+ "webpage_url": "https://www.youtube.com/playlist?list=FL_kRDKYrUlrbtrSiyu5Tflg",
+ "original_url": "https://www.youtube.com/playlist?list=FL_kRDKYrUlrbtrSiyu5Tflg",
+ "webpage_url_basename": "playlist",
+ "webpage_url_domain": "youtube.com",
+ "release_year": null,
+ "entries": [
+  {
+   "title": "Tron : L'H\u00e9ritage - Teaser musical \"Derezzed\" compos\u00e9 par les Daft Punk I Disney",
+   "thumbnails": [
+    {
+     "url": "https://i.ytimg.com/vi/QKp9Noi7Ptc/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDQJYlCDfXPaZIjP2c2d0i3t8KGrA",
+     "height": 94,
+     "width": 168
+    }
+   ],
+   "duration": 103,
+   "view_count": 1300000,
+   "timestamp": null,
+   "live_status": null,
+   "availability": null,
+   "channel_url": "https://www.youtube.com/channel/UCakQLdwrxuo0KhJ49Sq2csA",
+   "uploader_url": "https://www.youtube.com/@disneyfr",
+   "creators": null,
+   "channel": "Disney FR",
+   "channel_id": "UCakQLdwrxuo0KhJ49Sq2csA",
+   "uploader": "Disney FR",
+   "uploader_id": "@disneyfr",
+   "ie_key": "Youtube",
+   "id": "QKp9Noi7Ptc",
+   "_type": "url",
+   "url": "https://www.youtube.com/watch?v=QKp9Noi7Ptc"
+  },
+  {
+   "title": "Daft Punk - Voyager (Official Video)",
+   "thumbnails": [
+    {
+     "url": "https://i.ytimg.com/vi/CqZgd6-xQl8/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBzjIwzAPxwq_6wsLKOyn70ISS23A",
+     "height": 94,
+     "width": 168
+    }
+   ],
+   "duration": 226,
+   "view_count": 16000000,
+   "timestamp": null,
+   "live_status": null,
+   "availability": null,
+   "channel_url": "https://www.youtube.com/channel/UC_kRDKYrUlrbtrSiyu5Tflg",
+   "uploader_url": null,
+   "creators": null,
+   "channel": "Daft Punk",
+   "channel_id": "UC_kRDKYrUlrbtrSiyu5Tflg",
+   "uploader": "Daft Punk",
+   "ie_key": "Youtube",
+   "id": "CqZgd6-xQl8",
+   "_type": "url",
+   "url": "https://www.youtube.com/watch?v=CqZgd6-xQl8"
+  },
+  {
+   "title": "Daft Punk - Veridis Quo (Official Video)",
+   "thumbnails": [
+    {
+     "url": "https://i.ytimg.com/vi/HhZaHf8RP6g/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCGeqjwg5x1lz2vowKUGxZPZaqwcA",
+     "height": 94,
+     "width": 168
+    }
+   ],
+   "duration": 407,
+   "view_count": 38000000,
+   "timestamp": null,
+   "live_status": null,
+   "availability": null,
+   "channel_url": "https://www.youtube.com/channel/UC_kRDKYrUlrbtrSiyu5Tflg",
+   "uploader_url": null,
+   "creators": null,
+   "channel": "Daft Punk",
+   "channel_id": "UC_kRDKYrUlrbtrSiyu5Tflg",
+   "uploader": "Daft Punk",
+   "ie_key": "Youtube",
+   "id": "HhZaHf8RP6g",
+   "_type": "url",
+   "url": "https://www.youtube.com/watch?v=HhZaHf8RP6g"
+  }
+ ]
+}

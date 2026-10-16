@@ -1,0 +1,57 @@
+{
+ "album": "Royal EP",
+ "album_artist": "The Royal Concept",
+ "album_type": "ep",
+ "uploader": "The Royal Concept",
+ "uploader_id": "9615865",
+ "uploader_url": "https://soundcloud.com/the-concept-band",
+ "timestamp": 1378926162,
+ "release_timestamp": 1379980800,
+ "modified_timestamp": 1444747123,
+ "duration": 1430.139,
+ "license": "all-rights-reserved",
+ "like_count": 609,
+ "repost_count": 162,
+ "genres": [
+  "indie pop"
+ ],
+ "id": "10258832",
+ "title": "Royal EP",
+ "_type": "playlist",
+ "webpage_url": "https://soundcloud.com/the-concept-band/sets/royal-ep",
+ "original_url": "https://soundcloud.com/the-concept-band/sets/royal-ep",
+ "webpage_url_basename": "royal-ep",
+ "webpage_url_domain": "soundcloud.com",
+ "extractor": "soundcloud:set",
+ "extractor_key": "SoundcloudSet",
+ "duration_string": "23:50",
+ "upload_date": "20130911",
+ "release_date": "20130924",
+ "modified_date": "20151013",
+ "release_year": 2013,
+ "album_artists": [
+  "The Royal Concept"
+ ],
+ "genre": "indie pop",
+ "playlist_count": 7,
+ "entries": [
+  {
+   "album": "Royal EP",
+   "album_artist": "The Royal Concept",
+   "album_type": "ep",
+   "ie_key": "Soundcloud",
+   "id": "75206121",
+   "_type": "url_transparent",
+   "url": "https://soundcloud.com/the-concept-band/world-on-fire-1"
+  },
+  {
+   "album": "Royal EP",
+   "album_artist": "The Royal Concept",
+   "album_type": "ep",
+   "ie_key": "Soundcloud",
+   "id": "109919787",
+   "_type": "url_transparent",
+   "url": "https://api-v2.soundcloud.com/tracks/109919787"
+  }
+ ]
+}

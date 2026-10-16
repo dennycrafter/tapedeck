@@ -1,0 +1,78 @@
+{
+  "playlists": [
+    {
+      "ref": "10258832",
+      "name": "Royal EP",
+      "kind": "playlist",
+      "coverUrl": "https://i1.sndcdn.com/artworks-acRKqXJcJGVN-0-t500x500.jpg",
+      "tracks": [
+        {
+          "ref": "75206121",
+          "title": "World On Fire (Re-Mastered)",
+          "artist": "The Royal Concept",
+          "durationSec": 200,
+          "link": "https://soundcloud.com/the-concept-band/world-on-fire-1",
+          "coverUrl": "https://i1.sndcdn.com/artworks-acRKqXJcJGVN-0-t500x500.jpg"
+        },
+        {
+          "ref": "109919787",
+          "title": "Shut The World",
+          "artist": "The Royal Concept",
+          "durationSec": 245,
+          "link": "https://soundcloud.com/the-concept-band/shut-the-world",
+          "coverUrl": "https://i1.sndcdn.com/artworks-IFCxQScS0ZQp-0-t500x500.jpg"
+        }
+      ]
+    },
+    {
+      "ref": "2284613",
+      "name": "The Royal Concept EP",
+      "kind": "playlist",
+      "coverUrl": "https://i1.sndcdn.com/artworks-acRKqXJcJGVN-0-t500x500.jpg",
+      "tracks": [
+        {
+          "ref": "75206121",
+          "title": "World On Fire (Re-Mastered)",
+          "artist": "The Royal Concept",
+          "durationSec": 200,
+          "link": "https://soundcloud.com/the-concept-band/world-on-fire-1",
+          "coverUrl": "https://i1.sndcdn.com/artworks-acRKqXJcJGVN-0-t500x500.jpg"
+        },
+        {
+          "ref": "47127629",
+          "title": "In The End",
+          "artist": "The Royal Concept",
+          "durationSec": 324,
+          "link": "https://soundcloud.com/the-concept-band/in-the-end-mastered",
+          "coverUrl": "https://i1.sndcdn.com/artworks-nmfGl00Oy5bQ-0-t500x500.jpg"
+        },
+        {
+          "ref": "47127631",
+          "title": "Knocked Up",
+          "artist": "The Royal Concept",
+          "durationSec": 222,
+          "link": "https://soundcloud.com/the-concept-band/knocked-up-mastered",
+          "coverUrl": "https://i1.sndcdn.com/artworks-000043574646-iq6flj-t500x500.jpg"
+        }
+      ]
+    },
+    {
+      "ref": "likes:9615865",
+      "name": "Likes",
+      "kind": "liked",
+      "coverUrl": "https://i1.sndcdn.com/artworks-000081863535-n1q53w-t500x500.jpg",
+      "tracks": [
+        {
+          "ref": "153528495",
+          "title": "MRTN Feat. Deer - Illusion",
+          "artist": "MRTN",
+          "durationSec": 246,
+          "link": "https://soundcloud.com/mrtnoriginal/mrtn-feat-oh-deer-illusion",
+          "coverUrl": "https://i1.sndcdn.com/artworks-000081863535-n1q53w-t500x500.jpg"
+        }
+      ]
+    }
+  ],
+  "problems": [],
+  "truncated": false
+}

@@ -1,0 +1,77 @@
+{
+ "id": "UC_kRDKYrUlrbtrSiyu5Tflg",
+ "channel": "Daft Punk",
+ "channel_id": "UC_kRDKYrUlrbtrSiyu5Tflg",
+ "title": "Daft Punk - Playlists",
+ "availability": "public",
+ "channel_follower_count": 7200000,
+ "uploader_id": "@daftpunk",
+ "uploader_url": "https://www.youtube.com/@daftpunk",
+ "channel_is_verified": true,
+ "modified_date": null,
+ "view_count": null,
+ "playlist_count": 17,
+ "uploader": "Daft Punk",
+ "channel_url": "https://www.youtube.com/channel/UC_kRDKYrUlrbtrSiyu5Tflg",
+ "_type": "playlist",
+ "extractor_key": "YoutubeTab",
+ "extractor": "youtube:tab",
+ "webpage_url": "https://www.youtube.com/@daftpunk/playlists",
+ "original_url": "https://www.youtube.com/@daftpunk/playlists",
+ "webpage_url_basename": "playlists",
+ "webpage_url_domain": "youtube.com",
+ "release_year": null,
+ "entries": [
+  {
+   "title": "Daft Punk - Discovery (Full Album)",
+   "thumbnails": [
+    {
+     "url": "https://i.ytimg.com/vi/A2VpR8HahKc/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLAvcKVi61skwP5sqg4w6N5ZftPaqA",
+     "height": 270,
+     "width": 480
+    }
+   ],
+   "duration": null,
+   "view_count": null,
+   "timestamp": null,
+   "live_status": null,
+   "availability": null,
+   "channel_url": "https://www.youtube.com/channel/UC_kRDKYrUlrbtrSiyu5Tflg",
+   "uploader_url": null,
+   "creators": null,
+   "channel": "Playlist",
+   "channel_id": "UC_kRDKYrUlrbtrSiyu5Tflg",
+   "uploader": "Playlist",
+   "ie_key": "YoutubeTab",
+   "id": "PLSdoVPM5WnndSQEXRz704yQkKwx76GvPV",
+   "_type": "url",
+   "url": "https://www.youtube.com/playlist?list=PLSdoVPM5WnndSQEXRz704yQkKwx76GvPV"
+  },
+  {
+   "title": "Favorites",
+   "thumbnails": [
+    {
+     "url": "https://i.ytimg.com/vi/QKp9Noi7Ptc/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLClcgpEc8oTZVvoyu9Tlw1oLRdVTA",
+     "height": 270,
+     "width": 480
+    }
+   ],
+   "duration": null,
+   "view_count": null,
+   "timestamp": null,
+   "live_status": null,
+   "availability": null,
+   "channel_url": "https://www.youtube.com/channel/UC_kRDKYrUlrbtrSiyu5Tflg",
+   "uploader_url": "https://www.youtube.com/@daftpunk",
+   "creators": null,
+   "channel": "Playlist",
+   "channel_id": "UC_kRDKYrUlrbtrSiyu5Tflg",
+   "uploader": "Playlist",
+   "uploader_id": "@daftpunk",
+   "ie_key": "YoutubeTab",
+   "id": "FL_kRDKYrUlrbtrSiyu5Tflg",
+   "_type": "url",
+   "url": "https://www.youtube.com/playlist?list=FL_kRDKYrUlrbtrSiyu5Tflg"
+  }
+ ]
+}

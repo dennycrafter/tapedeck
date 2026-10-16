@@ -1,0 +1,6 @@
+{
+ "sc_set_404": "ERROR: [soundcloud:set] the-concept-band/sets/nope-not-here-xyz: Unable to download JSON metadata: HTTP Error 404: Not Found (caused by <HTTPError 404: Not Found>)",
+ "yt_playlist_400": "ERROR: [youtube:tab] PLnotarealplaylistxyz123: Unable to download API page: HTTP Error 400: Bad Request (caused by <HTTPError 400: Bad Request>)",
+ "sc_track_404": "ERROR: [soundcloud] the-concept-band/does-not-exist-xyz: Unable to download JSON metadata: HTTP Error 404: Not Found (caused by <HTTPError 404: Not Found>)",
+ "yt_liked_missing": "ERROR: [youtube:tab] LL_kRDKYrUlrbtrSiyu5Tflg: YouTube said: The playlist does not exist."
+}

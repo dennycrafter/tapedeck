@@ -1,0 +1,125 @@
+{
+ "id": "PLSdoVPM5WnndSQEXRz704yQkKwx76GvPV",
+ "title": "Daft Punk - Discovery (Full Album)",
+ "availability": "public",
+ "channel_follower_count": null,
+ "modified_date": "20260722",
+ "view_count": 20914847,
+ "playlist_count": 14,
+ "channel": "Daft Punk",
+ "channel_id": "UC_kRDKYrUlrbtrSiyu5Tflg",
+ "uploader_id": null,
+ "uploader": "Daft Punk",
+ "channel_url": "https://www.youtube.com/channel/UC_kRDKYrUlrbtrSiyu5Tflg",
+ "uploader_url": null,
+ "_type": "playlist",
+ "extractor_key": "YoutubeTab",
+ "extractor": "youtube:tab",
+ "webpage_url": "https://www.youtube.com/playlist?list=PLSdoVPM5WnndSQEXRz704yQkKwx76GvPV",
+ "original_url": "https://www.youtube.com/playlist?list=PLSdoVPM5WnndSQEXRz704yQkKwx76GvPV",
+ "webpage_url_basename": "playlist",
+ "webpage_url_domain": "youtube.com",
+ "release_year": null,
+ "entries": [
+  {
+   "title": "Daft Punk - One More Time (Official Audio)",
+   "thumbnails": [
+    {
+     "url": "https://i.ytimg.com/vi/A2VpR8HahKc/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLD79UvWmyUA71OqBgubn4DE6yJ4XQ",
+     "height": 94,
+     "width": 168
+    }
+   ],
+   "duration": 321,
+   "view_count": 38000000,
+   "timestamp": null,
+   "live_status": null,
+   "availability": null,
+   "channel_url": "https://www.youtube.com/channel/UC_kRDKYrUlrbtrSiyu5Tflg",
+   "uploader_url": null,
+   "creators": null,
+   "channel": "Daft Punk",
+   "channel_id": "UC_kRDKYrUlrbtrSiyu5Tflg",
+   "uploader": "Daft Punk",
+   "ie_key": "Youtube",
+   "id": "A2VpR8HahKc",
+   "_type": "url",
+   "url": "https://www.youtube.com/watch?v=A2VpR8HahKc"
+  },
+  {
+   "title": "Daft Punk - Aerodynamic (Official Audio)",
+   "thumbnails": [
+    {
+     "url": "https://i.ytimg.com/vi/Mjpu0-o9iek/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBvpvyClwWgPGsJzjiKKaV9RfDWHw",
+     "height": 94,
+     "width": 168
+    }
+   ],
+   "duration": 213,
+   "view_count": 9700000,
+   "timestamp": null,
+   "live_status": null,
+   "availability": null,
+   "channel_url": "https://www.youtube.com/channel/UC_kRDKYrUlrbtrSiyu5Tflg",
+   "uploader_url": null,
+   "creators": null,
+   "channel": "Daft Punk",
+   "channel_id": "UC_kRDKYrUlrbtrSiyu5Tflg",
+   "uploader": "Daft Punk",
+   "ie_key": "Youtube",
+   "id": "Mjpu0-o9iek",
+   "_type": "url",
+   "url": "https://www.youtube.com/watch?v=Mjpu0-o9iek"
+  },
+  {
+   "title": "Daft Punk - Digital Love (Official Audio)",
+   "thumbnails": [
+    {
+     "url": "https://i.ytimg.com/vi/4whD6uAryMs/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLA8IE3NioKHN6w7Nbg-1FMNQDflew",
+     "height": 94,
+     "width": 168
+    }
+   ],
+   "duration": 302,
+   "view_count": 21000000,
+   "timestamp": null,
+   "live_status": null,
+   "availability": null,
+   "channel_url": "https://www.youtube.com/channel/UC_kRDKYrUlrbtrSiyu5Tflg",
+   "uploader_url": null,
+   "creators": null,
+   "channel": "Daft Punk",
+   "channel_id": "UC_kRDKYrUlrbtrSiyu5Tflg",
+   "uploader": "Daft Punk",
+   "ie_key": "Youtube",
+   "id": "4whD6uAryMs",
+   "_type": "url",
+   "url": "https://www.youtube.com/watch?v=4whD6uAryMs"
+  },
+  {
+   "title": "Daft Punk - Harder, Better, Faster, Stronger (Official Audio)",
+   "thumbnails": [
+    {
+     "url": "https://i.ytimg.com/vi/yydNF8tuVmU/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAZc8fO4B57_nsrzht-r6DQM5mnCA",
+     "height": 94,
+     "width": 168
+    }
+   ],
+   "duration": 225,
+   "view_count": 64000000,
+   "timestamp": null,
+   "live_status": null,
+   "availability": null,
+   "channel_url": "https://www.youtube.com/channel/UC_kRDKYrUlrbtrSiyu5Tflg",
+   "uploader_url": null,
+   "creators": null,
+   "channel": "Daft Punk",
+   "channel_id": "UC_kRDKYrUlrbtrSiyu5Tflg",
+   "uploader": "Daft Punk",
+   "ie_key": "Youtube",
+   "id": "yydNF8tuVmU",
+   "_type": "url",
+   "url": "https://www.youtube.com/watch?v=yydNF8tuVmU"
+  }
+ ]
+}
