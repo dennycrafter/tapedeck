@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Major Version</key><integer>1</integer>
+	<key>Minor Version</key><integer>1</integer>
+	<key>Application Version</key><string>1.5.0.73</string>
+	<key>Date</key><date>2026-10-14T19:04:11Z</date>
+	<key>Features</key><integer>5</integer>
+	<key>Show Content Ratings</key><true/>
+	<key>Library Persistent ID</key><string>A1B2C3D4E5F60718</string>
+	<key>Tracks</key>
+	<dict>
+		<key>2101</key>
+		<dict>
+			<key>Track ID</key><integer>2101</integer>
+			<key>Name</key><string>Harder, Better, Faster, Stronger</string>
+			<key>Artist</key><string>Daft Punk</string>
+			<key>Album Artist</key><string>Daft Punk</string>
+			<key>Album</key><string>Discovery</string>
+			<key>Genre</key><string>Electronic</string>
+			<key>Kind</key><string>Apple Music AAC audio file</string>
+			<key>Total Time</key><integer>224693</integer>
+			<key>Disc Number</key><integer>1</integer>
+			<key>Track Number</key><integer>4</integer>
+			<key>Year</key><integer>2001</integer>
+			<key>Date Added</key><date>2025-01-09T20:14:52Z</date>
+			<key>Play Count</key><integer>41</integer>
+			<key>Favorited</key><true/>
+			<key>Loved</key><true/>
+			<key>Persistent ID</key><string>4F2A1C0D9E8B7A61</string>
+			<key>Track Type</key><string>Remote</string>
+			<key>Apple Music</key><true/>
+		</dict>
+		<key>2102</key>
+		<dict>
+			<key>Track ID</key><integer>2102</integer>
+			<key>Name</key><string>Something About Us</string>
+			<key>Artist</key><string>Daft Punk</string>
+			<key>Album</key><string>Discovery</string>
+			<key>Kind</key><string>Apple Music AAC audio file</string>
+			<key>Total Time</key><integer>231920</integer>
+			<key>Date Added</key><date>2025-01-09T20:15:03Z</date>
+			<key>Persistent ID</key><string>4F2A1C0D9E8B7A62</string>
+			<key>Track Type</key><string>Remote</string>
+			<key>Apple Music</key><true/>
+		</dict>
+		<key>2103</key>
+		<dict>
+			<key>Track ID</key><integer>2103</integer>
+			<key>Name</key><string>Paper Lanterns</string>
+			<key>Artist</key><string>The Fixture Band</string>
+			<key>Album</key><string>Stand-in Songs</string>
+			<key>Kind</key><string>Purchased AAC audio file</string>
+			<key>Size</key><integer>6512930</integer>
+			<key>Total Time</key><integer>201437</integer>
+			<key>Date Added</key><date>2024-11-30T10:00:00Z</date>
+			<key>Persistent ID</key><string>4F2A1C0D9E8B7A63</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file:///Users/fixture/Music/Media/Music/The%20Fixture%20Band/Stand-in%20Songs/03%20Paper%20Lanterns.m4a</string>
+		</dict>
+		<key>2104</key>
+		<dict>
+			<key>Track ID</key><integer>2104</integer>
+			<key>Name</key><string>Episode 12: Fixture Talk</string>
+			<key>Artist</key><string>The Fixture Podcast</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Total Time</key><integer>3120000</integer>
+			<key>Podcast</key><true/>
+			<key>Persistent ID</key><string>4F2A1C0D9E8B7A64</string>
+			<key>Track Type</key><string>URL</string>
+		</dict>
+		<key>2105</key>
+		<dict>
+			<key>Track ID</key><integer>2105</integer>
+			<key>Name</key><string>Slow Morning</string>
+			<key>Artist</key><string>The Fixture Band</string>
+			<key>Album</key><string>Stand-in Songs</string>
+			<key>Kind</key><string>Apple Music AAC audio file</string>
+			<key>Total Time</key><integer>240000</integer>
+			<key>Persistent ID</key><string>4F2A1C0D9E8B7A65</string>
+			<key>Track Type</key><string>Remote</string>
+			<key>Apple Music</key><true/>
+		</dict>
+		<key>2106</key>
+		<dict>
+			<key>Track ID</key><integer>2106</integer>
+			<key>Name</key><string>Caf&#233; &amp; Rain</string>
+			<key>Artist</key><string>Ana &lt;Fixture&gt; Lima</string>
+			<key>Album</key><string>Wet Streets</string>
+			<key>Kind</key><string>Apple Music AAC audio file</string>
+			<key>Total Time</key><integer>187000</integer>
+			<key>Persistent ID</key><string>4F2A1C0D9E8B7A66</string>
+			<key>Track Type</key><string>Remote</string>
+			<key>Apple Music</key><true/>
+		</dict>
+	</dict>
+	<key>Playlists</key>
+	<array>
+		<dict>
+			<key>Name</key><string>Library</string>
+			<key>Master</key><true/>
+			<key>Playlist ID</key><integer>3001</integer>
+			<key>Playlist Persistent ID</key><string>7C1D2E3F40516273</string>
+			<key>Visible</key><false/>
+			<key>All Items</key><true/>
+			<key>Playlist Items</key>
+			<array>
+				<dict><key>Track ID</key><integer>2101</integer></dict>
+				<dict><key>Track ID</key><integer>2102</integer></dict>
+				<dict><key>Track ID</key><integer>2103</integer></dict>
+				<dict><key>Track ID</key><integer>2104</integer></dict>
+				<dict><key>Track ID</key><integer>2105</integer></dict>
+				<dict><key>Track ID</key><integer>2106</integer></dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Name</key><string>Downloaded</string>
+			<key>Playlist ID</key><integer>3002</integer>
+			<key>Playlist Persistent ID</key><string>7C1D2E3F40516274</string>
+			<key>Distinguished Kind</key><integer>65</integer>
+			<key>All Items</key><true/>
+			<key>Playlist Items</key>
+			<array>
+				<dict><key>Track ID</key><integer>2103</integer></dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Name</key><string>Music</string>
+			<key>Playlist ID</key><integer>3003</integer>
+			<key>Playlist Persistent ID</key><string>7C1D2E3F40516275</string>
+			<key>Distinguished Kind</key><integer>4</integer>
+			<key>Music</key><true/>
+			<key>All Items</key><true/>
+			<key>Playlist Items</key>
+			<array>
+				<dict><key>Track ID</key><integer>2101</integer></dict>
+				<dict><key>Track ID</key><integer>2102</integer></dict>
+				<dict><key>Track ID</key><integer>2103</integer></dict>
+				<dict><key>Track ID</key><integer>2105</integer></dict>
+				<dict><key>Track ID</key><integer>2106</integer></dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Name</key><string>Purchased</string>
+			<key>Playlist ID</key><integer>3004</integer>
+			<key>Playlist Persistent ID</key><string>7C1D2E3F40516276</string>
+			<key>Distinguished Kind</key><integer>19</integer>
+			<key>Purchased Music</key><true/>
+			<key>All Items</key><true/>
+			<key>Playlist Items</key>
+			<array>
+				<dict><key>Track ID</key><integer>2103</integer></dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Name</key><string>Podcasts</string>
+			<key>Playlist ID</key><integer>3005</integer>
+			<key>Playlist Persistent ID</key><string>7C1D2E3F40516277</string>
+			<key>Distinguished Kind</key><integer>10</integer>
+			<key>Podcasts</key><true/>
+			<key>All Items</key><true/>
+			<key>Playlist Items</key>
+			<array>
+				<dict><key>Track ID</key><integer>2104</integer></dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Name</key><string>Recently Added</string>
+			<key>Playlist ID</key><integer>3006</integer>
+			<key>Playlist Persistent ID</key><string>7C1D2E3F40516278</string>
+			<key>All Items</key><true/>
+			<key>Smart Info</key>
+			<data>
+			AQEAAwAAAAIAAAAZAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+			</data>
+			<key>Smart Criteria</key>
+			<data>
+			U0xzdAABAAEAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+			</data>
+			<key>Playlist Items</key>
+			<array>
+				<dict><key>Track ID</key><integer>2106</integer></dict>
+				<dict><key>Track ID</key><integer>2105</integer></dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Name</key><string>Mixes</string>
+			<key>Playlist ID</key><integer>3007</integer>
+			<key>Playlist Persistent ID</key><string>7C1D2E3F40516279</string>
+			<key>Folder</key><true/>
+			<key>All Items</key><true/>
+			<key>Playlist Items</key>
+			<array>
+				<dict><key>Track ID</key><integer>2102</integer></dict>
+				<dict><key>Track ID</key><integer>2105</integer></dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Name</key><string>Sunday Morning</string>
+			<key>Description</key><string>Coffee first.</string>
+			<key>Playlist ID</key><integer>3008</integer>
+			<key>Playlist Persistent ID</key><string>7C1D2E3F4051627A</string>
+			<key>Parent Persistent ID</key><string>7C1D2E3F40516279</string>
+			<key>All Items</key><true/>
+			<key>Playlist Items</key>
+			<array>
+				<dict><key>Track ID</key><integer>2105</integer></dict>
+				<dict><key>Track ID</key><integer>2102</integer></dict>
+				<dict><key>Track ID</key><integer>2106</integer></dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Name</key><string>Road Trip</string>
+			<key>Playlist ID</key><integer>3009</integer>
+			<key>Playlist Persistent ID</key><string>7C1D2E3F4051627B</string>
+			<key>All Items</key><true/>
+			<key>Playlist Items</key>
+			<array>
+				<dict><key>Track ID</key><integer>2101</integer></dict>
+				<dict><key>Track ID</key><integer>2104</integer></dict>
+				<dict><key>Track ID</key><integer>2103</integer></dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Name</key><string>Only Daft Punk</string>
+			<key>Playlist ID</key><integer>3010</integer>
+			<key>Playlist Persistent ID</key><string>7C1D2E3F4051627C</string>
+			<key>All Items</key><true/>
+			<key>Smart Info</key>
+			<data>
+			AQEAAwAAAAIAAAAZAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+			</data>
+			<key>Playlist Items</key>
+			<array>
+				<dict><key>Track ID</key><integer>2101</integer></dict>
+				<dict><key>Track ID</key><integer>2102</integer></dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Name</key><string>Empty For Now</string>
+			<key>Playlist ID</key><integer>3011</integer>
+			<key>Playlist Persistent ID</key><string>7C1D2E3F4051627D</string>
+			<key>All Items</key><true/>
+		</dict>
+	</array>
+</dict>
+</plist>
