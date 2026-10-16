@@ -85,7 +85,8 @@ describe('POST /api/import/jobs', () => {
       [{ service: 'test', method: 'fax', links: ['x'] }, 'Pick how to connect.'],
       [{ service: 'test', method: 'link', links: [] }, 'Paste at least one link.'],
       [{ service: 'test', method: 'link', links: Array.from({ length: 51 }, () => 'x') }, 'Paste at most 50 links at once.'],
-      [{ service: 'spotify', method: 'link', links: ['x'] }, "That way of connecting isn't available for this service."],
+      // No importer reads Tidal links (MusicAPI covers Tidal by log in only).
+      [{ service: 'tidal', method: 'link', links: ['x'] }, "That way of connecting isn't available for this service."],
     ]
     for (const [body, message] of cases) {
       const response = await jobsPost(post('/api/import/jobs', body))
