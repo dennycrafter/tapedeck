@@ -11,6 +11,7 @@
 import type { ReactNode } from "react";
 import { Cover } from "./Cover";
 import { SongMenu } from "./SongMenu";
+import { SpeedBadge } from "./SpeedChip";
 import { DownloadedIcon, HeartIcon, VolumeIcon } from "./icons";
 import { useOffline } from "./useOffline";
 import { canPlayNow } from "../lib/offline";
@@ -72,6 +73,7 @@ export function TrackRow({ track, onPlay, current, playlistId, leading }: TrackR
         {downloaded && (
           <DownloadedIcon width={14} height={14} className="text-silver" aria-label="Downloaded" data-testid="track-downloaded" />
         )}
+        <SpeedBadge track={track} />
         {track.status === "ready" ? (
           <span className="tabular-nums" data-testid="track-duration">
             {formatDuration(track.durationSec)}

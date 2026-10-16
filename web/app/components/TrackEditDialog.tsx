@@ -6,7 +6,7 @@
  * undo a bad fix. The database keeps the raw values, so restoring always
  * returns to them. Saving refreshes the library. Opened from the song's
  * "..." menu. Ready songs also get the trim editor (V2-PLAN T10), saved
- * with the same Save.
+ * with the same Save, and every song the Speed section (T14).
  */
 import { useState } from "react";
 import { editTrack, restoreTrack, type TrackDto } from "../lib/api";
@@ -14,7 +14,9 @@ import { useOverlays } from "./Overlays";
 import { Cover } from "./Cover";
 import { parseCoverInput } from "../lib/ui";
 import { TrimEditor, type TrimTrack } from "./TrimEditor";
-import { initialTrimDraft, trimDraftProblem, trimPatch } from "../lib/trim-edit";
+import { draftEdges, initialTrimDraft, trimDraftProblem, trimPatch } from "../lib/trim-edit";
+import { SpeedEditor } from "./SpeedEditor";
+import { initialSpeedDraft, speedPatch } from "../lib/speed-edit";
 
 /** Cover choice (SPEC 8.4): keep the current one, remove it, or paste an image URL. */
 type CoverMode = "keep" | "remove" | "url";
@@ -53,6 +55,8 @@ export function TrackEditDialog({ track, onClose }: TrackEditDialogProps) {
   const [error, setError] = useState<string | null>(null);
   const trimTrack = trimTrackOf(track);
   const [trim, setTrim] = useState(() => initialTrimDraft({ ...track, durationSec: track.durationSec ?? null }));
+  const [speed, setSpeed] = useState(() => initialSpeedDraft(track));
+  const trimEdges = trimTrack ? draftEdges(trimTrack, trim) : null;
 
   async function save() {
     if (saving) return;
@@ -79,6 +83,7 @@ export function TrackEditDialog({ track, onClose }: TrackEditDialogProps) {
         album,
         ...(coverMode === "keep" ? {} : { coverUrl }),
         ...(trimTrack ? trimPatch(trimTrack, trim) : {}),
+        ...speedPatch(track, speed),
       });
       notifyLibraryChanged();
       onClose();
@@ -213,6 +218,11 @@ export function TrackEditDialog({ track, onClose }: TrackEditDialogProps) {
             )}
           </fieldset>
           {trimTrack && <TrimEditor track={trimTrack} draft={trim} onChange={setTrim} />}
+          <SpeedEditor
+            draft={speed}
+            onChange={setSpeed}
+            lengthSec={trimEdges ? trimEdges.end - trimEdges.start : (track.durationSec ?? null)}
+          />
           {error && (
             <p role="alert" className="text-sm text-bad" data-testid="edit-error">
               {error}

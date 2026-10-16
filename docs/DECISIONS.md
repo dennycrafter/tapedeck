@@ -78,6 +78,15 @@ Each v2 ticket adds its entries under its own heading below, newest first, so ti
 ### T13
 
 ### T14
+- 2026-10-15 (T14): The player store keeps `position`, `duration` and seeks in media time (the file's own seconds, trimmed as in T10); the player bar and Now Playing divide them by the song's speed, and the scrubber converts back when seeking. Reason: trim, saved positions, the lock screen's `seekto` and the 30 second rule all stay in one clock, and only two display spots change.
+- 2026-10-15 (T14): The lock screen gets media time plus `playbackRate` in `setPositionState`, so it shows the song's normal length (3:00) and runs its clock 1.25 times as fast, ending with the song; the app shows 2:24. Reason: the plan asks for the rate there, and that is how the Media Session API defines it (Apple's own players do the same at other speeds).
+- 2026-10-15 (T14): Song lists keep showing the file's own length, with the speed as muted text ("1.25x") next to it for songs not at normal speed; Edit details says "Plays in 2:24 instead of 3:00" (using the trim). Reason: lists already show the untrimmed length since T10, and the same song should show the same length in every list; the speed text says it plays differently.
+- 2026-10-15 (T14): At every track start the player sets `defaultPlaybackRate` as well as `playbackRate`, `preservesPitch` and `webkitPreservesPitch` (where present), right after the new `src`, and sets them again on `loadedmetadata` and on every `play`. Reason: loading a new `src` resets `playbackRate` to `defaultPlaybackRate` (HTML media load rules), so a stale default would undo the speed; setting them again covers engines that reset anyway, for example after a lock screen pause and play.
+- 2026-10-15 (T14): The 30 second play rule still counts the file's seconds, so a song at 0.5x counts after 60 real seconds and at 1.5x after 20. Reason: the plan (T10) keeps the rule unchanged, and the listened time sent with each play stays comparable between songs.
+- 2026-10-15 (T14): The T2 check "30 seconds of listening records one play" now sets its song to 1.5x through `PATCH /api/tracks/:id` instead of forcing the element to 4x, with a 45 s wait and a 90 s test limit. Reason: the player now puts every song's own speed on the element, which overrides a rate forced from the test.
+- 2026-10-15 (T14): The Now Playing chip saves a preset or the pitch switch right away and the playing song changes as soon as the server confirms; Edit details saves speed with its Save button, like trim. Reason: the chip is a quick control; in the dialog Cancel must still cancel everything.
+- 2026-10-15 (T14): The Speed section shows for every song in Edit details, not only ready ones. Reason: speed needs no length, so a song still waiting for the PC can get its speed ahead of time.
+- 2026-10-15 (T14): "Play from start" and "Hear the ending" in the trim editor play at the song's saved speed, not the unsaved one in the dialog. Reason: keeps `TrimEditor.tsx` (T10) untouched.
 
 ## v1 (T0 to T8)
 

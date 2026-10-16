@@ -28,6 +28,7 @@ import {
 } from "./icons";
 import { FOCUS, ICON_BTN } from "./ui";
 import { formatClock } from "@/lib/player/format";
+import { fromShownTime, rateOf, toShownTime } from "@/lib/player/speed";
 import { artistHref } from "../lib/library-view";
 import type { PlayerState } from "@/lib/player/store";
 
@@ -236,29 +237,33 @@ export function Transport({ large = false }: { large?: boolean }) {
 
 export function Progress({ state, duration, big = false }: { state: PlayerState; duration: number; big?: boolean }) {
   const player = usePlayer();
-  const seekMax = duration > 0 ? duration : SEEK_MAX_FALLBACK_S;
+  // T14: the store counts the file's own seconds; people see them divided by the song's speed.
+  const rate = rateOf(state.index >= 0 ? state.queue[state.index] : null);
+  const shownDuration = toShownTime(duration, rate);
+  const shownPosition = toShownTime(state.position, rate);
+  const seekMax = shownDuration > 0 ? shownDuration : SEEK_MAX_FALLBACK_S;
   const time = big ? "font-display text-sm text-muted" : "text-xs text-muted";
   return (
     <div className={`flex w-full items-center gap-3 ${big ? "flex-wrap" : "max-w-2xl"}`}>
       <span className={`${big ? "order-2" : "w-11 text-right"} tabular-nums ${time}`} data-testid="player-position">
-        {formatClock(state.position)}
+        {formatClock(shownPosition)}
       </span>
       <input
         type="range"
         min={0}
         max={seekMax}
         step={1}
-        value={Math.min(state.position, seekMax)}
+        value={Math.min(shownPosition, seekMax)}
         aria-label="Seek"
         data-testid="seek-slider"
-        onChange={(event) => player.seek(Number(event.target.value))}
+        onChange={(event) => player.seek(fromShownTime(Number(event.target.value), rate))}
         className={`h-1 accent-silver ${big ? "order-1 w-full basis-full" : "flex-1"}`}
       />
       <span
         className={`${big ? "order-3 ml-auto" : "w-11"} tabular-nums ${time}`}
         data-testid="player-duration"
       >
-        {formatClock(duration)}
+        {formatClock(shownDuration)}
       </span>
     </div>
   );
