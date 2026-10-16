@@ -11,8 +11,10 @@
  * Which song plays next (queue, play next, shuffle, repeat, previous) is pure
  * logic in ./queue.ts. Trim (V2-PLAN T10) is math in ./trim.ts: `position`,
  * `duration` and seeks are in trimmed time (0 at the trim start), and
- * reaching the trim end counts exactly like `ended`. Plays are counted here (SPEC 8.6): once per track
- * start, when 30 seconds have been listened or the track ends.
+ * reaching the trim end counts exactly like `ended`. Speed and pitch (T14)
+ * live in ./speed.ts and go on the element at every track start. Plays are
+ * counted here (SPEC 8.6): once per track start, when 30 seconds have been
+ * listened or the track ends.
  */
 import {
   addToQueue as queueAdd,
@@ -37,6 +39,7 @@ import {
   toTrimmedTime,
   type PlayRange,
 } from "./trim";
+import { applySpeed, sameSpeed } from "./speed";
 
 export type TrackStatus = "waiting" | "downloading" | "ready" | "failed";
 export type { RepeatMode } from "./queue";
@@ -253,7 +256,8 @@ function sameTrack(a: PlayerTrack, b: PlayerTrack): boolean {
     a.coverUrl === b.coverUrl &&
     a.status === b.status &&
     a.durationSec === b.durationSec &&
-    sameTrim(a, b)
+    sameTrim(a, b) &&
+    sameSpeed(a, b)
   );
 }
 
@@ -328,6 +332,12 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     const track = currentTrack();
     if (!audio || !track || track.id !== loadedTrackId) return null;
     return playRange(track, audio.duration);
+  }
+
+  /** T14: put the loaded song's speed and pitch (back) on the element; engines may reset them. */
+  function reapplySpeed(): void {
+    const track = currentTrack();
+    if (audio && track && track.id === loadedTrackId) applySpeed(audio, track);
   }
 
   /** Where playback is now, in trimmed seconds. */
@@ -412,6 +422,8 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
     pendingSeek = target > 0 ? target : null;
     loadedTrackId = track.id;
     audio.src = url;
+    // T14: every track start sets the song's own speed and pitch (1x for most).
+    applySpeed(audio, track);
     setMetadata(track);
     set({ position, error: null });
     audio.play().then(
@@ -602,6 +614,7 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
   }
 
   function onPlayEvent(): void {
+    reapplySpeed();
     if (audio) lastTime = audio.currentTime;
     set({ playing: true });
   }
@@ -613,6 +626,7 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
 
   function onLoadedMetadata(): void {
     if (!audio) return;
+    reapplySpeed();
     const range = loadedRange() ?? WHOLE_SONG;
     const length = rangeLength(range, audio.duration);
     set({ duration: length });
@@ -841,6 +855,11 @@ export function createPlayerStore(deps: PlayerDeps = {}): PlayerStoreApi {
       set({ queue });
       const after = currentTrack();
       if (before && after && !sameTrack(before, after)) setMetadata(after);
+      if (before && after && !sameSpeed(before, after)) {
+        // The speed of the playing song changed (Edit details or the chip, T14).
+        reapplySpeed();
+        syncPositionState();
+      }
       if (before && after && !sameTrim(before, after)) {
         // The trim of the playing song changed (Edit details, T10): re-read the clock.
         const range = loadedRange();

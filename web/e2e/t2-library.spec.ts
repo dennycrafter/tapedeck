@@ -260,21 +260,21 @@ test.describe('T2 library and player @T2', () => {
 
   test('30 seconds of listening records one play; profile stats match the database', async ({ page, browserName }) => {
     test.skip(browserName !== 'webkit', PLAYBACK_ONLY_WEBKIT);
+    test.setTimeout(90_000);
     const tag = uniqueTag();
     const [song] = await seed(page, [{ title: `Counted ${tag}`, artist: `Counter ${tag}` }]);
     expect((await dbCounts(page.request, song.id)).playEventsForTrack).toBe(0);
+    // Play at the song's top speed, 1.5x (T14), so 30 listened seconds take
+    // about 20 (the player counts listened time from timeupdate steps, not
+    // wall time). Since T14 the player sets every song's own speed on the
+    // element, so forcing the element's rate from the test no longer sticks.
+    const fast = await page.request.patch(`/api/tracks/${song.id}`, { data: { playbackRate: 1.5 } });
+    expect(fast.status()).toBe(200);
 
     await page.goto('/');
-    // Play at 4x so 30 listened seconds take about 8 (the player counts
-    // listened time from timeupdate steps, not wall time).
-    await page.evaluate(() => {
-      const audio = document.querySelector('audio') as HTMLAudioElement;
-      audio.defaultPlaybackRate = 4;
-      audio.playbackRate = 4;
-    });
     await item(page, song.id).getByTestId('track-row').click();
     await expectPlaying(page);
-    await expect.poll(async () => (await dbCounts(page.request, song.id)).playEventsForTrack, { timeout: 30_000 }).toBe(1);
+    await expect.poll(async () => (await dbCounts(page.request, song.id)).playEventsForTrack, { timeout: 45_000 }).toBe(1);
     // Listening on does not count the same start twice.
     await page.waitForTimeout(3_000);
     expect((await dbCounts(page.request, song.id)).playEventsForTrack).toBe(1);

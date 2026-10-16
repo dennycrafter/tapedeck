@@ -5,13 +5,15 @@
 // tracks/[id]/restore. Session-gated like every /api/tracks route (the
 // proxy's cookie check is the guard; no bearer here, as this endpoint belongs
 // to the owner's browser, not the downloader). V2-PLAN T10 adds the trim
-// points `trimStartSec` / `trimEndSec` (rules in ./trim.ts).
+// points `trimStartSec` / `trimEndSec` (rules in ./trim.ts), T14 the speed
+// fields `playbackRate` / `preservePitch` (rules in ./speed.ts).
 
 import { isUuid, jsonError } from '../../agent/requests'
 import { sql, type Row } from '../../../../lib/db'
 import { deleteTrack } from '../../../../lib/library'
 import { TRACK_V2_COLUMNS, v2FieldsFromRow } from '../../../../lib/track-v2'
 import { checkTrimChange, readTrimChange, TRIM_ROW_COLUMNS, type TrimRow } from './trim'
+import { readSpeedChange } from './speed'
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -92,6 +94,8 @@ export async function PATCH(request: Request, ctx: RouteContext): Promise<Respon
   if (cover.error) return jsonError(400, cover.error)
   const trim = readTrimChange(body as Record<string, unknown>)
   if (trim.error) return jsonError(400, trim.error)
+  const speed = readSpeedChange(body as Record<string, unknown>)
+  if (speed.error) return jsonError(400, speed.error)
 
   // The executor has no fragment-join helper, so the SET clause is built as
   // text with positional params: column names are hardcoded here, values
@@ -111,6 +115,8 @@ export async function PATCH(request: Request, ctx: RouteContext): Promise<Respon
     if (trim.change.start !== undefined) setColumn('trim_start_sec', trim.change.start)
     if (trim.change.end !== undefined) setColumn('trim_end_sec', trim.change.end)
   }
+  if (speed.change?.playbackRate !== undefined) setColumn('playback_rate', speed.change.playbackRate)
+  if (speed.change?.preservePitch !== undefined) sets.push(`preserve_pitch = ${speed.change.preservePitch ? 'true' : 'false'}`)
   if (title !== undefined) setColumn('title', title)
   if (artist !== undefined) setColumn('artist', artist)
   if (album !== undefined) {

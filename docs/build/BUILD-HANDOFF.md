@@ -46,7 +46,7 @@ Status (each ticket replaces only its own line):
 - T11 Catalog search: done (branch `t11-catalog`). Catalog adapter `web/lib/catalog.ts` (Deezer, iTunes fallback, fixture stand-in, 24 h `catalog:` cache), `/api/catalog/search`, `/album/:id`, `/artist/:id` with In library flags, Search tabs (Top, Songs, Artists, Albums, YouTube), `/catalog/artist` and `/catalog/album` pages, `POST /api/tracks { catalog }` (max 50) in `web/lib/catalog-add.ts`, label "Waiting for your PC to find it". No previews, no migration.
 - T12 Best-copy finder: done (branch `t12-finder`). `agent/finder.py` finds the best free copy of catalog songs (YouTube Music, then SoundCloud, then YouTube) on the PC; the downloader claims catalog rows, sends `resolvedUrl` and `matchInfo`; "Pick another version" in the song menu (`POST /api/tracks/:id/pick`). Fixtures: 14 real songs in `agent/tests/fixtures/finder`.
 - T13 Playlist import: not started
-- T14 Speed and pitch: not started
+- T14 Speed and pitch: done (branch `t14-speed`). Speed 0.5x to 1.5x and "Keep original pitch" per song (`web/lib/player/speed.ts`), set on the audio element at every track start and reset for the next song; Speed section in Edit details (`SpeedEditor.tsx`), "1.25x" chip on Now Playing and speed text in song lists (`SpeedChip.tsx`); `PATCH /api/tracks/:id` takes `playbackRate` / `preservePitch` (`app/api/tracks/[id]/speed.ts`); player clocks divide by the speed; e2e `@T14`. No migration (T9 columns).
 
 ## Then go live (I do this with help)
 1. Set up Supabase and Cloudflare R2.

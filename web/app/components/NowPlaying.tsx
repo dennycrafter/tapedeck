@@ -13,6 +13,7 @@ import { usePlayerState } from "./PlayerProvider";
 import { useLibrary } from "./LibraryProvider";
 import { Cover } from "./Cover";
 import { SongMenu } from "./SongMenu";
+import { SpeedChip } from "./SpeedChip";
 import { Progress, Transport } from "./PlayerBar";
 import { ChevronDownIcon, HeartIcon, QueueIcon } from "./icons";
 import { ICON_BTN, useEscape } from "./ui";
@@ -123,7 +124,8 @@ export function NowPlaying({ onClose, onOpenQueue }: { onClose(): void; onOpenQu
         <div className="mt-4 flex justify-center">
           <Transport large />
         </div>
-        <div className="mt-4 flex justify-end">
+        <div className="mt-4 flex items-center justify-between">
+          <SpeedChip track={track} />
           <button
             type="button"
             onClick={onOpenQueue}

@@ -187,6 +187,9 @@ export function editTrack(
     /** T10 trim points in seconds; null goes back to the PC's suggestion. */
     trimStartSec?: number | null;
     trimEndSec?: number | null;
+    /** T14 speed, 0.5 to 1.5 in 0.05 steps, and "Keep original pitch". */
+    playbackRate?: number;
+    preservePitch?: boolean;
   },
 ): Promise<TrackDto> {
   return fetchJson<TrackDto>(`/api/tracks/${encodeURIComponent(trackId)}`, {
