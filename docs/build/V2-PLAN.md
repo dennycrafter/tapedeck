@@ -190,4 +190,10 @@ Things only Denis can check, numbered, added by each ticket's PR:
 1. (T10) On the PC: restart the downloader, add a YouTube music video that has a talking intro; after it is ready, check it starts at the music and its Edit details says "Trimmed automatically". On the iPhone: play a trimmed song with the phone locked and check the next song starts when the trimmed part ends.
 2. (T11) After going live, on the iPhone: search an artist, open one of their albums, check the covers load, press Add album, check the songs show "Waiting for your PC to find it".
 2. (T12) On the PC: run `agent\install.bat` again (or `py -3.12 -m pip install -r requirements.txt` in `agent`) so `ytmusicapi` is installed. Add a song from catalog search; check the version it picked is the album version (song menu, Pick another version shows it as Current). Then pick another version and check the PC downloads that one.
+3. (T13 core) After going live, on the iPhone: press Add and check the window has two tabs, "Paste links" and "Import", and that pasting a link still adds the song. Until the first import adapter is merged, the Import tab says "No imports are set up yet." and Home shows no "Bring your music" card.
+3. (T13 MusicAPI login) Added by the MusicAPI login PR.
+3. (T13 Spotify link) Added by the Spotify link PR.
+3. (T13 Apple Music link) Added by the Apple Music link PR.
+3. (T13 PC listing) Added by the PC listing PR.
+3. (T13 File upload) Added by the File upload PR.
 3. (T14) On the iPhone: set a song to Sped up with "Keep original pitch" off (song menu, Edit details, Speed). Play it with the next song at normal speed, lock the phone, and check it sounds sped up and higher, then the next song plays at normal speed and pitch. Pause and play from the lock screen once and check the speed stays.

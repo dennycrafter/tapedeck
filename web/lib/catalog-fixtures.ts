@@ -47,8 +47,16 @@ interface ItunesFixtures {
 let deezerFixtures: Promise<DeezerFixtures> | null = null
 let itunesFixtures: Promise<ItunesFixtures> | null = null
 
+/**
+ * catalog-deezer.json (T11) plus import-deezer.json (T13: the ISRC lookups
+ * and artist + title searches the playlist import makes), kept in separate
+ * files so each ticket owns its recordings.
+ */
 function loadDeezer(): Promise<DeezerFixtures> {
-  deezerFixtures ??= import('../e2e/fixtures/catalog-deezer.json').then((m) => (m.default ?? m) as DeezerFixtures)
+  deezerFixtures ??= Promise.all([
+    import('../e2e/fixtures/catalog-deezer.json').then((m) => (m.default ?? m) as DeezerFixtures),
+    import('../e2e/fixtures/import-deezer.json').then((m) => (m.default ?? m) as { responses: Record<string, unknown> }),
+  ]).then(([catalog, imports]) => ({ ...catalog, responses: { ...catalog.responses, ...imports.responses } }))
   return deezerFixtures
 }
 

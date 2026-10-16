@@ -5,13 +5,23 @@
  * "Paste YouTube or SoundCloud links, one per line.", an Add button with a
  * 1/s guard, per-line results, a summary toast on success. Closes on success
  * or Escape/backdrop; stays open when every line failed.
+ * V2-PLAN T13: an "Import" tab picks a service and continues on /import.
  */
 import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { addTracks, type AddLineResult } from "../lib/api";
 import { summarizeAddResults } from "../lib/ui";
 import { useOverlays } from "./Overlays";
 import { CloseIcon } from "./icons";
 import { SearchBox } from "./SearchBox";
+import { ServicePicker } from "./import/ServicePicker";
+
+type AddTab = "links" | "import";
+
+const TABS: { id: AddTab; label: string }[] = [
+  { id: "links", label: "Paste links" },
+  { id: "import", label: "Import" },
+];
 
 function errorText(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
@@ -34,6 +44,8 @@ export function AddWindow({ onClose }: { onClose: () => void }) {
   const [submitting, setSubmitting] = useState(false);
   const [results, setResults] = useState<AddLineResult[] | null>(null);
   const [requestError, setRequestError] = useState<string | null>(null);
+  const [tab, setTab] = useState<AddTab>("links");
+  const router = useRouter();
 
   const urls = useMemo(
     () =>
@@ -105,6 +117,36 @@ export function AddWindow({ onClose }: { onClose: () => void }) {
             <CloseIcon />
           </button>
         </div>
+        <div role="tablist" aria-label="How to add" className="mt-2 flex gap-4 border-b border-line">
+          {TABS.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              role="tab"
+              aria-selected={tab === item.id}
+              onClick={() => setTab(item.id)}
+              data-testid={`add-tab-${item.id}`}
+              className={
+                "-mb-px min-h-11 border-b-2 px-1 text-sm font-medium focus-visible:outline-2 focus-visible:outline-silver " +
+                (tab === item.id ? "border-fg text-fg" : "border-transparent text-muted hover:text-fg")
+              }
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+        {tab === "import" ? (
+          <div className="mt-3 max-h-[60vh] overflow-y-auto">
+            <ServicePicker
+              onPick={(service) => {
+                onClose();
+                router.push(`/import?service=${service}`);
+              }}
+              onOpenJob={onClose}
+            />
+          </div>
+        ) : (
+        <>
         <textarea
           autoFocus
           value={text}
@@ -146,6 +188,8 @@ export function AddWindow({ onClose }: { onClose: () => void }) {
           {submitting ? "Adding..." : "Add"}
         </button>
         <SearchBox />
+        </>
+        )}
       </div>
     </div>
   );

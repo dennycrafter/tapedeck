@@ -13,6 +13,7 @@ import { DownloaderStatus } from "./components/DownloaderStatus";
 import { TrackList, usePlayList } from "./components/TrackList";
 import { CoverTile } from "./components/CoverTile";
 import { PlaylistCover } from "./components/PlaylistCover";
+import { BringYourMusic } from "./components/import/BringYourMusic";
 import { BTN_PRIMARY, BTN_QUIET, BTN_SECONDARY, SectionHeader } from "./components/ui";
 import { albumHref, greeting } from "./lib/library-view";
 
@@ -59,6 +60,9 @@ export default function HomePage() {
           </button>
         </div>
       )}
+
+      {/* V2-PLAN T13: while the library is empty, offer to import playlists. */}
+      {library && tracks.length === 0 && <BringYourMusic />}
 
       {recent.length > 0 && (
         <section data-testid="home-recently-played">

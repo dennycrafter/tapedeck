@@ -16,6 +16,8 @@ import { sql, type Row } from './db'
 import type { CatalogAlbum, CatalogArtist, CatalogTrack, InLibraryFlag } from './catalog-types'
 
 export interface LibraryTrackRow {
+  /** The track id; only needed for findTrackId (T13 import). */
+  id?: string
   source: string
   source_id: string
   isrc: string | null
@@ -25,10 +27,21 @@ export interface LibraryTrackRow {
   album_artist: string | null
 }
 
+type TrackKey = Pick<CatalogTrack, 'id' | 'isrc' | 'title' | 'artist'>
+
 export interface LibraryIndex {
-  hasTrack(track: Pick<CatalogTrack, 'id' | 'isrc' | 'title' | 'artist'>): boolean
+  hasTrack(track: TrackKey): boolean
   hasAlbum(album: Pick<CatalogAlbum, 'title' | 'artist'>): boolean
   hasArtist(artist: Pick<CatalogArtist, 'name'>): boolean
+  /**
+   * T13 import: the id of the library song that hasTrack would match, or
+   * null. Same rules, in the same order (catalog id, ISRC, title and artist).
+   */
+  findTrackId(track: TrackKey): string | null
+  /** T13 import: the id of the song with this exact source and source id (a pasted link), or null. */
+  findBySource(source: string, sourceId: string): string | null
+  /** T13 import: count a song added after the index was built. */
+  addRow(row: LibraryTrackRow): void
 }
 
 /** Both non-empty and one contains the other (the 8.5 artist rule on normalised names). */
@@ -37,26 +50,32 @@ function artistsMatch(a: string, b: string): boolean {
   return a.includes(b) || b.includes(a)
 }
 
-function addTo(map: Map<string, string[]>, key: string, value: string): void {
+function addTo<T>(map: Map<string, T[]>, key: string, value: T): void {
   if (!key) return
   const list = map.get(key)
   if (list) list.push(value)
   else map.set(key, [value])
 }
 
+/** A track id, or '' for rows read without one (they still answer hasTrack). */
+const NO_ID = ''
+
 /** Pure: builds the lookup from library rows (exported for the unit tests). */
 export function buildLibraryIndex(rows: readonly LibraryTrackRow[]): LibraryIndex {
-  const catalogIds = new Set<string>()
-  const isrcs = new Set<string>()
-  const titles = new Map<string, string[]>()
+  const sources = new Map<string, string>()
+  const isrcs = new Map<string, string>()
+  const titles = new Map<string, { artist: string; id: string }[]>()
   const albums = new Map<string, string[]>()
   const artists = new Set<string>()
 
-  for (const row of rows) {
-    if (row.source === 'catalog') catalogIds.add(row.source_id)
-    if (row.isrc) isrcs.add(row.isrc.toUpperCase())
+  function addRow(row: LibraryTrackRow): void {
+    const id = row.id ?? NO_ID
+    const sourceKey = `${row.source}:${row.source_id}`
+    if (!sources.has(sourceKey)) sources.set(sourceKey, id)
+    const isrc = row.isrc?.toUpperCase()
+    if (isrc && !isrcs.has(isrc)) isrcs.set(isrc, id)
     const artist = normalizeForMatch(row.artist ?? '')
-    addTo(titles, normalizeForMatch(row.title ?? ''), artist)
+    addTo(titles, normalizeForMatch(row.title ?? ''), { artist, id })
     if (artist) artists.add(artist)
     if (row.album) {
       const albumArtist = normalizeForMatch(row.album_artist ?? row.artist ?? '')
@@ -65,14 +84,25 @@ export function buildLibraryIndex(rows: readonly LibraryTrackRow[]): LibraryInde
     }
   }
 
+  /** The matching row's id ('' when read without ids), or undefined for no match. */
+  function find(track: TrackKey): string | undefined {
+    const byId = sources.get(`catalog:${track.id}`)
+    if (byId !== undefined) return byId
+    if (track.isrc) {
+      const byIsrc = isrcs.get(track.isrc.toUpperCase())
+      if (byIsrc !== undefined) return byIsrc
+    }
+    const candidates = titles.get(normalizeForMatch(track.title))
+    if (!candidates) return undefined
+    const artist = normalizeForMatch(track.artist)
+    return candidates.find((owned) => artistsMatch(owned.artist, artist))?.id
+  }
+
+  for (const row of rows) addRow(row)
+
   return {
     hasTrack(track) {
-      if (catalogIds.has(track.id)) return true
-      if (track.isrc && isrcs.has(track.isrc.toUpperCase())) return true
-      const candidates = titles.get(normalizeForMatch(track.title))
-      if (!candidates) return false
-      const artist = normalizeForMatch(track.artist)
-      return candidates.some((owned) => artistsMatch(owned, artist))
+      return find(track) !== undefined
     },
     hasAlbum(album) {
       const candidates = albums.get(normalizeForMatch(album.title))
@@ -84,15 +114,22 @@ export function buildLibraryIndex(rows: readonly LibraryTrackRow[]): LibraryInde
       const name = normalizeForMatch(artist.name)
       return name !== '' && artists.has(name)
     },
+    findTrackId(track) {
+      return find(track) || null
+    },
+    findBySource(source, sourceId) {
+      return sources.get(`${source}:${sourceId}`) || null
+    },
+    addRow,
   }
 }
 
 /** Reads the library once and builds the index. */
 export async function loadLibraryIndex(): Promise<LibraryIndex> {
   const rows = (await sql`
-    select source, source_id, isrc, title, artist, album, album_artist from tracks
+    select id, source, source_id, isrc, title, artist, album, album_artist from tracks
   `) as (Row & LibraryTrackRow)[]
-  return buildLibraryIndex(rows)
+  return buildLibraryIndex(rows.map((row) => ({ ...row, id: String(row.id) })))
 }
 
 export function markTracks<T extends CatalogTrack>(tracks: readonly T[], index: LibraryIndex): (T & InLibraryFlag)[] {

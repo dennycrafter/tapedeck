@@ -2,6 +2,7 @@ import { http, HttpResponse } from 'msw'
 
 import deezerCatalog from '../fixtures/catalog-deezer.json'
 import itunesCatalog from '../fixtures/catalog-itunes.json'
+import importDeezer from '../fixtures/import-deezer.json'
 import { fixtureKey } from '../../lib/catalog-fixtures'
 
 /**
@@ -17,7 +18,12 @@ import { fixtureKey } from '../../lib/catalog-fixtures'
  * the recorded Deezer "no data" error or an empty result.
  */
 
-const deezer = deezerCatalog as { responses: Record<string, unknown>; unknown: unknown; empty: unknown }
+const deezerFiles = deezerCatalog as { responses: Record<string, unknown>; unknown: unknown; empty: unknown }
+// T13's recordings (ISRC lookups, artist + title searches) sit in their own file.
+const deezer = {
+  ...deezerFiles,
+  responses: { ...deezerFiles.responses, ...(importDeezer.responses as Record<string, unknown>) },
+}
 const itunes = itunesCatalog as { responses: Record<string, unknown>; empty: unknown }
 
 export const catalogHandlers = [
