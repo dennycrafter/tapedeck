@@ -18,9 +18,10 @@ function errorText(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
 }
 
-export function SearchBox() {
+/** `initialQuery` pre-fills the box (the Search page's YouTube tab); it never searches by itself. */
+export function SearchBox({ initialQuery = "" }: { initialQuery?: string } = {}) {
   const { showToast, notifyLibraryChanged } = useOverlays();
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(initialQuery);
   const [searching, setSearching] = useState(false);
   const [addingVideoId, setAddingVideoId] = useState<string | null>(null);
   const [hits, setHits] = useState<SearchHit[] | null>(null);
