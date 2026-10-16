@@ -193,7 +193,7 @@ Things only Denis can check, numbered, added by each ticket's PR:
 3. (T13 core) After going live, on the iPhone: press Add and check the window has two tabs, "Paste links" and "Import", and that pasting a link still adds the song. Until the first import adapter is merged, the Import tab says "No imports are set up yet." and Home shows no "Bring your music" card.
 3. (T13 MusicAPI login) Added by the MusicAPI login PR.
 3. (T13 Spotify link) Added by the Spotify link PR.
-3. (T13 Apple Music link) Added by the Apple Music link PR.
+3. (T13 Apple Music link) After going live, on the iPhone: in Apple Music open one of your playlists, tap the three dots, then Share Playlist, then Copy. In Tapedeck press Add, Import, Apple Music, paste the link and press Find playlists. Check the playlist shows with its cover and song count, import it, and check the songs come over in the same order. Also paste a playlist link copied from music.apple.com in a computer browser while logged in (it has `/library/` in it) and check the message says to use Share Playlist instead.
 3. (T13 PC listing) Added by the PC listing PR.
 3. (T13 File upload) Added by the File upload PR.
 3. (T14) On the iPhone: set a song to Sped up with "Keep original pitch" off (song menu, Edit details, Speed). Play it with the next song at normal speed, lock the phone, and check it sounds sped up and higher, then the next song plays at normal speed and pitch. Pause and play from the lock screen once and check the speed stays.
