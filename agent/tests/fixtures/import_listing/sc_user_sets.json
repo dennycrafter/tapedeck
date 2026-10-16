@@ -1,0 +1,27 @@
+{
+ "_type": "playlist",
+ "id": "9615865",
+ "title": "The Royal Concept (Sets)",
+ "webpage_url": "https://soundcloud.com/the-concept-band/sets",
+ "original_url": "https://soundcloud.com/the-concept-band/sets",
+ "webpage_url_basename": "sets",
+ "webpage_url_domain": "soundcloud.com",
+ "extractor": "soundcloud:user",
+ "extractor_key": "SoundcloudUser",
+ "release_year": null,
+ "playlist_count": null,
+ "entries": [
+  {
+   "id": "10258832",
+   "title": "Royal EP",
+   "_type": "url",
+   "url": "https://soundcloud.com/the-concept-band/sets/royal-ep"
+  },
+  {
+   "id": "2284613",
+   "title": "The Royal Concept EP",
+   "_type": "url",
+   "url": "https://soundcloud.com/the-concept-band/sets/the-royal-concept-ep"
+  }
+ ]
+}

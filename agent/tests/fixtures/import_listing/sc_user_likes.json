@@ -1,0 +1,22 @@
+{
+ "_type": "playlist",
+ "id": "9615865",
+ "title": "The Royal Concept (Likes)",
+ "webpage_url": "https://soundcloud.com/the-concept-band/likes",
+ "original_url": "https://soundcloud.com/the-concept-band/likes",
+ "webpage_url_basename": "likes",
+ "webpage_url_domain": "soundcloud.com",
+ "extractor": "soundcloud:user",
+ "extractor_key": "SoundcloudUser",
+ "release_year": null,
+ "playlist_count": 1,
+ "entries": [
+  {
+   "ie_key": "Soundcloud",
+   "id": "153528495",
+   "title": "MRTN Feat. Deer -  Illusion",
+   "_type": "url",
+   "url": "https://soundcloud.com/mrtnoriginal/mrtn-feat-oh-deer-illusion"
+  }
+ ]
+}
