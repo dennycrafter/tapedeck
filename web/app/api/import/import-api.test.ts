@@ -147,7 +147,7 @@ describe('logging in', () => {
   })
 
   it('refuses a callback for an importer that is not available', async () => {
-    const back = await callbackGet(new Request(`${BASE}/api/import/callback/musicapi?state=x&code=y`), params({ importer: 'musicapi' }))
+    const back = await callbackGet(new Request(`${BASE}/api/import/callback/nope?state=x&code=y`), params({ importer: 'nope' }))
     expect(new URL(back.headers.get('location') ?? '').searchParams.get('error')).toBe('That log in is not available any more.')
   })
 })

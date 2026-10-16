@@ -1,0 +1,126 @@
+{
+  "about": "Stand-in MusicAPI answers (V2-PLAN T13). Shaped from MusicAPI's public docs on 2026-10-16, not recorded: their user endpoints need an account. See README.md next to this file.",
+  "user": "5f0c7d2e-8a41-4b6e-9c3d-2a7e1b9f4c60",
+  "responses": {
+    "/api/5f0c7d2e-8a41-4b6e-9c3d-2a7e1b9f4c60/liked/tracks?limitParam=1": {
+      "results": [
+        {
+          "id": "mapi-trk-1",
+          "entryId": "mapi-trk-1",
+          "name": "Harder, Better, Faster, Stronger",
+          "isrc": "GBDUW0000059",
+          "duration": 226000,
+          "imageUrl": null,
+          "previewUrl": null,
+          "album": { "name": "Discovery", "id": "mapi-alb-1", "totalItems": 14, "artists": null },
+          "artists": [{ "id": "mapi-art-1", "entryId": null, "name": "Daft Punk", "imageUrl": null, "followers": null }],
+          "isAvailable": true,
+          "dateAdded": "2026-10-01T10:00:00.000Z"
+        }
+      ],
+      "nextParam": "eyJvZmZzZXQiOjF9",
+      "totalItems": 3
+    },
+    "/api/5f0c7d2e-8a41-4b6e-9c3d-2a7e1b9f4c60/liked/tracks?limitParam=50": {
+      "results": [
+        {
+          "id": "mapi-trk-1",
+          "entryId": "mapi-trk-1",
+          "name": "Harder, Better, Faster, Stronger",
+          "isrc": "GBDUW0000059",
+          "duration": 226000,
+          "imageUrl": null,
+          "previewUrl": null,
+          "album": { "name": "Discovery", "id": "mapi-alb-1", "totalItems": 14, "artists": null },
+          "artists": [{ "id": "mapi-art-1", "entryId": null, "name": "Daft Punk", "imageUrl": null, "followers": null }],
+          "isAvailable": true,
+          "dateAdded": "2026-10-01T10:00:00.000Z"
+        },
+        {
+          "id": "mapi-trk-2",
+          "entryId": "mapi-trk-2",
+          "name": "Something About Us",
+          "isrc": null,
+          "duration": 232400,
+          "imageUrl": null,
+          "previewUrl": null,
+          "album": { "name": "Discovery", "id": "mapi-alb-1", "totalItems": 14, "artists": null },
+          "artists": [{ "id": "mapi-art-1", "entryId": null, "name": "Daft Punk", "imageUrl": null, "followers": null }],
+          "isAvailable": true,
+          "dateAdded": "2026-10-02T10:00:00.000Z"
+        }
+      ],
+      "nextParam": "eyJvZmZzZXQiOjJ9",
+      "totalItems": 3
+    },
+    "/api/5f0c7d2e-8a41-4b6e-9c3d-2a7e1b9f4c60/liked/tracks?limitParam=50&nextParam=eyJvZmZzZXQiOjJ9": {
+      "results": [
+        {
+          "id": "mapi-trk-3",
+          "entryId": "mapi-trk-3",
+          "name": "Static Bloom",
+          "isrc": null,
+          "duration": 198000,
+          "imageUrl": null,
+          "previewUrl": null,
+          "album": { "name": "Stand-in Songs", "id": null, "totalItems": null, "artists": null },
+          "artists": [
+            { "id": null, "entryId": null, "name": "The Stand-in Trio", "imageUrl": null, "followers": null },
+            { "id": null, "entryId": null, "name": "Fixture Friend", "imageUrl": null, "followers": null }
+          ],
+          "isAvailable": true,
+          "dateAdded": "2026-10-03T10:00:00.000Z"
+        }
+      ],
+      "nextParam": null,
+      "totalItems": 3
+    },
+    "/api/5f0c7d2e-8a41-4b6e-9c3d-2a7e1b9f4c60/playlists?limitParam=50": {
+      "results": [
+        { "name": "Night drive mix", "id": "mapi-pl-night", "totalItems": 2, "imageUrl": null, "dateAdded": null, "isOwner": true }
+      ],
+      "nextParam": "eyJvZmZzZXQiOjF9",
+      "totalItems": 2
+    },
+    "/api/5f0c7d2e-8a41-4b6e-9c3d-2a7e1b9f4c60/playlists?limitParam=50&nextParam=eyJvZmZzZXQiOjF9": {
+      "results": [
+        { "name": "Old mixtape", "id": "mapi-pl-gone", "totalItems": 4, "imageUrl": null, "dateAdded": null, "isOwner": false }
+      ],
+      "nextParam": null,
+      "totalItems": 2
+    },
+    "/api/5f0c7d2e-8a41-4b6e-9c3d-2a7e1b9f4c60/playlists/mapi-pl-night/items?limitParam=50": {
+      "results": [
+        {
+          "id": "mapi-trk-4",
+          "entryId": "mapi-entry-4",
+          "name": "Veridis Quo",
+          "isrc": null,
+          "duration": 345000,
+          "imageUrl": null,
+          "previewUrl": null,
+          "album": { "name": "Discovery", "id": "mapi-alb-1", "totalItems": 14, "artists": null },
+          "artists": [{ "id": "mapi-art-1", "entryId": null, "name": "Daft Punk", "imageUrl": null, "followers": null }],
+          "isAvailable": true,
+          "dateAdded": null
+        },
+        {
+          "id": "mapi-trk-1",
+          "entryId": "mapi-entry-5",
+          "name": "Harder, Better, Faster, Stronger",
+          "isrc": "GBDUW0000059",
+          "duration": 226000,
+          "imageUrl": null,
+          "previewUrl": null,
+          "album": { "name": "Discovery", "id": "mapi-alb-1", "totalItems": 14, "artists": null },
+          "artists": [{ "id": "mapi-art-1", "entryId": null, "name": "Daft Punk", "imageUrl": null, "followers": null }],
+          "isAvailable": true,
+          "dateAdded": null
+        }
+      ],
+      "nextParam": null,
+      "totalItems": 2
+    },
+    "/api/5f0c7d2e-8a41-4b6e-9c3d-2a7e1b9f4c60/playlists/mapi-pl-gone/items?limitParam=50": { "status": 404 }
+  }
+}
