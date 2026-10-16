@@ -1,0 +1,6 @@
+{
+  "recorded": "hand-made, not a recording",
+  "request": "GET https://music.apple.com/us/playlist/pl.u-tapedeckchanged",
+  "status": 200,
+  "body": "<!DOCTYPE html><html><head><title>A playlist page in a layout Tapedeck does not know</title></head><body><main><h1>Some playlist</h1></main></body></html>"
+}
