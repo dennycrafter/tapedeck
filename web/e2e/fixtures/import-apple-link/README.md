@@ -32,8 +32,9 @@ Changes from the live responses:
   of the HTML is markup, styles and scripts the importer never reads).
 - In `shared-user-playlist.json` the owner's display name is replaced with
   `Playlist Owner`: it is a stranger's name and the tests do not need it.
-- En and em dashes are written as `–` and `—` escapes (same text once
-  parsed), because `scripts/check-repo.sh` rejects the raw characters.
+- En and em dashes are written as JSON escapes (a backslash, then u2013 or
+  u2014), which read back as the same text, because `scripts/check-repo.sh`
+  rejects the raw characters.
 
 ## What the live pages showed
 
