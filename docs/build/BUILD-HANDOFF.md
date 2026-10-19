@@ -1,6 +1,6 @@
 # Tapedeck Handoff
 
-Updated 14 Oct 2026. Pick up from here.
+Updated 18 Oct 2026. Pick up from here.
 
 ## What it is
 My personal Spotify replacement. Paste a YouTube or SoundCloud link (or search YouTube). The title, artist and cover get cleaned up, and the song lands in the library as "Waiting". A Python downloader on my Windows PC grabs the audio with yt-dlp and uploads it to Cloudflare R2. Then it plays on my iPhone (home screen app) and in PC Chrome.
@@ -48,7 +48,14 @@ Status (each ticket replaces only its own line):
 - T13 Playlist import: done (core plus five adapters). Migration `t13_import.sql` (`import_jobs`, `import_items`), importer interface and registry in `web/lib/importers/` (stand-in `fake.ts`; five adapter stubs, hidden until built), `/api/import/*` routes (jobs, list, start, chunks of 50, Skip, log-in callback), catalog matching (ISRC, then artist + title within 5 s) in `web/lib/import-match.ts`, `/import` page, Import tab in the Add window, "Bring your music" on Home, e2e `@T13`. Adapters, all merged: MusicAPI login (`musicapi.ts`, optional keys, hidden when unset), Spotify link (`spotify-link.ts`, public playlists, first 100 songs, first 10 playlists of a profile), Apple Music link (`apple-link.ts`, shared playlists, up to 300 songs), PC listing (`pc-listing.ts` plus `agent/import_listing.py` and `/api/agent/import/*`, SoundCloud, YouTube and YouTube Music), File upload (`file-import.ts`, Exportify CSV or zip, TuneMyMusic CSV, Apple `Library.xml`).
 - T14 Speed and pitch: done (branch `t14-speed`). Speed 0.5x to 1.5x and "Keep original pitch" per song (`web/lib/player/speed.ts`), set on the audio element at every track start and reset for the next song; Speed section in Edit details (`SpeedEditor.tsx`), "1.25x" chip on Now Playing and speed text in song lists (`SpeedChip.tsx`); `PATCH /api/tracks/:id` takes `playbackRate` / `preservePitch` (`app/api/tracks/[id]/speed.ts`); player clocks divide by the speed; e2e `@T14`. No migration (T9 columns).
 
-## Then go live (I do this with help)
+## Live since 18 Oct 2026
+- v2 (T9 to T14) is live on `https://tapedeck-iota.vercel.app` and passed a production smoke test (TEST-REPORT.md, last section). The PC downloader runs main.
+- Deploying: the Vercel project is not connected to GitHub, so a merge does not deploy. After merging, run `vercel deploy --prod --yes --scope me-16a9` from `web/` (or connect the repo in Vercel, Settings, Git).
+- Migrations run on their own on the first database use after a deploy.
+- After a downloader change: `git pull`, `py -3.12 -m pip install -r agent/requirements.txt`, then end and run the "Tapedeck Downloader" task.
+- Still open for Denis: the MusicAPI log in (step 6 below, optional, costs money for real use) and the real iPhone checks.
+
+## Go live steps (done, kept for reference)
 1. Set up Supabase and Cloudflare R2.
 2. Create a new Vercel project with Root Directory `web`.
 3. Fill in the env vars.
