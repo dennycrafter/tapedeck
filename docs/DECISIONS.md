@@ -8,6 +8,10 @@ Each entry lists the date, the ticket, the decision, and a one line reason for i
 
 Each v2 ticket adds its entries under its own heading below, newest first, so tickets built at the same time never edit the same lines.
 
+### Go live
+- 2026-10-18 (v2 go live): Production is deployed from this PC with the Vercel CLI (`vercel deploy --prod` from `web/`), not by GitHub. Reason: the Vercel project "tapedeck" is not connected to the GitHub repo, so merges to main never deployed on their own (production was still on PR #23 until today). Connecting GitHub in Vercel is a settings change left for Denis; until then, deploy from `web/` after each merge.
+- 2026-10-18 (v2 go live): No manual Supabase migration step. Reason: the T9 runner applies `t09_v2_foundation.sql` and `t13_import.sql` on the first database use of a new server; checked on production right after the deploy (`/api/import/jobs` answers and the library payload has the v2 fields).
+
 ### Plan
 - 2026-10-15 (v2 plan): Friends who want Tapedeck each run their own copy (own Vercel, Supabase, R2 and PC downloader); there is no shared multi-user server. Reason: a shared server would store downloaded songs and stream them to other people, which is distributing copies, not personal use.
 - 2026-10-15 (v2 plan): Trim is stored as start and end points; the audio file is never cut. Reason: undo must always work and the offline copy stays the same file.

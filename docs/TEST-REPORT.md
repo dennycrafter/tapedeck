@@ -271,3 +271,20 @@ The final run is the CI check on the T8 pull request (every project: desktop, an
 | `@live` (real Supabase, R2, Vercel) | Not run: needs you to go live first (BLOCKERS.md). Run `npm run e2e:live` after step 0 of the handoff |
 
 Known gap: the two T0 iphone checks on `/test-audio` (tone 1 rolls into tone 2, the page's own offline copy) were never automated by the original build. The same behaviour is checked on the real app by T2 (auto advance and Media Session) and T4 (offline reload and playback), and the owner checks `/test-audio` on the real iPhone (handoff step 3).
+
+
+## v2 go live: production smoke test (18 Oct 2026)
+
+Production deploy of main at `53c956d` (PR #36) on `tapedeck-iota.vercel.app`: READY. PC downloader pulled main, installed `requirements.txt` (`pip check` clean) and was restarted through the "Tapedeck Downloader" task. Checked by hand in PC Chrome:
+
+| Check | Result |
+|---|---|
+| Migrations on the real database | PASS (`/api/import/jobs` answers, v2 fields in `/api/library`) |
+| Add a song by pasting a YouTube link | PASS (waiting, downloading, ready within a minute; PC suggested a trim of 1.9 s off the end) |
+| Trim | PASS (start set to 0:05 in Edit details, saved; playback starts at 0:05) |
+| Speed | PASS ("Sped up" saved as 1.25x with original pitch; the audio element plays at 1.25x) |
+| Catalog search, artist page, album page, add one album track | PASS (Daft Punk, Discovery, "Digital Love"; the PC finder picked a YouTube copy and it became ready) |
+| Import a playlist by pasting a Spotify link | PASS ("Today's Top Hits", 50 songs, playlist created, PC downloading the songs) |
+| Vercel runtime errors in the last hour, downloader errors since restart | None |
+
+Not checked here: the real iPhone, and the MusicAPI log in (needs keys).
