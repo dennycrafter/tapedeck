@@ -18,7 +18,7 @@ export async function POST(request: Request): Promise<Response> {
   const matchInfo = body.matchInfo && typeof body.matchInfo === 'object' ? JSON.stringify(body.matchInfo) : null
   const rows = await sql`
     update tracks set status = 'failed', attempts = 3, error = ${error},
-                      match_info = coalesce(${matchInfo}::jsonb, match_info)
+                      match_info = coalesce(${matchInfo}::text::jsonb, match_info)
     where id = ${body.trackId}
     returning id`
   if (rows.length === 0) return jsonError(404, 'Track not found')

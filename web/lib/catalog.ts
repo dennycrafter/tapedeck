@@ -476,7 +476,7 @@ async function readCache(key: string): Promise<unknown> {
 
 async function writeCache(key: string, value: unknown): Promise<void> {
   await sql`
-    insert into search_cache (q, results) values (${key}, ${JSON.stringify(value)}::jsonb)
+    insert into search_cache (q, results) values (${key}, ${JSON.stringify(value)}::text::jsonb)
     on conflict (q) do update set results = excluded.results, created_at = now()
   `
 }
