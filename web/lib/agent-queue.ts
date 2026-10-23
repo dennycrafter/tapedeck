@@ -170,7 +170,7 @@ export async function completeTrack(input: CompleteInput): Promise<boolean> {
         bytes = ${input.bytes},
         duration_sec = coalesce(${durationSec}, duration_sec),
         resolved_url = coalesce(${input.resolvedUrl ?? null}, resolved_url),
-        match_info = coalesce(${matchInfo}::jsonb, match_info),
+        match_info = coalesce(${matchInfo}::text::jsonb, match_info),
         auto_trim_start_sec = coalesce(${input.autoTrimStartSec ?? null}::numeric, auto_trim_start_sec),
         auto_trim_end_sec = coalesce(${input.autoTrimEndSec ?? null}::numeric, auto_trim_end_sec),
         ready_at = now(),
@@ -196,7 +196,7 @@ export async function failTrack(
     update tracks
     set status = case when attempts < ${MAX_ATTEMPTS} then 'waiting' else 'failed' end,
         error = left(${error}, 500),
-        match_info = coalesce(${matchJson}::jsonb, match_info)
+        match_info = coalesce(${matchJson}::text::jsonb, match_info)
     where id = ${trackId}
     returning status`
   const status = rows[0]?.status

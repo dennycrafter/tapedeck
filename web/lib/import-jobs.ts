@@ -51,6 +51,14 @@ const JOB_COLUMNS = sql.raw(
   'id, service, importer, method, status, error, payload, playlists, selected, attempts, claimed_at, created_at, updated_at',
 )
 
+/*
+ * Writing jsonb: always `${JSON.stringify(value)}::text::jsonb`. With a bare
+ * `::jsonb` the `postgres` driver sees a jsonb parameter and stringifies the
+ * string again, so Postgres stores one JSON string instead of the object or
+ * array (PGlite does not, so the tests never caught it). t14 repairs rows
+ * written that way.
+ */
+
 /** jsonb comes back parsed from one driver and as text from the other. */
 function json(value: unknown): unknown {
   if (typeof value !== 'string') return value
@@ -99,7 +107,7 @@ export async function createJob(input: {
   const rows = await sql`
     insert into import_jobs (service, importer, method, status, payload)
     values (${input.service}, ${input.importer}, ${input.method}, ${input.status ?? 'new'},
-            ${JSON.stringify(input.payload ?? {})}::jsonb)
+            ${JSON.stringify(input.payload ?? {})}::text::jsonb)
     returning ${JOB_COLUMNS}`
   return jobFromRow(rows[0])
 }
@@ -136,9 +144,9 @@ export async function updateJob(id: string, patch: JobPatch, onlyIf?: readonly I
   }
   if (patch.status !== undefined) sets.push(`status = ${param(patch.status)}`)
   if (patch.error !== undefined) sets.push(`error = ${param(patch.error.slice(0, 500))}`)
-  if (patch.payload !== undefined) sets.push(`payload = payload || ${param(JSON.stringify(patch.payload))}::jsonb`)
-  if (patch.playlists !== undefined) sets.push(`playlists = ${param(JSON.stringify(patch.playlists))}::jsonb`)
-  if (patch.selected !== undefined) sets.push(`selected = ${param(JSON.stringify(patch.selected))}::jsonb`)
+  if (patch.payload !== undefined) sets.push(`payload = payload || ${param(JSON.stringify(patch.payload))}::text::jsonb`)
+  if (patch.playlists !== undefined) sets.push(`playlists = ${param(JSON.stringify(patch.playlists))}::text::jsonb`)
+  if (patch.selected !== undefined) sets.push(`selected = ${param(JSON.stringify(patch.selected))}::text::jsonb`)
   let where = `id = ${param(id)}`
   if (onlyIf && onlyIf.length > 0) where += ` and status in (${onlyIf.map((status) => param(status)).join(', ')})`
   const rows = await sql.unsafe(
@@ -176,7 +184,9 @@ export async function importedPlaylists(service: ServiceId, excludeJobId: string
   const rows = await sql`
     select distinct on (entry.value->>'ref') entry.value->>'ref' as ref, p.id as playlist_id
     from import_jobs j
-    cross join lateral jsonb_array_elements(j.selected) as entry(value)
+    cross join lateral jsonb_array_elements(
+      case when jsonb_typeof(j.selected) = 'array' then j.selected else '[]'::jsonb end
+    ) as entry(value)
     join playlists p on p.id::text = entry.value->>'playlistId'
     where j.service = ${service} and j.id <> ${excludeJobId}
     order by entry.value->>'ref', j.created_at desc`
@@ -232,7 +242,7 @@ export async function claimPcJobs(importer: string, limit = 1): Promise<ImportJo
 export async function releasePcJob(id: string, payload: Record<string, unknown>): Promise<boolean> {
   const rows = await sql`
     update import_jobs
-    set payload = payload || ${JSON.stringify(payload)}::jsonb,
+    set payload = payload || ${JSON.stringify(payload)}::text::jsonb,
         status = case when playlists is null then 'new' else 'importing' end,
         claimed_at = null, attempts = 0, error = '', updated_at = now()
     where id = ${id} and status = 'waiting_pc'
