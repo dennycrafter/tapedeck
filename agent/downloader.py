@@ -46,6 +46,7 @@ import sys
 import tempfile
 import time
 import trim
+import ytdlp_cookies
 from dataclasses import dataclass
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
@@ -75,8 +76,10 @@ UPLOAD_TIMEOUT = (10, 600)
 
 # yt-dlp runs unattended; a stuck download must not hang the loop forever.
 DOWNLOAD_TIMEOUT_SEC = 30 * 60
-# `pip install -U yt-dlp[default]` at every start (SPEC 8.3 step 1).
+# `pip install -U yt-dlp[default]` at every start (SPEC 8.3 step 1), and
+# again once a day while the PC stays on: YouTube breaks old versions often.
 UPGRADE_TIMEOUT_SEC = 600
+UPGRADE_EVERY_SEC = 24 * 60 * 60
 # --probe is a single --simulate, metadata only.
 PROBE_TIMEOUT_SEC = 10 * 60
 
@@ -483,10 +486,20 @@ def upgrade_yt_dlp(logger: logging.Logger) -> None:
         logger.warning("yt-dlp self-update could not run: %s", exc)
         return
     if result.returncode == 0:
-        logger.info("yt-dlp is up to date.")
+        logger.info("yt-dlp is up to date (%s).", installed_yt_dlp_version())
     else:
         tail = (result.stderr or result.stdout or "").strip().splitlines()[-3:]
         logger.warning("yt-dlp self-update failed (continuing anyway): %s", " | ".join(tail))
+
+
+def installed_yt_dlp_version() -> str:
+    """The yt-dlp version pip installed, read fresh from disk, for the log."""
+    from importlib import metadata
+
+    try:
+        return metadata.version("yt-dlp")
+    except metadata.PackageNotFoundError:
+        return "version unknown"
 
 
 def load_config(poll_interval_sec: int) -> DownloaderConfig:
@@ -585,7 +598,23 @@ def poll_for_claims(logger: logging.Logger, cfg: DownloaderConfig) -> list[Claim
     return tracks
 
 
-def run_yt_dlp(command: list[str]) -> subprocess.CompletedProcess:
+def run_yt_dlp(
+    logger: logging.Logger, command: list[str], ok_codes: tuple[int, ...] = (0,)
+) -> ytdlp_cookies.CookieRun:
+    """Run one yt-dlp command with the owner's YouTube login (ytdlp_cookies.py).
+
+    Tries the browser cookies, then cookies.txt, then none; `ok_codes` are
+    exit codes that end the tries as a success.
+    """
+
+    def attempt(cookie_args: list[str]) -> tuple[int, str, str]:
+        result = run_yt_dlp_once(ytdlp_cookies.insert_args(command, cookie_args))
+        return result.returncode, result.stdout or "", result.stderr or ""
+
+    return ytdlp_cookies.run(attempt, logger, ok_codes)
+
+
+def run_yt_dlp_once(command: list[str]) -> subprocess.CompletedProcess:
     """Run one yt-dlp command with the download timeout and plain errors."""
     try:
         return subprocess.run(
@@ -608,8 +637,16 @@ def run_yt_dlp(command: list[str]) -> subprocess.CompletedProcess:
         ) from exc
 
 
-def _output_tail(result: subprocess.CompletedProcess) -> str:
+def _output_tail(result: ytdlp_cookies.CookieRun) -> str:
     return " | ".join(((result.stderr or "") + (result.stdout or "")).strip().splitlines()[-5:])
+
+
+def login_error(logger: logging.Logger, result: ytdlp_cookies.CookieRun) -> str | None:
+    """The plain line for the app when YouTube wanted a login; yt-dlp's words go to the log."""
+    message = result.plain_error()
+    if message:
+        logger.warning("download: YouTube asked to sign in: %s", _output_tail(result))
+    return message
 
 
 def download_youtube_fallback(
@@ -620,11 +657,11 @@ def download_youtube_fallback(
     if command is None:
         raise PipelineError(DRM_ERROR_MESSAGE)
     logger.info("download: SoundCloud track is DRM protected, searching YouTube for %r.", command[-1])
-    result = run_yt_dlp(command)
+    result = run_yt_dlp(logger, command, ok_codes=(0, YT_DLP_MAX_DOWNLOADS_EXIT))
     downloaded = find_downloaded_file(work_dir, track["id"])
     if downloaded is None or result.returncode not in (0, YT_DLP_MAX_DOWNLOADS_EXIT):
         logger.warning("download: YouTube fallback found nothing usable: %s", _output_tail(result))
-        raise PipelineError(DRM_ERROR_MESSAGE)
+        raise PipelineError(login_error(logger, result) or DRM_ERROR_MESSAGE)
     logger.info("download: saved %s from YouTube instead.", downloaded.name)
     return downloaded
 
@@ -634,18 +671,20 @@ def download_track(logger: logging.Logger, cfg: DownloaderConfig, track: Claimed
 
     Target: %TEMP%\\tapedeck\\<id>. Never run yt-dlp in the cloud (SPEC 3).
     A SoundCloud link that is DRM protected falls back to the same song
-    on YouTube (searched by artist and title, matched by length).
+    on YouTube (searched by artist and title, matched by length). When
+    YouTube's sign in check stops every cookie step, the error is one
+    plain line telling the owner what to do (ytdlp_cookies.py).
     """
     work_dir = track_tmp_dir(track["id"])
     work_dir.mkdir(parents=True, exist_ok=True)
     output_template = str(work_dir / f"{track['id']}.%(ext)s")
     command = build_yt_dlp_command(track["source_url"], output_template)
     logger.info("download: running yt-dlp for %s", track["source_url"])
-    result = run_yt_dlp(command)
+    result = run_yt_dlp(logger, command)
     if result.returncode != 0:
         if is_drm_error((result.stderr or "") + (result.stdout or "")):
             return download_youtube_fallback(logger, track, work_dir, output_template)
-        raise PipelineError("yt-dlp failed: " + _output_tail(result))
+        raise PipelineError(login_error(logger, result) or "yt-dlp failed: " + _output_tail(result))
     downloaded = find_downloaded_file(work_dir, track["id"])
     if downloaded is None:
         raise PipelineError("yt-dlp reported success but no audio file was found.")
@@ -1064,6 +1103,7 @@ def process_one_track(
     removed either way (SPEC 8.3 step 2: "Delete temp files").
     """
     logger.info("claim: track %s (%s)", track["id"], track["title"] or "untitled")
+    ytdlp_cookies.new_task()
     extra: dict[str, Any] = {}
     try:
         if track["source"] == "catalog":
@@ -1097,11 +1137,15 @@ def run_loop(logger: logging.Logger, cfg: DownloaderConfig) -> None:
     that step and the song stays ready.
     """
     # Startup (SPEC 8.3 step 1): main() already read agent/.env to build
-    # cfg; refresh yt-dlp.
+    # cfg; refresh yt-dlp, then once a day for a PC that stays on.
     upgrade_yt_dlp(logger)
+    last_upgrade = time.monotonic()
 
     logger.info("Downloader started; polling %s every %s s.", cfg.app_url, cfg.poll_interval_sec)
     while True:
+        if time.monotonic() - last_upgrade >= UPGRADE_EVERY_SEC:
+            upgrade_yt_dlp(logger)
+            last_upgrade = time.monotonic()
         export_enabled = fetch_apple_music_export(logger, cfg)
         # V2-PLAN T13: list playlists for an import first (the owner is waiting on that page).
         import_listing.run_once(logger, cfg)
@@ -1166,13 +1210,15 @@ def run_probe(logger: logging.Logger, url: str) -> int:
     A bot check error from a cloud machine is expected and is only
     recorded in the test report, never a failure (SPEC 9.0, 12): the
     exit code is 0 whenever yt-dlp itself could run. Only a missing
-    yt-dlp installation is a real error (exit 1).
+    yt-dlp installation is a real error (exit 1). It uses the same cookie
+    steps as a download (ytdlp_cookies.py), so it also checks the login.
     """
     command = build_probe_command(url)
     logger.info("probe: running yt-dlp --simulate for %s", url)
-    try:
+
+    def attempt(cookie_args: list[str]) -> tuple[int, str, str]:
         result = subprocess.run(
-            command,
+            ytdlp_cookies.insert_args(command, cookie_args),
             capture_output=True,
             text=True,
             encoding="utf-8",
@@ -1180,6 +1226,10 @@ def run_probe(logger: logging.Logger, url: str) -> int:
             timeout=PROBE_TIMEOUT_SEC,
             check=False,
         )
+        return result.returncode, result.stdout or "", result.stderr or ""
+
+    try:
+        result = ytdlp_cookies.run(attempt, logger)
     except FileNotFoundError:
         logger.error(
             "yt-dlp is not installed for this Python. Run install.bat again, or: "
@@ -1197,6 +1247,8 @@ def run_probe(logger: logging.Logger, url: str) -> int:
     if result.returncode == 0:
         logger.info("probe: SUCCESS: yt-dlp could read the URL (works on a home PC).")
     else:
+        if result.plain_error():
+            logger.info("probe: %s", result.plain_error())
         logger.info(
             "probe: BLOCKED (exit %s). From a cloud machine this is the expected "
             "YouTube bot check (SPEC 9.0); record it in the test report, not a failure.",
@@ -1263,6 +1315,8 @@ def main(argv: list[str] | None = None) -> int:
             load_env(logger)
             return run_selftest(logger, load_config(args.poll_interval), args.track)
         if args.probe:
+            # agent/.env holds the cookie settings (COOKIES_BROWSER, COOKIES_FILE).
+            load_env(logger)
             return run_probe(logger, args.probe)
         # agent/.env must be read before load_config looks for APP_URL.
         load_env(logger)

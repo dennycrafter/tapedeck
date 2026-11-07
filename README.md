@@ -58,10 +58,32 @@ From then on the downloader runs in the background whenever your PC is on and yo
 ## 7. Not working?
 
 - **Songs stuck on "Waiting for your PC":** is the PC on and logged in? Check `agent\logs\downloader.log`.
-- **Downloads failing after they worked before:** YouTube changed something. Restart the PC so the downloader updates yt-dlp.
+- **Downloads failing after they worked before:** YouTube changed something. The downloader updates yt-dlp when it starts and once a day; restart the PC to update it right away.
+- **A song says "Close Chrome and hit Retry" or "Save a cookies.txt":** YouTube wants to see that you are logged in. See "YouTube login" below.
 - **"Search limit reached":** that is YouTube's free daily limit. Paste links instead until tomorrow.
 - **Library gone:** the free Supabase project pauses after a week without use. Open Supabase and restore it.
 - **Audio stops when the phone is locked:** open the app from the home screen icon, not from Safari.
+
+### YouTube login
+
+Sometimes YouTube answers your PC with "Sign in to confirm you're not a bot". The downloader then uses your YouTube login, trying in this order: your browser (the `COOKIES_BROWSER` line in `agent\.env`, Chrome unless you change it), then a `cookies.txt` file in the `agent` folder, then no login.
+
+On Windows, Chrome keeps its login locked: other programs can't read it while Chrome is open, and since 2024 not even when it is closed. So with Chrome, save a `cookies.txt` once (about 5 minutes):
+
+1. In Chrome, add the extension **Get cookies.txt LOCALLY** from the Chrome Web Store (the one with "LOCALLY" in its name; it never sends your cookies anywhere).
+2. Open `chrome://extensions`, click **Details** under that extension, and turn on **Allow in Incognito**.
+3. Open an Incognito window (Ctrl+Shift+N), go to youtube.com and log in.
+4. In the same tab, go to `youtube.com/robots.txt`.
+5. Click the extension (puzzle piece icon, then Get cookies.txt LOCALLY) and press **Export**. A file ending in `cookies.txt` lands in Downloads.
+6. Rename it to `cookies.txt` and move it into the `agent` folder, next to `downloader.py`.
+7. Close the Incognito window without logging out (this keeps the saved login working).
+8. In the app, press **Retry** on the songs that failed.
+
+If a song later says "Save a fresh cookies.txt", repeat these steps.
+
+**Or use Firefox instead (nothing to redo later):** install Firefox, log in to YouTube there once, change the line in `agent\.env` to `COOKIES_BROWSER=firefox`, and restart the PC. Firefox shares its login even while it is open.
+
+Good to know: YouTube can flag accounts that download a lot. A spare Google account is the safest login to use here.
 
 ---
 

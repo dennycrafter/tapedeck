@@ -37,6 +37,7 @@ import re
 import subprocess
 import sys
 import unicodedata
+import ytdlp_cookies
 from dataclasses import dataclass, replace
 from typing import Any, Callable
 
@@ -474,6 +475,12 @@ def details_from_ytdlp(payload: Any) -> tuple[float | None, str]:
 
 
 def run_command(command: list[str]) -> tuple[int, str, str]:
+    """Run one yt-dlp command with the owner's YouTube login (ytdlp_cookies.py)."""
+    result = ytdlp_cookies.run(lambda cookie_args: run_yt_dlp_once(ytdlp_cookies.insert_args(command, cookie_args)))
+    return result.returncode, result.stdout, result.stderr
+
+
+def run_yt_dlp_once(command: list[str]) -> tuple[int, str, str]:
     """Run one yt-dlp command with a timeout; (exit code, stdout, stderr)."""
     try:
         result = subprocess.run(

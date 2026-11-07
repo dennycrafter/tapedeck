@@ -204,3 +204,18 @@ def no_sponsorblock_network(monkeypatch):
 
     monkeypatch.setattr(trim, "http_get", fake_get)
     return seen
+
+
+@pytest.fixture(autouse=True)
+def default_cookie_settings(monkeypatch, tmp_path):
+    """The default cookie steps (ytdlp_cookies.py): Chrome, then no cookies.
+
+    COOKIES_FILE points at a file that does not exist, so a real
+    agent/cookies.txt on the PC never changes what a test sees. Tests that
+    need the file write it at this path.
+    """
+    import ytdlp_cookies
+
+    monkeypatch.delenv("COOKIES_BROWSER", raising=False)
+    monkeypatch.setenv("COOKIES_FILE", str(tmp_path / "cookies.txt"))
+    ytdlp_cookies.new_task()  # no browser remembered from an earlier test
