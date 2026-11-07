@@ -5,6 +5,7 @@ machine (skipped otherwise); everything else runs everywhere, including
 the mutagen duration fallback that keeps --selftest working without it.
 """
 
+import logging
 import shutil
 import subprocess
 
@@ -205,12 +206,47 @@ class TestDownloadTrack:
                 args=command,
                 returncode=1,
                 stdout="",
-                stderr="ERROR: Sign in to confirm you're not a bot",
+                stderr="ERROR: [youtube] x: Video unavailable. This video has been removed",
             )
 
         monkeypatch.setattr(subprocess, "run", fake_run)
-        with pytest.raises(downloader.PipelineError, match="not a bot"):
+        with pytest.raises(downloader.PipelineError, match="yt-dlp failed: .*Video unavailable"):
             downloader.download_track(quiet_logger, None, make_track())
+
+    def test_uses_chrome_cookies_first(self, quiet_logger, tmp_work, monkeypatch):
+        work = tmp_work / "tr1"
+        calls = []
+
+        def fake_run(command, **kwargs):
+            calls.append(command)
+            work.mkdir(parents=True, exist_ok=True)
+            (work / "tr1.m4a").write_bytes(b"audio")
+            return subprocess.CompletedProcess(args=command, returncode=0, stdout="", stderr="")
+
+        monkeypatch.setattr(subprocess, "run", fake_run)
+        downloader.download_track(quiet_logger, None, make_track())
+        assert len(calls) == 1
+        assert calls[0][1:5] == ["-m", "yt_dlp", "--cookies-from-browser", "chrome"]
+        assert calls[0][-1] == make_track()["source_url"]
+
+    def test_bot_check_gives_plain_error(self, quiet_logger, tmp_work, monkeypatch):
+        """Chrome open (cookie file locked), no cookies.txt, YouTube wants a login."""
+        calls = []
+
+        def fake_run(command, **kwargs):
+            calls.append(command)
+            if "--cookies-from-browser" in command:
+                stderr = "ERROR: Could not copy Chrome cookie database. See  https://github.com/yt-dlp/yt-dlp/issues/7271"
+            else:
+                stderr = "ERROR: [youtube] x: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies"
+            return subprocess.CompletedProcess(args=command, returncode=1, stdout="", stderr=stderr)
+
+        monkeypatch.setattr(subprocess, "run", fake_run)
+        with pytest.raises(downloader.PipelineError) as err:
+            downloader.download_track(quiet_logger, None, make_track())
+        assert str(err.value).startswith("Close Chrome and hit Retry")
+        assert len(str(err.value)) <= downloader.MAX_ERROR_CHARS
+        assert len(calls) == 2  # Chrome, then without cookies (no cookies.txt saved)
 
     def test_success_without_file_raises(self, quiet_logger, tmp_work, monkeypatch):
         def fake_run(command, **kwargs):
@@ -242,6 +278,42 @@ class TestUpgradeYtDlp:
         downloader.upgrade_yt_dlp(quiet_logger)
         assert "yt-dlp[default]" in seen["command"]
         assert "--upgrade" in seen["command"]
+
+    def test_success_logs_the_installed_version(self, quiet_logger, caplog, monkeypatch):
+        def fake_run(command, **kwargs):
+            return subprocess.CompletedProcess(args=command, returncode=0, stdout="", stderr="")
+
+        monkeypatch.setattr(subprocess, "run", fake_run)
+        monkeypatch.setattr(downloader, "installed_yt_dlp_version", lambda: "2026.10.26")
+        with caplog.at_level(logging.INFO):
+            downloader.upgrade_yt_dlp(quiet_logger)
+        assert "yt-dlp is up to date (2026.10.26)." in caplog.text
+
+    def test_loop_upgrades_again_after_a_day(self, quiet_logger, monkeypatch):
+        """A PC that stays on for days still gets a fresh yt-dlp (SPEC 7.7)."""
+        upgrades = []
+        clock = iter([0.0, 10.0, downloader.UPGRADE_EVERY_SEC + 1, downloader.UPGRADE_EVERY_SEC + 2])
+
+        class Stop(Exception):
+            pass
+
+        sleeps = []
+
+        def stop_after_two_loops(seconds):
+            sleeps.append(seconds)
+            if len(sleeps) == 2:
+                raise Stop
+
+        monkeypatch.setattr(downloader, "upgrade_yt_dlp", lambda logger: upgrades.append(1))
+        monkeypatch.setattr(downloader.time, "monotonic", lambda: next(clock))
+        monkeypatch.setattr(downloader.time, "sleep", stop_after_two_loops)
+        monkeypatch.setattr(downloader, "fetch_apple_music_export", lambda logger, cfg: False)
+        monkeypatch.setattr(downloader.import_listing, "run_once", lambda logger, cfg: None)
+        monkeypatch.setattr(downloader, "poll_for_claims", lambda logger, cfg: [])
+        cfg = downloader.DownloaderConfig(app_url="http://x", agent_token="t")
+        with pytest.raises(Stop):
+            downloader.run_loop(quiet_logger, cfg)
+        assert len(upgrades) == 2  # at start, then once the day had passed
 
     def test_missing_pip_does_not_raise(self, quiet_logger, monkeypatch):
         def raise_not_found(*args, **kwargs):

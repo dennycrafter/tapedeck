@@ -37,6 +37,7 @@ import re
 import subprocess
 import sys
 import time
+import ytdlp_cookies
 from dataclasses import dataclass, field
 from typing import Any, Callable
 from urllib.parse import urlparse
@@ -105,7 +106,19 @@ Runner = Callable[[list[str], Any, float], tuple[int, str, str]]
 
 
 def run_yt_dlp(args: list[str], stdin: str | None, timeout: float) -> tuple[int, str, str]:
-    """Runs `python -m yt_dlp <args>` (the same interpreter pip installed it into)."""
+    """Runs `python -m yt_dlp <args>` with the owner's YouTube login (ytdlp_cookies.py).
+
+    When YouTube's sign in check stopped every cookie step, the plain line
+    for the owner is added to stderr as the last ERROR, so it is what the
+    import page shows.
+    """
+    result = ytdlp_cookies.run(lambda cookie_args: run_yt_dlp_once([*cookie_args, *args], stdin, timeout))
+    message = result.plain_error()
+    return result.returncode, result.stdout, result.stderr + (f"\nERROR: {message}" if message else "")
+
+
+def run_yt_dlp_once(args: list[str], stdin: str | None, timeout: float) -> tuple[int, str, str]:
+    """Runs `python -m yt_dlp <args>` once (the same interpreter pip installed it into)."""
     try:
         result = subprocess.run(
             [sys.executable, "-m", "yt_dlp", *args],
@@ -584,6 +597,7 @@ def process_job(logger: logging.Logger, cfg: Any, job: dict, lister: Lister | No
     lister = lister or Lister(logger=logger)
     job_id = job["id"]
     logger.info("import: listing %s link(s) for job %s", len(job.get("targets") or []), job_id)
+    ytdlp_cookies.new_task()
     try:
         result = lister.list_job(job)
     except ListingError as exc:

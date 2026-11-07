@@ -8,6 +8,9 @@ node_modules/
 .env*
 !.env.example
 
+# YouTube login cookies for the PC downloader (agent/cookies.txt): never committed
+cookies*.txt
+
 # Local stand-in data (PGlite database, local storage driver, dev secrets)
 .data/
 
