@@ -4,8 +4,7 @@ import { test, expect, type Page } from '@playwright/test';
 import { login } from './helpers/login';
 import { cleanup, librarySnapshot, uniqueTag } from './helpers/library';
 import { mp3Silence, pngSolid, wavTone } from './helpers/audio-fixtures';
-import { agentApi } from './helpers/agent';
-import { BASE_URL } from './helpers/env';
+import { TEST_AGENT_TOKEN } from './helpers/env';
 
 /*
  * T15 upload your own songs @T15. Made-up files built in memory (helpers/
@@ -294,17 +293,20 @@ test.describe('T15 upload songs from this device @T15', () => {
     // Still ready to play: nothing for the PC to download.
     await expect(item.getByTestId('track-status')).toHaveCount(0);
 
-    const claim = await agentApi('/api/agent/apple-music-copies', { method: 'POST', body: '{}' });
-    expect(claim.status).toBe(200);
+    const agentHeaders = { Authorization: `Bearer ${TEST_AGENT_TOKEN}` };
+    const claim = await page.request.post('/api/agent/apple-music-copies', { headers: agentHeaders, data: {} });
+    expect(claim.status()).toBe(200);
     const { copies } = (await claim.json()) as { copies: { id: string; title: string; format: string; audioUrl: string }[] };
     const copy = copies.find((entry) => entry.id === song!.id);
     expect(copy).toMatchObject({ title, format: 'wav' });
-    const file = await fetch(new URL(copy!.audioUrl, BASE_URL));
-    expect(file.status).toBe(200);
-    expect((await file.arrayBuffer()).byteLength).toBe(wav.byteLength);
+    // The signed link to the stored file (local storage stand-in here, R2 live).
+    const file = await page.request.get(copy!.audioUrl);
+    expect(file.status()).toBe(200);
+    expect((await file.body()).byteLength).toBe(wav.byteLength);
 
     // The PC reports it done: the menu no longer offers it.
-    expect((await agentApi('/api/agent/apple-music-done', { method: 'POST', body: JSON.stringify({ trackId: song!.id }) })).status).toBe(200);
+    const done = await page.request.post('/api/agent/apple-music-done', { headers: agentHeaders, data: { trackId: song!.id } });
+    expect(done.status()).toBe(200);
     await page.reload();
     await item.getByTestId('song-menu-button').click();
     await expect(page.getByTestId('menu-add-queue')).toBeVisible();
