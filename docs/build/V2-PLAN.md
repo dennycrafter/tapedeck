@@ -180,8 +180,8 @@ Small, mechanical, unblocks everything else. Target: one short PR.
 
 ## Later (not scheduled)
 
-- **T15 Make your own copy (for friends):** a "Deploy to Vercel" button in the README, a guided first-run wizard that creates the Supabase and R2 pieces with as few copy-paste steps as possible, and a friend-friendly installer for the PC downloader.
-- **Stem splitting** (the other [untitled] feature): heavy (needs a model on the PC). Revisit after T15.
+- **Make your own copy (for friends), built as T17 on 8 Nov 2026** (T15 became "Upload songs" and T16 "Lyrics"): a "Deploy to Vercel" button and a friend guide (`docs/MAKE-YOUR-OWN.md`) and a setup code for the PC installer are done. Still open: a guided first-run wizard that creates the Supabase and R2 pieces with fewer copy-paste steps.
+- **Stem splitting** (the other [untitled] feature): heavy (needs a model on the PC). Revisit after T17.
 
 ## Handoff list for Denis (fill in as tickets merge)
 

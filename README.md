@@ -14,6 +14,8 @@ No ads, no subscription: the only accounts are free tiers you create yourself.
 
 Try it on your computer first: `cd web`, `npm install`, `npm run dev`, open http://localhost:3000, password `tapedeck-dev`. It runs on built-in stand-ins, no accounts needed.
 
+Making a copy for a friend? Send them [docs/MAKE-YOUR-OWN.md](docs/MAKE-YOUR-OWN.md): a one-click Deploy button and plain steps.
+
 When you are ready to use it for real (about 20 minutes):
 
 1. **Supabase.** supabase.com > sign in with GitHub > "New project", name `tapedeck`, choose a database password (save it), region "East US", Create, wait about 2 minutes. Click "Connect" at the top > "Transaction pooler" > copy the URI and put your database password where it says `[YOUR-PASSWORD]`. This is `DATABASE_URL`.
@@ -32,8 +34,8 @@ py -c "import secrets;print(secrets.token_hex(32))"
 ## 3. PC downloader
 
 1. Download this repo (green "Code" button > Download ZIP) and unzip it to `C:\Users\<you>\Documents\tapedeck`, or clone it there.
-2. Double-click `agent\install.bat`. It installs Python, Deno and FFmpeg if needed, sets the downloader to start when you log in, and opens a Notepad window.
-3. In the app, open Profile > "Downloader setup". Copy `APP_URL` and `AGENT_TOKEN` into the Notepad window, save, and close it.
+2. Double-click `agent\install.bat`. It installs Python, Deno and FFmpeg if needed and sets the downloader to start when you log in.
+3. When it asks for the setup code: in the app, open Profile > "Downloader setup", press Copy next to "Setup code", paste it into the installer window (right-click pastes there) and press Enter. (Without a code it opens Notepad instead: copy `APP_URL` and `AGENT_TOKEN` from the same panel into it, save, and close it.)
 
 From then on the downloader runs in the background whenever your PC is on and you are logged in.
 

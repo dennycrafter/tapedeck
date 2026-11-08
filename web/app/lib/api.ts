@@ -111,6 +111,8 @@ export interface AddTracksResponse {
 
 export interface DownloaderSetupResponse {
   appUrl: string;
+  /** APP_URL and AGENT_TOKEN in one line for the PC installer (T17). */
+  setupCode: string;
   agentToken: string;
   lastSeenAt: string | null;
   waitingCount: number;
