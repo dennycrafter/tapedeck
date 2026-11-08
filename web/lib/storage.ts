@@ -14,11 +14,12 @@ import {
   PutBucketCorsCommand,
   PutObjectCommand,
   S3Client,
+  type GetObjectCommandOutput,
   type HeadObjectCommandOutput,
 } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { createHmac, randomBytes } from 'node:crypto'
-import { rm, stat } from 'node:fs/promises'
+import { readFile, rm, stat } from 'node:fs/promises'
 import * as nodePath from 'node:path'
 
 /** Presigned PUT lifetime for downloader uploads (SPEC 7.2). */
@@ -31,6 +32,14 @@ export const AUDIO_CONTENT_TYPE = 'audio/mp4'
 /** What head(key) reports; the player and delete flow branch on `exists`. */
 export type StorageHead = { exists: true; bytes: number } | { exists: false }
 
+/** What a presigned upload is for: the stored content type and, when known, the exact size. */
+export interface UploadUrlOptions {
+  /** Defaults to audio/mp4 (the downloader's .m4a files). */
+  contentType?: string
+  /** Signed into the URL, so the PUT must carry exactly this many bytes. */
+  bytes?: number
+}
+
 /**
  * The storage adapter surface, fixed by SPEC 4.1. Every method takes an
  * object key (e.g. `tracks/<uuid>.m4a`) relative to the storage root.
@@ -38,14 +47,23 @@ export type StorageHead = { exists: true; bytes: number } | { exists: false }
 export interface StorageDriver {
   /** Which driver this instance is (health check reports STAND-IN for local). */
   readonly driverName: 'r2' | 'local'
-  /** Presigned upload URL the PC agent PUTs bytes to (15 min, audio/mp4). */
-  uploadUrl(key: string): Promise<string>
+  /**
+   * Presigned upload URL (15 min). The PC agent PUTs its .m4a files here
+   * (audio/mp4); the browser PUTs uploaded songs and covers (T15).
+   */
+  uploadUrl(key: string, opts?: UploadUrlOptions): Promise<string>
   /** Presigned playback URL (6 h); attachmentName turns it into a download. */
   downloadUrl(key: string, opts?: { attachmentName?: string }): Promise<string>
   head(key: string): Promise<StorageHead>
+  /** The whole object, or null when it does not exist (small files only: covers). */
+  read(key: string): Promise<{ bytes: Uint8Array; contentType: string } | null>
   delete(key: string): Promise<void>
-  /** Applies the browser CORS rules (7.2); no-op for the local stand-in. */
-  setCors(): Promise<void>
+  /**
+   * Applies the browser CORS rules (7.2); no-op for the local stand-in.
+   * `extraOrigins` adds addresses beyond production and localhost (T15: the
+   * address an upload came from).
+   */
+  setCors(extraOrigins?: string[]): Promise<void>
 }
 
 /** Thrown when a key could escape the storage root or is malformed. */
@@ -130,10 +148,13 @@ export function parseRange(header: string | null, size: number): ParseRangeResul
   return { start, end }
 }
 
-/** Content type for a stored object; the library stores audio files. */
+/** Content type for a stored object: songs, plus uploaded cover art (T15). */
 export function contentTypeForKey(key: string): string {
   if (key.endsWith('.m4a') || key.endsWith('.mp4')) return 'audio/mp4'
   if (key.endsWith('.mp3')) return 'audio/mpeg'
+  if (key.endsWith('.wav')) return 'audio/wav'
+  if (key.endsWith('.flac')) return 'audio/flac'
+  if (key.endsWith('.jpg') || key.endsWith('.jpeg')) return 'image/jpeg'
   return 'application/octet-stream'
 }
 
@@ -194,6 +215,16 @@ export function createLocalStorage(config: LocalStorageConfig): StorageDriver {
       }
     },
 
+    async read(key) {
+      try {
+        const bytes = new Uint8Array(await readFile(assertKeyPath(key)))
+        return { bytes, contentType: contentTypeForKey(key) }
+      } catch (err) {
+        if (isNodeNotFound(err)) return null
+        throw err
+      }
+    },
+
     async delete(key) {
       // force: deleting a missing object is not an error (matches S3 semantics).
       await rm(assertKeyPath(key), { force: true })
@@ -223,7 +254,7 @@ export interface R2Config {
  * command at the call site (the SDK's own command→output mapping).
  */
 export interface R2Transport {
-  send(command: HeadObjectCommand | DeleteObjectCommand | PutBucketCorsCommand): Promise<unknown>
+  send(command: HeadObjectCommand | GetObjectCommand | DeleteObjectCommand | PutBucketCorsCommand): Promise<unknown>
 }
 
 export function createR2Storage(config: R2Config, transport?: R2Transport): StorageDriver {
@@ -241,9 +272,15 @@ export function createR2Storage(config: R2Config, transport?: R2Transport): Stor
   return {
     driverName: 'r2',
 
-    // Presigned PUT for the agent: 15 minutes, content type pinned (7.2).
-    async uploadUrl(key) {
-      const command = new PutObjectCommand({ Bucket: bucket, Key: key, ContentType: AUDIO_CONTENT_TYPE })
+    // Presigned PUT: 15 minutes, content type pinned (7.2). Browser uploads
+    // (T15) also sign the exact size, so a PUT can not carry more bytes.
+    async uploadUrl(key, opts) {
+      const command = new PutObjectCommand({
+        Bucket: bucket,
+        Key: key,
+        ContentType: opts?.contentType ?? AUDIO_CONTENT_TYPE,
+        ...(opts?.bytes != null ? { ContentLength: opts.bytes } : {}),
+      })
       return getSignedUrl(client, command, { expiresIn: UPLOAD_URL_TTL_SECONDS })
     },
 
@@ -270,15 +307,28 @@ export function createR2Storage(config: R2Config, transport?: R2Transport): Stor
       }
     },
 
+    async read(key) {
+      try {
+        const out = (await send.send(new GetObjectCommand({ Bucket: bucket, Key: key }))) as GetObjectCommandOutput
+        if (!out.Body) return null
+        return { bytes: await out.Body.transformToByteArray(), contentType: out.ContentType || contentTypeForKey(key) }
+      } catch (err) {
+        if (isS3NotFound(err)) return null
+        throw err
+      }
+    },
+
     async delete(key) {
       await send.send(new DeleteObjectCommand({ Bucket: bucket, Key: key }))
     },
 
-    // Called by "Finish setup" (8.12) so the browser can play/HEAD objects.
-    async setCors() {
+    // Called by "Finish setup" (8.12) so the browser can play/HEAD objects,
+    // and before browser uploads (T15) so it can PUT them.
+    async setCors(extraOrigins = []) {
       const origins = ['http://localhost:3000']
       const production = productionOrigin()
       if (production) origins.unshift(production)
+      for (const origin of extraOrigins) if (/^https?:\/\/[^/]+$/.test(origin)) origins.push(origin)
       await send.send(
         new PutBucketCorsCommand({ Bucket: bucket, CORSConfiguration: { CORSRules: r2CorsRules(origins) } }),
       )
@@ -288,7 +338,10 @@ export function createR2Storage(config: R2Config, transport?: R2Transport): Stor
 
 /**
  * The CORS policy from SPEC 7.2, parameterized by the app origins. Exposed
- * pure so tests pin the exact rules "Finish setup" applies.
+ * pure so tests pin the exact rules "Finish setup" applies. The second rule
+ * (T15) lets the browser PUT uploaded songs and covers to presigned URLs;
+ * its one header is named outright rather than '*', which every S3-style
+ * CORS check accepts for the preflight.
  */
 export function r2CorsRules(allowedOrigins: string[]): {
   AllowedOrigins: string[]
@@ -297,12 +350,20 @@ export function r2CorsRules(allowedOrigins: string[]): {
   ExposeHeaders: string[]
   MaxAgeSeconds: number
 }[] {
+  const origins = [...new Set(allowedOrigins)]
   return [
     {
-      AllowedOrigins: [...new Set(allowedOrigins)],
+      AllowedOrigins: origins,
       AllowedMethods: ['GET', 'HEAD'],
       AllowedHeaders: ['*'],
       ExposeHeaders: ['Content-Length', 'Content-Range', 'Accept-Ranges', 'ETag'],
+      MaxAgeSeconds: 3600,
+    },
+    {
+      AllowedOrigins: origins,
+      AllowedMethods: ['PUT'],
+      AllowedHeaders: ['content-type'],
+      ExposeHeaders: ['ETag'],
       MaxAgeSeconds: 3600,
     },
   ]

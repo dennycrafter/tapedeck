@@ -25,6 +25,7 @@ Every check runs on GitHub for every change (desktop Chrome, Android Chrome and 
 | T6 | Apple Music export | Done | 3 e2e runs, downloader tests |
 | T7 | README and repo check | Done | `scripts/check-repo.sh` passes |
 | T8 | This handoff | Done | |
+| T15 | Upload your own song files (MP3, M4A, WAV, FLAC) from the phone or PC, with drag and drop on PC | Done | 3 e2e runs, upload unit tests |
 
 All of it: about 680 app unit tests, 133 downloader tests and 66 e2e runs, all passing. Details per ticket: [TEST-REPORT.md](TEST-REPORT.md).
 

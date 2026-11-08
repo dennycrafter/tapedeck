@@ -11,6 +11,7 @@
 import { sql, type Row } from './db'
 import { getStorage } from './storage'
 import { TRACK_V2_COLUMNS, v2FieldsFromRow, type TrackV2Fields } from './track-v2'
+import { uploadCoverKey } from './upload-rules'
 
 /** "Today" and "this month" are Chicago time (SPEC 3). */
 export const APP_TIMEZONE = 'America/Chicago'
@@ -28,7 +29,8 @@ export const MAX_PLAY_SECONDS = 6 * 60 * 60
 /** Every v2 field (lib/track-v2.ts) rides along so the phone has it offline too. */
 export interface LibraryTrack extends TrackV2Fields {
   id: string
-  source: 'youtube' | 'soundcloud' | 'catalog'
+  /** 'upload': a song file uploaded from the owner's own device (T15). */
+  source: 'youtube' | 'soundcloud' | 'catalog' | 'upload'
   sourceUrl: string
   title: string
   artist: string
@@ -90,7 +92,7 @@ function toNumberOrNull(value: unknown): number | null {
 function trackFromRow(row: Row): LibraryTrack {
   return {
     id: String(row.id),
-    source: row.source === 'soundcloud' || row.source === 'catalog' ? row.source : 'youtube',
+    source: row.source === 'soundcloud' || row.source === 'catalog' || row.source === 'upload' ? row.source : 'youtube',
     sourceUrl: String(row.source_url),
     title: String(row.title),
     artist: String(row.artist ?? ''),
@@ -202,10 +204,12 @@ export async function setLiked(trackId: string, liked: boolean): Promise<Library
  * rather than an orphaned file nobody can see.
  */
 export async function deleteTrack(trackId: string): Promise<{ found: boolean; storageKey: string | null }> {
-  const rows = await sql`select storage_key from tracks where id = ${trackId}`
+  const rows = await sql`select storage_key, source from tracks where id = ${trackId}`
   if (!rows[0]) return { found: false, storageKey: null }
   const storageKey = rows[0].storage_key == null ? null : String(rows[0].storage_key)
   if (storageKey) await getStorage().delete(storageKey)
+  // An uploaded song may have brought its own cover art (T15).
+  if (rows[0].source === 'upload') await getStorage().delete(uploadCoverKey(trackId))
   await sql`delete from tracks where id = ${trackId}`
   return { found: true, storageKey }
 }
@@ -429,12 +433,13 @@ export async function setAppleMusicExport(on: boolean): Promise<void> {
  * downloading songs just get the flag; failed ones keep their status.
  */
 export async function addTrackToAppleMusic(trackId: string): Promise<LibraryTrack | null> {
+  // Uploaded songs (T15) have no link for the PC to fetch again: unchanged.
   const rows = await sql`
     update tracks set
       apple_music = true,
       status = case when status = 'ready' then 'waiting' else status end,
       attempts = case when status = 'ready' then 0 else attempts end
-    where id = ${trackId}
+    where id = ${trackId} and source <> 'upload'
     returning *
   `
   return rows[0] ? trackFromRow(rows[0]) : null

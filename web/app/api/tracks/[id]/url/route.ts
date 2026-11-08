@@ -15,10 +15,14 @@ import { trackKey } from '../../../../../lib/agent-queue'
 import { sql } from '../../../../../lib/db'
 import { DOWNLOAD_URL_TTL_SECONDS, getStorage } from '../../../../../lib/storage'
 
-/** "<Artist> - <Title>.m4a"; just "<Title>.m4a" when the artist is blank. */
-function songFileName(artist: string, title: string): string {
+/**
+ * "<Artist> - <Title>.m4a"; just "<Title>.m4a" when the artist is blank.
+ * Uploaded songs (T15) keep their own format: .mp3, .wav or .flac.
+ */
+function songFileName(artist: string, title: string, key: string): string {
   const name = artist.trim() ? `${artist.trim()} - ${title.trim()}` : title.trim()
-  return `${name}.m4a`
+  const ext = /\.([a-z0-9]+)$/.exec(key)?.[1] ?? 'm4a'
+  return `${name}.${ext}`
 }
 
 type RouteContext = { params: Promise<{ id: string }> }
@@ -30,7 +34,7 @@ export async function GET(request: Request, ctx: RouteContext): Promise<Response
   }
 
   try {
-    const rows = await sql`select status, title, artist from tracks where id = ${id}`
+    const rows = await sql`select status, title, artist, storage_key from tracks where id = ${id}`
     if (rows.length === 0) {
       return jsonError(404, 'Track not found')
     }
@@ -41,10 +45,12 @@ export async function GET(request: Request, ctx: RouteContext): Promise<Response
     }
     // ?download=1 is "Save to Files" on PC (SPEC 8.10): the same presigned
     // GET with an attachment disposition named "<Artist> - <Title>.m4a".
+    // The stored key wins: uploaded songs (T15) are tracks/<id>.<their format>.
+    const key = rows[0].storage_key ? String(rows[0].storage_key) : trackKey(id)
     const download = new URL(request.url).searchParams.get('download') === '1'
     const url = await getStorage().downloadUrl(
-      trackKey(id),
-      download ? { attachmentName: songFileName(String(rows[0].artist ?? ''), String(rows[0].title)) } : undefined,
+      key,
+      download ? { attachmentName: songFileName(String(rows[0].artist ?? ''), String(rows[0].title), key) } : undefined,
     )
     const expiresAt = new Date(Date.now() + DOWNLOAD_URL_TTL_SECONDS * 1000).toISOString()
     // Presigned URLs expire; no layer may serve a stale one.

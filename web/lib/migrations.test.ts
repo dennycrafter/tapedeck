@@ -124,6 +124,13 @@ describe('t09_v2_foundation.sql', () => {
     ).rejects.toThrow(/tracks_source_check/)
   })
 
+  it('allows uploaded songs (t15_uploads.sql)', async () => {
+    await applyMigrations(db)
+    await db`insert into tracks (source, source_id, source_url, raw_title, title, status, storage_key)
+      values ('upload', 'fingerprint', '', 'Mine', 'Mine', 'ready', 'tracks/x.flac')`
+    expect(await db`select source from tracks`).toEqual([{ source: 'upload' }])
+  })
+
   it('keeps playback_rate between 0.5 and 1.5', async () => {
     await applyMigrations(db)
     const insert = (rate: number) => db`insert into tracks (source, source_id, source_url, raw_title, title, playback_rate)

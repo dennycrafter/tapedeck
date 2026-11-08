@@ -107,6 +107,7 @@ export async function claimTracks(
     with picked as (
       select id from tracks
       where status = 'waiting'
+        and source <> 'upload'
         and (source <> 'catalog' or ${takesCatalog})
       order by created_at
       limit ${limit}
@@ -212,12 +213,15 @@ export async function storedDurationSec(trackId: string): Promise<number | null>
 
 /**
  * UI "Retry" on a failed track (SPEC 8.3): status='waiting', attempts=0,
- * error cleared. Returns false when the track does not exist.
+ * error cleared. Returns false when the track does not exist. Uploaded songs
+ * (T15) have no link for the PC to fetch, so they are never requeued.
  */
 export async function retryTrack(trackId: string): Promise<boolean> {
   const rows = await sql`
     update tracks
-    set status = 'waiting', attempts = 0, error = ''
+    set status = case when source = 'upload' then status else 'waiting' end,
+        attempts = case when source = 'upload' then attempts else 0 end,
+        error = case when source = 'upload' then error else '' end
     where id = ${trackId}
     returning id`
   return rows.length > 0

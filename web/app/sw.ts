@@ -1,7 +1,15 @@
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
 import type { PrecacheEntry, RuntimeCaching, SerwistGlobalConfig } from "serwist";
-import { CacheableResponsePlugin, ExpirationPlugin, NetworkFirst, NetworkOnly, Serwist, StaleWhileRevalidate } from "serwist";
+import {
+  CacheableResponsePlugin,
+  CacheFirst,
+  ExpirationPlugin,
+  NetworkFirst,
+  NetworkOnly,
+  Serwist,
+  StaleWhileRevalidate,
+} from "serwist";
 import { audioResponse, trackIdFromOfflinePath } from "./lib/offline-range";
 
 // The injection point below is replaced at build time with the precache manifest
@@ -25,7 +33,9 @@ declare const self: ServiceWorkerGlobalScope;
  *  - pages are network first, so a page opened once also opens offline;
  *  - app code, styles, fonts and icons are served from cache and refreshed
  *    in the background;
- *  - cover art from iTunes or Deezer is kept so covers show offline.
+ *  - cover art from iTunes or Deezer is kept so covers show offline, and
+ *    so is cover art from uploaded songs (T15, /covers/<id>), in its own
+ *    cache so a big library never pushes the app's own files out.
  */
 /** One downloaded song's bytes from the phone's offline store, or null. */
 function storedAudio(trackId: string): Promise<{ bytes: ArrayBuffer; type: string } | null> {
@@ -76,6 +86,17 @@ const runtimeCaching: RuntimeCaching[] = [
   {
     matcher: ({ request }) => request.destination === "audio" || request.headers.has("range"),
     handler: new NetworkOnly(),
+  },
+  {
+    // The picture behind an id never changes, so the kept copy is always right.
+    matcher: ({ url, sameOrigin }) => sameOrigin && url.pathname.startsWith("/covers/"),
+    handler: new CacheFirst({
+      cacheName: "upload-covers",
+      plugins: [
+        new CacheableResponsePlugin({ statuses: [200] }),
+        new ExpirationPlugin({ maxEntries: 1500, maxAgeSeconds: 365 * 24 * 60 * 60 }),
+      ],
+    }),
   },
   {
     matcher: ({ request, sameOrigin }) => sameOrigin && request.mode === "navigate",

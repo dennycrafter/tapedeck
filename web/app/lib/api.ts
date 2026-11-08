@@ -20,7 +20,8 @@ import type { TrackV2Fields } from "@/lib/track-v2";
  */
 export interface TrackDto extends Partial<TrackV2Fields> {
   id: string;
-  source: "youtube" | "soundcloud" | "catalog";
+  /** "upload": a song file uploaded from the owner's own device (T15). */
+  source: "youtube" | "soundcloud" | "catalog" | "upload";
   sourceUrl: string;
   title: string;
   artist: string;

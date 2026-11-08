@@ -208,6 +208,15 @@ export function DownloadIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+/** Upload a song file from this device (T15): the download arrow, pointing up. */
+export function UploadIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...base(props)}>
+      <path d="M12 15.5v-11M7 9l5-5 5 5M5 19.5h14" />
+    </svg>
+  );
+}
+
 /** The small mark on downloaded songs (SPEC 8.9). */
 export function DownloadedIcon(props: SVGProps<SVGSVGElement>) {
   return (

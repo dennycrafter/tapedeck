@@ -46,6 +46,7 @@ From then on the downloader runs in the background whenever your PC is on and yo
 ## 5. Daily use
 
 - Add songs from anywhere (phone or PC). They download the next time your PC is on.
+- Have the song file already? Add > **Upload**, pick one or more MP3, M4A, WAV or FLAC files (up to 200 MB each). On the PC you can also drag files onto the page. They play right away; your PC is not needed.
 - Before a flight, download playlists or albums ("Download" on the page) so they play offline.
 - "Save to Files" in a song's menu saves the file itself (on the iPhone, pick "Save to Files" in the share sheet).
 

@@ -3,7 +3,8 @@
 // raw_artist with " - Topic"/"VEVO" stripped, album and cover cleared, AI
 // flags reset. The raw columns are never edited afterwards, so restore is
 // repeatable. The strip rule runs in TypeScript (lib/clean-title owns it):
-// read the raw row first, then update. Session-gated like every /api/tracks
+// read the raw row first, then update. An uploaded song (T15) gets back the
+// cover art from its own file (kept in raw_thumbnail_url). Session-gated like every /api/tracks
 // route (the proxy's cookie check is the guard; no bearer here, as this
 // endpoint belongs to the owner's browser, not the downloader).
 
@@ -47,7 +48,7 @@ export async function POST(_request: Request, ctx: RouteContext): Promise<Respon
         artist = ${restoreOriginalArtist(raw[0].raw_artist)},
         album = null,
         album_artist = null,
-        cover_url = null,
+        cover_url = case when source = 'upload' then raw_thumbnail_url else null end,
         ai_cleaned = false,
         ai_confidence = null
       where id = ${id}

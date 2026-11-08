@@ -215,8 +215,9 @@ export function SongMenu({ track, playlistId, className = "" }: SongMenuProps) {
         }),
     },
     // SPEC 8.11: for single songs when the "Also add to Apple Music" setting
-    // is off (with it on, the PC adds every new song by itself).
-    ...(!track.appleMusic && track.status !== "failed"
+    // is off (with it on, the PC adds every new song by itself). Not for
+    // uploaded songs (T15): the PC has no link to fetch them from.
+    ...(!track.appleMusic && track.status !== "failed" && track.source !== "upload"
       ? [
           {
             label: "Add to Apple Music",

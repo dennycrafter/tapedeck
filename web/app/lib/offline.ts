@@ -115,15 +115,26 @@ async function playbackUrlFromServer(trackId: string, download = false): Promise
   return body.url;
 }
 
+/**
+ * The stored song's type from the response: audio/mp4 for the downloader's
+ * .m4a files, the uploaded format (audio/mpeg, audio/wav, audio/flac) for
+ * songs uploaded from a device (T15). Anything else counts as .m4a.
+ */
+export function audioTypeOf(contentType: string | null): string {
+  const type = (contentType ?? "").split(";")[0]!.trim().toLowerCase();
+  return type.startsWith("audio/") ? type : "audio/mp4";
+}
+
 /** Fetch the whole file, reporting progress when the size is known. */
 async function fetchBlob(url: string, onProgress: (fraction: number) => void): Promise<Blob> {
   const response = await fetch(url);
   if (!response.ok) throw new Error(`Download failed (${response.status})`);
+  const type = audioTypeOf(response.headers.get("content-type"));
   const total = Number(response.headers.get("content-length") ?? 0);
   if (!response.body || !total) {
     const blob = await response.blob();
     onProgress(1);
-    return new Blob([blob], { type: "audio/mp4" });
+    return new Blob([blob], { type });
   }
   const reader = response.body.getReader();
   const chunks: Uint8Array[] = [];
@@ -140,7 +151,7 @@ async function fetchBlob(url: string, onProgress: (fraction: number) => void): P
       onProgress(fraction);
     }
   }
-  return new Blob(chunks as BlobPart[], { type: "audio/mp4" });
+  return new Blob(chunks as BlobPart[], { type });
 }
 
 function setProgress(trackId: string, fraction: number | null): void {
@@ -231,6 +242,11 @@ function serviceWorkerInControl(): boolean {
 }
 const PLAYBACK_BLOB_TYPE = "audio/x-m4a";
 
+/** The type a downloaded copy plays as: .m4a files as audio/x-m4a (see below), others as stored. */
+export function playbackBlobType(storedType: string): string {
+  return audioTypeOf(storedType) === "audio/mp4" ? PLAYBACK_BLOB_TYPE : audioTypeOf(storedType);
+}
+
 function forgetObjectUrl(trackId: string): void {
   for (let i = objectUrls.length - 1; i >= 0; i--) {
     if (objectUrls[i]?.trackId === trackId) {
@@ -257,8 +273,9 @@ export async function resolvePlaybackUrl(trackId: string): Promise<string> {
     if (record) {
       // Labelled audio/x-m4a, Apple's own type for .m4a: WebKit refused
       // audio/mp4 blobs on some machines (see DECISIONS.md, T4) but played
-      // x-m4a every time. Wrapping the Blob does not copy the bytes.
-      const url = URL.createObjectURL(new Blob([record.blob], { type: PLAYBACK_BLOB_TYPE }));
+      // x-m4a every time. Uploaded MP3, WAV and FLAC songs (T15) keep their
+      // own type. Wrapping the Blob does not copy the bytes.
+      const url = URL.createObjectURL(new Blob([record.blob], { type: playbackBlobType(record.blob.type) }));
       objectUrls.push({ trackId, url });
       while (objectUrls.length > KEEP_OBJECT_URLS) {
         const oldest = objectUrls.shift();
