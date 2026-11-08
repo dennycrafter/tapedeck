@@ -26,7 +26,9 @@ Each entry states what failed, why, and the exact steps the owner must take to f
 
 ---
 
-## The @live finish check cannot run until the app is deployed with real credentials (found 2026-10-10, T0 checkpoint verification; re-confirmed 2026-10-10, T1 checkpoint verification; OPEN, owner action)
+## The @live finish check cannot run until the app is deployed with real credentials (found 2026-10-10, T0 checkpoint verification; re-confirmed 2026-10-10, T1 checkpoint verification; COVERED 2026-10-18)
+
+**Covered 2026-10-18:** the v2 go-live smoke test checked the real services by hand (TEST-REPORT.md, "v2 go live"): the tables were made (migrations answer on the real database) and songs play and download from the real R2 bucket. Noted 2026-11-08: no e2e test carries the `@live` tag, so `npm run e2e:live` runs nothing; writing that check is still possible but no longer blocks anything. The text below is kept as written.
 
 **Not a defect:** nothing is broken. This is the one checklist item that can only run after you deploy the app for real, because it needs your live Supabase and Cloudflare R2 credentials. It is logged here so it is not forgotten; the T0 and T1 verification rounds each deferred it the same way (SPEC 9.0 says it runs after go-live).
 

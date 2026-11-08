@@ -54,6 +54,9 @@ Status (each ticket replaces only its own line):
 - Migrations run on their own on the first database use after a deploy.
 - After a downloader change: `git pull`, `py -3.12 -m pip install -r agent/requirements.txt`, then end and run the "Tapedeck Downloader" task.
 - Still open for Denis: the MusicAPI log in (step 6 below, optional, costs money for real use) and the real iPhone checks.
+- 7 Nov 2026: T15 (upload song files) and Next.js 16.4.5 (security fixes) went live.
+- 8 Nov 2026, merged but not live until Denis says so: tool security updates (npm audit clean), tests that pass on Windows, whole folders and "Add to Apple Music" for uploads (needs the downloader restarted after `git pull`), T16 lyrics, T17 make your own copy (friend guide, setup code), and the Upload button outline fix.
+- Deploy from a clean copy, not from `web/` itself (it holds `.data/` and `.next-e2e-*` test folders and has no `.vercelignore`): `git archive main:web | tar -x -C <empty folder>`, copy `web/.vercel/project.json` into it, then run the deploy command there.
 
 ## Go live steps (done, kept for reference)
 1. Set up Supabase and Cloudflare R2.

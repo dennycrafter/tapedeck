@@ -48,13 +48,14 @@ From then on the downloader runs in the background whenever your PC is on and yo
 ## 5. Daily use
 
 - Add songs from anywhere (phone or PC). They download the next time your PC is on.
-- Have the song file already? Add > **Upload**, pick one or more MP3, M4A, WAV or FLAC files (up to 200 MB each). On the PC you can also drag files onto the page. They play right away; your PC is not needed.
+- Have the song file already? Add > **Upload**, pick one or more MP3, M4A, WAV or FLAC files (up to 200 MB each). On the PC you can also drag files, or a whole album folder, onto the page (or press "Choose a folder"). They play right away; your PC is not needed.
+- Lyrics: in Now Playing, press the speech-bubble button next to Queue. Timed lyrics follow the song; tap a line to jump there.
 - Before a flight, download playlists or albums ("Download" on the page) so they play offline.
 - "Save to Files" in a song's menu saves the file itself (on the iPhone, pick "Save to Files" in the share sheet).
 
 ## 6. Apple Music (optional)
 
-1. In the app, Profile > Settings > turn on "Also add to Apple Music on my PC". (Or use "Add to Apple Music" in a single song's menu.)
+1. In the app, Profile > Settings > turn on "Also add to Apple Music on my PC". (Or use "Add to Apple Music" in a single song's menu, uploaded songs included: WAV and FLAC files go in as Apple Lossless.)
 2. Keep Apple Music open on the PC. New songs are added to its library by themselves.
 3. To get them onto the iPhone, sync it with the Apple Devices app on the PC (cable or Wi-Fi). This part is not automatic without an Apple Music subscription.
 

@@ -288,3 +288,22 @@ Production deploy of main at `53c956d` (PR #36) on `tapedeck-iota.vercel.app`: R
 | Vercel runtime errors in the last hour, downloader errors since restart | None |
 
 Not checked here: the real iPhone, and the MusicAPI log in (needs keys).
+
+## Overnight run (7 to 8 Nov 2026)
+
+Each change was its own pull request, merged only after GitHub's checks passed (Vitest, pytest, tsc, ESLint and Playwright on desktop, iphone and android). Nothing was deployed.
+
+| Pull request | What | Checks |
+|---|---|---|
+| #42 | npm audit warnings in build and test tools fixed (17 to 0) | CI; the service worker built with glob 14 precaches the same 58 files |
+| #43 | Unit tests pass on Windows (path, line endings, PGlite timeouts) | Full Vitest on the Windows PC: 1094 of 1094 |
+| #45 | Two downloader tests pass on Windows | Full pytest on the Windows PC: 387 of 387 |
+| #44 | Whole folders of songs on PC | 11 unit tests, e2e "Choose a folder" with an album folder (desktop, on the PC and CI) |
+| #46 | "Add to Apple Music" for uploaded songs | Vitest (claims, links, retries, route), pytest (MP3 tags, M4A, WAV to Apple Lossless with ffmpeg, failures), e2e (desktop, on the PC and CI) |
+| #47 | T16 lyrics | 14 unit tests, e2e @T16 (desktop on the PC, all devices on CI) |
+| #48 | T17 make your own copy | Vitest and pytest share one sample setup code; e2e @T17 |
+| #49 | Upload button outline only for the keyboard | Screenshots before and after |
+
+Also checked: Vercel runtime errors over 7 days (none) and the last 11 hours of failed requests (only three expected 401s from a health check by hand). Screenshots of every new screen (made-up songs, desktop and phone width) were taken and looked over; they led to the fix in #49 and to two layout fixes in #47 before it merged.
+
+Not checked: the Deploy button for a friend's copy (it would create a GitHub repo and a Vercel project), "Add to Apple Music" on uploaded songs on the real PC (needs the downloader restarted), and lyrics against the real LRCLIB from Vercel (tests use a stand-in).
