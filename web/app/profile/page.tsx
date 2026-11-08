@@ -2,8 +2,9 @@
 
 /**
  * Profile page (SPEC 8.6): name, stats strip and top artists (see
- * ProfileOverview), then downloader status and the "Downloader setup" panel
- * showing APP_URL and AGENT_TOKEN, each with a Copy button.
+ * ProfileOverview), then downloader status and the "Downloader setup" panel:
+ * the setup code the PC installer asks for (T17), and below it APP_URL and
+ * AGENT_TOKEN for setting agent\.env up by hand, each with a Copy button.
  */
 import { useEffect, useState } from "react";
 import { DownloaderStatus } from "../components/DownloaderStatus";
@@ -38,7 +39,7 @@ async function copyText(value: string): Promise<boolean> {
   }
 }
 
-type ValueKey = "appUrl" | "agentToken";
+type ValueKey = "setupCode" | "appUrl" | "agentToken";
 
 export default function ProfilePage() {
   const [data, setData] = useState<DownloaderSetupResponse | null>(null);
@@ -114,8 +115,15 @@ export default function ProfilePage() {
               Downloader setup
             </h3>
             <p className="mt-1 text-sm text-muted">
-              Copy these two values into the downloader .env on your PC, then start the downloader.
+              On your PC, double-click agent\install.bat and paste this code when it asks.
             </p>
+            <ValueRow
+              label="Setup code"
+              value={data.setupCode}
+              copied={copied === "setupCode"}
+              onCopy={() => void copy(data.setupCode, "setupCode")}
+            />
+            <p className="mt-5 text-sm text-muted">Or copy these two values into agent\.env by hand.</p>
             <ValueRow
               label="APP_URL"
               value={data.appUrl}

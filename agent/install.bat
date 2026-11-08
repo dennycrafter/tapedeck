@@ -5,7 +5,9 @@ REM once. It:
 REM   1. installs Python 3.12, Deno and FFmpeg with winget (skipped when the
 REM      tool is already available),
 REM   2. installs the Python libraries from requirements.txt,
-REM   3. copies .env.example to .env if missing and opens it in Notepad,
+REM   3. asks for the setup code from the app (Profile > Downloader setup)
+REM      and writes agent\.env with it (setup_code.py); without a code it
+REM      copies .env.example to .env if missing and opens it in Notepad,
 REM   4. registers a Task Scheduler task "Tapedeck Downloader" that starts
 REM      the downloader with pythonw.exe (no console window) at log on,
 REM   5. starts it now and offers a one-time connection self-test.
@@ -37,12 +39,15 @@ if errorlevel 1 (
     exit /b 1
 )
 
-echo Step 3 of 5: creating agent\.env...
-if not exist .env copy .env.example .env >nul
-echo   Notepad is opening with the .env file.
-echo   Open the Tapedeck app, go to Profile, then Downloader setup,
-echo   copy APP_URL and AGENT_TOKEN into the file, save, and close Notepad.
-notepad .env
+echo Step 3 of 5: connecting the downloader to your app...
+py -3.12 setup_code.py
+if errorlevel 1 (
+    if not exist .env copy .env.example .env >nul
+    echo   No setup code, so Notepad is opening with the .env file instead.
+    echo   Open the Tapedeck app, go to Profile, then Downloader setup,
+    echo   copy APP_URL and AGENT_TOKEN into the file, save, and close Notepad.
+    notepad .env
+)
 
 echo Step 4 of 5: registering the Task Scheduler task...
 for /f "usebackq delims=" %%P in (`py -3.12 -c "import os, sys; print(os.path.join(os.path.dirname(sys.executable), 'pythonw.exe'))"`) do set "PYTHONW=%%P"
