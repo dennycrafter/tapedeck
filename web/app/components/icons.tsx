@@ -143,6 +143,16 @@ export function RepeatIcon({ one = false, ...props }: SVGProps<SVGSVGElement> & 
   );
 }
 
+/** Lyrics (T16): a speech bubble with lines of text. */
+export function LyricsIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...base(props)}>
+      <path d="M5 4.5h14a1.5 1.5 0 0 1 1.5 1.5v9a1.5 1.5 0 0 1-1.5 1.5h-8L7 20v-3.5H5A1.5 1.5 0 0 1 3.5 15V6A1.5 1.5 0 0 1 5 4.5Z" />
+      <path d="M7.5 9h9M7.5 12.5h6" />
+    </svg>
+  );
+}
+
 export function QueueIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg {...base(props)}>

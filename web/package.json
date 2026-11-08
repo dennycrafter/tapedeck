@@ -29,6 +29,7 @@
     "e2e:t13": "playwright test --grep \"@T(0|1|2|3|4|5|6|7|8|9|10|11|12|13)(?![0-9])\"",
     "e2e:t14": "playwright test --grep \"@T(0|1|2|3|4|5|6|7|8|9|10|11|12|13|14)(?![0-9])\"",
     "e2e:t15": "playwright test --grep \"@T(0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15)(?![0-9])\"",
+    "e2e:t16": "playwright test --grep \"@T(0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16)(?![0-9])\"",
     "e2e:live": "playwright test --grep @live"
   },
   "dependencies": {

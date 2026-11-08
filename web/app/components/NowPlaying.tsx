@@ -4,27 +4,50 @@
  * Now playing sheet (SPEC 10 phone layout): big cover, title, artist, album
  * link, progress, previous/play/next, shuffle, repeat, heart, queue and the
  * "..." menu. Swipe down, the chevron or Escape closes it. The background is
- * the cover blurred at 0.15 opacity, nothing moves.
+ * the cover blurred at 0.15 opacity, nothing moves. The Lyrics button (T16)
+ * swaps the cover for the song's lyrics; it stays on for the next songs and
+ * the next visit (remembered per device).
  */
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { createPortal } from "react-dom";
-import { usePlayerState } from "./PlayerProvider";
+import { usePlayer, usePlayerState } from "./PlayerProvider";
 import { useLibrary } from "./LibraryProvider";
 import { Cover } from "./Cover";
 import { SongMenu } from "./SongMenu";
 import { SpeedChip } from "./SpeedChip";
+import { LyricsPanel } from "./LyricsPanel";
 import { Progress, Transport } from "./PlayerBar";
-import { ChevronDownIcon, HeartIcon, QueueIcon } from "./icons";
+import { ChevronDownIcon, HeartIcon, LyricsIcon, QueueIcon } from "./icons";
 import { ICON_BTN, useEscape } from "./ui";
 import { albumArtistOf, albumHref, artistHref } from "../lib/library-view";
+import { playRange } from "../../lib/player/trim";
 
 const CLOSE_DRAG_PX = 110;
+const LYRICS_OPEN_KEY = "tapedeck:lyrics-open";
+
+function readLyricsOpen(): boolean {
+  try {
+    return window.localStorage.getItem(LYRICS_OPEN_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function saveLyricsOpen(open: boolean): void {
+  try {
+    window.localStorage.setItem(LYRICS_OPEN_KEY, open ? "1" : "0");
+  } catch {
+    // Not remembered in a private window: it still toggles.
+  }
+}
 
 export function NowPlaying({ onClose, onOpenQueue }: { onClose(): void; onOpenQueue(): void }) {
   const state = usePlayerState();
+  const player = usePlayer();
   const library = useLibrary();
   const [dragY, setDragY] = useState(0);
+  const [lyricsOpen, setLyricsOpen] = useState(readLyricsOpen);
   const start = useRef<number | null>(null);
   useEscape(onClose);
 
@@ -32,6 +55,8 @@ export function NowPlaying({ onClose, onOpenQueue }: { onClose(): void; onOpenQu
   if (!track) return null;
   const full = library.byId.get(track.id) ?? null;
   const duration = state.duration > 0 ? state.duration : (track.durationSec ?? 0);
+  // Lyrics are timed in the file's seconds; the player counts from the trim start (T10).
+  const trimStart = playRange(track).start;
 
   return createPortal(
     <div
@@ -64,7 +89,7 @@ export function NowPlaying({ onClose, onOpenQueue }: { onClose(): void; onOpenQu
           className="pointer-events-none absolute inset-0 h-full w-full scale-110 object-cover opacity-15 blur-3xl"
         />
       )}
-      <div className="relative mx-auto flex w-full max-w-lg flex-1 flex-col px-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-[calc(0.75rem+env(safe-area-inset-top))]">
+      <div className="relative mx-auto flex min-h-0 w-full max-w-lg flex-1 flex-col px-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-[calc(0.75rem+env(safe-area-inset-top))]">
         <div className="flex items-center justify-between">
           <button type="button" onClick={onClose} aria-label="Close now playing" data-testid="now-playing-close" className={ICON_BTN}>
             <ChevronDownIcon width={24} height={24} />
@@ -73,9 +98,19 @@ export function NowPlaying({ onClose, onOpenQueue }: { onClose(): void; onOpenQu
           {full ? <SongMenu track={full} /> : <span className="w-9" />}
         </div>
 
-        <div className="flex flex-1 items-center justify-center py-6">
-          <Cover src={track.coverUrl} alt="" sizeClass="aspect-square w-full max-w-[min(100%,52vh)] h-auto" />
-        </div>
+        {lyricsOpen ? (
+          <div className="flex min-h-0 flex-1 flex-col py-4">
+            <LyricsPanel
+              song={{ id: track.id, title: track.title, artist: track.artist }}
+              mediaTime={trimStart + state.position}
+              onSeek={(seconds) => player.seek(Math.max(0, seconds - trimStart))}
+            />
+          </div>
+        ) : (
+          <div className="flex flex-1 items-center justify-center py-6">
+            <Cover src={track.coverUrl} alt="" sizeClass="aspect-square w-full max-w-[min(100%,52vh)] h-auto" />
+          </div>
+        )}
 
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
@@ -126,15 +161,30 @@ export function NowPlaying({ onClose, onOpenQueue }: { onClose(): void; onOpenQu
         </div>
         <div className="mt-4 flex items-center justify-between">
           <SpeedChip track={track} />
-          <button
-            type="button"
-            onClick={onOpenQueue}
-            aria-label="Queue"
-            data-testid="now-playing-queue"
-            className={ICON_BTN}
-          >
-            <QueueIcon />
-          </button>
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              onClick={() => {
+                setLyricsOpen(!lyricsOpen);
+                saveLyricsOpen(!lyricsOpen);
+              }}
+              aria-label="Lyrics"
+              aria-pressed={lyricsOpen}
+              data-testid="now-playing-lyrics"
+              className={`${ICON_BTN} ${lyricsOpen ? "bg-surface-2 text-fg" : ""}`}
+            >
+              <LyricsIcon />
+            </button>
+            <button
+              type="button"
+              onClick={onOpenQueue}
+              aria-label="Queue"
+              data-testid="now-playing-queue"
+              className={ICON_BTN}
+            >
+              <QueueIcon />
+            </button>
+          </div>
         </div>
       </div>
     </div>,
