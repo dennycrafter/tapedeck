@@ -12,7 +12,7 @@ import { useRef } from "react";
 import { MAX_UPLOAD_MB, titleFromFileName, UPLOAD_ACCEPT } from "../../lib/upload-rules";
 import { isFinished, useUploads, type UploadItem } from "./UploadsProvider";
 import { UploadIcon } from "./icons";
-import { BTN_QUIET } from "./ui";
+import { BTN_QUIET, FOCUS } from "./ui";
 
 const FORMATS_HINT = `MP3, M4A, WAV or FLAC, up to ${MAX_UPLOAD_MB} MB each.`;
 
@@ -141,9 +141,10 @@ export function UploadPanel() {
         onClick={() => input.current?.click()}
         data-testid="upload-choose"
         className={
-          // The same weight and shape as the Paste links tab's Add button.
-          "mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-btn bg-accent px-3 py-2 font-medium text-bg " +
-          "hover:bg-accent-ink focus:outline-2 focus:outline-offset-2 focus:outline-silver"
+          // The same weight and shape as the Paste links tab's Add button. It
+          // is focused when the tab opens, so the outline shows only for the
+          // keyboard (FOCUS), not after a tap or click.
+          `mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-btn bg-accent px-3 py-2 font-medium text-bg hover:bg-accent-ink ${FOCUS}`
         }
       >
         <UploadIcon width={18} height={18} />
