@@ -10,6 +10,7 @@ Each v2 ticket adds its entries under its own heading below, newest first, so ti
 
 ### Next.js security update
 - 2026-11-07: Next.js and eslint-config-next 16.4.0 to 16.4.5 (exact versions, as before). Reason: npm lists critical advisories for 16.0.0 to 16.4.0 (remote code execution in the image optimizer with SVG files and in `use cache` functions returning typed arrays, and a Server Actions denial of service); 16.4.5 fixes them.
+- 2026-11-07: The 17 remaining `npm audit` warnings were all in build and test tools (the service worker builder, ESLint, Vitest, Lighthouse), none in code the live app runs. Vitest 4.1.12, typescript-eslint 8.72 and fast-uri 3.1.9 fix theirs directly. For the rest, `overrides` in `web/package.json` pin zod 4.6.7 everywhere and glob 14.0.4 for the three Serwist packages, minimatch 11.0.5 for typescript-estree (glob 14 brings minimatch 11 itself). Reason: `npm audit fix --force` would move Serwist back to 8.x and eslint-config-next back to 15.x, which breaks the build. Serwist only calls `glob` and `globSync`, which glob 14 keeps; the service worker built with glob 14 precaches the same 58 files as before. Drop the overrides once Serwist and typescript-eslint ship the fixed versions themselves.
 
 ### T15 Upload songs from your device
 - 2026-11-07 (T15): The Add window has an "Upload" tab (between Paste links and Import). Its Upload button opens the file picker for several MP3, M4A, WAV or FLAC files at once; on PC, files dropped anywhere on the page land there too. Reason: Add is where every other way of adding songs lives.
