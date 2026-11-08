@@ -12,7 +12,7 @@ describe("schema-sql.ts", () => {
     const fileSql = readFileSync(
       fileURLToPath(new URL("../../../../../supabase/schema.sql", import.meta.url)),
       "utf8",
-    );
+    ).replace(/\r\n/g, "\n"); // Windows checkouts may turn line endings into CRLF
     expect(SCHEMA_SQL).toBe(fileSql);
   });
 });

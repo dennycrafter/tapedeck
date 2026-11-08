@@ -53,7 +53,7 @@ describe('localKeyPath', () => {
   const base = '/tmp/tapedeck-storage'
 
   it('resolves nested keys inside the base dir', () => {
-    expect(localKeyPath(base, ['tracks', 'x.m4a'])).toBe(nodePath.join(base, 'tracks', 'x.m4a'))
+    expect(localKeyPath(base, ['tracks', 'x.m4a'])).toBe(nodePath.resolve(base, 'tracks', 'x.m4a'))
   })
 
   it('rejects traversal, absolute and empty segments', () => {

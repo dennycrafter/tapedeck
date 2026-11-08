@@ -11,7 +11,11 @@ export default defineConfig({
     // PGlite boots its WASM engine and applies the schema per test run; on a
     // loaded machine that pushes individual boot tests past vitest's 5s
     // default (observed ~4-5s idle, longer under parallel workers).
-    testTimeout: 20000,
+    // On a Windows PC with little free memory, a full run with every worker
+    // busy pushed single boots past 20s, so tests and the beforeAll/beforeEach
+    // hooks that boot PGlite both get 60s. CI finishes far below that.
+    testTimeout: 60000,
+    hookTimeout: 60000,
     include: ["tests/**/*.test.ts", "app/**/*.test.ts", "lib/**/*.test.ts", "*.test.ts", "e2e/mocks/**/*.test.ts"],
   },
 });
