@@ -6,9 +6,12 @@ Tapedeck is your own music app. Paste a YouTube or SoundCloud link (or search Yo
 A small program on your Windows PC downloads it, cleans up the title, artist and cover, and uploads it to your storage.
 It plays on your iPhone (installed to the home screen, keeps playing when locked) and in Chrome on your PC.
 You get playlists, liked songs, favourite albums, a full player with queue, shuffle and repeat, offline downloads for flights, and "Save to Files".
+Since then: catalog search, playlist import, trimming, speed and pitch, uploading your own song files (also whole folders on PC), and lyrics in Now Playing.
 Optional: new songs also go into Apple Music on your PC.
 
-**Live app:** not deployed yet. You make it live in step 0 below (about 20 minutes); the address will look like `https://tapedeck-xxxx.vercel.app`.
+**Live app:** https://tapedeck-iota.vercel.app (live since 18 Oct 2026). A merge on GitHub does not put changes live by itself: Claude deploys when you say so ([BUILD-HANDOFF.md](build/BUILD-HANDOFF.md), "Live since").
+
+**Making a copy for a friend:** send them [MAKE-YOUR-OWN.md](MAKE-YOUR-OWN.md).
 
 ## Tickets
 
@@ -25,7 +28,15 @@ Every check runs on GitHub for every change (desktop Chrome, Android Chrome and 
 | T6 | Apple Music export | Done | 3 e2e runs, downloader tests |
 | T7 | README and repo check | Done | `scripts/check-repo.sh` passes |
 | T8 | This handoff | Done | |
-| T15 | Upload your own song files (MP3, M4A, WAV, FLAC) from the phone or PC, with drag and drop on PC | Done | 3 e2e runs, upload unit tests |
+| T9 | v2 foundation: database updates that run by themselves, new song fields | Done | unit tests |
+| T10 | Trim: skip talking intros and silence | Done | e2e, downloader tests |
+| T11 | Catalog search (Deezer, iTunes) with artist and album pages | Done | e2e, unit tests |
+| T12 | Best-copy finder: the PC picks the album version | Done | downloader tests on 14 real songs |
+| T13 | Playlist import: Spotify, Apple Music, files, SoundCloud and YouTube | Done | e2e, unit tests |
+| T14 | Speed and pitch per song | Done | e2e, unit tests |
+| T15 | Upload your own song files (MP3, M4A, WAV, FLAC) from the phone or PC, with drag and drop on PC; whole folders on PC and "Add to Apple Music" since 8 Nov | Done | e2e, unit and downloader tests |
+| T16 | Lyrics in Now Playing (from LRCLIB), timed lines that follow the song | Done | e2e, unit tests |
+| T17 | Make your own copy: friend guide, Deploy button, downloader setup code | Done, except a full setup wizard | e2e, unit and downloader tests |
 
 All of it: about 680 app unit tests, 133 downloader tests and 66 e2e runs, all passing. Details per ticket: [TEST-REPORT.md](TEST-REPORT.md).
 
@@ -41,7 +52,7 @@ Every screen at both sizes: [screenshots/](screenshots/), reviewed in [UI-REVIEW
 
 ## Your steps
 
-### 0. Go live (about 20 minutes)
+### 0. Go live (done 18 Oct 2026, kept for reference)
 
 1. **Supabase.** supabase.com > sign in with GitHub > "New project", name `tapedeck`, choose a database password (save it), region "East US", Create, wait about 2 minutes. Click "Connect" at the top > "Transaction pooler" > copy the URI and put your database password where it says `[YOUR-PASSWORD]`. This is `DATABASE_URL`.
 2. **Cloudflare R2.** dash.cloudflare.com > sign up > R2 Object Storage. It asks for a card: add it (it stays free under 10 GB). "Create bucket", name `tapedeck-audio`. Back on the R2 page: "Manage API tokens" > "Create API token" > permission **Admin Read & Write** > Create. Copy Access Key ID (`R2_ACCESS_KEY_ID`), Secret Access Key (`R2_SECRET_ACCESS_KEY`) and the Account ID on the R2 page (`R2_ACCOUNT_ID`).
@@ -50,11 +61,11 @@ Every screen at both sizes: [screenshots/](screenshots/), reviewed in [UI-REVIEW
 5. **Vercel.** vercel.com > "Add New" > Project > import `dennycrafter/tapedeck` > Root Directory `web` > Deploy. Then Settings > Environment Variables: add `DATABASE_URL`, the three R2 values, `R2_BUCKET` = `tapedeck-audio`, the optional keys, and `APP_PASSWORD` (your own password, 12 or more characters). Open the app: the Setup page shows three generated secrets with Copy buttons; add them as `SESSION_SECRET`, `AGENT_TOKEN`, `CRON_SECRET`. Deployments > "..." > Redeploy.
 6. Open the app again, type your password on the Setup page and press "Finish setup". It creates the database tables and the storage settings by itself, then takes you to the login screen.
 
-After "Finish setup" works, ask Claude to run `npm run e2e:live` to test the real services.
+The real services were checked by hand at go-live (TEST-REPORT.md, "v2 go live").
 
 ### 1. On your PC
 
-Download the repo (green "Code" button > Download ZIP), unzip it to `Documents\tapedeck`, and double-click `agent\install.bat`. Then open the app > Profile > "Downloader setup" and copy the two values (`APP_URL` and `AGENT_TOKEN`) into the Notepad window it opens. Save and close Notepad.
+Download the repo (green "Code" button > Download ZIP), unzip it to `Documents\tapedeck`, and double-click `agent\install.bat`. When it asks for the setup code, open the app > Profile > "Downloader setup", press Copy next to "Setup code", and paste it into the installer window.
 
 ### 2. On your iPhone
 
@@ -90,9 +101,10 @@ The full list with reasons is in [DECISIONS.md](DECISIONS.md). The ones you migh
 
 ## Needs you
 
-1. **The live checks.** They test the real Supabase, R2 and Vercel, so they can only run after step 0. Ask Claude to run `npm run e2e:live`.
-2. **The real iPhone checks** in step 3: the lock screen and background audio can't be tested on a computer.
-3. **One Deezer cover.** Covers from Deezer now ask for the 600x600 size. After going live, add a song whose cover comes from Deezer and check it shows.
-4. **Optional cleanup.** On GitHub, delete the branch `debug-webkit-blob` (a closed experiment; the build machine is not allowed to delete branches).
+1. **The real iPhone checks** in step 3: the lock screen and background audio can't be tested on a computer.
+2. **One Deezer cover.** Covers from Deezer now ask for the 600x600 size. Add a song whose cover comes from Deezer and check it shows.
+3. **Try the 8 Nov additions** once they are live: upload a whole album folder on the PC, "Add to Apple Music" on an uploaded song, lyrics in Now Playing.
+
+Done: the live checks were run by hand at go-live on 18 Oct (`npm run e2e:live` has no tests of its own; the hand checks replaced it), and the branch `debug-webkit-blob` was deleted on 8 Nov.
 
 **Known gap, not blocking:** two T0 checks on the `/test-audio` page (tone 1 rolls into tone 2 on the iPhone stand-in, and the page's own offline copy) were never automated by the original build. The same things are checked on the real app by T2 (next song starts by itself, lock screen title) and T4 (offline reload and playback), and step 3 above covers them on your phone.
