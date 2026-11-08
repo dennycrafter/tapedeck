@@ -1,3 +1,5 @@
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { test, expect, type Page } from '@playwright/test';
 import { login } from './helpers/login';
 import { cleanup, librarySnapshot, uniqueTag } from './helpers/library';
@@ -11,7 +13,8 @@ import { mp3Silence, pngSolid, wavTone } from './helpers/audio-fixtures';
  * desktop: the Upload button with several files at once (tags, cover art,
  * a file named after itself, a rejected non-song, progress bars, the toast),
  * then the songs play, queue and go into a playlist like any other; the same
- * file again is "Already in your library". Drag and drop onto the page.
+ * file again is "Already in your library". Drag and drop onto the page,
+ * and "Choose a folder" with an album folder (songs only, in track order).
  * iphone (WebKit): the Upload button and playback on the phone layout.
  */
 
@@ -68,7 +71,7 @@ test.describe('T15 upload songs from this device @T15', () => {
     await page.goto('/library');
     await openUploadTab(page);
     // PC layout: the drop area shows, and the picker takes several song files.
-    await expect(page.getByText('Drop songs here')).toBeVisible();
+    await expect(page.getByText('Drop songs or folders here')).toBeVisible();
     const input = page.getByTestId('upload-input');
     await expect(input).toHaveAttribute('multiple', '');
     expect(await input.getAttribute('accept')).toContain('.flac');
@@ -190,6 +193,49 @@ test.describe('T15 upload songs from this device @T15', () => {
     expect(songs).toHaveLength(1);
   });
 
+  test('Choose a folder uploads the songs inside it in track order and skips the rest', async ({ page }) => {
+    onlyOn('desktop');
+    test.setTimeout(90_000);
+    const tag = uniqueTag();
+    // An album folder as it comes off a CD rip: songs, a cover, a text file,
+    // a hidden Mac file and a second disc in its own folder.
+    const album = test.info().outputPath(`Album ${tag}`);
+    mkdirSync(join(album, 'Disc 2'), { recursive: true });
+    const write = (name: string, bytes: Uint8Array | string) => writeFileSync(join(album, name), bytes);
+    write('02 Second.wav', wavTone({ seconds: 2, frequency: 300 + Math.floor(Math.random() * 300), tags: { title: `Second ${tag}`, artist: 'Folder Band' } }));
+    write('01 First.mp3', mp3Silence({ frames: 100, tags: { title: `First ${tag}`, artist: 'Folder Band' } }));
+    write(join('Disc 2', '01 Third.wav'), wavTone({ seconds: 2, frequency: 600 + Math.floor(Math.random() * 300), tags: { title: `Third ${tag}`, artist: 'Folder Band' } }));
+    write('cover.png', pngSolid(16, [10, 120, 200]));
+    write('notes.txt', 'ripped by me');
+    write('.DS_Store', 'mac');
+
+    await login(page);
+    await page.goto('/library');
+    await openUploadTab(page);
+    await expect(page.getByTestId('upload-panel')).toContainText('Drop songs or folders here');
+    await expect(page.getByTestId('upload-choose-folder')).toBeVisible();
+    await page.getByTestId('upload-folder-input').setInputFiles(album);
+
+    // Only the three songs get rows, in track order; the other files are left out quietly.
+    const rows = page.getByTestId('upload-item');
+    await expect(rows).toHaveCount(3);
+    await expect(rows.getByTestId('upload-item-status')).toHaveText(['Added', 'Added', 'Added'], { timeout: 45_000 });
+    await expect(rows.getByTestId('upload-item-name')).toHaveText([`First ${tag}`, `Second ${tag}`, `Third ${tag}`]);
+    await expect(page.getByTestId('upload-item-error')).toHaveCount(0);
+    await expect(page.getByTestId('toast')).toHaveText('3 added');
+    const songs = await songsTagged(page, tag);
+    made.trackIds.push(...songs.map((song) => song.id));
+    expect(songs).toHaveLength(3);
+
+    // A folder with no songs says so instead of uploading anything.
+    const pictures = test.info().outputPath(`Pictures ${tag}`);
+    mkdirSync(pictures, { recursive: true });
+    writeFileSync(join(pictures, 'photo.png'), pngSolid(8, [0, 0, 0]));
+    await page.getByTestId('upload-folder-input').setInputFiles(pictures);
+    await expect(page.getByTestId('toast')).toHaveText('No songs in that folder. Upload MP3, M4A, WAV or FLAC.');
+    await expect(rows).toHaveCount(3);
+  });
+
   test('on the iPhone layout the Upload button adds a song that plays', async ({ page }) => {
     onlyOn('iphone');
     test.setTimeout(90_000);
@@ -201,7 +247,8 @@ test.describe('T15 upload songs from this device @T15', () => {
     await page.goto('/library');
     await openUploadTab(page);
     // No drop area on the phone: the hint says what can be picked instead.
-    await expect(page.getByText('Drop songs here')).toBeHidden();
+    await expect(page.getByText('Drop songs or folders here')).toBeHidden();
+    await expect(page.getByTestId('upload-choose-folder')).toBeHidden();
     await expect(page.getByText(/MP3, M4A, WAV or FLAC, up to 200 MB each\. You can pick several at once\./)).toBeVisible();
 
     await page.getByTestId('upload-input').setInputFiles([

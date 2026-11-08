@@ -8,7 +8,8 @@
  * summary toast follows when the queue is empty.
  *
  * On PC, dropping files anywhere on the page adds them too and opens the
- * Upload tab; a full-page hint shows while files are dragged over.
+ * Upload tab; a full-page hint shows while files are dragged over. A dropped
+ * or picked folder adds the songs inside it (drop-files.ts).
  */
 import {
   createContext,
@@ -22,6 +23,7 @@ import {
 } from "react";
 import { usePathname } from "next/navigation";
 import { uploadProblem } from "../../lib/upload-rules";
+import { dropItems, filesFromDrop, FOLDER_MESSAGES, pickSongs } from "../lib/drop-files";
 import { isBarePath } from "../lib/routes";
 import { summarizeUploads, UploadFailure, uploadSong, type UploadStage } from "../lib/upload";
 import { UploadIcon } from "./icons";
@@ -45,6 +47,8 @@ interface UploadsApi {
   /** True while a file is waiting or on its way. */
   busy: boolean;
   addFiles(files: Iterable<File>): void;
+  /** The files of a folder picked on PC: only its songs go up. */
+  addFolder(files: File[]): void;
   clearFinished(): void;
 }
 
@@ -160,6 +164,28 @@ export function UploadsProvider({
     [pump, showToast],
   );
 
+  // Songs found in a folder. A folder without songs, or one with more than
+  // the limit, gets a toast; the songs' own rows say the rest.
+  const addFolderSongs = useCallback(
+    (songs: File[], more: boolean) => {
+      if (songs.length === 0) {
+        showToast(FOLDER_MESSAGES.noSongs);
+        return;
+      }
+      addFiles(songs);
+      if (more) showToast(FOLDER_MESSAGES.leftOut);
+    },
+    [addFiles, showToast],
+  );
+
+  const addFolder = useCallback(
+    (picked: File[]) => {
+      const { songs, more } = pickSongs(picked, (file) => file.webkitRelativePath || file.name);
+      addFolderSongs(songs, more);
+    },
+    [addFolderSongs],
+  );
+
   const clearFinished = useCallback(() => {
     itemsRef.current = itemsRef.current.filter((item) => !isFinished(item));
     setItems(itemsRef.current);
@@ -205,10 +231,18 @@ export function UploadsProvider({
       event.preventDefault();
       depth.current = 0;
       setDragging(false);
-      const dropped = Array.from(event.dataTransfer?.files ?? []);
+      // Read what was dropped now: the browser empties it after this event.
+      const dropped = event.dataTransfer ? dropItems(event.dataTransfer) : [];
       if (dropped.length === 0) return;
       openUpload();
-      addFiles(dropped);
+      if (dropped.every((item) => item.kind === "file")) {
+        addFiles(dropped.flatMap((item) => (item.kind === "file" ? [item.file] : [])));
+        return;
+      }
+      void filesFromDrop(dropped).then(
+        (result) => (result.files.length === 0 ? showToast(FOLDER_MESSAGES.noSongs) : addFolderSongs(result.files, result.more)),
+        () => showToast(FOLDER_MESSAGES.unreadable),
+      );
     };
     window.addEventListener("dragenter", onEnter);
     window.addEventListener("dragover", onOver);
@@ -222,9 +256,12 @@ export function UploadsProvider({
       depth.current = 0;
       setDragging(false);
     };
-  }, [addFiles, dropAllowed, openUpload]);
+  }, [addFiles, addFolderSongs, dropAllowed, openUpload, showToast]);
 
-  const api = useMemo<UploadsApi>(() => ({ items, busy, addFiles, clearFinished }), [items, busy, addFiles, clearFinished]);
+  const api = useMemo<UploadsApi>(
+    () => ({ items, busy, addFiles, addFolder, clearFinished }),
+    [items, busy, addFiles, addFolder, clearFinished],
+  );
 
   return (
     <UploadsContext.Provider value={api}>
@@ -238,7 +275,7 @@ export function UploadsProvider({
           <div className="flex flex-col items-center gap-2 rounded-box border border-dashed border-muted bg-surface-2 px-10 py-8 text-center shadow-[0_6px_16px_rgba(0,0,0,0.3)]">
             <UploadIcon width={28} height={28} className="text-silver" />
             <p className="text-base font-semibold">Drop to upload</p>
-            <p className="text-sm text-muted">MP3, M4A, WAV or FLAC</p>
+            <p className="text-sm text-muted">Songs or folders of songs: MP3, M4A, WAV or FLAC</p>
           </div>
         </div>
       )}

@@ -4,8 +4,9 @@
  * The Add window's Upload tab (T15): the Upload button opens the file
  * picker (several files at once; on the iPhone it opens Files), and every
  * file gets a row with its own progress bar and outcome. On PC a dashed
- * area invites dropping files (they can land anywhere on the page). The
- * queue itself is UploadsProvider, so rows survive closing the window.
+ * area invites dropping files or folders (they can land anywhere on the
+ * page) and offers "Choose a folder". The queue itself is UploadsProvider,
+ * so rows survive closing the window.
  */
 import { useRef } from "react";
 import { MAX_UPLOAD_MB, titleFromFileName, UPLOAD_ACCEPT } from "../../lib/upload-rules";
@@ -14,6 +15,9 @@ import { UploadIcon } from "./icons";
 import { BTN_QUIET } from "./ui";
 
 const FORMATS_HINT = `MP3, M4A, WAV or FLAC, up to ${MAX_UPLOAD_MB} MB each.`;
+
+// React has no prop for it; the browser reads it as "pick a folder".
+const FOLDER_PICKER = { webkitdirectory: "" } as Record<string, string>;
 
 function statusText(item: UploadItem): string {
   switch (item.stage) {
@@ -78,8 +82,9 @@ function UploadRow({ item }: { item: UploadItem }) {
 }
 
 export function UploadPanel() {
-  const { items, addFiles, clearFinished } = useUploads();
+  const { items, addFiles, addFolder, clearFinished } = useUploads();
   const input = useRef<HTMLInputElement>(null);
+  const folderInput = useRef<HTMLInputElement>(null);
   const finished = items.filter(isFinished).length;
 
   return (
@@ -87,8 +92,16 @@ export function UploadPanel() {
       {/* PC: where files can be dropped (anywhere on the page works too). */}
       <div className="mt-3 hidden flex-col items-center justify-center gap-1 rounded-btn border border-dashed border-line bg-bg px-4 py-7 text-center lg:flex">
         <UploadIcon className="text-muted" />
-        <p className="text-sm text-silver">Drop songs here</p>
+        <p className="text-sm text-silver">Drop songs or folders here</p>
         <p className="text-xs text-muted">{FORMATS_HINT}</p>
+        <button
+          type="button"
+          onClick={() => folderInput.current?.click()}
+          className={`${BTN_QUIET} mt-1`}
+          data-testid="upload-choose-folder"
+        >
+          Choose a folder
+        </button>
       </div>
       <p className="mt-3 text-sm text-muted lg:hidden">{FORMATS_HINT} You can pick several at once.</p>
       <input
@@ -105,6 +118,21 @@ export function UploadPanel() {
           // Clear it so picking the same file again still fires a change.
           event.target.value = "";
           if (picked.length > 0) addFiles(picked);
+        }}
+      />
+      <input
+        ref={folderInput}
+        type="file"
+        multiple
+        {...FOLDER_PICKER}
+        className="sr-only"
+        tabIndex={-1}
+        aria-hidden="true"
+        data-testid="upload-folder-input"
+        onChange={(event) => {
+          const picked = Array.from(event.target.files ?? []);
+          event.target.value = "";
+          if (picked.length > 0) addFolder(picked);
         }}
       />
       <button
