@@ -8,6 +8,9 @@ Each entry lists the date, the ticket, the decision, and a one line reason for i
 
 Each v2 ticket adds its entries under its own heading below, newest first, so tickets built at the same time never edit the same lines.
 
+### Next.js security update
+- 2026-11-07: Next.js and eslint-config-next 16.4.0 to 16.4.5 (exact versions, as before). Reason: npm lists critical advisories for 16.0.0 to 16.4.0 (remote code execution in the image optimizer with SVG files and in `use cache` functions returning typed arrays, and a Server Actions denial of service); 16.4.5 fixes them.
+
 ### T15 Upload songs from your device
 - 2026-11-07 (T15): The Add window has an "Upload" tab (between Paste links and Import). Its Upload button opens the file picker for several MP3, M4A, WAV or FLAC files at once; on PC, files dropped anywhere on the page land there too. Reason: Add is where every other way of adding songs lives.
 - 2026-11-07 (T15): Files go from the browser straight to R2 with presigned PUT URLs (15 minutes, exact size signed in), never through the app. Reason: Vercel functions take at most about 4.5 MB per request, and songs are bigger.
