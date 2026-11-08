@@ -225,16 +225,33 @@ describe('an uploaded song everywhere else', () => {
   it('is never handed to the PC downloader, not even after Retry or Add to Apple Music', async () => {
     const id = await added()
     expect(await retryTrack(id)).toBe(true)
-    expect(await addTrackToAppleMusic(id)).toBeNull()
+    expect(await addTrackToAppleMusic(id)).toMatchObject({ id, status: 'ready', appleMusic: true })
     const [row] = await sql`select status, apple_music from tracks where id = ${id}`
-    expect(row).toMatchObject({ status: 'ready', apple_music: false })
+    expect(row).toMatchObject({ status: 'ready', apple_music: true })
     await sql`update tracks set status = 'waiting' where id = ${id}` // even if something requeued it
     expect(await claimTracks(3, ['catalog'])).toEqual([])
+  })
 
-    await sql`update tracks set status = 'ready' where id = ${id}`
+  it('Add to Apple Music keeps it ready; the PC copies the stored file (apple-music-uploads.ts)', async () => {
+    const id = await added()
     const response = await appleMusic(new Request('http://localhost'), { params: Promise.resolve({ id }) })
-    expect(response.status).toBe(409)
-    expect(((await response.json()) as { error: string }).error).toBe("Uploaded songs can't be added to Apple Music yet")
+    expect(response.status).toBe(200)
+    expect(await response.json()).toMatchObject({ id, status: 'ready', appleMusic: true })
+  })
+
+  it('is marked for Apple Music when uploaded with "Also add to Apple Music" on', async () => {
+    await sql`update settings set apple_music_export = true where id = 1`
+    try {
+      const id = await added()
+      const [row] = await sql`select apple_music from tracks where id = ${id}`
+      expect(row).toMatchObject({ apple_music: true })
+    } finally {
+      await sql`update settings set apple_music_export = false where id = 1`
+    }
+    const later = await upload('later.mp3', {}, { fingerprint: PRINT_B })
+    if (later.status !== 'added') throw new Error(later.status)
+    const [row] = await sql`select apple_music from tracks where id = ${later.track.id}`
+    expect(row).toMatchObject({ apple_music: false })
   })
 
   it('Restore original brings back the title, artist and cover from the file', async () => {

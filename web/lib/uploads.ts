@@ -12,7 +12,9 @@
  *
  * From then on it is an ordinary library song: it plays, queues, goes into
  * playlists and downloads for offline like any other. The PC downloader
- * never sees it (agent-queue.ts skips uploads).
+ * never downloads it (agent-queue.ts skips uploads); with the "Also add to
+ * Apple Music" setting on, the PC copies it into Apple Music
+ * (apple-music-uploads.ts), as it does for every new song.
  */
 import { randomUUID } from 'node:crypto'
 import { lookupCoverArt, type CoverArtMatch } from './cover-art'
@@ -195,10 +197,11 @@ export async function finishUpload(
   const rows = (await sql`
     insert into tracks (id, source, source_id, source_url, raw_title, raw_artist, raw_thumbnail_url,
                         title, artist, album, album_artist, cover_url, duration_sec,
-                        status, storage_key, bytes, ready_at)
+                        status, storage_key, bytes, ready_at, apple_music)
     values (${id}, 'upload', ${fingerprint}, '', ${title}, ${artist}, ${embeddedCover},
             ${title}, ${artist}, ${album}, ${albumArtist}, ${coverUrl}, ${durationSec},
-            'ready', ${audioKey}, ${audio.bytes}, now())
+            'ready', ${audioKey}, ${audio.bytes}, now(),
+            coalesce((select apple_music_export from settings where id = 1), false))
     on conflict do nothing
     returning id, title, artist, album, album_artist, cover_url, duration_sec, status
   `) as Row[]

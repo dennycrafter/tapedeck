@@ -433,13 +433,17 @@ export async function setAppleMusicExport(on: boolean): Promise<void> {
  * downloading songs just get the flag; failed ones keep their status.
  */
 export async function addTrackToAppleMusic(trackId: string): Promise<LibraryTrack | null> {
-  // Uploaded songs (T15) have no link for the PC to fetch again: unchanged.
+  // Uploaded songs (T15) have no link for the PC to fetch again: they stay
+  // ready, and the PC copies the stored file instead (apple-music-uploads.ts).
+  // Their attempts and claimed_at pace those copies, so they start over here.
   const rows = await sql`
     update tracks set
       apple_music = true,
-      status = case when status = 'ready' then 'waiting' else status end,
-      attempts = case when status = 'ready' then 0 else attempts end
-    where id = ${trackId} and source <> 'upload'
+      status = case when status = 'ready' and source <> 'upload' then 'waiting' else status end,
+      attempts = case when status = 'ready' or source = 'upload' then 0 else attempts end,
+      claimed_at = case when source = 'upload' then null else claimed_at end,
+      apple_music_done_at = case when source = 'upload' then null else apple_music_done_at end
+    where id = ${trackId}
     returning *
   `
   return rows[0] ? trackFromRow(rows[0]) : null

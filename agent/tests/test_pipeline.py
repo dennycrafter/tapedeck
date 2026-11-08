@@ -309,6 +309,7 @@ class TestUpgradeYtDlp:
         monkeypatch.setattr(downloader.time, "sleep", stop_after_two_loops)
         monkeypatch.setattr(downloader, "fetch_apple_music_export", lambda logger, cfg: False)
         monkeypatch.setattr(downloader.import_listing, "run_once", lambda logger, cfg: None)
+        monkeypatch.setattr(downloader.apple_music_uploads, "run_once", lambda logger, cfg: 0)
         monkeypatch.setattr(downloader, "poll_for_claims", lambda logger, cfg: [])
         cfg = downloader.DownloaderConfig(app_url="http://x", agent_token="t")
         with pytest.raises(Stop):
