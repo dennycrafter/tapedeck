@@ -6,6 +6,7 @@
  * 1/s guard, per-line results, a summary toast on success. Closes on success
  * or Escape/backdrop; stays open when every line failed.
  * V2-PLAN T13: an "Import" tab picks a service and continues on /import.
+ * T15: an "Upload" tab sends song files from this device (UploadPanel).
  */
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -15,11 +16,13 @@ import { useOverlays } from "./Overlays";
 import { CloseIcon } from "./icons";
 import { SearchBox } from "./SearchBox";
 import { ServicePicker } from "./import/ServicePicker";
+import { UploadPanel } from "./UploadPanel";
 
-type AddTab = "links" | "import";
+export type AddTab = "links" | "upload" | "import";
 
 const TABS: { id: AddTab; label: string }[] = [
   { id: "links", label: "Paste links" },
+  { id: "upload", label: "Upload" },
   { id: "import", label: "Import" },
 ];
 
@@ -38,13 +41,20 @@ function resultClass(result: AddLineResult): string {
   return "text-bad";
 }
 
-export function AddWindow({ onClose }: { onClose: () => void }) {
+export function AddWindow({
+  tab,
+  onTabChange,
+  onClose,
+}: {
+  tab: AddTab;
+  onTabChange: (tab: AddTab) => void;
+  onClose: () => void;
+}) {
   const { showToast, notifyLibraryChanged } = useOverlays();
   const [text, setText] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [results, setResults] = useState<AddLineResult[] | null>(null);
   const [requestError, setRequestError] = useState<string | null>(null);
-  const [tab, setTab] = useState<AddTab>("links");
   const router = useRouter();
 
   const urls = useMemo(
@@ -124,7 +134,7 @@ export function AddWindow({ onClose }: { onClose: () => void }) {
               type="button"
               role="tab"
               aria-selected={tab === item.id}
-              onClick={() => setTab(item.id)}
+              onClick={() => onTabChange(item.id)}
               data-testid={`add-tab-${item.id}`}
               className={
                 "-mb-px min-h-11 border-b-2 px-1 text-sm font-medium focus-visible:outline-2 focus-visible:outline-silver " +
@@ -135,7 +145,9 @@ export function AddWindow({ onClose }: { onClose: () => void }) {
             </button>
           ))}
         </div>
-        {tab === "import" ? (
+        {tab === "upload" ? (
+          <UploadPanel />
+        ) : tab === "import" ? (
           <div className="mt-3 max-h-[60vh] overflow-y-auto">
             <ServicePicker
               onPick={(service) => {

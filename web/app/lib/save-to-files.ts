@@ -20,16 +20,29 @@ export interface SaveDeps {
   share?: (data: ShareData) => Promise<void>;
 }
 
+/**
+ * The file extension for a song's type: .m4a for the downloader's files,
+ * the uploaded format for songs uploaded from a device (T15).
+ */
+export function songFileExtension(type: string): string {
+  const main = type.split(";")[0]!.trim().toLowerCase();
+  if (main === "audio/mpeg" || main === "audio/mp3") return "mp3";
+  if (main === "audio/wav" || main === "audio/x-wav" || main === "audio/wave") return "wav";
+  if (main === "audio/flac" || main === "audio/x-flac") return "flac";
+  return "m4a";
+}
+
 /** "<Artist> - <Title>.m4a"; path characters become "_" so it is a valid file name. */
-export function songFileName(track: { title: string; artist: string }): string {
+export function songFileName(track: { title: string; artist: string }, type = "audio/mp4"): string {
   const title = track.title.trim() || "Untitled";
   const artist = track.artist.trim();
   const base = artist ? `${artist} - ${title}` : title;
-  return `${base.replace(/[\\/:*?"<>|]+/g, "_")}.m4a`;
+  return `${base.replace(/[\\/:*?"<>|]+/g, "_")}.${songFileExtension(type)}`;
 }
 
 export function songFile(blob: Blob, track: { title: string; artist: string }): File {
-  return new File([blob], songFileName(track), { type: "audio/mp4" });
+  const type = blob.type && blob.type.startsWith("audio/") ? blob.type : "audio/mp4";
+  return new File([blob], songFileName(track, type), { type });
 }
 
 export type SaveOutcome = "shared" | "downloaded" | "cancelled";

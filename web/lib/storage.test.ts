@@ -1,7 +1,7 @@
 import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import * as nodePath from 'node:path'
-import { DeleteObjectCommand, HeadObjectCommand, PutBucketCorsCommand } from '@aws-sdk/client-s3'
+import { DeleteObjectCommand, GetObjectCommand, HeadObjectCommand, PutBucketCorsCommand } from '@aws-sdk/client-s3'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import {
   asciiSafeFilename,
@@ -115,6 +115,10 @@ describe('contentTypeForKey', () => {
     expect(contentTypeForKey('tracks/abc.m4a')).toBe('audio/mp4')
     expect(contentTypeForKey('x.mp4')).toBe('audio/mp4')
     expect(contentTypeForKey('x.mp3')).toBe('audio/mpeg')
+    // T15: uploaded songs and their covers.
+    expect(contentTypeForKey('tracks/abc.wav')).toBe('audio/wav')
+    expect(contentTypeForKey('tracks/abc.flac')).toBe('audio/flac')
+    expect(contentTypeForKey('covers/abc.jpg')).toBe('image/jpeg')
     expect(contentTypeForKey('x.bin')).toBe('application/octet-stream')
   })
 })
@@ -169,6 +173,18 @@ describe('local driver', () => {
     expect(await storage.head('tracks/missing.m4a')).toEqual({ exists: false })
   })
 
+  it('read returns the bytes with their content type, or null when missing (T15 covers)', async () => {
+    const storage = createLocalStorage({ baseDir, secret: SECRET })
+    await mkdir(nodePath.join(baseDir, 'covers'), { recursive: true })
+    await writeFile(nodePath.join(baseDir, 'covers/abc.jpg'), 'jpeg bytes')
+
+    const found = await storage.read('covers/abc.jpg')
+    expect(found?.contentType).toBe('image/jpeg')
+    expect(Buffer.from(found?.bytes ?? []).toString()).toBe('jpeg bytes')
+    expect(await storage.read('covers/missing.jpg')).toBeNull()
+    await expect(storage.read('../escape.jpg')).rejects.toThrow(/Invalid storage key/)
+  })
+
   it('delete removes the object and tolerates missing objects', async () => {
     const storage = createLocalStorage({ baseDir, secret: SECRET })
     await mkdir(nodePath.join(baseDir, 'tracks'), { recursive: true })
@@ -207,7 +223,7 @@ function fakeTransport(handler: (command: unknown) => unknown): { commands: unkn
   return {
     commands,
     transport: {
-      async send(command: HeadObjectCommand | DeleteObjectCommand | PutBucketCorsCommand): Promise<unknown> {
+      async send(command: HeadObjectCommand | GetObjectCommand | DeleteObjectCommand | PutBucketCorsCommand): Promise<unknown> {
         commands.push(command)
         return handler(command)
       },
@@ -226,6 +242,31 @@ describe('r2 driver', () => {
     // ContentType rides as the PUT request header (R2 stores it), not as a
     // signed query parameter; signed headers are host-only.
     expect(url).toContain('X-Amz-SignedHeaders=host')
+  })
+
+  it('uploadUrl for a browser upload signs the exact size (T15)', async () => {
+    const storage = createR2Storage(R2_CONFIG)
+    const url = await storage.uploadUrl('tracks/x.mp3', { contentType: 'audio/mpeg', bytes: 1234 })
+    expect(url.startsWith('https://tapedeck-audio.abc123def456.r2.cloudflarestorage.com/tracks/x.mp3')).toBe(true)
+    expect(url).toContain('X-Amz-Expires=900')
+    // A PUT with any other byte count no longer matches the signature.
+    expect(decodeURIComponent(url)).toContain('X-Amz-SignedHeaders=content-length;host')
+  })
+
+  it('read fetches the object bytes, and maps not-found to null', async () => {
+    const found = fakeTransport(() => ({
+      ContentType: 'image/jpeg',
+      Body: { transformToByteArray: async () => new Uint8Array([1, 2, 3]) },
+    }))
+    const storage = createR2Storage(R2_CONFIG, found.transport)
+    expect(await storage.read('covers/x.jpg')).toEqual({ bytes: new Uint8Array([1, 2, 3]), contentType: 'image/jpeg' })
+    const command = found.commands[0] as GetObjectCommand
+    expect(command.input).toMatchObject({ Bucket: 'tapedeck-audio', Key: 'covers/x.jpg' })
+
+    const missing = fakeTransport(() => {
+      throw Object.assign(new Error('no such key'), { name: 'NoSuchKey' })
+    })
+    expect(await createR2Storage(R2_CONFIG, missing.transport).read('covers/x.jpg')).toBeNull()
   })
 
   it('downloadUrl is a presigned GET expiring in 6 hours (SPEC 7.2)', async () => {
@@ -296,6 +337,14 @@ describe('r2CorsRules', () => {
         AllowedMethods: ['GET', 'HEAD'],
         AllowedHeaders: ['*'],
         ExposeHeaders: ['Content-Length', 'Content-Range', 'Accept-Ranges', 'ETag'],
+        MaxAgeSeconds: 3600,
+      },
+      {
+        // T15: the browser PUTs uploaded songs and covers.
+        AllowedOrigins: ['https://tapedeck.vercel.app', 'http://localhost:3000'],
+        AllowedMethods: ['PUT'],
+        AllowedHeaders: ['content-type'],
+        ExposeHeaders: ['ETag'],
         MaxAgeSeconds: 3600,
       },
     ])

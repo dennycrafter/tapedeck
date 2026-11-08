@@ -55,6 +55,7 @@ function fakeDriver(driverName: StorageDriver['driverName'] = 'local'): StorageD
     uploadUrl: mocks.uploadUrlMock,
     downloadUrl: mocks.downloadUrlMock,
     head: mocks.headMock,
+    read: async () => null,
     delete: mocks.deleteMock,
     setCors: async () => {},
   }

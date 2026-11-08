@@ -60,3 +60,26 @@ describe("Save to Files (SPEC 8.10)", () => {
     expect(songFileName({ title: "Song", artist: "  " })).toBe("Song.m4a");
   });
 });
+
+describe("Save to Files for uploaded songs (T15)", () => {
+  it("keeps the uploaded format in the shared file's name and type", async () => {
+    for (const [type, ext] of [
+      ["audio/mpeg", "mp3"],
+      ["audio/wav", "wav"],
+      ["audio/x-wav", "wav"],
+      ["audio/flac", "flac"],
+      ["audio/mp4", "m4a"],
+    ] as const) {
+      const d = deps({ getBlob: vi.fn(async () => new Blob([new Uint8Array([1])], { type })) });
+      await saveToFiles(track, d);
+      const file = (d.share.mock.calls[0]?.[0] as ShareData).files?.[0] as File;
+      expect(file.name).toBe(`Daft Punk - Get Lucky.${ext}`);
+      expect(file.type).toBe(type);
+    }
+  });
+
+  it("a blob with no audio type is treated as the downloader's .m4a", () => {
+    expect(songFileName(track, "")).toBe("Daft Punk - Get Lucky.m4a");
+    expect(songFileName(track, "application/octet-stream")).toBe("Daft Punk - Get Lucky.m4a");
+  });
+});

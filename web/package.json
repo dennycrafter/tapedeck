@@ -28,6 +28,7 @@
     "e2e:t12": "playwright test --grep \"@T(0|1|2|3|4|5|6|7|8|9|10|11|12)(?![0-9])\"",
     "e2e:t13": "playwright test --grep \"@T(0|1|2|3|4|5|6|7|8|9|10|11|12|13)(?![0-9])\"",
     "e2e:t14": "playwright test --grep \"@T(0|1|2|3|4|5|6|7|8|9|10|11|12|13|14)(?![0-9])\"",
+    "e2e:t15": "playwright test --grep \"@T(0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15)(?![0-9])\"",
     "e2e:live": "playwright test --grep @live"
   },
   "dependencies": {
@@ -40,6 +41,7 @@
     "@fontsource/saira": "^5.3.0",
     "@serwist/next": "^9.5.13",
     "fflate": "^0.8.3",
+    "music-metadata": "^12.3.5",
     "next": "16.4.0",
     "postgres": "^3.4.9",
     "react": "19.3.0",

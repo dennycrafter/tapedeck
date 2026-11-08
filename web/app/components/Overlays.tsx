@@ -4,7 +4,8 @@
  * App-wide overlays (SPEC 8.2, 10): the Add floating window opener, the
  * summary toast, and a library version counter that pages subscribe to so a
  * successful add or retry refetches the list (including pages under other
- * navigation stacks later).
+ * navigation stacks later). T15: the upload queue sits here too, above the
+ * Add window, so uploads keep going after the window closes.
  */
 import {
   createContext,
@@ -16,10 +17,13 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { AddWindow } from "./AddWindow";
+import { AddWindow, type AddTab } from "./AddWindow";
+import { UploadsProvider } from "./UploadsProvider";
 
 interface OverlaysApi {
   openAdd(): void;
+  /** Opens the Add window on its Upload tab (T15). */
+  openUpload(): void;
   showToast(text: string): void;
   /** Bump when an action changes library data so pages refetch. */
   notifyLibraryChanged(): void;
@@ -37,7 +41,8 @@ export function useOverlays(): OverlaysApi {
 const TOAST_MS = 4000;
 
 export function OverlaysProvider({ children }: { children: ReactNode }) {
-  const [addOpen, setAddOpen] = useState(false);
+  // The open Add window's tab, or null when it is closed.
+  const [addTab, setAddTab] = useState<AddTab | null>(null);
   const [toast, setToast] = useState<string | null>(null);
   const [libraryVersion, setLibraryVersion] = useState(0);
   const toastTimer = useRef<number | null>(null);
@@ -55,20 +60,26 @@ export function OverlaysProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
+  const openUpload = useCallback(() => setAddTab("upload"), []);
+  const notifyLibraryChanged = useCallback(() => setLibraryVersion((version) => version + 1), []);
+
   const api = useMemo<OverlaysApi>(
     () => ({
-      openAdd: () => setAddOpen(true),
+      openAdd: () => setAddTab("links"),
+      openUpload,
       showToast,
-      notifyLibraryChanged: () => setLibraryVersion((version) => version + 1),
+      notifyLibraryChanged,
       libraryVersion,
     }),
-    [showToast, libraryVersion],
+    [openUpload, showToast, notifyLibraryChanged, libraryVersion],
   );
 
   return (
     <OverlaysContext.Provider value={api}>
-      {children}
-      {addOpen && <AddWindow onClose={() => setAddOpen(false)} />}
+      <UploadsProvider openUpload={openUpload} showToast={showToast} notifyLibraryChanged={notifyLibraryChanged}>
+        {children}
+        {addTab && <AddWindow tab={addTab} onTabChange={setAddTab} onClose={() => setAddTab(null)} />}
+      </UploadsProvider>
       {toast && (
         <div
           role="status"
