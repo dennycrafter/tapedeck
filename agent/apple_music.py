@@ -57,8 +57,9 @@ _FILE_URL = re.compile(r"file://localhost/([^\x00-\x1f\s\"'<>|*?\\]+)", re.IGNOR
 # --- Pure helpers (unit tested in tests/test_apple_music.py) ---
 
 
-def export_filename(artist: str, title: str, track_id: str) -> str:
-    """SPEC 8.11 target name: `<Artist> - <Title>.m4a`.
+def export_filename(artist: str, title: str, track_id: str, extension: str = ".m4a") -> str:
+    """SPEC 8.11 target name: `<Artist> - <Title>.m4a` (`.mp3` for an
+    uploaded MP3, T15).
 
     Windows-invalid characters are stripped (removed, not replaced) and
     trailing dots/spaces go too, so the file lands on NTFS unchanged.
@@ -71,7 +72,7 @@ def export_filename(artist: str, title: str, track_id: str) -> str:
         for part in (INVALID_FILENAME_CHARS.sub("", text).strip(" .") for text in (artist, title))
         if part
     ]
-    return f"{' - '.join(parts)}.m4a" if parts else f"{track_id}.m4a"
+    return f"{' - '.join(parts)}{extension}" if parts else f"{track_id}{extension}"
 
 
 def parse_itunes_media_folder(data: bytes) -> Path | None:
@@ -187,9 +188,11 @@ def copy_into_folder(
     A copy, never a move: Apple Music imports and removes the files from
     that folder by itself (SPEC 8.11). An identical target (the same song
     processed twice) is overwritten; that is the wanted dedup, since a
-    re-export of one song should not pile up duplicates.
+    re-export of one song should not pile up duplicates. The file keeps
+    its own ending: .m4a, or .mp3 for an uploaded MP3 (T15).
     """
-    target = folder / export_filename(track["artist"], track["title"], track["id"])
+    extension = ".mp3" if path.suffix.lower() == ".mp3" else ".m4a"
+    target = folder / export_filename(track["artist"], track["title"], track["id"], extension)
     shutil.copy2(path, target)
     logger.info("apple-music: copied %s into %s.", target.name, folder)
     return target

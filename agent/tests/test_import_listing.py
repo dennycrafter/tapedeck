@@ -388,6 +388,7 @@ class TestAppCalls:
 
 
 def test_the_downloader_loop_lists_imports_before_claiming_songs(monkeypatch, cfg, quiet_logger):
+    """Imports first (the owner waits on that page), then songs, then Apple Music copies of uploads."""
     order = []
 
     class Stop(Exception):
@@ -397,6 +398,7 @@ def test_the_downloader_loop_lists_imports_before_claiming_songs(monkeypatch, cf
     monkeypatch.setattr(downloader, "fetch_apple_music_export", lambda logger, cfg: False)
     monkeypatch.setattr(import_listing, "run_once", lambda logger, cfg: order.append("import"))
     monkeypatch.setattr(downloader, "poll_for_claims", lambda logger, cfg: order.append("tracks") or [])
+    monkeypatch.setattr(downloader.apple_music_uploads, "run_once", lambda logger, cfg: order.append("apple copies") or 0)
 
     def stop(seconds):
         raise Stop
@@ -404,4 +406,4 @@ def test_the_downloader_loop_lists_imports_before_claiming_songs(monkeypatch, cf
     monkeypatch.setattr(downloader.time, "sleep", stop)
     with pytest.raises(Stop):
         downloader.run_loop(quiet_logger, cfg)
-    assert order == ["import", "tracks"]
+    assert order == ["import", "tracks", "apple copies"]

@@ -4,6 +4,8 @@ import { test, expect, type Page } from '@playwright/test';
 import { login } from './helpers/login';
 import { cleanup, librarySnapshot, uniqueTag } from './helpers/library';
 import { mp3Silence, pngSolid, wavTone } from './helpers/audio-fixtures';
+import { agentApi } from './helpers/agent';
+import { BASE_URL } from './helpers/env';
 
 /*
  * T15 upload your own songs @T15. Made-up files built in memory (helpers/
@@ -263,5 +265,49 @@ test.describe('T15 upload songs from this device @T15', () => {
     await page.getByTestId('add-close').click();
     await page.locator(`[data-item-id="${songs[0]!.id}"]`).first().click();
     await expectPlaying(page, title);
+  });
+
+  // Add to Apple Music on an uploaded song: it stays ready, and the PC gets a
+  // copy with a link to the stored file (agent/apple_music_uploads.py does
+  // the rest, covered by pytest).
+  test('Add to Apple Music on an uploaded song hands the PC a link to the file', async ({ page }) => {
+    onlyOn('desktop');
+    const tag = uniqueTag();
+    const title = `Apple Upload ${tag}`;
+    const wav = wavTone({ seconds: 2, frequency: 200 + Math.floor(Math.random() * 600), tags: { title, artist: 'Orchard' } });
+
+    await login(page);
+    await page.goto('/library');
+    await openUploadTab(page);
+    await page.getByTestId('upload-input').setInputFiles([{ name: 'apple.wav', mimeType: 'audio/wav', buffer: Buffer.from(wav) }]);
+    await expect(page.getByTestId('upload-item').filter({ hasText: title }).getByTestId('upload-item-status')).toHaveText('Added', {
+      timeout: 30_000,
+    });
+    const [song] = await songsTagged(page, tag);
+    made.trackIds.push(song!.id);
+    await page.getByTestId('add-close').click();
+
+    const item = page.locator(`[data-item-id="${song!.id}"]`).first();
+    await item.getByTestId('song-menu-button').click();
+    await page.getByTestId('menu-apple-music').click();
+    await expect(page.getByTestId('toast')).toContainText('Apple Music');
+    // Still ready to play: nothing for the PC to download.
+    await expect(item.getByTestId('track-status')).toHaveCount(0);
+
+    const claim = await agentApi('/api/agent/apple-music-copies', { method: 'POST', body: '{}' });
+    expect(claim.status).toBe(200);
+    const { copies } = (await claim.json()) as { copies: { id: string; title: string; format: string; audioUrl: string }[] };
+    const copy = copies.find((entry) => entry.id === song!.id);
+    expect(copy).toMatchObject({ title, format: 'wav' });
+    const file = await fetch(new URL(copy!.audioUrl, BASE_URL));
+    expect(file.status).toBe(200);
+    expect((await file.arrayBuffer()).byteLength).toBe(wav.byteLength);
+
+    // The PC reports it done: the menu no longer offers it.
+    expect((await agentApi('/api/agent/apple-music-done', { method: 'POST', body: JSON.stringify({ trackId: song!.id }) })).status).toBe(200);
+    await page.reload();
+    await item.getByTestId('song-menu-button').click();
+    await expect(page.getByTestId('menu-add-queue')).toBeVisible();
+    await expect(page.getByTestId('menu-apple-music')).toHaveCount(0);
   });
 });

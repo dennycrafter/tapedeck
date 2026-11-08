@@ -35,6 +35,7 @@ Keep this file Python 3.12 compatible (the downloader targets Python
 """
 
 import apple_music
+import apple_music_uploads
 import argparse
 import finder
 import import_listing
@@ -1151,6 +1152,8 @@ def run_loop(logger: logging.Logger, cfg: DownloaderConfig) -> None:
         import_listing.run_once(logger, cfg)
         for track in poll_for_claims(logger, cfg):
             process_one_track(logger, cfg, track, export_enabled)
+        # T15 follow-up: uploaded songs asked for Apple Music (no link to download).
+        apple_music_uploads.run_once(logger, cfg)
         time.sleep(cfg.poll_interval_sec)
 
 
