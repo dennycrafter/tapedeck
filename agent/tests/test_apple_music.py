@@ -82,7 +82,7 @@ class TestParseItunesPrefs:
             "file://localhost/D%3A/Library/iTunes%20Media/\x00"
         ).encode("utf-16-le")
         parsed = apple_music.parse_itunes_media_folder(body)
-        assert str(parsed).endswith("Library/iTunes Media")
+        assert parsed.as_posix().endswith("Library/iTunes Media")
 
     @pytest.mark.parametrize("body", [b"", b"\x00\x00\x00", b"no urls here"])
     def test_garbage_yields_none(self, body):
@@ -178,8 +178,10 @@ class TestFindAppleMusicFolder:
         moved.mkdir(parents=True)
         media_root = moved.parent
         # Encode the layout's real absolute path into the prefs URL so the
-        # test is hermetic on every platform (a "D:/" URL is relative on Linux).
-        url = "file://localhost" + urllib.parse.quote(str(media_root)) + "/"
+        # test is hermetic on every platform (a "D:/" URL is relative on Linux),
+        # the way iTunes writes it: forward slashes, and on Windows the drive
+        # after the host (file://localhost/C%3A/Users/...).
+        url = "file://localhost/" + urllib.parse.quote(media_root.as_posix().lstrip("/")) + "/"
         appdata = fake / "AppData" / "Roaming"
         prefs = appdata / "Apple Computer" / "iTunes" / "iTunesPrefs"
         prefs.parent.mkdir(parents=True)
