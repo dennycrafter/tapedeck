@@ -38,7 +38,7 @@ Every check runs on GitHub for every change (desktop Chrome, Android Chrome and 
 | T16 | Lyrics in Now Playing (from LRCLIB), timed lines that follow the song | Done | e2e, unit tests |
 | T17 | Make your own copy: friend guide, Deploy button, downloader setup code | Done, except a full setup wizard | e2e, unit and downloader tests |
 
-All of it: about 680 app unit tests, 133 downloader tests and 66 e2e runs, all passing. Details per ticket: [TEST-REPORT.md](TEST-REPORT.md).
+All of it, as of 8 Nov 2026: 1,130 app unit tests, 404 downloader tests and 136 e2e runs, all passing on GitHub (38 more e2e runs are skipped on purpose: checks that only apply to one device). Details per ticket: [TEST-REPORT.md](TEST-REPORT.md).
 
 ## Screenshots (made-up songs)
 
